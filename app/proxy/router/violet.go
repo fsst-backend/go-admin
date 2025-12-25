@@ -1,7 +1,7 @@
 package router
 
 import (
-	"go-admin/app/other/apis"
+	"go-admin/app/proxy/api"
 	"go-admin/common/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -9,14 +9,21 @@ import (
 )
 
 func init() {
-	routerCheckRole = append(routerCheckRole, registerSysServerMonitorRouter)
+	routerCheckRole = append(routerCheckRole, registerVioletProxyRouter)
 }
 
-// 需认证的路由代码
-func registerSysServerMonitorRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
-	api := apis.ServerMonitor{}
-	r := v1.Group("/").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+// registerVioletProxyRouter 注册反向代理路由
+// 需要认证的路由,将请求转发到目标服务
+func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
+	proxyAPI := api.VioletProxy{
+		// 可以在这里设置目标服务地址
+		// TargetURL: "http://target-service:8080",
+	}
+
+	// 需要认证和权限验证的代理路由
+	r := v1.Group("/violet").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
 	{
-		r.GET("", api.ServerInfo)
+		// 通配符路由,捕获所有路径
+		r.Any("/*path", proxyAPI.Proxy)
 	}
 }
