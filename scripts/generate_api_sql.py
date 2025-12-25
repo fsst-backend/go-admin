@@ -58,11 +58,11 @@ def generate_api_sql(swagger_file, output_file=None):
     lines.append("-- path: API路径")
     lines.append("-- action: HTTP方法(GET/POST/PUT/DELETE)")
     lines.append("-- type: 接口类型(SYS=系统/BUS=业务)")
-    lines.append("-- create_by: 创建者ID")
-    lines.append("-- update_by: 更新者ID")
     lines.append("-- created_at: 创建时间")
     lines.append("-- updated_at: 更新时间")
     lines.append("-- deleted_at: 删除时间(软删除)")
+    lines.append("-- create_by: 创建者ID")
+    lines.append("-- update_by: 更新者ID")
     lines.append("")
     
     for idx, api in enumerate(apis, start=1):
@@ -72,7 +72,7 @@ def generate_api_sql(swagger_file, output_file=None):
         sql = (
             f"INSERT INTO sys_api VALUES "
             f"({idx}, '', '{title}', '{api['path']}', '{api['method']}', "
-            f"'{api['type']}', 1, 1, NOW(), NOW(), NULL);"
+            f"'{api['type']}', NOW(), NOW(), NULL, 1, 1);"
         )
         lines.append(sql)
     

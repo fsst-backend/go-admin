@@ -45,6 +45,7 @@ func _1599190683659Tables(db *gorm.DB, version string) error {
 			new(models.SysApi),
 			new(models.SysPermission),
 			new(models.SysPermissionApi),
+			new(models.CasbinRule),
 			new(models.TbDemo),
 		)
 		if err != nil {
