@@ -157,4 +157,10 @@ INSERT INTO sys_user VALUES (1, 'b270eb86-6b4e-4bc1-9bb1-aa4a807a3ab5', 'admin@7
 
 -- sys_user_role 表结构: id, user_id, role_id, create_by, update_by, created_at, updated_at, deleted_at
 INSERT INTO sys_user_role VALUES (1, 1, 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:37.914', NULL);
+
+-- sys_casbin_rule 表结构: id, ptype, v0, v1, v2, v3, v4, v5
+-- ptype='p' 表示策略(policy): v0=角色, v1=资源路径, v2=操作方法
+-- ptype='g' 表示角色继承/用户角色关系(grouping): v0=用户, v1=角色
+INSERT INTO sys_casbin_rule VALUES (1, 'p', 'superadmin', '*', '*', '', '', '');
+INSERT INTO sys_casbin_rule VALUES (2, 'g', 'user_1', 'superadmin', '', '', '', '');
 -- 数据完成 ;
