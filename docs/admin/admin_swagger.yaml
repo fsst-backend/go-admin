@@ -3046,6 +3046,22 @@ paths:
       summary: 分页列表数据
       tags:
       - 工具 / 生成工具
+  /lotus/api/v1/upload/token:
+    get:
+      consumes:
+      - application/json
+      description: 根据配置文件中的 appKey 和 secret 生成上传服务的认证token
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": {\"appKey\": \"admin\", \"token\":
+            \"xxx\", \"expire\": 1234567890}}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 生成上传服务token
+      tags:
+      - 上传服务
   /lotus/api/v1/user/avatar:
     post:
       consumes:

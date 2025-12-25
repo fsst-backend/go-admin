@@ -76,5 +76,8 @@ settings:
     violet:
       targetURL: ${VIOLET_TARGET_URL}  # Violet 服务地址
       domainID: ${DOMAIN_ID}          # 域ID
+    upload:
+      appKey: ${UPLOAD_APP_KEY}                    # 应用标识
+      secret: ${UPLOAD_SECRET_KEY}     # 与上传服务约定的密钥
   locker:
     redis:

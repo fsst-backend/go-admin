@@ -2880,6 +2880,31 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "/lotus/api/v1/upload/token": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "根据配置文件中的 appKey 和 secret 生成上传服务的认证token",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "上传服务"
+                ],
+                "summary": "生成上传服务token",
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": {\\\"appKey\\\": \\\"admin\\\", \\\"token\\\": \\\"xxx\\\", \\\"expire\\\": 1234567890}}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/lotus/api/v1/user/avatar": {
             "post": {
                 "security": [

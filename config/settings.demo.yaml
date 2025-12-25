@@ -35,3 +35,6 @@ settings:
     violet:
       targetURL: http://localhost:8080  # Violet 服务地址
       domainID: default-domain          # 域ID
+    upload:
+      appKey: admin                    # 应用标识
+      secret: your-secret-key-here     # 与上传服务约定的密钥
