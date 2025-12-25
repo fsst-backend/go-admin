@@ -65,7 +65,8 @@ INSERT INTO sys_post VALUES (1, '首席执行官', 'CEO', 0, '2','首席执行�
 INSERT INTO sys_post VALUES (2, '首席技术执行官', 'CTO', 2, '2','首席技术执行官', 1, 1,'2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
 INSERT INTO sys_post VALUES (3, '首席运营官', 'COO', 3, '2','测试工程师', 1, 1,'2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
 INSERT INTO sys_role VALUES (1, '系统管理员', '2', 'superadmin', 1, '', '', true, '', 1, 1, '2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
-INSERT INTO sys_user VALUES (1, 'b270eb86-6b4e-4bc1-9bb1-aa4a807a3ab5', 'admin@761242.com', '$2a$10$679frSflZc5DhKHb7k9uduoU8V9IcwQ1H4JahWd44WjM2BzGhHxE2', 'futren', '17777777789', 1, '', '', '1', '1@qq.com', 1, 1, '', '2', 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
+-- sys_user 表结构: user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at
+INSERT INTO sys_user VALUES (1, 'b270eb86-6b4e-4bc1-9bb1-aa4a807a3ab5', 'admin@761242.com', '$2a$10$679frSflZc5DhKHb7k9uduoU8V9IcwQ1H4JahWd44WjM2BzGhHxE2', 'futren', '17777777789', '', '', '1', '1@qq.com', 1, 1, '', '2', 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
 
 -- sys_user_role 表结构: id, user_id, role_id, create_by, update_by, created_at, updated_at, deleted_at
 INSERT INTO sys_user_role VALUES (1, 1, 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:37.914', NULL);
