@@ -1,14 +1,16 @@
 package middleware
 
 import (
+	"go-admin/common/actions"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk"
 	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
-	"go-admin/common/actions"
 )
 
 const (
 	JwtTokenCheck   string = "JwtToken"
+	OperaLogToDB    string = "OperaLogToDB"
 	RoleCheck       string = "AuthCheckRole"
 	PermissionCheck string = "PermissionAction"
 )
@@ -18,7 +20,7 @@ func InitMiddleware(r *gin.Engine) {
 	// 数据库链接
 	r.Use(WithContextDb)
 	// 日志处理
-	r.Use(LoggerToFile())
+	// r.Use(SaveOperaLog())
 	// 自定义错误处理
 	r.Use(CustomError)
 	// NoCache is a middleware function that appends headers
@@ -30,6 +32,7 @@ func InitMiddleware(r *gin.Engine) {
 	// 链路追踪
 	//r.Use(middleware.Trace())
 	sdk.Runtime.SetMiddleware(JwtTokenCheck, (*jwt.GinJWTMiddleware).MiddlewareFunc)
+	sdk.Runtime.SetMiddleware(OperaLogToDB, SaveOperaLog())
 	sdk.Runtime.SetMiddleware(RoleCheck, AuthCheckRole())
 	sdk.Runtime.SetMiddleware(PermissionCheck, actions.PermissionAction())
 }

@@ -15,7 +15,7 @@ type System struct {
 // @Description 获取验证码
 // @Tags 登陆
 // @Success 200 {object} response.Response{data=string,id=string,msg=string} "{"code": 200, "data": [...]}"
-// @Router /api/v1/captcha [get]
+// @Router /lotus/api/v1/captcha [get]
 func (e System) GenerateCaptchaHandler(c *gin.Context) {
 	if err := e.MakeContext(c).Errors; err != nil {
 		e.Error(500, err, "服务初始化失败！")

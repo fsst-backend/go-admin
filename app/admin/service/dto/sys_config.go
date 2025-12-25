@@ -38,9 +38,9 @@ func (m *SysConfigGetToSysAppReq) GetNeedSearch() interface{} {
 
 // SysConfigControl 增、改使用的结构体
 type SysConfigControl struct {
-	Id          int    `uri:"Id" comment:"编码"` // 编码
+	Id          int    `json:"id" comment:"编码"` // 编码
 	ConfigName  string `json:"configName" comment:""`
-	ConfigKey   string `uri:"configKey" json:"configKey" comment:""`
+	ConfigKey   string `json:"configKey" comment:""`
 	ConfigValue string `json:"configValue" comment:""`
 	ConfigType  string `json:"configType" comment:""`
 	IsFrontend  string `json:"isFrontend"`
@@ -95,7 +95,7 @@ type GetSysConfigByKEYForServiceResp struct {
 }
 
 type SysConfigGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysConfigGetReq) GetId() interface{} {

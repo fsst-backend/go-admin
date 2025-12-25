@@ -1,13 +1,15 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 	"go-admin/app/jobs/apis"
 	models2 "go-admin/app/jobs/models"
 	dto2 "go-admin/app/jobs/service/dto"
 	"go-admin/common/actions"
 	"go-admin/common/middleware"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-admin-team/go-admin-core/sdk"
+	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 )
 
 func init() {
@@ -17,14 +19,16 @@ func init() {
 // 需认证的路由代码
 func registerSysJobRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
 
-	r := v1.Group("/sysjob").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
+
+	r := v1.Group("/sysjob").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		sysJob := &models2.SysJob{}
 		r.GET("", actions.PermissionAction(), actions.IndexAction(sysJob, new(dto2.SysJobSearch), func() interface{} {
 			list := make([]models2.SysJob, 0)
 			return &list
 		}))
-		r.GET("/:id", actions.PermissionAction(), actions.ViewAction(new(dto2.SysJobById), func() interface{} {
+		r.GET("/get", actions.PermissionAction(), actions.ViewAction(new(dto2.SysJobById), func() interface{} {
 			return &dto2.SysJobItem{}
 		}))
 		r.POST("", actions.CreateAction(new(dto2.SysJobControl)))
@@ -33,6 +37,6 @@ func registerSysJobRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlew
 	}
 	sysJob := apis.SysJob{}
 
-	v1.GET("/job/remove/:id", sysJob.RemoveJobForService)
-	v1.GET("/job/start/:id", sysJob.StartJobForService)
+	v1.DELETE("/job/remove", sysJob.RemoveJobForService)
+	v1.POST("/job/start", sysJob.StartJobForService)
 }

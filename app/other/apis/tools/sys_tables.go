@@ -24,7 +24,7 @@ type SysTable struct {
 // @Param pageSize query int false "pageSize / 页条数"
 // @Param pageIndex query int false "pageIndex / 页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys/tables/page [get]
+// @Router /lotus/api/v1/sys/tables/page [get]
 func (e SysTable) GetPage(c *gin.Context) {
 	e.Context = c
 	log := e.GetLogger()
@@ -65,7 +65,7 @@ func (e SysTable) GetPage(c *gin.Context) {
 // @Tags 工具 / 生成工具
 // @Param configKey path int true "configKey"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys/tables/info/{tableId} [get]
+// @Router /lotus/api/v1/sys/tables/info/{tableId} [get]
 // @Security Bearer
 func (e SysTable) Get(c *gin.Context) {
 	e.Context = c
@@ -79,7 +79,7 @@ func (e SysTable) Get(c *gin.Context) {
 
 	var data tools.SysTables
 	data.TableId, _ = pkg.StringToInt(c.Param("tableId"))
-	result, err := data.Get(db,true)
+	result, err := data.Get(db, true)
 	if err != nil {
 		log.Errorf("Get error, %s", err.Error())
 		e.Error(500, err, "")
@@ -106,7 +106,7 @@ func (e SysTable) GetSysTablesInfo(c *gin.Context) {
 	if c.Request.FormValue("tableName") != "" {
 		data.TBName = c.Request.FormValue("tableName")
 	}
-	result, err := data.Get(db,true)
+	result, err := data.Get(db, true)
 	if err != nil {
 		log.Errorf("Get error, %s", err.Error())
 		e.Error(500, err, "抱歉未找到相关信息")
@@ -151,7 +151,7 @@ func (e SysTable) GetSysTablesTree(c *gin.Context) {
 // @Param tables query string false "tableName / 数据表名称"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /api/v1/sys/tables/info [post]
+// @Router /lotus/api/v1/sys/tables/info [post]
 // @Security Bearer
 func (e SysTable) Insert(c *gin.Context) {
 	e.Context = c
@@ -305,7 +305,7 @@ func genTableInit(tx *gorm.DB, tablesList []string, i int, c *gin.Context) (tool
 // @Param data body tools.SysTables true "body"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /api/v1/sys/tables/info [put]
+// @Router /lotus/api/v1/sys/tables/info [put]
 // @Security Bearer
 func (e SysTable) Update(c *gin.Context) {
 	var data tools.SysTables
@@ -338,7 +338,7 @@ func (e SysTable) Update(c *gin.Context) {
 // @Param tableId path int true "tableId"
 // @Success 200 {string} string	"{"code": 200, "message": "删除成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "删除失败"}"
-// @Router /api/v1/sys/tables/info/{tableId} [delete]
+// @Router /lotus/api/v1/sys/tables/info/{tableId} [delete]
 func (e SysTable) Delete(c *gin.Context) {
 	e.Context = c
 	log := e.GetLogger()

@@ -5,6 +5,8 @@ import (
 	"go-admin/common"
 	"net/http"
 
+	"go-admin/common/global"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
@@ -15,20 +17,15 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/response"
 	"github.com/mssola/user_agent"
-	"go-admin/common/global"
 )
 
 func PayloadFunc(data interface{}) jwt.MapClaims {
 	if v, ok := data.(map[string]interface{}); ok {
 		u, _ := v["user"].(SysUser)
-		r, _ := v["role"].(SysRole)
 		return jwt.MapClaims{
-			jwt.IdentityKey:  u.UserId,
-			jwt.RoleIdKey:    r.RoleId,
-			jwt.RoleKey:      r.RoleKey,
-			jwt.NiceKey:      u.Username,
-			jwt.DataScopeKey: r.DataScope,
-			jwt.RoleNameKey:  r.RoleName,
+			"uuid":          u.UUID,
+			jwt.IdentityKey: u.UserId,
+			jwt.NiceKey:     u.Username,
 		}
 	}
 	return jwt.MapClaims{}
@@ -38,11 +35,8 @@ func IdentityHandler(c *gin.Context) interface{} {
 	claims := jwt.ExtractClaims(c)
 	return map[string]interface{}{
 		"IdentityKey": claims["identity"],
+		"UUID":        claims["uuid"],
 		"UserName":    claims["nice"],
-		"RoleKey":     claims["rolekey"],
-		"UserId":      claims["identity"],
-		"RoleIds":     claims["roleid"],
-		"DataScope":   claims["datascope"],
 	}
 }
 
@@ -59,7 +53,7 @@ func IdentityHandler(c *gin.Context) interface{} {
 // @Product application/json
 // @Param account body Login  true "account"
 // @Success 200 {string} string "{"code": 200, "expire": "2019-08-07T12:45:48+08:00", "token": ".eyJleHAiOjE1NjUxNTMxNDgsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTU2NTE0OTU0OH0.-zvzHvbg0A" }"
-// @Router /api/v1/login [post]
+// @Router /lotus/api/v1/login [post]
 func Authenticator(c *gin.Context) (interface{}, error) {
 	log := api.GetRequestLogger(c)
 	db, err := pkg.GetOrm(c)
@@ -93,11 +87,11 @@ func Authenticator(c *gin.Context) (interface{}, error) {
 			return nil, jwt.ErrInvalidVerificationode
 		}
 	}
-	sysUser, role, e := loginVals.GetUser(db)
+	sysUser, e := loginVals.GetUser(db)
 	if e == nil {
 		username = loginVals.Username
 
-		return map[string]interface{}{"user": sysUser, "role": role}, nil
+		return map[string]interface{}{"user": sysUser}, nil
 	} else {
 		msg = "登录失败"
 		status = "1"
@@ -148,7 +142,7 @@ func LoginLogToDB(c *gin.Context, status string, msg string, username string) {
 // @Accept  application/json
 // @Product application/json
 // @Success 200 {string} string "{"code": 200, "msg": "成功退出系统" }"
-// @Router /logout [post]
+// @Router /lotus/logout [post]
 // @Security Bearer
 func LogOut(c *gin.Context) {
 	LoginLogToDB(c, "2", "退出成功", user.GetUserName(c))
@@ -160,15 +154,11 @@ func LogOut(c *gin.Context) {
 }
 
 func Authorizator(data interface{}, c *gin.Context) bool {
-
 	if v, ok := data.(map[string]interface{}); ok {
 		u, _ := v["user"].(models.SysUser)
-		r, _ := v["role"].(models.SysRole)
-		c.Set("role", r.RoleName)
-		c.Set("roleIds", r.RoleId)
 		c.Set("userId", u.UserId)
+		c.Set("uuid", u.UUID)
 		c.Set("userName", u.Username)
-		c.Set("dataScope", r.DataScope)
 		return true
 	}
 	return false

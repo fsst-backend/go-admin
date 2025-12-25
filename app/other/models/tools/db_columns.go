@@ -28,11 +28,15 @@ func (e *DBColumns) GetPage(tx *gorm.DB, pageSize int, pageIndex int) ([]DBColum
 	var count int64
 	table := new(gorm.DB)
 
-	if config.DatabaseConfig.Driver == "mysql" {
+	if config.DatabaseConfig.Driver == "mysql" || config.DatabaseConfig.Driver == "tidb" {
+		if e.TableName == "" {
+			return nil, 0, errors.New("table name cannot be empty！")
+		}
+
 		table = tx.Table("information_schema.`COLUMNS`")
 		table = table.Where("table_schema= ? ", config.GenConfig.DBName)
 
-		if e.TableName != "" {
+		if e.TableName == "" {
 			return nil, 0, errors.New("table name cannot be empty！")
 		}
 
@@ -55,13 +59,13 @@ func (e *DBColumns) GetList(tx *gorm.DB) ([]DBColumns, error) {
 		return nil, errors.New("table name cannot be empty！")
 	}
 
-	if config.DatabaseConfig.Driver == "mysql" {
+	if config.DatabaseConfig.Driver == "mysql" || config.DatabaseConfig.Driver == "tidb" {
 		table = tx.Table("information_schema.columns")
 		table = table.Where("table_schema= ? ", config.GenConfig.DBName)
 
 		table = table.Where("TABLE_NAME = ?", e.TableName).Order("ORDINAL_POSITION asc")
 	} else {
-		pkg.Assert(true, "目前只支持mysql数据库", 500)
+		pkg.Assert(false, "目前只支持mysql数据库", 500)
 	}
 	if err := table.Find(&doc).Error; err != nil {
 		return doc, err

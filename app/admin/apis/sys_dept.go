@@ -1,13 +1,14 @@
 package apis
 
 import (
+	"go-admin/app/admin/models"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
-	"go-admin/app/admin/models"
 
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
@@ -25,14 +26,14 @@ type SysDept struct {
 // @Param deptId query string false "deptId"
 // @Param position query string false "position"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/dept [get]
+// @Router /lotus/api/v1/dept [get]
 // @Security Bearer
 func (e SysDept) GetPage(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptGetPageReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req).
+		Bind(&req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -53,9 +54,8 @@ func (e SysDept) GetPage(c *gin.Context) {
 // @Summary 获取部门数据
 // @Description 获取JSON
 // @Tags 部门
-// @Param deptId path string false "deptId"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/dept/{deptId} [get]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/dept/get [get]
 // @Security Bearer
 func (e SysDept) Get(c *gin.Context) {
 	s := service.SysDept{}
@@ -90,7 +90,7 @@ func (e SysDept) Get(c *gin.Context) {
 // @Param data body dto.SysDeptInsertReq true "data"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /api/v1/dept [post]
+// @Router /lotus/api/v1/dept [post]
 // @Security Bearer
 func (e SysDept) Insert(c *gin.Context) {
 	s := service.SysDept{}
@@ -122,18 +122,17 @@ func (e SysDept) Insert(c *gin.Context) {
 // @Tags 部门
 // @Accept  application/json
 // @Product application/json
-// @Param id path int true "id"
 // @Param data body dto.SysDeptUpdateReq true "body"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /api/v1/dept/{deptId} [put]
+// @Router /lotus/api/v1/dept [put]
 // @Security Bearer
 func (e SysDept) Update(c *gin.Context) {
 	s := service.SysDept{}
 	req := dto.SysDeptUpdateReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req).
+		Bind(&req, binding.JSON).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -157,7 +156,7 @@ func (e SysDept) Update(c *gin.Context) {
 // @Param data body dto.SysDeptDeleteReq true "body"
 // @Success 200 {string} string	"{"code": 200, "message": "删除成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "删除失败"}"
-// @Router /api/v1/dept [delete]
+// @Router /lotus/api/v1/dept [delete]
 // @Security Bearer
 func (e SysDept) Delete(c *gin.Context) {
 	s := service.SysDept{}

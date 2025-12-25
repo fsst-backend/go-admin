@@ -3,32 +3,32 @@ package models
 import (
 	"fmt"
 	"go-admin/common/global"
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 
 	"gorm.io/gorm"
 )
 
 func InitDb(db *gorm.DB) (err error) {
-	filePath := "config/db.sql"
+	filePath := "/app/db.sql"
 	if global.Driver == "postgres" {
-		filePath := "config/db.sql"
+		filePath := "/app/db.sql"
 		if err = ExecSql(db, filePath); err != nil {
 			return err
 		}
-		filePath = "config/pg.sql"
+		filePath = "/app/pg.sql"
 		err = ExecSql(db, filePath)
-	} else if global.Driver == "mysql" {
-		filePath = "config/db-begin-mysql.sql"
+	} else if global.Driver == "mysql" || global.Driver == "tidb" {
+		filePath = "/app/db-begin-mysql.sql"
 		if err = ExecSql(db, filePath); err != nil {
 			return err
 		}
-		filePath = "config/db.sql"
+		filePath = "/app/db.sql"
 		if err = ExecSql(db, filePath); err != nil {
 			return err
 		}
-		filePath = "config/db-end-mysql.sql"
+		filePath = "/app/db-end-mysql.sql"
 		err = ExecSql(db, filePath)
 	} else {
 		err = ExecSql(db, filePath)
@@ -61,7 +61,7 @@ func ExecSql(db *gorm.DB, filePath string) error {
 }
 
 func Ioutil(filePath string) (string, error) {
-	if contents, err := ioutil.ReadFile(filePath); err == nil {
+	if contents, err := os.ReadFile(filePath); err == nil {
 		//因为contents是[]byte类型，直接转换成string类型后会多一行空格,需要使用strings.Replace替换换行符
 		result := strings.Replace(string(contents), "\n", "", 1)
 		fmt.Println("Use ioutil.ReadFile to read a file:", result)

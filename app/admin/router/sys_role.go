@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-admin-team/go-admin-core/sdk"
 	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 
 	"go-admin/app/admin/apis"
@@ -15,12 +16,14 @@ func init() {
 // 需认证的路由代码
 func registerSysRoleRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
 	api := apis.SysRole{}
-	r := v1.Group("/role").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
+	r := v1.Group("/role").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		r.GET("", api.GetPage)
-		r.GET("/:id", api.Get)
+		r.GET("/get", api.Get)
 		r.POST("", api.Insert)
-		r.PUT("/:id", api.Update)
+		r.PUT("", api.Update)
 		r.DELETE("", api.Delete)
 	}
 	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc())

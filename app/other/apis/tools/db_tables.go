@@ -2,6 +2,7 @@ package tools
 
 import (
 	"errors"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/config"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
@@ -18,7 +19,7 @@ import (
 // @Param pageSize query int false "pageSize / 页条数"
 // @Param pageIndex query int false "pageIndex / 页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/db/tables/page [get]
+// @Router /lotus/api/v1/db/tables/page [get]
 func (e Gen) GetDBTableList(c *gin.Context) {
 	//var res response.Response
 	var data tools.DBTables

@@ -2,9 +2,11 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
 
+	"github.com/casbin/casbin/v2"
 	log "github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"github.com/go-admin-team/go-admin-core/sdk/service"
@@ -23,18 +25,148 @@ func (e *SysUser) GetPage(c *dto.SysUserGetPageReq, p *actions.DataPermission, l
 	var err error
 	var data models.SysUser
 
-	err = e.Orm.Debug().Preload("Dept").
+	db := e.Orm.Debug().
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
 			actions.Permission(data.TableName(), p),
 		).
 		Find(list).Limit(-1).Offset(-1).
-		Count(count).Error
-	if err != nil {
+		Count(count)
+	if err = db.Error; err != nil {
 		e.Log.Errorf("db error: %s", err)
 		return err
 	}
+
+	// 手动加载部门信息，避免使用外键/关联查询
+	if len(*list) == 0 {
+		return nil
+	}
+
+	// 收集部门ID
+	deptIdSet := make(map[int]struct{})
+	for i := range *list {
+		u := (*list)[i]
+		if u.DeptId != 0 {
+			deptIdSet[u.DeptId] = struct{}{}
+		}
+	}
+
+	// 收集用户ID用于查询角色
+	userIds := make([]int, 0, len(*list))
+	for i := range *list {
+		u := (*list)[i]
+		userIds = append(userIds, u.UserId)
+	}
+
+	// 收集岗位ID
+	postIdSet := make(map[int]struct{})
+	for i := range *list {
+		u := (*list)[i]
+		if u.PostId != 0 {
+			postIdSet[u.PostId] = struct{}{}
+		}
+	}
+
+	// 加载部门信息
+	deptMap := make(map[int]*models.SysDept)
+	if len(deptIdSet) > 0 {
+		deptIds := make([]int, 0, len(deptIdSet))
+		for id := range deptIdSet {
+			deptIds = append(deptIds, id)
+		}
+
+		var depts []models.SysDept
+		if err = e.Orm.Where("dept_id in ?", deptIds).Find(&depts).Error; err != nil {
+			e.Log.Errorf("db error: %s", err)
+			return err
+		}
+
+		for i := range depts {
+			dept := &depts[i]
+			deptMap[dept.DeptId] = dept
+		}
+	}
+
+	// 加载角色信息
+	roleMap := make(map[int]*models.SysRole)
+	userRoleMap := make(map[int][]*models.SysRole)
+	if len(userIds) > 0 {
+		// 查询用户角色关联关系
+		var userRoles []models.SysUserRole
+		if err = e.Orm.Where("user_id in ?", userIds).Find(&userRoles).Error; err != nil {
+			e.Log.Errorf("db error: %s", err)
+			return err
+		}
+
+		// 获取所有相关的角色ID
+		roleIds := make([]int, 0)
+		for _, ur := range userRoles {
+			roleIds = append(roleIds, ur.RoleId)
+		}
+
+		// 查询角色信息
+		var roles []models.SysRole
+		if len(roleIds) > 0 {
+			if err = e.Orm.Where("role_id in ?", roleIds).Find(&roles).Error; err != nil {
+				e.Log.Errorf("db error: %s", err)
+				return err
+			}
+
+			for i := range roles {
+				role := &roles[i]
+				roleMap[role.RoleId] = role
+			}
+		}
+
+		// 建立用户与角色的映射关系
+		for _, ur := range userRoles {
+			if role, ok := roleMap[ur.RoleId]; ok {
+				if _, exists := userRoleMap[ur.UserId]; !exists {
+					userRoleMap[ur.UserId] = make([]*models.SysRole, 0)
+				}
+				userRoleMap[ur.UserId] = append(userRoleMap[ur.UserId], role)
+			}
+		}
+	}
+
+	// 加载岗位信息
+	postMap := make(map[int]*models.SysPost)
+	if len(postIdSet) > 0 {
+		postIds := make([]int, 0, len(postIdSet))
+		for id := range postIdSet {
+			postIds = append(postIds, id)
+		}
+
+		var posts []models.SysPost
+		if err = e.Orm.Where("post_id in ?", postIds).Find(&posts).Error; err != nil {
+			e.Log.Errorf("db error: %s", err)
+			return err
+		}
+
+		for i := range posts {
+			post := &posts[i]
+			postMap[post.PostId] = post
+		}
+	}
+
+	// 填充用户信息
+	for i := range *list {
+		u := &(*list)[i]
+		if dept, ok := deptMap[u.DeptId]; ok {
+			u.Dept = dept
+		}
+		if roles, ok := userRoleMap[u.UserId]; ok {
+			u.RoleIds = make([]int, len(roles))
+			for j, role := range roles {
+				u.RoleIds[j] = role.RoleId
+			}
+		}
+		if post, ok := postMap[u.PostId]; ok {
+			u.Post = post
+		}
+	}
+
 	return nil
 }
 
@@ -56,6 +188,60 @@ func (e *SysUser) Get(d *dto.SysUserById, p *actions.DataPermission, model *mode
 		e.Log.Errorf("db error: %s", err)
 		return err
 	}
+
+	// 手动加载部门信息
+	if model.DeptId != 0 {
+		var dept models.SysDept
+		err = e.Orm.First(&dept, model.DeptId).Error
+		if err != nil {
+			if !errors.Is(err, gorm.ErrRecordNotFound) {
+				return err
+			}
+		} else {
+			model.Dept = &dept
+		}
+	}
+
+	// 手动加载角色信息
+	var userRoles []models.SysUserRole
+	err = e.Orm.Where("user_id = ?", model.UserId).Find(&userRoles).Error
+	if err != nil {
+		return err
+	}
+
+	// 获取角色ID列表
+	roleIds := make([]int, 0, len(userRoles))
+	for _, ur := range userRoles {
+		roleIds = append(roleIds, ur.RoleId)
+	}
+
+	// 查询角色信息
+	if len(roleIds) > 0 {
+		var roles []models.SysRole
+		err = e.Orm.Where("role_id in ?", roleIds).Find(&roles).Error
+		if err != nil {
+			return err
+		}
+
+		model.RoleIds = make([]int, len(roles))
+		for i, role := range roles {
+			model.RoleIds[i] = role.RoleId
+		}
+	}
+
+	// 手动加载岗位信息
+	if model.PostId != 0 {
+		var post models.SysPost
+		err = e.Orm.First(&post, model.PostId).Error
+		if err != nil {
+			if !errors.Is(err, gorm.ErrRecordNotFound) {
+				return err
+			}
+		} else {
+			model.Post = &post
+		}
+	}
+
 	return nil
 }
 
@@ -182,21 +368,70 @@ func (e *SysUser) ResetPwd(c *dto.ResetSysUserPwdReq, p *actions.DataPermission)
 }
 
 // Remove 删除SysUser
-func (e *SysUser) Remove(c *dto.SysUserById, p *actions.DataPermission) error {
+func (e *SysUser) Remove(c *dto.SysUserById, p *actions.DataPermission, cb *casbin.SyncedEnforcer) error {
 	var err error
 	var data models.SysUser
 
-	db := e.Orm.Model(&data).
+	// 使用事务确保数据一致性
+	tx := e.Orm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
+	// 先查询用户信息，获取用户名和角色信息
+	err = tx.First(&data, c.GetId()).Error
+	if err != nil {
+		tx.Rollback()
+		e.Log.Errorf("Error getting user info: %s", err)
+		return err
+	}
+
+	// 删除用户与角色的关联关系
+	err = tx.Where("user_id = ?", c.GetId()).Delete(&models.SysUserRole{}).Error
+	if err != nil {
+		tx.Rollback()
+		e.Log.Errorf("Error deleting user-role relations: %s", err)
+		return err
+	}
+
+	// 删除用户
+	db := tx.Model(&data).
 		Scopes(
 			actions.Permission(data.TableName(), p),
 		).Delete(&data, c.GetId())
 	if err = db.Error; err != nil {
+		tx.Rollback()
 		e.Log.Errorf("Error found in  RemoveSysUser : %s", err)
 		return err
 	}
 	if db.RowsAffected == 0 {
+		tx.Rollback()
 		return errors.New("无权删除该数据")
 	}
+
+	// 删除Casbin中的用户角色关联（g, user_$d, roleKey）
+	if cb != nil {
+		// 使用user_{userId}格式作为Casbin中的用户标识
+		userSubject := fmt.Sprintf("user_%d", data.UserId)
+		// 使用RemoveFilteredGroupingPolicy一次性删除该用户的所有角色关联
+		// 参数0表示过滤第一个字段（用户标识），删除所有 g, user_$d, * 的策略
+		_, err = cb.RemoveFilteredGroupingPolicy(0, userSubject)
+		if err != nil {
+			tx.Rollback()
+			e.Log.Errorf("Error removing casbin user-role relations: %s", err)
+			return err
+		}
+	}
+
+	// 提交事务
+	err = tx.Commit().Error
+	if err != nil {
+		e.Log.Errorf("Error committing transaction: %s", err)
+		return err
+	}
+
 	return nil
 }
 
@@ -249,17 +484,146 @@ func (e *SysUser) UpdatePwd(id int, oldPassword, newPassword string, p *actions.
 }
 
 func (e *SysUser) GetProfile(c *dto.SysUserById, user *models.SysUser, roles *[]models.SysRole, posts *[]models.SysPost) error {
-	err := e.Orm.Preload("Dept").First(user, c.GetId()).Error
+	// 先查询用户基本信息
+	err := e.Orm.First(user, c.GetId()).Error
 	if err != nil {
 		return err
 	}
-	err = e.Orm.Find(roles, user.RoleId).Error
+
+	// 手动加载部门信息，避免使用外键/关联查询
+	if user.DeptId != 0 {
+		var dept models.SysDept
+		if err = e.Orm.First(&dept, user.DeptId).Error; err != nil {
+			if !errors.Is(err, gorm.ErrRecordNotFound) {
+				return err
+			}
+		} else {
+			user.Dept = &dept
+		}
+	}
+
+	// 加载角色和岗位信息
+	// 查询用户角色关联关系
+	var userRoles []models.SysUserRole
+	err = e.Orm.Where("user_id = ?", user.UserId).Find(&userRoles).Error
 	if err != nil {
 		return err
 	}
+
+	// 获取角色ID列表
+	roleIds := make([]int, 0, len(userRoles))
+	for _, ur := range userRoles {
+		roleIds = append(roleIds, ur.RoleId)
+	}
+
+	// 查询角色信息
+	if len(roleIds) > 0 {
+		err = e.Orm.Find(roles, roleIds).Error
+		if err != nil {
+			return err
+		}
+	}
+
+	// 查询岗位信息
 	err = e.Orm.Find(posts, user.PostIds).Error
 	if err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// SetUserRole 设置用户角色
+func (e *SysUser) SetUserRole(c *dto.SysUserRoleReq, cb *casbin.SyncedEnforcer) error {
+	var err error
+	var roles []models.SysRole
+
+	// 使用事务确保数据一致性
+	tx := e.Orm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r)
+		}
+		if err != nil {
+			tx.Rollback()
+		} else {
+			tx.Commit()
+		}
+	}()
+
+	// 1. 检查用户是否存在
+	var user models.SysUser
+	err = tx.First(&user, c.UserId).Error
+	if err != nil {
+		e.Log.Errorf("User not found: %s", err)
+		return err
+	}
+
+	// 2. 如果有新的角色，先验证角色是否存在
+	if len(c.RoleIds) > 0 {
+		err = tx.Where("role_id in ?", c.RoleIds).Find(&roles).Error
+		if err != nil {
+			e.Log.Errorf("Query roles error: %s", err)
+			return err
+		}
+
+		if len(roles) != len(c.RoleIds) {
+			err = errors.New("部分角色不存在")
+			e.Log.Errorf("Some roles not found")
+			return err
+		}
+	}
+
+	// 3. 验证通过后，删除用户旧的角色关系
+	err = tx.Where("user_id = ?", c.UserId).Delete(&models.SysUserRole{}).Error
+	if err != nil {
+		e.Log.Errorf("Delete old user-role relations error: %s", err)
+		return err
+	}
+
+	// 4. 创建新的用户角色关系
+	if len(c.RoleIds) > 0 {
+		userRoles := make([]models.SysUserRole, 0, len(c.RoleIds))
+		for _, roleId := range c.RoleIds {
+			ur := models.SysUserRole{
+				UserId: c.UserId,
+				RoleId: roleId,
+			}
+			ur.SetCreateBy(c.UpdateBy)
+			ur.SetUpdateBy(c.UpdateBy)
+			userRoles = append(userRoles, ur)
+		}
+
+		err = tx.Create(&userRoles).Error
+		if err != nil {
+			e.Log.Errorf("Create user-role relations error: %s", err)
+			return err
+		}
+	}
+
+	// 5. 数据库操作成功后，同步到Casbin
+	if cb != nil {
+		userSubject := fmt.Sprintf("user_%d", c.UserId)
+		
+		// 5.1 删除Casbin中的旧的用户角色关联
+		_, err = cb.RemoveFilteredGroupingPolicy(0, userSubject)
+		if err != nil {
+			e.Log.Errorf("Remove casbin user-role relations error: %s", err)
+			// Casbin操作失败也返回错误，但数据库操作已提交
+			return err
+		}
+
+		// 5.2 添加新的Casbin用户角色关联
+		if len(roles) > 0 {
+			for _, role := range roles {
+				_, err = cb.AddGroupingPolicy(userSubject, role.RoleKey)
+				if err != nil {
+					e.Log.Errorf("Add casbin user-role relation error: %s", err)
+					return err
+				}
+			}
+		}
 	}
 
 	return nil

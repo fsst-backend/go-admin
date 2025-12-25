@@ -85,7 +85,7 @@ func (s *SysOperaLogControl) GetId() interface{} {
 }
 
 type SysOperaLogGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysOperaLogGetReq) GetId() interface{} {

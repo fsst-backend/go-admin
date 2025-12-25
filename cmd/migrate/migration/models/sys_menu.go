@@ -1,23 +1,30 @@
 package models
 
 type SysMenu struct {
-	MenuId     int       `json:"menuId" gorm:"primaryKey;autoIncrement"`
-	MenuName   string    `json:"menuName" gorm:"size:128;"`
-	Title      string    `json:"title" gorm:"size:128;"`
-	Icon       string    `json:"icon" gorm:"size:128;"`
-	Path       string    `json:"path" gorm:"size:128;"`
-	Paths      string    `json:"paths" gorm:"size:128;"`
-	MenuType   string    `json:"menuType" gorm:"size:1;"`
-	Action     string    `json:"action" gorm:"size:16;"`
-	Permission string    `json:"permission" gorm:"size:255;"`
-	ParentId   int       `json:"parentId" gorm:"size:11;"`
-	NoCache    bool      `json:"noCache" gorm:"size:8;"`
-	Breadcrumb string    `json:"breadcrumb" gorm:"size:255;"`
-	Component  string    `json:"component" gorm:"size:255;"`
-	Sort       int       `json:"sort" gorm:"size:4;"`
-	Visible    string    `json:"visible" gorm:"size:1;"`
-	IsFrame    string    `json:"isFrame" gorm:"size:1;DEFAULT:0;"`
-	SysApi     []SysApi  `json:"sysApi" gorm:"many2many:sys_menu_api_rule"`
+	MenuId         int    `json:"menuId" gorm:"column:menu_id;primaryKey;autoIncrement"`
+	MenuName       string `json:"menuName" gorm:"column:menu_name;size:128;"`
+	Title          string `json:"title" gorm:"column:title;size:128;"`
+	MenuType       string `json:"menuType" gorm:"column:menu_type;size:10;"` // M: Menu/Directory   C: Component/Page  F: Function/Button
+	MenuPath       string `json:"menuPath" gorm:"column:menu_path;size:128;"`
+	Path           string `json:"path" gorm:"column:path;size:128;"`
+	Perm           string `json:"perm" gorm:"column:perm;size:255;"`
+	Component      string `json:"component" gorm:"column:component;size:255;"`
+	Icon           string `json:"icon" gorm:"column:icon;size:128;"`
+	SortValue      int    `json:"sortValue" gorm:"column:sort_value;size:4;"`
+	IsExternal     bool   `json:"isExternal" gorm:"column:is_external;size:1;DEFAULT:0;"`
+	ExternalLink   string `json:"externalLink" gorm:"column:external_link;size:255;"`
+	TextBadge      string `json:"textBadge" gorm:"column:text_badge;size:10;"`
+	ActivePath     string `json:"activePath" gorm:"column:active_path;size:100;"`
+	Status         string `json:"status" gorm:"column:status;size:1;"`
+	KeepAlive      bool   `json:"keepAlive" gorm:"column:keep_alive;size:1;DEFAULT:1;"`
+	IsHide         bool   `json:"isHide" gorm:"column:is_hide;size:1;DEFAULT:0;"`
+	IsIframe       bool   `json:"isIframe" gorm:"column:is_iframe;size:1;DEFAULT:0;"`
+	ShowBadge      bool   `json:"showBadge" gorm:"column:show_badge;size:1;DEFAULT:1;"`
+	FixedTab       bool   `json:"fixedTab" gorm:"column:fixed_tab;size:1;DEFAULT:0;"`
+	IsHideTab      bool   `json:"isHideTab" gorm:"column:is_hide_tab;size:1;DEFAULT:0;"`
+	IsFullPage     bool   `json:"isFullPage" gorm:"column:is_full_page;size:1;DEFAULT:0;"`
+	ParentId       int    `json:"parentId" gorm:"column:parent_id;size:11;"`
+	PermissionCode string `json:"permissionCode" gorm:"column:permission_code;size:128;comment:关联权限表code"`
 	ControlBy
 	ModelTime
 }

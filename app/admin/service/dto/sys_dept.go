@@ -23,7 +23,7 @@ func (m *SysDeptGetPageReq) GetNeedSearch() interface{} {
 }
 
 type SysDeptInsertReq struct {
-	DeptId   int    `uri:"id" comment:"编码"`                                         // 编码
+	DeptId   int    `json:"deptId" comment:"编码"`                                         // 编码
 	ParentId int    `json:"parentId" comment:"上级部门" vd:"?"`                         //上级部门
 	DeptPath string `json:"deptPath" comment:""`                                    //路径
 	DeptName string `json:"deptName" comment:"部门名称" vd:"len($)>0"`                  //部门名称
@@ -55,7 +55,7 @@ func (s *SysDeptInsertReq) GetId() interface{} {
 }
 
 type SysDeptUpdateReq struct {
-	DeptId   int    `uri:"id" comment:"编码"`                                         // 编码
+	DeptId   int    `json:"deptId" comment:"编码"`                                         // 编码
 	ParentId int    `json:"parentId" comment:"上级部门" vd:"?"`                         //上级部门
 	DeptPath string `json:"deptPath" comment:""`                                    //路径
 	DeptName string `json:"deptName" comment:"部门名称" vd:"len($)>0"`                  //部门名称
@@ -88,7 +88,7 @@ func (s *SysDeptUpdateReq) GetId() interface{} {
 }
 
 type SysDeptGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysDeptGetReq) GetId() interface{} {

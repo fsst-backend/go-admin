@@ -25,8 +25,8 @@ type SysConfig struct {
 // @Param isFrontend query int false "是否前端"
 // @Param pageSize query int false "页条数"
 // @Param pageIndex query int false "页码"
-// @Success 200 {object} response.Response{data=response.Page{list=[]models.SysApi}} "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-config [get]
+// @Success 200 {object} response.Response{data=response.Page{list=[]models.SysConfig}} "{\"code\": 200, \"data\": [...]}"
+// @Router /lotus/api/v1/sys-config [get]
 // @Security Bearer
 func (e SysConfig) GetPage(c *gin.Context) {
 	s := service.SysConfig{}
@@ -55,9 +55,8 @@ func (e SysConfig) GetPage(c *gin.Context) {
 // @Summary 获取配置管理
 // @Description 获取配置管理
 // @Tags 配置管理
-// @Param id path string false "id"
 // @Success 200 {object} response.Response{data=models.SysConfig} "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-config/{id} [get]
+// @Router /lotus/api/v1/sys-config/get [get]
 // @Security Bearer
 func (e SysConfig) Get(c *gin.Context) {
 	req := dto.SysConfigGetReq{}
@@ -91,7 +90,7 @@ func (e SysConfig) Get(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.SysConfigControl true "body"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "创建成功"}"
-// @Router /api/v1/sys-config [post]
+// @Router /lotus/api/v1/sys-config [post]
 // @Security Bearer
 func (e SysConfig) Insert(c *gin.Context) {
 	s := service.SysConfig{}
@@ -124,7 +123,7 @@ func (e SysConfig) Insert(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.SysConfigControl true "body"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "修改成功"}"
-// @Router /api/v1/sys-config/{id} [put]
+// @Router /lotus/api/v1/sys-config [put]
 // @Security Bearer
 func (e SysConfig) Update(c *gin.Context) {
 	s := service.SysConfig{}
@@ -154,7 +153,7 @@ func (e SysConfig) Update(c *gin.Context) {
 // @Tags 配置管理
 // @Param ids body []int false "ids"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "删除成功"}"
-// @Router /api/v1/sys-config [delete]
+// @Router /lotus/api/v1/sys-config [delete]
 // @Security Bearer
 func (e SysConfig) Delete(c *gin.Context) {
 	s := service.SysConfig{}
@@ -184,7 +183,7 @@ func (e SysConfig) Delete(c *gin.Context) {
 // @Description 获取系统配置信息，主要注意这里不在验证权限
 // @Tags 配置管理
 // @Success 200 {object} response.Response{data=map[string]string} "{"code": 200, "data": [...]}"
-// @Router /api/v1/app-config [get]
+// @Router /lotus/api/v1/app-config [get]
 func (e SysConfig) Get2SysApp(c *gin.Context) {
 	req := dto.SysConfigGetToSysAppReq{}
 	s := service.SysConfig{}
@@ -222,7 +221,7 @@ func (e SysConfig) Get2SysApp(c *gin.Context) {
 // @Accept application/json
 // @Product application/json
 // @Success 200 {object} response.Response{data=map[string]interface{}}	"{"code": 200, "message": "修改成功"}"
-// @Router /api/v1/set-config [get]
+// @Router /lotus/api/v1/set-config [get]
 // @Security Bearer
 func (e SysConfig) Get2Set(c *gin.Context) {
 	s := service.SysConfig{}
@@ -256,7 +255,7 @@ func (e SysConfig) Get2Set(c *gin.Context) {
 // @Product application/json
 // @Param data body []dto.GetSetSysConfigReq true "body"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "修改成功"}"
-// @Router /api/v1/set-config [put]
+// @Router /lotus/api/v1/set-config [put]
 // @Security Bearer
 func (e SysConfig) Update2Set(c *gin.Context) {
 	s := service.SysConfig{}
@@ -285,9 +284,8 @@ func (e SysConfig) Update2Set(c *gin.Context) {
 // @Summary 根据Key获取SysConfig的Service
 // @Description 根据Key获取SysConfig的Service
 // @Tags 配置管理
-// @Param configKey path string false "configKey"
 // @Success 200 {object} response.Response{data=dto.SysConfigByKeyReq} "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-config/{id} [get]
+// @Router /lotus/api/v1/sys-config/get [get]
 // @Security Bearer
 func (e SysConfig) GetSysConfigByKEYForService(c *gin.Context) {
 	var s = new(service.SysConfig)
@@ -295,7 +293,7 @@ func (e SysConfig) GetSysConfigByKEYForService(c *gin.Context) {
 	var resp = new(dto.GetSysConfigByKEYForServiceResp)
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(req, nil).
+		Bind(req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {

@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "基于Gin + Vue + Element UI的前后端分离权限管理系统的接口文档\n添加qq群: 521386980 进入技术交流群 请先star，谢谢！",
+        "description": "基于Gin + Vue + Element UI的前后端分离权限管理系统的接口文档",
         "title": "go-admin API",
         "contact": {},
         "license": {
@@ -11,7 +11,7 @@
         "version": "2.0.0"
     },
     "paths": {
-        "/api/v1/app-config": {
+        "/lotus/api/v1/app-config": {
             "get": {
                 "description": "获取系统配置信息，主要注意这里不在验证权限",
                 "tags": [
@@ -43,7 +43,7 @@
                 }
             }
         },
-        "/api/v1/captcha": {
+        "/lotus/api/v1/captcha": {
             "get": {
                 "description": "获取验证码",
                 "tags": [
@@ -78,7 +78,7 @@
                 }
             }
         },
-        "/api/v1/db/columns/page": {
+        "/lotus/api/v1/db/columns/page": {
             "get": {
                 "description": "数据库表列分页列表 / database table column page list",
                 "tags": [
@@ -115,7 +115,7 @@
                 }
             }
         },
-        "/api/v1/db/tables/page": {
+        "/lotus/api/v1/db/tables/page": {
             "get": {
                 "description": "数据库表分页列表 / database table page list",
                 "tags": [
@@ -152,7 +152,7 @@
                 }
             }
         },
-        "/api/v1/dept": {
+        "/lotus/api/v1/dept": {
             "get": {
                 "security": [
                     {
@@ -189,6 +189,40 @@
                         "description": "{\"code\": 200, \"data\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "部门"
+                ],
+                "summary": "修改部门",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysDeptUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": -1, \"message\": \"添加失败\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -259,7 +293,7 @@
                 }
             }
         },
-        "/api/v1/dept/{deptId}": {
+        "/lotus/api/v1/dept/get": {
             "get": {
                 "security": [
                     {
@@ -271,14 +305,6 @@
                     "部门"
                 ],
                 "summary": "获取部门数据",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "deptId",
-                        "name": "deptId",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -287,50 +313,9 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "部门"
-                ],
-                "summary": "修改部门",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysDeptUpdateReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": -1, \"message\": \"添加失败\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
             }
         },
-        "/api/v1/dict-data/option-select": {
+        "/lotus/api/v1/dict-data/option-select": {
             "get": {
                 "security": [
                     {
@@ -376,7 +361,7 @@
                 }
             }
         },
-        "/api/v1/dict/data": {
+        "/lotus/api/v1/dict/data": {
             "get": {
                 "security": [
                     {
@@ -423,6 +408,40 @@
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "字典数据"
+                ],
+                "summary": "修改字典数据",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysDictDataUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -495,7 +514,7 @@
                 }
             }
         },
-        "/api/v1/dict/data/{dictCode}": {
+        "/lotus/api/v1/dict/data/get": {
             "get": {
                 "security": [
                     {
@@ -507,15 +526,6 @@
                     "字典数据"
                 ],
                 "summary": "通过编码获取字典数据",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "字典编码",
-                        "name": "dictCode",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -524,43 +534,9 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "字典数据"
-                ],
-                "summary": "修改字典数据",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysDictDataUpdateReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
             }
         },
-        "/api/v1/dict/type": {
+        "/lotus/api/v1/dict/type": {
             "get": {
                 "security": [
                     {
@@ -602,6 +578,40 @@
                         "description": "页码",
                         "name": "pageIndex",
                         "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "字典类型"
+                ],
+                "summary": "修改字典类型",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysDictTypeUpdateReq"
+                        }
                     }
                 ],
                 "responses": {
@@ -679,7 +689,7 @@
                 }
             }
         },
-        "/api/v1/dict/type-option-select": {
+        "/lotus/api/v1/dict/type-option-select": {
             "get": {
                 "security": [
                     {
@@ -721,7 +731,7 @@
                 }
             }
         },
-        "/api/v1/dict/type/{dictId}": {
+        "/lotus/api/v1/dict/type/get": {
             "get": {
                 "security": [
                     {
@@ -733,49 +743,6 @@
                     "字典类型"
                 ],
                 "summary": "字典类型通过字典id获取",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "字典类型编码",
-                        "name": "dictId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "字典类型"
-                ],
-                "summary": "修改字典类型",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysDictTypeUpdateReq"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -786,7 +753,7 @@
                 }
             }
         },
-        "/api/v1/getinfo": {
+        "/lotus/api/v1/getinfo": {
             "get": {
                 "security": [
                     {
@@ -808,7 +775,79 @@
                 }
             }
         },
-        "/api/v1/login": {
+        "/lotus/api/v1/job/remove": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "删除定时任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "定时任务"
+                ],
+                "summary": "删除定时任务",
+                "parameters": [
+                    {
+                        "description": "删除数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.GeneralDelDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/job/start": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "启动定时任务",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "定时任务"
+                ],
+                "summary": "启动定时任务",
+                "parameters": [
+                    {
+                        "description": "启动数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.GeneralGetDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"message\": \"启动成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/login": {
             "post": {
                 "description": "获取token\nLoginHandler can be used by clients to get a jwt token.\nPayload needs to be json in the form of {\"username\": \"USERNAME\", \"password\": \"PASSWORD\"}.\nReply will be of the form {\"token\": \"TOKEN\"}.\ndev mode：It should be noted that all fields cannot be empty, and a value of 0 can be passed in addition to the account password\n注意：开发模式：需要注意全部字段不能为空，账号密码外可以传入0值",
                 "consumes": [
@@ -839,7 +878,7 @@
                 }
             }
         },
-        "/api/v1/menu": {
+        "/lotus/api/v1/menu": {
             "get": {
                 "security": [
                     {
@@ -857,6 +896,40 @@
                         "description": "menuName",
                         "name": "menuName",
                         "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜单"
+                ],
+                "summary": "修改菜单",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysMenuUpdateReq"
+                        }
                     }
                 ],
                 "responses": {
@@ -934,7 +1007,7 @@
                 }
             }
         },
-        "/api/v1/menu/{id}": {
+        "/lotus/api/v1/menu/get": {
             "get": {
                 "security": [
                     {
@@ -946,55 +1019,6 @@
                     "菜单"
                 ],
                 "summary": "Menu详情数据",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "菜单"
-                ],
-                "summary": "修改菜单",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysMenuUpdateReq"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -1005,7 +1029,7 @@
                 }
             }
         },
-        "/api/v1/menuTreeselect/{roleId}": {
+        "/lotus/api/v1/menuTreeselect": {
             "get": {
                 "security": [
                     {
@@ -1023,15 +1047,14 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "roleId",
+                        "description": "角色ID",
                         "name": "roleId",
-                        "in": "path",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1039,7 +1062,7 @@
                 }
             }
         },
-        "/api/v1/menurole": {
+        "/lotus/api/v1/menurole": {
             "get": {
                 "security": [
                     {
@@ -1061,7 +1084,7 @@
                 }
             }
         },
-        "/api/v1/post": {
+        "/lotus/api/v1/post": {
             "get": {
                 "security": [
                     {
@@ -1097,6 +1120,40 @@
                         "description": "status",
                         "name": "status",
                         "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "岗位"
+                ],
+                "summary": "修改岗位",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysPostUpdateReq"
+                        }
                     }
                 ],
                 "responses": {
@@ -1174,43 +1231,7 @@
                 }
             }
         },
-        "/api/v1/post/{id}": {
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "岗位"
-                ],
-                "summary": "修改岗位",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysPostUpdateReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/post/{postId}": {
+        "/lotus/api/v1/post/get": {
             "get": {
                 "security": [
                     {
@@ -1222,15 +1243,6 @@
                     "岗位"
                 ],
                 "summary": "获取岗位信息",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "编码",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -1241,7 +1253,7 @@
                 }
             }
         },
-        "/api/v1/public/uploadFile": {
+        "/lotus/api/v1/public/uploadFile": {
             "post": {
                 "security": [
                     {
@@ -1282,47 +1294,35 @@
                 }
             }
         },
-        "/api/v1/role": {
+        "/lotus/api/v1/role": {
             "get": {
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
-                "description": "Get JSON",
+                "description": "获取SysRole列表",
                 "tags": [
-                    "角色/Role"
+                    "角色管理"
                 ],
-                "summary": "角色列表数据",
+                "summary": "获取SysRole列表",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "roleName",
+                        "description": "角色名称",
                         "name": "roleName",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "status",
+                        "description": "状态",
                         "name": "status",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "roleKey",
+                        "description": "角色代码",
                         "name": "roleKey",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页条数",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "pageIndex",
                         "in": "query"
                     }
                 ],
@@ -1335,7 +1335,7 @@
                     }
                 }
             },
-            "post": {
+            "put": {
                 "security": [
                     {
                         "Bearer": []
@@ -1346,9 +1346,43 @@
                     "application/json"
                 ],
                 "tags": [
-                    "角色/Role"
+                    "角色管理"
                 ],
-                "summary": "创建角色",
+                "summary": "修改用户角色",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysRoleUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "创建SysRole",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "角色管理"
+                ],
+                "summary": "创建SysRole",
                 "parameters": [
                     {
                         "description": "data",
@@ -1377,7 +1411,7 @@
                 ],
                 "description": "删除数据",
                 "tags": [
-                    "角色/Role"
+                    "角色管理"
                 ],
                 "summary": "删除用户角色",
                 "parameters": [
@@ -1393,7 +1427,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1401,7 +1435,7 @@
                 }
             }
         },
-        "/api/v1/role-status/{id}": {
+        "/lotus/api/v1/role-status": {
             "put": {
                 "security": [
                     {
@@ -1413,7 +1447,65 @@
                     "application/json"
                 ],
                 "tags": [
-                    "角色/Role"
+                    "角色管理"
+                ],
+                "summary": "修改用户角色",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateStatusReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/role/get": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "tags": [
+                    "角色管理"
+                ],
+                "summary": "获取Role数据",
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/roledatascope": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "角色管理"
                 ],
                 "summary": "更新角色数据权限",
                 "parameters": [
@@ -1429,7 +1521,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1437,93 +1529,41 @@
                 }
             }
         },
-        "/api/v1/role/{id}": {
+        "/lotus/api/v1/server/monitor": {
             "get": {
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
-                "description": "获取JSON",
+                "description": "获取系统信息",
                 "tags": [
-                    "角色/Role"
+                    "系统监控"
                 ],
-                "summary": "获取Role数据",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "roleId",
-                        "name": "roleId",
-                        "in": "path"
-                    }
-                ],
+                "summary": "获取系统信息",
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "角色/Role"
-                ],
-                "summary": "修改用户角色",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysRoleUpdateReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/dto.GetServerMonitorInfoResp"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
             }
         },
-        "/api/v1/server-monitor": {
-            "get": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "tags": [
-                    "系统信息"
-                ],
-                "summary": "系统信息",
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/set-config": {
+        "/lotus/api/v1/set-config": {
             "get": {
                 "security": [
                     {
@@ -1598,7 +1638,7 @@
                 }
             }
         },
-        "/api/v1/sys-api": {
+        "/lotus/api/v1/sys-api": {
             "get": {
                 "security": [
                     {
@@ -1670,85 +1710,12 @@
                                                         "list": {
                                                             "type": "array",
                                                             "items": {
-                                                                "$ref": "#/definitions/models.SysApi"
+                                                                "$ref": "#/definitions/go-admin_app_admin_models.SysApi"
                                                             }
                                                         }
                                                     }
                                                 }
                                             ]
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "删除接口管理",
-                "tags": [
-                    "接口管理"
-                ],
-                "summary": "删除接口管理",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysApiDeleteReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/sys-api/{id}": {
-            "get": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取接口管理",
-                "tags": [
-                    "接口管理"
-                ],
-                "summary": "获取接口管理",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/models.SysApi"
                                         }
                                     }
                                 }
@@ -1790,9 +1757,74 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "删除接口管理",
+                "tags": [
+                    "接口管理"
+                ],
+                "summary": "删除接口管理",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysApiDeleteReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
             }
         },
-        "/api/v1/sys-config": {
+        "/lotus/api/v1/sys-api/get": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取接口管理",
+                "tags": [
+                    "接口管理"
+                ],
+                "summary": "获取接口管理",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysApi"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/sys-config": {
             "get": {
                 "security": [
                     {
@@ -1844,7 +1876,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1864,7 +1896,7 @@
                                                         "list": {
                                                             "type": "array",
                                                             "items": {
-                                                                "$ref": "#/definitions/models.SysApi"
+                                                                "$ref": "#/definitions/go-admin_app_admin_models.SysConfig"
                                                             }
                                                         }
                                                     }
@@ -1874,6 +1906,40 @@
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "修改配置管理",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "配置管理"
+                ],
+                "summary": "修改配置管理",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysConfigControl"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
                         }
                     }
                 }
@@ -1946,7 +2012,7 @@
                 }
             }
         },
-        "/api/v1/sys-config/{id}": {
+        "/lotus/api/v1/sys-config/get": {
             "get": {
                 "security": [
                     {
@@ -1958,14 +2024,6 @@
                     "配置管理"
                 ],
                 "summary": "根据Key获取SysConfig的Service",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "configKey",
-                        "name": "configKey",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -1986,43 +2044,9 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "修改配置管理",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "配置管理"
-                ],
-                "summary": "修改配置管理",
-                "parameters": [
-                    {
-                        "description": "body",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysConfigControl"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
             }
         },
-        "/api/v1/sys-login-log": {
+        "/lotus/api/v1/sys-login-log": {
             "get": {
                 "security": [
                     {
@@ -2113,7 +2137,7 @@
                 }
             }
         },
-        "/api/v1/sys-login-log/{id}": {
+        "/lotus/api/v1/sys-login-log/get": {
             "get": {
                 "security": [
                     {
@@ -2125,14 +2149,6 @@
                     "登录日志"
                 ],
                 "summary": "登录日志通过id获取",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -2143,7 +2159,7 @@
                 }
             }
         },
-        "/api/v1/sys-opera-log": {
+        "/lotus/api/v1/sys-opera-log": {
             "get": {
                 "security": [
                     {
@@ -2238,7 +2254,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2246,7 +2262,7 @@
                 }
             }
         },
-        "/api/v1/sys-opera-log/{id}": {
+        "/lotus/api/v1/sys-opera-log/get": {
             "get": {
                 "security": [
                     {
@@ -2258,14 +2274,6 @@
                     "操作日志"
                 ],
                 "summary": "操作日志通过id获取",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -2276,23 +2284,53 @@
                 }
             }
         },
-        "/api/v1/sys-user": {
+        "/lotus/api/v1/sys-permission": {
             "get": {
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
-                "description": "获取JSON",
+                "description": "获取权限定义列表",
                 "tags": [
-                    "用户"
+                    "权限定义"
                 ],
-                "summary": "列表用户信息数据",
+                "summary": "获取权限定义列表",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "username",
-                        "name": "username",
+                        "description": "权限编码",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "权限名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "权限类型",
+                        "name": "type",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "状态",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页条数",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "pageIndex",
                         "in": "query"
                     }
                 ],
@@ -2300,12 +2338,174 @@
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/response.Page"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "list": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/go-admin_app_admin_models.SysPermission"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "修改权限定义",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "权限定义"
+                ],
+                "summary": "修改权限定义",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysPermissionUpdateReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
                         }
                     }
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "创建权限定义",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "权限定义"
+                ],
+                "summary": "创建权限定义",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysPermissionInsertReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "删除权限定义",
+                "tags": [
+                    "权限定义"
+                ],
+                "summary": "删除权限定义",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysPermissionDeleteReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/sys-permission/get": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取单个权限定义",
+                "tags": [
+                    "权限定义"
+                ],
+                "summary": "获取单个权限定义",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysPermission"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/sys-user": {
+            "get": {
                 "security": [
                     {
                         "Bearer": []
@@ -2318,54 +2518,50 @@
                 "tags": [
                     "用户"
                 ],
-                "summary": "创建用户",
+                "summary": "列表用户信息数据",
                 "parameters": [
                     {
-                        "description": "用户数据",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SysUserInsertReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/sys-user/{userId}": {
-            "get": {
-                "security": [
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "query"
+                    },
                     {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "tags": [
-                    "用户"
-                ],
-                "summary": "获取用户",
-                "parameters": [
+                        "type": "string",
+                        "description": "昵称",
+                        "name": "nickName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "手机号",
+                        "name": "phone",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "状态",
+                        "name": "status",
+                        "in": "query"
+                    },
                     {
                         "type": "integer",
-                        "description": "用户编码",
-                        "name": "userId",
-                        "in": "path",
-                        "required": true
+                        "description": "页条数",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "pageIndex",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "type": "string"
                         }
                     }
                 }
@@ -2404,6 +2600,40 @@
                     }
                 }
             },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "description": "用户数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysUserInsertReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "security": [
                     {
@@ -2415,15 +2645,6 @@
                     "用户"
                 ],
                 "summary": "删除用户数据",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "userId",
-                        "name": "userId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{\"code\": 200, \"data\": [...]}",
@@ -2434,7 +2655,65 @@
                 }
             }
         },
-        "/api/v1/sys/tables/info": {
+        "/lotus/api/v1/sys-user/get": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "tags": [
+                    "用户"
+                ],
+                "summary": "获取用户",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/sys-user/role": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "为用户分配角色",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "设置用户角色",
+                "parameters": [
+                    {
+                        "description": "用户角色授权请求",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysUserRoleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/sys/tables/info": {
             "put": {
                 "security": [
                     {
@@ -2501,7 +2780,7 @@
                 }
             }
         },
-        "/api/v1/sys/tables/info/{tableId}": {
+        "/lotus/api/v1/sys/tables/info/{tableId}": {
             "get": {
                 "security": [
                     {
@@ -2556,7 +2835,7 @@
                 }
             }
         },
-        "/api/v1/sys/tables/page": {
+        "/lotus/api/v1/sys/tables/page": {
             "get": {
                 "description": "生成表分页列表",
                 "tags": [
@@ -2593,7 +2872,7 @@
                 }
             }
         },
-        "/api/v1/user/avatar": {
+        "/lotus/api/v1/user/avatar": {
             "post": {
                 "security": [
                     {
@@ -2627,7 +2906,7 @@
                 }
             }
         },
-        "/api/v1/user/profile": {
+        "/lotus/api/v1/user/profile": {
             "get": {
                 "security": [
                     {
@@ -2649,7 +2928,7 @@
                 }
             }
         },
-        "/api/v1/user/pwd/reset": {
+        "/lotus/api/v1/user/pwd/reset": {
             "put": {
                 "security": [
                     {
@@ -2685,7 +2964,7 @@
                 }
             }
         },
-        "/api/v1/user/pwd/set": {
+        "/lotus/api/v1/user/pwd/set": {
             "put": {
                 "security": [
                     {
@@ -2721,7 +3000,7 @@
                 }
             }
         },
-        "/api/v1/user/status": {
+        "/lotus/api/v1/user/status": {
             "put": {
                 "security": [
                     {
@@ -2757,7 +3036,7 @@
                 }
             }
         },
-        "/logout": {
+        "/lotus/logout": {
             "post": {
                 "security": [
                     {
@@ -2781,6 +3060,68 @@
         }
     },
     "definitions": {
+        "dto.CPUInfo": {
+            "type": "object",
+            "properties": {
+                "cpuInfo": {},
+                "cpuNum": {
+                    "type": "integer"
+                },
+                "percent": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.DiskInfo": {
+            "type": "object",
+            "properties": {
+                "percent": {
+                    "type": "number"
+                },
+                "total": {
+                    "type": "number"
+                },
+                "used": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.GeneralDelDto": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "dto.GeneralGetDto": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.GetServerMonitorInfoResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.ServerMonitorInfo"
+                }
+            }
+        },
         "dto.GetSetSysConfigReq": {
             "type": "object",
             "properties": {
@@ -2788,6 +3129,66 @@
                     "type": "string"
                 },
                 "configValue": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.MemoryInfo": {
+            "type": "object",
+            "properties": {
+                "percent": {
+                    "type": "number"
+                },
+                "total": {
+                    "type": "integer"
+                },
+                "used": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.NetworkInfo": {
+            "type": "object",
+            "properties": {
+                "in": {
+                    "type": "number"
+                },
+                "out": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.OSInfo": {
+            "type": "object",
+            "properties": {
+                "arch": {
+                    "type": "string"
+                },
+                "compiler": {
+                    "type": "string"
+                },
+                "goOs": {
+                    "type": "string"
+                },
+                "hostName": {
+                    "type": "string"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "mem": {
+                    "type": "integer"
+                },
+                "numGoroutine": {
+                    "type": "integer"
+                },
+                "projectDir": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
+                },
+                "version": {
                     "type": "string"
                 }
             }
@@ -2838,6 +3239,49 @@
                     }
                 },
                 "roleId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ServerMonitorInfo": {
+            "type": "object",
+            "properties": {
+                "bootTime": {
+                    "type": "integer"
+                },
+                "code": {
+                    "type": "integer"
+                },
+                "cpu": {
+                    "$ref": "#/definitions/dto.CPUInfo"
+                },
+                "disk": {
+                    "$ref": "#/definitions/dto.DiskInfo"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "mem": {
+                    "$ref": "#/definitions/dto.MemoryInfo"
+                },
+                "net": {
+                    "$ref": "#/definitions/dto.NetworkInfo"
+                },
+                "os": {
+                    "$ref": "#/definitions/dto.OSInfo"
+                },
+                "swap": {
+                    "$ref": "#/definitions/dto.SwapInfo"
+                }
+            }
+        },
+        "dto.SwapInfo": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "integer"
+                },
+                "used": {
                     "type": "integer"
                 }
             }
@@ -3032,17 +3476,11 @@
         "dto.SysDictDataDeleteReq": {
             "type": "object",
             "properties": {
-                "createBy": {
-                    "type": "integer"
-                },
                 "ids": {
                     "type": "array",
                     "items": {
                         "type": "integer"
                     }
-                },
-                "updateBy": {
-                    "type": "integer"
                 }
             }
         },
@@ -3110,6 +3548,9 @@
                 "default": {
                     "type": "string"
                 },
+                "dictCode": {
+                    "type": "integer"
+                },
                 "dictLabel": {
                     "type": "string"
                 },
@@ -3121,9 +3562,6 @@
                 },
                 "dictValue": {
                     "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "isDefault": {
                     "type": "string"
@@ -3242,18 +3680,8 @@
         "dto.SysMenuInsertReq": {
             "type": "object",
             "properties": {
-                "action": {
-                    "description": "请求方式",
-                    "type": "string"
-                },
-                "apis": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "breadcrumb": {
-                    "description": "是否面包屑",
+                "activePath": {
+                    "description": "激活路径",
                     "type": "string"
                 },
                 "component": {
@@ -3263,13 +3691,41 @@
                 "createBy": {
                     "type": "integer"
                 },
+                "externalLink": {
+                    "description": "外部链接",
+                    "type": "string"
+                },
+                "fixedTab": {
+                    "description": "是否固定标签页",
+                    "type": "boolean"
+                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
                 },
-                "isFrame": {
-                    "description": "是否frame",
-                    "type": "string"
+                "isExternal": {
+                    "description": "是否外部链接",
+                    "type": "boolean"
+                },
+                "isFullPage": {
+                    "description": "是否全屏页面",
+                    "type": "boolean"
+                },
+                "isHide": {
+                    "description": "是否隐藏",
+                    "type": "boolean"
+                },
+                "isHideTab": {
+                    "description": "是否隐藏标签页",
+                    "type": "boolean"
+                },
+                "isIframe": {
+                    "description": "是否iframe",
+                    "type": "boolean"
+                },
+                "keepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
                 },
                 "menuId": {
                     "description": "编码",
@@ -3279,68 +3735,60 @@
                     "description": "菜单name",
                     "type": "string"
                 },
+                "menuPath": {
+                    "description": "菜单类型 /0/1/7",
+                    "type": "string"
+                },
                 "menuType": {
                     "description": "菜单类型",
                     "type": "string"
-                },
-                "noCache": {
-                    "description": "是否缓存",
-                    "type": "boolean"
                 },
                 "parentId": {
                     "description": "上级菜单",
                     "type": "integer"
                 },
                 "path": {
-                    "description": "路径",
+                    "description": "路径 /camellia/sys_user",
                     "type": "string"
                 },
-                "paths": {
-                    "description": "id路径",
+                "perm": {
+                    "description": "权限标识",
                     "type": "string"
                 },
-                "permission": {
-                    "description": "权限编码",
+                "permissionCode": {
+                    "description": "权限Code",
                     "type": "string"
                 },
-                "sort": {
-                    "description": "排序",
+                "showBadge": {
+                    "description": "是否显示徽章",
+                    "type": "boolean"
+                },
+                "sortValue": {
+                    "description": "排序值",
                     "type": "integer"
                 },
-                "sysApi": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.SysApi"
-                    }
+                "status": {
+                    "description": "状态",
+                    "type": "string"
+                },
+                "textBadge": {
+                    "description": "文本徽章",
+                    "type": "string"
                 },
                 "title": {
-                    "description": "显示名称",
+                    "description": "显示标题",
                     "type": "string"
                 },
                 "updateBy": {
                     "type": "integer"
-                },
-                "visible": {
-                    "description": "是否显示",
-                    "type": "string"
                 }
             }
         },
         "dto.SysMenuUpdateReq": {
             "type": "object",
             "properties": {
-                "action": {
-                    "description": "请求方式",
-                    "type": "string"
-                },
-                "apis": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "breadcrumb": {
-                    "description": "是否面包屑",
+                "activePath": {
+                    "description": "激活路径",
                     "type": "string"
                 },
                 "component": {
@@ -3350,13 +3798,41 @@
                 "createBy": {
                     "type": "integer"
                 },
+                "externalLink": {
+                    "description": "外部链接",
+                    "type": "string"
+                },
+                "fixedTab": {
+                    "description": "是否固定标签页",
+                    "type": "boolean"
+                },
                 "icon": {
                     "description": "图标",
                     "type": "string"
                 },
-                "isFrame": {
-                    "description": "是否frame",
-                    "type": "string"
+                "isExternal": {
+                    "description": "是否外部链接",
+                    "type": "boolean"
+                },
+                "isFullPage": {
+                    "description": "是否全屏页面",
+                    "type": "boolean"
+                },
+                "isHide": {
+                    "description": "是否隐藏",
+                    "type": "boolean"
+                },
+                "isHideTab": {
+                    "description": "是否隐藏标签页",
+                    "type": "boolean"
+                },
+                "isIframe": {
+                    "description": "是否iframe",
+                    "type": "boolean"
+                },
+                "keepAlive": {
+                    "description": "是否缓存",
+                    "type": "boolean"
                 },
                 "menuId": {
                     "description": "编码",
@@ -3366,13 +3842,13 @@
                     "description": "菜单name",
                     "type": "string"
                 },
-                "menuType": {
+                "menuPath": {
                     "description": "菜单类型",
                     "type": "string"
                 },
-                "noCache": {
-                    "description": "是否缓存",
-                    "type": "boolean"
+                "menuType": {
+                    "description": "菜单类型",
+                    "type": "string"
                 },
                 "parentId": {
                     "description": "上级菜单",
@@ -3382,34 +3858,36 @@
                     "description": "路径",
                     "type": "string"
                 },
-                "paths": {
-                    "description": "id路径",
+                "perm": {
+                    "description": "权限标识",
                     "type": "string"
                 },
-                "permission": {
-                    "description": "权限编码",
+                "permissionCode": {
+                    "description": "权限Code",
                     "type": "string"
                 },
-                "sort": {
-                    "description": "排序",
+                "showBadge": {
+                    "description": "是否显示徽章",
+                    "type": "boolean"
+                },
+                "sortValue": {
+                    "description": "排序值",
                     "type": "integer"
                 },
-                "sysApi": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.SysApi"
-                    }
+                "status": {
+                    "description": "状态",
+                    "type": "string"
+                },
+                "textBadge": {
+                    "description": "文本徽章",
+                    "type": "string"
                 },
                 "title": {
-                    "description": "显示名称",
+                    "description": "显示标题",
                     "type": "string"
                 },
                 "updateBy": {
                     "type": "integer"
-                },
-                "visible": {
-                    "description": "是否显示",
-                    "type": "string"
                 }
             }
         },
@@ -3421,6 +3899,105 @@
                     "items": {
                         "type": "integer"
                     }
+                }
+            }
+        },
+        "dto.SysPermissionDeleteReq": {
+            "type": "object",
+            "properties": {
+                "createBy": {
+                    "type": "integer"
+                },
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "updateBy": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.SysPermissionInsertReq": {
+            "type": "object",
+            "properties": {
+                "apiIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "code": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.SysPermissionUpdateReq": {
+            "type": "object",
+            "properties": {
+                "apiIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "code": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
                 }
             }
         },
@@ -3562,18 +4139,6 @@
                     "description": "状态 1禁用 2正常",
                     "type": "string"
                 },
-                "sysDept": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.SysDept"
-                    }
-                },
-                "sysMenu": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.SysMenu"
-                    }
-                },
                 "updateBy": {
                     "type": "integer"
                 }
@@ -3634,13 +4199,13 @@
                 "sysDept": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.SysDept"
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
                     }
                 },
                 "sysMenu": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.SysMenu"
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
                     }
                 },
                 "updateBy": {
@@ -3678,8 +4243,11 @@
                 "remark": {
                     "type": "string"
                 },
-                "roleId": {
-                    "type": "integer"
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "sex": {
                     "type": "string"
@@ -3697,6 +4265,30 @@
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "dto.SysUserRoleReq": {
+            "type": "object",
+            "required": [
+                "roleIds",
+                "userId"
+            ],
+            "properties": {
+                "createBy": {
+                    "type": "integer"
+                },
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "type": "integer"
                 }
             }
         },
@@ -3726,9 +4318,6 @@
                 },
                 "remark": {
                     "type": "string"
-                },
-                "roleId": {
-                    "type": "integer"
                 },
                 "sex": {
                     "type": "string"
@@ -3786,30 +4375,7 @@
                 }
             }
         },
-        "handler.Login": {
-            "type": "object",
-            "required": [
-                "code",
-                "password",
-                "username",
-                "uuid"
-            ],
-            "properties": {
-                "code": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                },
-                "uuid": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.SysApi": {
+        "go-admin_app_admin_models.SysApi": {
             "type": "object",
             "properties": {
                 "action": {
@@ -3822,6 +4388,7 @@
                     "type": "string"
                 },
                 "handle": {
+                    "description": "启用了，需要使用单独的权限报承载",
                     "type": "string"
                 },
                 "id": {
@@ -3844,7 +4411,7 @@
                 }
             }
         },
-        "models.SysConfig": {
+        "go-admin_app_admin_models.SysConfig": {
             "type": "object",
             "properties": {
                 "configKey": {
@@ -3882,13 +4449,13 @@
                 }
             }
         },
-        "models.SysDept": {
+        "go-admin_app_admin_models.SysDept": {
             "type": "object",
             "properties": {
                 "children": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.SysDept"
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
                     }
                 },
                 "createBy": {
@@ -3946,25 +4513,16 @@
                 }
             }
         },
-        "models.SysMenu": {
+        "go-admin_app_admin_models.SysMenu": {
             "type": "object",
             "properties": {
-                "action": {
-                    "type": "string"
-                },
-                "apis": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "breadcrumb": {
+                "activePath": {
                     "type": "string"
                 },
                 "children": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.SysMenu"
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
                     }
                 },
                 "component": {
@@ -3976,16 +4534,31 @@
                 "createdAt": {
                     "type": "string"
                 },
-                "dataScope": {
+                "externalLink": {
                     "type": "string"
+                },
+                "fixedTab": {
+                    "type": "boolean"
                 },
                 "icon": {
                     "type": "string"
                 },
-                "isFrame": {
-                    "type": "string"
+                "isExternal": {
+                    "type": "boolean"
                 },
-                "is_select": {
+                "isFullPage": {
+                    "type": "boolean"
+                },
+                "isHide": {
+                    "type": "boolean"
+                },
+                "isHideTab": {
+                    "type": "boolean"
+                },
+                "isIframe": {
+                    "type": "boolean"
+                },
+                "keepAlive": {
                     "type": "boolean"
                 },
                 "menuId": {
@@ -3994,13 +4567,11 @@
                 "menuName": {
                     "type": "string"
                 },
-                "menuType": {
+                "menuPath": {
                     "type": "string"
                 },
-                "noCache": {
-                    "type": "boolean"
-                },
-                "params": {
+                "menuType": {
+                    "description": "M: Menu/Directory   C: Component/Page  F: Function/Button",
                     "type": "string"
                 },
                 "parentId": {
@@ -4009,23 +4580,26 @@
                 "path": {
                     "type": "string"
                 },
-                "paths": {
+                "perm": {
                     "type": "string"
                 },
                 "permission": {
+                    "$ref": "#/definitions/go-admin_app_admin_models.SysPermission"
+                },
+                "permissionCode": {
                     "type": "string"
                 },
-                "roleId": {
+                "showBadge": {
+                    "type": "boolean"
+                },
+                "sortValue": {
                     "type": "integer"
                 },
-                "sort": {
-                    "type": "integer"
+                "status": {
+                    "type": "string"
                 },
-                "sysApi": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.SysApi"
-                    }
+                "textBadge": {
+                    "type": "string"
                 },
                 "title": {
                     "type": "string"
@@ -4035,8 +4609,75 @@
                 },
                 "updatedAt": {
                     "type": "string"
+                }
+            }
+        },
+        "go-admin_app_admin_models.SysPermission": {
+            "type": "object",
+            "properties": {
+                "apis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysApi"
+                    }
                 },
-                "visible": {
+                "code": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "handler.Login": {
+            "type": "object",
+            "required": [
+                "code",
+                "password",
+                "username",
+                "uuid"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "uuid": {
                     "type": "string"
                 }
             }
@@ -4106,9 +4747,6 @@
                     "type": "integer"
                 },
                 "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
                     "type": "string"
                 },
                 "dictType": {
@@ -4241,9 +4879,6 @@
                     "type": "boolean"
                 },
                 "dataScope": {
-                    "type": "string"
-                },
-                "deletedAt": {
                     "type": "string"
                 },
                 "functionAuthor": {

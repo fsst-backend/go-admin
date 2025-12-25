@@ -34,19 +34,19 @@ func (m *SysRoleGetPageReq) GetNeedSearch() interface{} {
 }
 
 type SysRoleInsertReq struct {
-	RoleId    int              `uri:"id" comment:"角色编码"`        // 角色编码
-	RoleName  string           `form:"roleName" comment:"角色名称"` // 角色名称
-	Status    string           `form:"status" comment:"状态"`     // 状态 1禁用 2正常
-	RoleKey   string           `form:"roleKey" comment:"角色代码"`  // 角色代码
-	RoleSort  int              `form:"roleSort" comment:"角色排序"` // 角色排序
-	Flag      string           `form:"flag" comment:"标记"`       // 标记
-	Remark    string           `form:"remark" comment:"备注"`     // 备注
-	Admin     bool             `form:"admin" comment:"是否管理员"`
-	DataScope string           `form:"dataScope"`
-	SysMenu   []models.SysMenu `form:"sysMenu"`
-	MenuIds   []int            `form:"menuIds"`
-	SysDept   []models.SysDept `form:"sysDept"`
-	DeptIds   []int            `form:"deptIds"`
+	RoleId    int              `json:"roleId" comment:"角色编码"`   // 角色编码
+	RoleName  string           `json:"roleName" comment:"角色名称"` // 角色名称
+	Status    string           `json:"status" comment:"状态"`     // 状态 1禁用 2正常
+	RoleKey   string           `json:"roleKey" comment:"角色代码"`  // 角色代码
+	RoleSort  int              `json:"roleSort" comment:"角色排序"` // 角色排序
+	Flag      string           `json:"flag" comment:"标记"`       // 标记
+	Remark    string           `json:"remark" comment:"备注"`     // 备注
+	Admin     bool             `json:"admin" comment:"是否管理员"`
+	DataScope string           `json:"dataScope"`
+	SysMenu   []models.SysMenu `json:"-"`
+	MenuIds   []int            `json:"menuIds"`
+	SysDept   []models.SysDept `json:"-"`
+	DeptIds   []int            `json:"deptIds"`
 	common.ControlBy
 }
 
@@ -62,8 +62,6 @@ func (s *SysRoleInsertReq) Generate(model *models.SysRole) {
 	model.Remark = s.Remark
 	model.Admin = s.Admin
 	model.DataScope = s.DataScope
-	model.SysMenu = &s.SysMenu
-	model.SysDept = s.SysDept
 }
 
 func (s *SysRoleInsertReq) GetId() interface{} {
@@ -71,19 +69,19 @@ func (s *SysRoleInsertReq) GetId() interface{} {
 }
 
 type SysRoleUpdateReq struct {
-	RoleId    int              `uri:"id" comment:"角色编码"`        // 角色编码
-	RoleName  string           `form:"roleName" comment:"角色名称"` // 角色名称
-	Status    string           `form:"status" comment:"状态"`     // 状态
-	RoleKey   string           `form:"roleKey" comment:"角色代码"`  // 角色代码
-	RoleSort  int              `form:"roleSort" comment:"角色排序"` // 角色排序
-	Flag      string           `form:"flag" comment:"标记"`       // 标记
-	Remark    string           `form:"remark" comment:"备注"`     // 备注
-	Admin     bool             `form:"admin" comment:"是否管理员"`
-	DataScope string           `form:"dataScope"`
-	SysMenu   []models.SysMenu `form:"sysMenu"`
-	MenuIds   []int            `form:"menuIds"`
-	SysDept   []models.SysDept `form:"sysDept"`
-	DeptIds   []int            `form:"deptIds"`
+	RoleId    int              `json:"roleId" comment:"角色编码"`   // 角色编码
+	RoleName  string           `json:"roleName" comment:"角色名称"` // 角色名称
+	Status    string           `json:"status" comment:"状态"`     // 状态
+	RoleKey   string           `json:"roleKey" comment:"角色代码"`  // 角色代码
+	RoleSort  int              `json:"roleSort" comment:"角色排序"` // 角色排序
+	Flag      string           `json:"flag" comment:"标记"`       // 标记
+	Remark    string           `json:"remark" comment:"备注"`     // 备注
+	Admin     bool             `json:"admin" comment:"是否管理员"`
+	DataScope string           `json:"dataScope"`
+	SysMenu   []models.SysMenu `json:"sysMenu"`
+	MenuIds   []int            `json:"menuIds"`
+	SysDept   []models.SysDept `json:"sysDept"`
+	DeptIds   []int            `json:"deptIds"`
 	common.ControlBy
 }
 
@@ -99,8 +97,6 @@ func (s *SysRoleUpdateReq) Generate(model *models.SysRole) {
 	model.Remark = s.Remark
 	model.Admin = s.Admin
 	model.DataScope = s.DataScope
-	model.SysMenu = &s.SysMenu
-	model.SysDept = s.SysDept
 }
 
 func (s *SysRoleUpdateReq) GetId() interface{} {
@@ -108,8 +104,8 @@ func (s *SysRoleUpdateReq) GetId() interface{} {
 }
 
 type UpdateStatusReq struct {
-	RoleId int    `form:"roleId" comment:"角色编码"` // 角色编码
-	Status string `form:"status" comment:"状态"`   // 状态
+	RoleId int    `json:"roleId" comment:"角色编码"` // 角色编码
+	Status string `json:"status" comment:"状态"`   // 状态
 	common.ControlBy
 }
 
@@ -129,7 +125,7 @@ type SysRoleByName struct {
 }
 
 type SysRoleGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysRoleGetReq) GetId() interface{} {
@@ -156,7 +152,6 @@ func (s *RoleDataScopeReq) Generate(model *models.SysRole) {
 		model.RoleId = s.RoleId
 	}
 	model.DataScope = s.DataScope
-	model.DeptIds = s.DeptIds
 }
 
 type DeptIdList struct {

@@ -40,7 +40,7 @@ type SysLoginLogControl struct {
 }
 
 type SysLoginLogGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysLoginLogGetReq) GetId() interface{} {

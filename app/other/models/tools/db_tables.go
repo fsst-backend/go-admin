@@ -2,6 +2,7 @@ package tools
 
 import (
 	"errors"
+
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 
 	"gorm.io/gorm"
@@ -24,7 +25,7 @@ func (e *DBTables) GetPage(tx *gorm.DB, pageSize int, pageIndex int) ([]DBTables
 	table := new(gorm.DB)
 	var count int64
 
-	if config2.DatabaseConfig.Driver == "mysql" {
+	if config2.DatabaseConfig.Driver == "mysql" || config2.DatabaseConfig.Driver == "tidb" {
 		table = tx.Table("information_schema.tables")
 		table = table.Where("TABLE_NAME not in (select table_name from `" + config2.GenConfig.DBName + "`.sys_tables) ")
 		table = table.Where("table_schema= ? ", config2.GenConfig.DBName)
@@ -36,7 +37,7 @@ func (e *DBTables) GetPage(tx *gorm.DB, pageSize int, pageIndex int) ([]DBTables
 			return nil, 0, err
 		}
 	} else {
-		pkg.Assert(true, "目前只支持mysql数据库", 500)
+		pkg.Assert(false, "目前只支持mysql数据库", 500)
 	}
 
 	//table.Count(&count)
@@ -45,18 +46,18 @@ func (e *DBTables) GetPage(tx *gorm.DB, pageSize int, pageIndex int) ([]DBTables
 
 func (e *DBTables) Get(tx *gorm.DB) (DBTables, error) {
 	var doc DBTables
-	if config2.DatabaseConfig.Driver == "mysql" {
-		table := tx.Table("information_schema.tables")
-		table = table.Where("table_schema= ? ", config2.GenConfig.DBName)
+	if config2.DatabaseConfig.Driver == "mysql" || config2.DatabaseConfig.Driver == "tidb" {
 		if e.TableName == "" {
 			return doc, errors.New("table name cannot be empty！")
 		}
+		table := tx.Table("information_schema.tables")
+		table = table.Where("table_schema= ? ", config2.GenConfig.DBName)
 		table = table.Where("TABLE_NAME = ?", e.TableName)
 		if err := table.First(&doc).Error; err != nil {
 			return doc, err
 		}
 	} else {
-		pkg.Assert(true, "目前只支持mysql数据库", 500)
+		pkg.Assert(false, "目前只支持mysql数据库", 500)
 	}
 	return doc, nil
 }

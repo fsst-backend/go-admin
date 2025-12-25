@@ -3,13 +3,23 @@ package router
 import (
 	"os"
 
+	common "go-admin/common/middleware"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk"
-	common "go-admin/common/middleware"
 )
 
-// InitRouter 路由初始化，不要怀疑，这里用到了
+// @title Go Admin API
+// @version 2.2
+// @description 后台管理系统 API 文档
+// @termsOfService https://example.com/terms/
+
+// @contact.name API Support
+// @contact.email support@example.com
+
+// @host localhost:8080
+// @BasePath /lotus/api/v1
 func InitRouter() {
 	var r *gin.Engine
 	h := sdk.Runtime.GetEngine()

@@ -4,6 +4,7 @@ import (
 	"go-admin/app/admin/apis"
 	"mime"
 
+	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/config"
 
 	"github.com/gin-gonic/gin"
@@ -19,7 +20,7 @@ import (
 )
 
 func InitSysRouter(r *gin.Engine, authMiddleware *jwt.GinJWTMiddleware) *gin.RouterGroup {
-	g := r.Group("")
+	g := r.Group("/lotus")
 	sysBaseRouter(g)
 	// 静态文件
 	sysStaticFileRouter(g)
@@ -60,7 +61,9 @@ func sysSwaggerRouter(r *gin.RouterGroup) {
 }
 
 func sysCheckRoleRouterInit(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
-	wss := r.Group("").Use(authMiddleware.MiddlewareFunc())
+
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
+	wss := r.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	{
 		wss.GET("/ws/:id/:channel", ws.WebsocketManager.WsClient)
 		wss.GET("/wslogout/:id/:channel", ws.WebsocketManager.UnWsClient)
@@ -78,7 +81,8 @@ func sysCheckRoleRouterInit(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 func registerBaseRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
 	api := apis.SysMenu{}
 	api2 := apis.SysDept{}
-	v1auth := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
+	v1auth := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		v1auth.GET("/roleMenuTreeselect/:roleId", api.GetMenuTreeSelect)
 		//v1.GET("/menuTreeselect", api.GetMenuTreeSelect)

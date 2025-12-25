@@ -1,12 +1,14 @@
 package apis
 
 import (
-	"github.com/gin-gonic/gin/binding"
 	"go-admin/app/admin/models"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 
+	"github.com/gin-gonic/gin/binding"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/gin-gonic/gin"
+	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
@@ -25,16 +27,23 @@ type SysUser struct {
 // @Summary 列表用户信息数据
 // @Description 获取JSON
 // @Tags 用户
-// @Param username query string false "username"
-// @Success 200 {string} {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-user [get]
+// @Accept application/json
+// @Product application/json
+// @Param username query string false "用户名"
+// @Param nickName query string false "昵称"
+// @Param phone query string false "手机号"
+// @Param status query string false "状态"
+// @Param pageSize query int false "页条数"
+// @Param pageIndex query int false "页码"
+// @Success 200 {string} {object} response.Response "{\"code\": 200, \"data\": [...]}"
+// @Router /lotus/api/v1/sys-user [get]
 // @Security Bearer
 func (e SysUser) GetPage(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserGetPageReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req).
+		Bind(&req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -62,16 +71,15 @@ func (e SysUser) GetPage(c *gin.Context) {
 // @Summary 获取用户
 // @Description 获取JSON
 // @Tags 用户
-// @Param userId path int true "用户编码"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-user/{userId} [get]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/sys-user/get [get]
 // @Security Bearer
 func (e SysUser) Get(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserById{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req, nil).
+		Bind(&req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -98,7 +106,7 @@ func (e SysUser) Get(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.SysUserInsertReq true "用户数据"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-user [post]
+// @Router /lotus/api/v1/sys-user [post]
 // @Security Bearer
 func (e SysUser) Insert(c *gin.Context) {
 	s := service.SysUser{}
@@ -115,6 +123,13 @@ func (e SysUser) Insert(c *gin.Context) {
 	}
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
+
+	var hash []byte
+	// 密码加密
+	if hash, err = bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
+		req.Password = string(hash)
+	}
+
 	err = s.Insert(&req)
 	if err != nil {
 		e.Logger.Error(err)
@@ -133,14 +148,14 @@ func (e SysUser) Insert(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.SysUserUpdateReq true "body"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-user/{userId} [put]
+// @Router /lotus/api/v1/sys-user [put]
 // @Security Bearer
 func (e SysUser) Update(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.SysUserUpdateReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req).
+		Bind(&req, binding.JSON).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -166,9 +181,8 @@ func (e SysUser) Update(c *gin.Context) {
 // @Summary 删除用户数据
 // @Description 删除数据
 // @Tags 用户
-// @Param userId path int true "userId"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-user/{userId} [delete]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/sys-user [delete]
 // @Security Bearer
 func (e SysUser) Delete(c *gin.Context) {
 	s := service.SysUser{}
@@ -190,7 +204,10 @@ func (e SysUser) Delete(c *gin.Context) {
 	// 数据权限检查
 	p := actions.GetPermissionFromContext(c)
 
-	err = s.Remove(&req, p)
+	// 获取Casbin enforcer
+	cb := sdk.Runtime.GetCasbinKey(c.Request.Host)
+
+	err = s.Remove(&req, p, cb)
 	if err != nil {
 		e.Logger.Error(err)
 		return
@@ -205,7 +222,7 @@ func (e SysUser) Delete(c *gin.Context) {
 // @Accept multipart/form-data
 // @Param file formData file true "file"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/user/avatar [post]
+// @Router /lotus/api/v1/user/avatar [post]
 // @Security Bearer
 func (e SysUser) InsetAvatar(c *gin.Context) {
 	s := service.SysUser{}
@@ -254,7 +271,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.UpdateSysUserStatusReq true "body"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/user/status [put]
+// @Router /lotus/api/v1/user/status [put]
 // @Security Bearer
 func (e SysUser) UpdateStatus(c *gin.Context) {
 	s := service.SysUser{}
@@ -291,7 +308,7 @@ func (e SysUser) UpdateStatus(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.ResetSysUserPwdReq true "body"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/user/pwd/reset [put]
+// @Router /lotus/api/v1/user/pwd/reset [put]
 // @Security Bearer
 func (e SysUser) ResetPwd(c *gin.Context) {
 	s := service.SysUser{}
@@ -311,6 +328,10 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 
 	//数据权限检查
 	p := actions.GetPermissionFromContext(c)
+	var hash []byte
+	if hash, err = bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
+		req.Password = string(hash)
+	}
 
 	err = s.ResetPwd(&req, p)
 	if err != nil {
@@ -328,14 +349,14 @@ func (e SysUser) ResetPwd(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.PassWord true "body"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/user/pwd/set [put]
+// @Router /lotus/api/v1/user/pwd/set [put]
 // @Security Bearer
 func (e SysUser) UpdatePwd(c *gin.Context) {
 	s := service.SysUser{}
 	req := dto.PassWord{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req).
+		Bind(&req, binding.JSON).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -366,7 +387,7 @@ func (e SysUser) UpdatePwd(c *gin.Context) {
 // @Description 获取JSON
 // @Tags 个人中心
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/user/profile [get]
+// @Router /lotus/api/v1/user/profile [get]
 // @Security Bearer
 func (e SysUser) GetProfile(c *gin.Context) {
 	s := service.SysUser{}
@@ -404,7 +425,7 @@ func (e SysUser) GetProfile(c *gin.Context) {
 // @Description 获取JSON
 // @Tags 个人中心
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/getinfo [get]
+// @Router /lotus/api/v1/getinfo [get]
 // @Security Bearer
 func (e SysUser) GetInfo(c *gin.Context) {
 	req := dto.SysUserById{}
@@ -434,7 +455,7 @@ func (e SysUser) GetInfo(c *gin.Context) {
 		mp["permissions"] = permissions
 		mp["buttons"] = buttons
 	} else {
-		list, _ := r.GetById(user.GetRoleId(c))
+		list, _ := r.GetPremissonByRoleId(user.GetRoleId(c), c.Request.Host)
 		mp["permissions"] = list
 		mp["buttons"] = list
 	}
@@ -452,8 +473,48 @@ func (e SysUser) GetInfo(c *gin.Context) {
 	}
 	mp["userName"] = sysUser.Username
 	mp["userId"] = sysUser.UserId
+	mp["uuid"] = sysUser.UUID
 	mp["deptId"] = sysUser.DeptId
 	mp["name"] = sysUser.NickName
 	mp["code"] = 200
 	e.OK(mp, "")
+}
+
+// SetUserRole
+// @Summary 设置用户角色
+// @Description 为用户分配角色
+// @Tags 用户
+// @Accept application/json
+// @Product application/json
+// @Param data body dto.SysUserRoleReq true "用户角色授权请求"
+// @Success 200 {object} response.Response "{\"code\": 200, \"data\": [...]}"
+// @Router /lotus/api/v1/sys-user/role [put]
+// @Security Bearer
+func (e SysUser) SetUserRole(c *gin.Context) {
+	s := service.SysUser{}
+	req := dto.SysUserRoleReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req, binding.JSON).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
+	// 设置操作人
+	req.SetUpdateBy(user.GetUserId(c))
+
+	// 获取Casbin enforcer
+	cb := sdk.Runtime.GetCasbinKey(c.Request.Host)
+
+	err = s.SetUserRole(&req, cb)
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, "设置用户角色失败")
+		return
+	}
+	e.OK(req.UserId, "设置用户角色成功")
 }

@@ -24,7 +24,7 @@ func _1653638869132Test(db *gorm.DB, version string) error {
 		}
 		for _, v := range list {
 			if v.ParentId == 0 {
-				v.Paths = "/0/" + strconv.Itoa(v.MenuId)
+				v.MenuPath = "/0/" + strconv.Itoa(v.MenuId)
 			} else {
 				var e models.SysMenu
 				err = tx.Model(&models.SysMenu{}).Where("menu_id=?", v.ParentId).First(&e).Error
@@ -34,9 +34,9 @@ func _1653638869132Test(db *gorm.DB, version string) error {
 					}
 					return err
 				}
-				v.Paths = e.Paths + "/" + strconv.Itoa(v.MenuId)
+				v.MenuPath = e.MenuPath + "/" + strconv.Itoa(v.MenuId)
 			}
-			err = tx.Model(&v).Update("paths", v.Paths).Error
+			err = tx.Model(&v).Update("menu_path", v.MenuPath).Error
 			if err != nil {
 				return err
 			}

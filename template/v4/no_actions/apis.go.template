@@ -32,7 +32,7 @@ type {{.ClassName}} struct {
 // @Param pageSize query int false "页条数"
 // @Param pageIndex query int false "页码"
 // @Success 200 {object} response.Response{data=response.Page{list=[]models.{{.ClassName}}}} "{"code": 200, "data": [...]}"
-// @Router /api/v1/{{.ModuleName}} [get]
+// @Router /lotus/api/v1/{{.ModuleName}} [get]
 // @Security Bearer
 func (e {{.ClassName}}) GetPage(c *gin.Context) {
     req := dto.{{.ClassName}}GetPageReq{}
@@ -67,7 +67,7 @@ func (e {{.ClassName}}) GetPage(c *gin.Context) {
 // @Tags {{.TableComment}}
 // @Param id path int false "id"
 // @Success 200 {object} response.Response{data=models.{{.ClassName}}} "{"code": 200, "data": [...]}"
-// @Router /api/v1/{{.ModuleName}}/{id} [get]
+// @Router /lotus/api/v1/{{.ModuleName}}/{id} [get]
 // @Security Bearer
 func (e {{.ClassName}}) Get(c *gin.Context) {
 	req := dto.{{.ClassName}}GetReq{}
@@ -102,7 +102,7 @@ func (e {{.ClassName}}) Get(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.{{.ClassName}}InsertReq true "data"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "添加成功"}"
-// @Router /api/v1/{{.ModuleName}} [post]
+// @Router /lotus/api/v1/{{.ModuleName}} [post]
 // @Security Bearer
 func (e {{.ClassName}}) Insert(c *gin.Context) {
     req := dto.{{.ClassName}}InsertReq{}
@@ -138,7 +138,7 @@ func (e {{.ClassName}}) Insert(c *gin.Context) {
 // @Param id path int true "id"
 // @Param data body dto.{{.ClassName}}UpdateReq true "body"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "修改成功"}"
-// @Router /api/v1/{{.ModuleName}}/{id} [put]
+// @Router /lotus/api/v1/{{.ModuleName}}/{id} [put]
 // @Security Bearer
 func (e {{.ClassName}}) Update(c *gin.Context) {
     req := dto.{{.ClassName}}UpdateReq{}
@@ -170,7 +170,7 @@ func (e {{.ClassName}}) Update(c *gin.Context) {
 // @Tags {{.TableComment}}
 // @Param data body dto.{{.ClassName}}DeleteReq true "body"
 // @Success 200 {object} response.Response	"{"code": 200, "message": "删除成功"}"
-// @Router /api/v1/{{.ModuleName}} [delete]
+// @Router /lotus/api/v1/{{.ModuleName}} [delete]
 // @Security Bearer
 func (e {{.ClassName}}) Delete(c *gin.Context) {
     s := service.{{.ClassName}}{}

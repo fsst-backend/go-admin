@@ -63,6 +63,10 @@ func (e *SysDept) Insert(c *dto.SysDeptInsertReq) error {
 	c.Generate(&data)
 	tx := e.Orm.Debug().Begin()
 	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r) // 重新抛出panic
+		}
 		if err != nil {
 			tx.Rollback()
 		} else {
@@ -97,6 +101,10 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq) error {
 	var model = models.SysDept{}
 	tx := e.Orm.Debug().Begin()
 	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r) // 重新抛出panic
+		}
 		if err != nil {
 			tx.Rollback()
 		} else {

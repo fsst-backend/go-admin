@@ -7,7 +7,6 @@ import (
 	"go-admin/app/admin/service/dto"
 	"go-admin/common"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
@@ -22,7 +21,7 @@ import (
 )
 
 // LoggerToFile 日志记录到文件
-func LoggerToFile() gin.HandlerFunc {
+func SaveOperaLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		log := api.GetRequestLogger(c)
 		// 开始时间
@@ -38,15 +37,15 @@ func LoggerToFile() gin.HandlerFunc {
 				log.Warnf("copy body error, %s", err.Error())
 				err = nil
 			}
-			rb, _ := ioutil.ReadAll(bf)
-			c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(rb))
+			rb, _ := io.ReadAll(bf)
+			c.Request.Body = io.NopCloser(bytes.NewBuffer(rb))
 			body = string(rb)
 		}
 
 		c.Next()
 		url := c.Request.RequestURI
-		if strings.Index(url, "logout") > -1 ||
-			strings.Index(url, "login") > -1 {
+		if strings.Contains(url, "logout") ||
+			strings.Contains(url, "login") {
 			return
 		}
 		// 结束时间

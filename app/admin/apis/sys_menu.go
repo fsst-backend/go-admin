@@ -1,11 +1,12 @@
 package apis
 
 import (
+	"go-admin/app/admin/models"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
-	"go-admin/app/admin/models"
 
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
@@ -21,7 +22,7 @@ type SysMenu struct {
 // @Tags 菜单
 // @Param menuName query string false "menuName"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menu [get]
+// @Router /lotus/api/v1/menu [get]
 // @Security Bearer
 func (e SysMenu) GetPage(c *gin.Context) {
 	s := service.SysMenu{}
@@ -49,16 +50,15 @@ func (e SysMenu) GetPage(c *gin.Context) {
 // @Summary Menu详情数据
 // @Description 获取JSON
 // @Tags 菜单
-// @Param id path string false "id"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menu/{id} [get]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/menu/get [get]
 // @Security Bearer
 func (e SysMenu) Get(c *gin.Context) {
 	req := dto.SysMenuGetReq{}
 	s := new(service.SysMenu)
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req, nil).
+		Bind(&req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -84,7 +84,7 @@ func (e SysMenu) Get(c *gin.Context) {
 // @Product application/json
 // @Param data body dto.SysMenuInsertReq true "data"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menu [post]
+// @Router /lotus/api/v1/menu [post]
 // @Security Bearer
 func (e SysMenu) Insert(c *gin.Context) {
 	req := dto.SysMenuInsertReq{}
@@ -113,12 +113,11 @@ func (e SysMenu) Insert(c *gin.Context) {
 // @Summary 修改菜单
 // @Description 获取JSON
 // @Tags 菜单
-// @Accept  application/json
+// @Accept application/json
 // @Product application/json
-// @Param id path int true "id"
 // @Param data body dto.SysMenuUpdateReq true "body"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menu/{id} [put]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/menu [put]
 // @Security Bearer
 func (e SysMenu) Update(c *gin.Context) {
 	req := dto.SysMenuUpdateReq{}
@@ -149,7 +148,7 @@ func (e SysMenu) Update(c *gin.Context) {
 // @Tags 菜单
 // @Param data body dto.SysMenuDeleteReq true "body"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menu [delete]
+// @Router /lotus/api/v1/menu [delete]
 // @Security Bearer
 func (e SysMenu) Delete(c *gin.Context) {
 	control := new(dto.SysMenuDeleteReq)
@@ -178,7 +177,7 @@ func (e SysMenu) Delete(c *gin.Context) {
 // @Description 获取JSON
 // @Tags 菜单
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menurole [get]
+// @Router /lotus/api/v1/menurole [get]
 // @Security Bearer
 func (e SysMenu) GetMenuRole(c *gin.Context) {
 	s := new(service.SysMenu)
@@ -192,7 +191,7 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 		return
 	}
 
-	result, err := s.SetMenuRole(user.GetRoleName(c))
+	result, err := s.SetMenuRole(user.GetUserId(c))
 
 	if err != nil {
 		e.Error(500, err, "查询失败")
@@ -208,9 +207,9 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 // @Tags 菜单
 // @Accept  application/json
 // @Product application/json
-// @Param roleId path int true "roleId"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/menuTreeselect/{roleId} [get]
+// @Param roleId query int false "角色ID"
+// @Success 200 {object} response.Response "{\"code\": 200, \"data\": [...]}
+// @Router /lotus/api/v1/menuTreeselect [get]
 // @Security Bearer
 func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 	m := service.SysMenu{}
@@ -220,7 +219,7 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		MakeOrm().
 		MakeService(&m.Service).
 		MakeService(&r.Service).
-		Bind(&req, nil).
+		Bind(&req, binding.Form).
 		Errors
 	if err != nil {
 		e.Logger.Error(err)
@@ -228,22 +227,28 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		return
 	}
 
+	// 1. 获取所有菜单树形结构
 	result, err := m.SetLabel()
 	if err != nil {
-		e.Error(500, err, "查询失败")
+		e.Logger.Errorf("查询菜单树失败: %s", err)
+		e.Error(500, err, "查询菜单失败")
 		return
 	}
 
+	// 2. 如果指定了角色ID，获取该角色已关联的菜单ID列表
 	menuIds := make([]int, 0)
 	if req.RoleId != 0 {
 		menuIds, err = r.GetRoleMenuId(req.RoleId)
 		if err != nil {
-			e.Error(500, err, "")
+			e.Logger.Errorf("获取角色菜单关系失败: roleId=%d, error=%s", req.RoleId, err)
+			e.Error(500, err, "获取角色菜单关系失败")
 			return
 		}
 	}
+
+	// 3. 返回结果
 	e.OK(gin.H{
-		"menus":       result,
-		"checkedKeys": menuIds,
+		"menus":       result,       // 所有菜单树形结构
+		"checkedKeys": menuIds,      // 当前角色已勾选的菜单ID列表
 	}, "获取成功")
 }

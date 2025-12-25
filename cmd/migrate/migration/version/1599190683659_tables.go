@@ -1,8 +1,9 @@
 package version
 
 import (
-	"github.com/go-admin-team/go-admin-core/sdk/config"
 	"runtime"
+
+	"github.com/go-admin-team/go-admin-core/sdk/config"
 
 	"go-admin/cmd/migrate/migration"
 	"go-admin/cmd/migrate/migration/models"
@@ -18,18 +19,22 @@ func init() {
 
 func _1599190683659Tables(db *gorm.DB, version string) error {
 	return db.Transaction(func(tx *gorm.DB) error {
-		if config.DatabaseConfig.Driver == "mysql" {
+		if config.DatabaseConfig.Driver == "mysql" || config.DatabaseConfig.Driver == "tidb" {
 			tx = tx.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 		}
 		err := tx.Migrator().AutoMigrate(
 			new(models.SysDept),
+			new(models.SysRoleDept),
 			new(models.SysConfig),
 			new(models.SysTables),
 			new(models.SysColumns),
 			new(models.SysMenu),
+			new(models.SysRoleMenu),
 			new(models.SysLoginLog),
 			new(models.SysOperaLog),
 			new(models.SysRoleDept),
+			new(models.SysUserRole),
+			new(models.SysRolePermission),
 			new(models.SysUser),
 			new(models.SysRole),
 			new(models.SysPost),
@@ -38,6 +43,8 @@ func _1599190683659Tables(db *gorm.DB, version string) error {
 			new(models.SysJob),
 			new(models.SysConfig),
 			new(models.SysApi),
+			new(models.SysPermission),
+			new(models.SysPermissionApi),
 			new(models.TbDemo),
 		)
 		if err != nil {

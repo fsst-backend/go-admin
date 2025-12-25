@@ -5,11 +5,14 @@ import (
 
 	"go-admin/common/dto"
 	common "go-admin/common/models"
+
+	"github.com/google/uuid"
 )
 
 type SysUserGetPageReq struct {
 	dto.Pagination `search:"-"`
 	UserId         int    `form:"userId" search:"type:exact;column:user_id;table:sys_user" comment:"用户ID"`
+	Uuid           string `form:"uuid" search:"type:exact;column:uuid;table:sys_user" comment:"用户UUID"`
 	Username       string `form:"username" search:"type:contains;column:username;table:sys_user" comment:"用户名"`
 	NickName       string `form:"nickName" search:"type:contains;column:nick_name;table:sys_user" comment:"昵称"`
 	Phone          string `form:"phone" search:"type:contains;column:phone;table:sys_user" comment:"手机号"`
@@ -94,7 +97,7 @@ type SysUserInsertReq struct {
 	Password string `json:"password" comment:"密码"`
 	NickName string `json:"nickName" comment:"昵称" vd:"len($)>0"`
 	Phone    string `json:"phone" comment:"手机号" vd:"len($)>0"`
-	RoleId   int    `json:"roleId" comment:"角色ID"`
+	RoleIds  []int  `json:"roleIds" comment:"角色ID列表"`
 	Avatar   string `json:"avatar" comment:"头像"`
 	Sex      string `json:"sex" comment:"性别"`
 	Email    string `json:"email" comment:"邮箱" vd:"len($)>0,email"`
@@ -110,10 +113,11 @@ func (s *SysUserInsertReq) Generate(model *models.SysUser) {
 		model.UserId = s.UserId
 	}
 	model.Username = s.Username
+	model.UUID = uuid.New().String()
 	model.Password = s.Password
 	model.NickName = s.NickName
 	model.Phone = s.Phone
-	model.RoleId = s.RoleId
+	model.RoleIds = s.RoleIds
 	model.Avatar = s.Avatar
 	model.Sex = s.Sex
 	model.Email = s.Email
@@ -133,7 +137,6 @@ type SysUserUpdateReq struct {
 	Username string `json:"username" comment:"用户名" vd:"len($)>0"`
 	NickName string `json:"nickName" comment:"昵称" vd:"len($)>0"`
 	Phone    string `json:"phone" comment:"手机号" vd:"len($)>0"`
-	RoleId   int    `json:"roleId" comment:"角色ID"`
 	Avatar   string `json:"avatar" comment:"头像"`
 	Sex      string `json:"sex" comment:"性别"`
 	Email    string `json:"email" comment:"邮箱" vd:"len($)>0,email"`
@@ -151,7 +154,6 @@ func (s *SysUserUpdateReq) Generate(model *models.SysUser) {
 	model.Username = s.Username
 	model.NickName = s.NickName
 	model.Phone = s.Phone
-	model.RoleId = s.RoleId
 	model.Avatar = s.Avatar
 	model.Sex = s.Sex
 	model.Email = s.Email
@@ -186,4 +188,15 @@ func (s *SysUserById) GenerateM() (common.ActiveRecord, error) {
 type PassWord struct {
 	NewPassword string `json:"newPassword" vd:"len($)>0"`
 	OldPassword string `json:"oldPassword" vd:"len($)>0"`
+}
+
+// SysUserRoleReq 用户角色授权请求
+type SysUserRoleReq struct {
+	UserId  int   `json:"userId" comment:"用户ID" vd:"$>0" binding:"required"`
+	RoleIds []int `json:"roleIds" comment:"角色ID列表" binding:"required"`
+	common.ControlBy
+}
+
+func (s *SysUserRoleReq) GetId() interface{} {
+	return s.UserId
 }

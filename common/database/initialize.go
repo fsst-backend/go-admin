@@ -7,7 +7,7 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk"
 	toolsConfig "github.com/go-admin-team/go-admin-core/sdk/config"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
-	mycasbin "github.com/go-admin-team/go-admin-core/sdk/pkg/casbin"
+
 	toolsDB "github.com/go-admin-team/go-admin-core/tools/database"
 	. "github.com/go-admin-team/go-admin-core/tools/gorm/logger"
 	"gorm.io/gorm"
@@ -15,6 +15,7 @@ import (
 	"gorm.io/gorm/schema"
 
 	"go-admin/common/global"
+	"go-admin/common/mycasbin"
 )
 
 // Setup 配置数据库

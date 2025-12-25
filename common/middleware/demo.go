@@ -1,9 +1,10 @@
 package middleware
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/config"
-	"net/http"
 )
 
 func DemoEvn() gin.HandlerFunc {
@@ -12,8 +13,8 @@ func DemoEvn() gin.HandlerFunc {
 		if config.ApplicationConfig.Mode == "demo" {
 			if method == "GET" ||
 				method == "OPTIONS" ||
-				c.Request.RequestURI == "/api/v1/login" ||
-				c.Request.RequestURI == "/api/v1/logout" {
+				c.Request.RequestURI == "/lotus/api/v1/login" ||
+				c.Request.RequestURI == "/lotus/api/v1/logout" {
 				c.Next()
 			} else {
 				c.JSON(http.StatusOK, gin.H{

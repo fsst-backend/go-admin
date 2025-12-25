@@ -2,15 +2,19 @@ package apis
 
 import (
 	"fmt"
-	"github.com/shirou/gopsutil/v3/net"
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
+
+	"github.com/shirou/gopsutil/v3/net"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
+	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
+	"go-admin/app/other/service/dto"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
@@ -43,6 +47,12 @@ func GetHourDiffer(startTime, endTime string) int64 {
 }
 
 // ServerInfo 获取系统信息
+// @Summary 获取系统信息
+// @Description 获取系统信息
+// @Tags 系统监控
+// @Success 200 {object} response.Response{data=dto.GetServerMonitorInfoResp} "{"code": 200, "data": [...]}"
+// @Router /lotus/api/v1/server/monitor [get]
+// @Security Bearer
 func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	e.Context = c
 
@@ -56,64 +66,66 @@ func (e ServerMonitor) ServerInfo(c *gin.Context) {
 	bootTime, _ := host.BootTime()
 	cachedBootTime := time.Unix(int64(bootTime), 0)
 
-	e.Custom(gin.H{
-		"code":     200,
-		"os":       osInfo,
-		"mem":      memInfo,
-		"cpu":      cpuInfo,
-		"disk":     diskInfo,
-		"net":      netInfo,
-		"swap":     swapInfo,
-		"location": "Aliyun",
-		"bootTime": GetHourDiffer(cachedBootTime.Format("2006-01-02 15:04:05"), time.Now().Format("2006-01-02 15:04:05")),
-	})
+	serverInfo := dto.ServerMonitorInfo{
+		Code:     200,
+		Os:       osInfo,
+		Mem:      memInfo,
+		Cpu:      cpuInfo,
+		Disk:     diskInfo,
+		Net:      netInfo,
+		Swap:     swapInfo,
+		Location: "Aliyun",
+		BootTime: GetHourDiffer(cachedBootTime.Format("2006-01-02 15:04:05"), time.Now().Format("2006-01-02 15:04:05")),
+	}
+
+	e.OK(serverInfo, "获取成功")
 }
 
-func getOSInfo() map[string]interface{} {
+func getOSInfo() dto.OSInfo {
 	sysInfo, _ := host.Info()
-	return map[string]interface{}{
-		"goOs":         runtime.GOOS,
-		"arch":         runtime.GOARCH,
-		"mem":          runtime.MemProfileRate,
-		"compiler":     runtime.Compiler,
-		"version":      runtime.Version(),
-		"numGoroutine": runtime.NumGoroutine(),
-		"ip":           pkg.GetLocalHost(),
-		"projectDir":   pkg.GetCurrentPath(),
-		"hostName":     sysInfo.Hostname,
-		"time":         time.Now().Format("2006-01-02 15:04:05"),
+	return dto.OSInfo{
+		GoOs:         runtime.GOOS,
+		Arch:         runtime.GOARCH,
+		Mem:          runtime.MemProfileRate,
+		Compiler:     runtime.Compiler,
+		Version:      runtime.Version(),
+		NumGoroutine: runtime.NumGoroutine(),
+		Ip:           pkg.GetLocalHost(),
+		ProjectDir:   pkg.GetCurrentPath(),
+		HostName:     sysInfo.Hostname,
+		Time:         time.Now().Format("2006-01-02 15:04:05"),
 	}
 }
 
-func getMemoryInfo() map[string]interface{} {
+func getMemoryInfo() dto.MemoryInfo {
 	memory, _ := mem.VirtualMemory()
-	return map[string]interface{}{
-		"used":    memory.Used / MB,
-		"total":   memory.Total / MB,
-		"percent": pkg.Round(memory.UsedPercent, 2),
+	return dto.MemoryInfo{
+		Used:    memory.Used / MB,
+		Total:   memory.Total / MB,
+		Percent: pkg.Round(memory.UsedPercent, 2),
 	}
 }
 
-func getSwapInfo() map[string]interface{} {
+func getSwapInfo() dto.SwapInfo {
 	memory, _ := mem.VirtualMemory()
-	return map[string]interface{}{
-		"used":  memory.SwapTotal - memory.SwapFree,
-		"total": memory.SwapTotal,
+	return dto.SwapInfo{
+		Used:  memory.SwapTotal - memory.SwapFree,
+		Total: memory.SwapTotal,
 	}
 }
 
-func getCPUInfo() map[string]interface{} {
+func getCPUInfo() dto.CPUInfo {
 	cpuInfo, _ := cpu.Info()
 	percent, _ := cpu.Percent(0, false)
 	cpuNum, _ := cpu.Counts(false)
-	return map[string]interface{}{
-		"cpuInfo": cpuInfo,
-		"percent": pkg.Round(percent[0], 2),
-		"cpuNum":  cpuNum,
+	return dto.CPUInfo{
+		CpuInfo: cpuInfo,
+		Percent: pkg.Round(percent[0], 2),
+		CpuNum:  cpuNum,
 	}
 }
 
-func getDiskInfo() map[string]interface{} {
+func getDiskInfo() dto.DiskInfo {
 	var diskTotal, diskUsed, diskUsedPercent float64
 	diskList := make([]disk.UsageStat, 0)
 
@@ -136,41 +148,62 @@ func getDiskInfo() map[string]interface{} {
 	diskUsed = float64(d.Used / GB)
 	diskUsedPercent, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", d.UsedPercent), 64)
 
-	return map[string]interface{}{
-		"total":   diskTotal,
-		"used":    diskUsed,
-		"percent": diskUsedPercent,
+	return dto.DiskInfo{
+		Total:   diskTotal,
+		Used:    diskUsed,
+		Percent: diskUsedPercent,
 	}
 }
 
-func getNetworkInfo() map[string]interface{} {
-	netInSpeed, netOutSpeed := trackNetworkSpeed()
-	return map[string]interface{}{
-		"in":  pkg.Round(float64(netInSpeed/KB), 2),
-		"out": pkg.Round(float64(netOutSpeed/KB), 2),
+func getNetworkInfo() dto.NetworkInfo {
+	netInSpeed, netOutSpeed := trackNetworkSpeed()()
+	return dto.NetworkInfo{
+		In:  pkg.Round(float64(netInSpeed)/KB, 2),
+		Out: pkg.Round(float64(netOutSpeed)/KB, 2),
 	}
 }
 
-func trackNetworkSpeed() (uint64, uint64) {
-	var netInSpeed, netOutSpeed, netInTransfer, netOutTransfer, lastUpdateNetStats uint64
-	nc, err := net.IOCounters(true)
-	if err == nil {
+func trackNetworkSpeed() func() (uint64, uint64) {
+	var lastIn uint64
+	var lastOut uint64
+	var lastTime uint64
+	var mu sync.Mutex
+
+	// 闭包，捕获外部变量
+	return func() (uint64, uint64) {
+		var in, out uint64
+		mu.Lock()
+		defer mu.Unlock()
+
+		nc, err := net.IOCounters(true)
+		if err != nil {
+			return 0, 0
+		}
+
 		for _, v := range nc {
 			if isListContainsStr(excludeNetInterfaces, v.Name) {
 				continue
 			}
-			netInTransfer += v.BytesRecv
-			netOutTransfer += v.BytesSent
+			in += v.BytesRecv
+			out += v.BytesSent
 		}
+
 		now := uint64(time.Now().Unix())
-		diff := now - lastUpdateNetStats
-		if diff > 0 {
-			netInSpeed = (netInTransfer - netInTransfer) / diff
-			netOutSpeed = (netOutTransfer - netOutTransfer) / diff
+		diff := now - lastTime
+
+		var inSpeed, outSpeed uint64
+		if lastTime != 0 && diff > 0 {
+			inSpeed = (in - lastIn) / diff
+			outSpeed = (out - lastOut) / diff
 		}
-		lastUpdateNetStats = now
+
+		// 更新闭包中的状态
+		lastIn = in
+		lastOut = out
+		lastTime = now
+
+		return inSpeed, outSpeed
 	}
-	return netInSpeed, netOutSpeed
 }
 
 func isListContainsStr(list []string, str string) bool {

@@ -1,18 +1,29 @@
-FROM alpine
+FROM docker.fastdocker.com:5000/violet-base:3.20.3
 
-# ENV GOPROXY https://goproxy.cn/
+# 替换 apk 源、安装包并设置 UTC 时区
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+    && apk add --no-cache \
+        ca-certificates \
+        tzdata \
+        gcc \
+        g++ \
+        libc6-compat \
+    && ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
+    && echo "UTC" > /etc/timezone
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
-RUN apk update --no-cache
-RUN apk add --update gcc g++ libc6-compat
-RUN apk add --no-cache ca-certificates
-RUN apk add --no-cache tzdata
-ENV TZ Asia/Shanghai
+ENV TZ=UTC
 
-COPY ./main /main
-COPY ./config/settings.demo.yml /config/settings.yml
-COPY ./go-admin-db.db /go-admin-db.db
-EXPOSE 8000
-RUN  chmod +x /main
-CMD ["/main","server","-c", "/config/settings.yml"]
+WORKDIR /app
+
+# 复制程序和配置
+COPY build/linux/go-admin ./go-admin
+COPY config/db.sql ./db.sql
+COPY config/db-begin-mysql.sql ./db-begin-mysql.sql
+COPY config/db-end-mysql.sql ./db-end-mysql.sql
+COPY docs ./docs
+COPY config/settings.template.yaml ./settings.yaml
+
+EXPOSE 13348
+RUN  chmod +x /app/go-admin
+CMD ["/app/go-admin","server","-c", "/app/settings.yaml"]

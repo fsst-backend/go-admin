@@ -83,7 +83,7 @@ func (e Gen) Preview(c *gin.Context) {
 		return
 	}
 
-	tab, _ := table.Get(db,false)
+	tab, _ := table.Get(db, false)
 	var b1 bytes.Buffer
 	err = t1.Execute(&b1, tab)
 	var b2 bytes.Buffer
@@ -129,7 +129,7 @@ func (e Gen) GenCode(c *gin.Context) {
 	}
 
 	table.TableId = id
-	tab, _ := table.Get(db,false)
+	tab, _ := table.Get(db, false)
 
 	e.NOActionsGen(c, tab)
 
@@ -155,7 +155,7 @@ func (e Gen) GenApiToFile(c *gin.Context) {
 	}
 
 	table.TableId = id
-	tab, _ := table.Get(db,false)
+	tab, _ := table.Get(db, false)
 	e.genApiToFile(c, tab)
 
 	e.OK("", "Code generated successfully！")
@@ -302,108 +302,156 @@ func (e Gen) GenMenuAndApi(c *gin.Context) {
 	}
 
 	table.TableId = id
-	tab, _ := table.Get(e.Orm,true)
+	tab, _ := table.Get(e.Orm, true)
 	tab.MLTBName = strings.Replace(tab.TBName, "_", "-", -1)
 
 	Mmenu := dto.SysMenuInsertReq{}
-	Mmenu.Title = tab.TableComment
-	Mmenu.Icon = "pass"
-	Mmenu.Path = "/" + tab.MLTBName
+	Mmenu.MenuName = ""
 	Mmenu.MenuType = "M"
-	Mmenu.Action = "无"
-	Mmenu.ParentId = 0
-	Mmenu.NoCache = false
+	Mmenu.MenuPath = "/" + tab.MLTBName
+	Mmenu.Path = "/" + tab.MLTBName
+	Mmenu.Perm = ""
 	Mmenu.Component = "Layout"
-	Mmenu.Sort = 0
-	Mmenu.Visible = "0"
-	Mmenu.IsFrame = "0"
-	Mmenu.CreateBy = 1
+	Mmenu.Icon = "pass"
+	Mmenu.SortValue = 0
+	Mmenu.IsExternal = false
+	Mmenu.ExternalLink = ""
+	Mmenu.TextBadge = ""
+	Mmenu.ActivePath = ""
+	Mmenu.Status = "0"
+	Mmenu.KeepAlive = true
+	Mmenu.IsHide = false
+	Mmenu.IsIframe = false
+	Mmenu.ShowBadge = true
+	Mmenu.FixedTab = false
+	Mmenu.IsHideTab = false
+	Mmenu.IsFullPage = false
+	Mmenu.ParentId = 0
 	s.Insert(&Mmenu)
 
 	Cmenu := dto.SysMenuInsertReq{}
 	Cmenu.MenuName = tab.ClassName + "Manage"
 	Cmenu.Title = tab.TableComment
-	Cmenu.Icon = "pass"
-	Cmenu.Path = "/" + tab.PackageName + "/" + tab.MLTBName
 	Cmenu.MenuType = "C"
-	Cmenu.Action = "无"
-	Cmenu.Permission = tab.PackageName + ":" + tab.BusinessName + ":list"
-	Cmenu.ParentId = Mmenu.MenuId
-	Cmenu.NoCache = false
+	Cmenu.MenuPath = "/" + tab.PackageName + "/" + tab.MLTBName
+	Cmenu.Path = "/" + tab.PackageName + "/" + tab.MLTBName
+	Cmenu.Perm = tab.PackageName + ":" + tab.BusinessName + ":list"
 	Cmenu.Component = "/" + tab.PackageName + "/" + tab.MLTBName + "/index"
-	Cmenu.Sort = 0
-	Cmenu.Visible = "0"
-	Cmenu.IsFrame = "0"
-	Cmenu.CreateBy = 1
-	Cmenu.UpdateBy = 1
+	Cmenu.Icon = "pass"
+	Cmenu.SortValue = 0
+	Cmenu.IsExternal = false
+	Cmenu.ExternalLink = ""
+	Cmenu.TextBadge = ""
+	Cmenu.ActivePath = ""
+	Cmenu.Status = "0"
+	Cmenu.KeepAlive = true
+	Cmenu.IsHide = false
+	Cmenu.IsIframe = false
+	Cmenu.ShowBadge = true
+	Cmenu.FixedTab = false
+	Cmenu.IsHideTab = false
+	Cmenu.IsFullPage = false
+	Cmenu.ParentId = Mmenu.MenuId
 	s.Insert(&Cmenu)
 
 	MList := dto.SysMenuInsertReq{}
 	MList.MenuName = ""
 	MList.Title = "分页获取" + tab.TableComment
-	MList.Icon = ""
-	MList.Path = tab.TBName
 	MList.MenuType = "F"
-	MList.Action = "无"
-	MList.Permission = tab.PackageName + ":" + tab.BusinessName + ":query"
+	MList.MenuPath = ""
+	MList.Path = tab.TBName
+	MList.Perm = tab.PackageName + ":" + tab.BusinessName + ":query"
+	MList.Component = ""
+	MList.Icon = ""
+	MList.SortValue = 0
+	MList.IsExternal = false
+	MList.ExternalLink = ""
+	MList.TextBadge = ""
+	MList.ActivePath = ""
+	MList.Status = "0"
+	MList.KeepAlive = true
+	MList.IsHide = false
+	MList.IsIframe = false
+	MList.ShowBadge = true
+	MList.FixedTab = false
+	MList.IsHideTab = false
+	MList.IsFullPage = false
 	MList.ParentId = Cmenu.MenuId
-	MList.NoCache = false
-	MList.Sort = 0
-	MList.Visible = "0"
-	MList.IsFrame = "0"
-	MList.CreateBy = 1
-	MList.UpdateBy = 1
 	s.Insert(&MList)
 
 	MCreate := dto.SysMenuInsertReq{}
 	MCreate.MenuName = ""
 	MCreate.Title = "创建" + tab.TableComment
-	MCreate.Icon = ""
-	MCreate.Path = tab.TBName
 	MCreate.MenuType = "F"
-	MCreate.Action = "无"
-	MCreate.Permission = tab.PackageName + ":" + tab.BusinessName + ":add"
+	MCreate.MenuPath = ""
+	MCreate.Path = tab.TBName
+	MCreate.Perm = tab.PackageName + ":" + tab.BusinessName + ":add"
+	MCreate.Component = ""
+	MCreate.Icon = ""
+	MCreate.SortValue = 0
+	MCreate.IsExternal = false
+	MCreate.ExternalLink = ""
+	MCreate.TextBadge = ""
+	MCreate.ActivePath = ""
+	MCreate.Status = "0"
+	MCreate.KeepAlive = true
+	MCreate.IsHide = false
+	MCreate.IsIframe = false
+	MCreate.ShowBadge = true
+	MCreate.FixedTab = false
+	MCreate.IsHideTab = false
+	MCreate.IsFullPage = false
 	MCreate.ParentId = Cmenu.MenuId
-	MCreate.NoCache = false
-	MCreate.Sort = 0
-	MCreate.Visible = "0"
-	MCreate.IsFrame = "0"
-	MCreate.CreateBy = 1
-	MCreate.UpdateBy = 1
 	s.Insert(&MCreate)
 
 	MUpdate := dto.SysMenuInsertReq{}
 	MUpdate.MenuName = ""
 	MUpdate.Title = "修改" + tab.TableComment
-	MUpdate.Icon = ""
-	MUpdate.Path = tab.TBName
 	MUpdate.MenuType = "F"
-	MUpdate.Action = "无"
-	MUpdate.Permission = tab.PackageName + ":" + tab.BusinessName + ":edit"
+	MUpdate.MenuPath = ""
+	MUpdate.Path = tab.TBName
+	MUpdate.Perm = tab.PackageName + ":" + tab.BusinessName + ":edit"
+	MUpdate.Component = ""
+	MUpdate.Icon = ""
+	MUpdate.SortValue = 0
+	MUpdate.IsExternal = false
+	MUpdate.ExternalLink = ""
+	MUpdate.TextBadge = ""
+	MUpdate.ActivePath = ""
+	MUpdate.Status = "0"
+	MUpdate.KeepAlive = true
+	MUpdate.IsHide = false
+	MUpdate.IsIframe = false
+	MUpdate.ShowBadge = true
+	MUpdate.FixedTab = false
+	MUpdate.IsHideTab = false
+	MUpdate.IsFullPage = false
 	MUpdate.ParentId = Cmenu.MenuId
-	MUpdate.NoCache = false
-	MUpdate.Sort = 0
-	MUpdate.Visible = "0"
-	MUpdate.IsFrame = "0"
-	MUpdate.CreateBy = 1
-	MUpdate.UpdateBy = 1
 	s.Insert(&MUpdate)
 
 	MDelete := dto.SysMenuInsertReq{}
 	MDelete.MenuName = ""
 	MDelete.Title = "删除" + tab.TableComment
-	MDelete.Icon = ""
-	MDelete.Path = tab.TBName
 	MDelete.MenuType = "F"
-	MDelete.Action = "无"
-	MDelete.Permission = tab.PackageName + ":" + tab.BusinessName + ":remove"
+	MDelete.MenuPath = ""
+	MDelete.Path = tab.TBName
+	MDelete.Perm = tab.PackageName + ":" + tab.BusinessName + ":remove"
+	MDelete.Component = ""
+	MDelete.Icon = ""
+	MDelete.SortValue = 0
+	MDelete.IsExternal = false
+	MDelete.ExternalLink = ""
+	MDelete.TextBadge = ""
+	MDelete.ActivePath = ""
+	MDelete.Status = "0"
+	MDelete.KeepAlive = true
+	MDelete.IsHide = false
+	MDelete.IsIframe = false
+	MDelete.ShowBadge = true
+	MDelete.FixedTab = false
+	MDelete.IsHideTab = false
+	MDelete.IsFullPage = false
 	MDelete.ParentId = Cmenu.MenuId
-	MDelete.NoCache = false
-	MDelete.Sort = 0
-	MDelete.Visible = "0"
-	MDelete.IsFrame = "0"
-	MDelete.CreateBy = 1
-	MDelete.UpdateBy = 1
 	s.Insert(&MDelete)
 
 	e.OK("", "数据生成成功！")

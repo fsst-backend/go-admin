@@ -24,7 +24,7 @@ func (m *SysDictTypeGetPageReq) GetNeedSearch() interface{} {
 }
 
 type SysDictTypeInsertReq struct {
-	Id       int    `uri:"id"`
+	Id       int    `json:"id"`
 	DictName string `json:"dictName"`
 	DictType string `json:"dictType"`
 	Status   int    `json:"status"`
@@ -48,7 +48,7 @@ func (s *SysDictTypeInsertReq) GetId() interface{} {
 }
 
 type SysDictTypeUpdateReq struct {
-	Id       int    `uri:"id"`
+	Id       int    `json:"id"`
 	DictName string `json:"dictName"`
 	DictType string `json:"dictType"`
 	Status   int    `json:"status"`
@@ -72,7 +72,7 @@ func (s *SysDictTypeUpdateReq) GetId() interface{} {
 }
 
 type SysDictTypeGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysDictTypeGetReq) GetId() interface{} {

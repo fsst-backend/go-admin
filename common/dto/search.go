@@ -1,13 +1,14 @@
 package dto
 
 import (
-	"github.com/go-admin-team/go-admin-core/tools/search"
 	"go-admin/common/global"
+
+	"github.com/go-admin-team/go-admin-core/tools/search"
 	"gorm.io/gorm"
 )
 
 type GeneralDelDto struct {
-	Id  int   `uri:"id" json:"id" validate:"required"`
+	Id  int   `json:"id" validate:"required"`
 	Ids []int `json:"ids"`
 }
 
@@ -35,7 +36,7 @@ func (g GeneralDelDto) GetIds() []int {
 }
 
 type GeneralGetDto struct {
-	Id int `uri:"id" json:"id" validate:"required"`
+	Id int `json:"id" validate:"required"`
 }
 
 func MakeCondition(q interface{}) func(db *gorm.DB) *gorm.DB {

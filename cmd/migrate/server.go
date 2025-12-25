@@ -3,21 +3,23 @@ package migrate
 import (
 	"bytes"
 	"fmt"
-	"github.com/go-admin-team/go-admin-core/sdk"
-	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"strconv"
 	"text/template"
 	"time"
 
-	"github.com/go-admin-team/go-admin-core/config/source/file"
+	"github.com/go-admin-team/go-admin-core/sdk"
+	"github.com/go-admin-team/go-admin-core/sdk/pkg"
+
 	"github.com/spf13/cobra"
 
-	"github.com/go-admin-team/go-admin-core/sdk/config"
 	"go-admin/cmd/migrate/migration"
 	_ "go-admin/cmd/migrate/migration/version"
 	_ "go-admin/cmd/migrate/migration/version-local"
 	"go-admin/common/database"
 	"go-admin/common/models"
+	filewrap "go-admin/config/filewarp"
+
+	"github.com/go-admin-team/go-admin-core/sdk/config"
 )
 
 var (
@@ -49,7 +51,8 @@ func run() {
 		fmt.Println(`start init`)
 		//1. 读取配置
 		config.Setup(
-			file.NewSource(file.WithPath(configYml)),
+			// file.NewSource(file.WithPath(configYml)),
+			filewrap.NewFileWrap(configYml),
 			initDB,
 		)
 	} else {
@@ -75,7 +78,7 @@ func migrateModel() error {
 	if db == nil {
 		return fmt.Errorf("未找到数据库配置")
 	}
-	if config.DatabasesConfig[host].Driver == "mysql" {
+	if config.DatabasesConfig[host].Driver == "mysql" || config.DatabasesConfig[host].Driver == "tidb" {
 		//初始化数据库时候用
 		db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4")
 	}

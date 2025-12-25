@@ -1,20 +1,21 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
 
-	"github.com/go-admin-team/go-admin-core/sdk/pkg"
-	"github.com/pkg/errors"
-	"gorm.io/gorm"
-
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
+
+	"github.com/go-admin-team/go-admin-core/sdk/pkg"
+	"github.com/go-admin-team/go-admin-core/sdk/service"
+	"gorm.io/gorm"
+
 	cDto "go-admin/common/dto"
 	cModels "go-admin/common/models"
-
-	"github.com/go-admin-team/go-admin-core/sdk/service"
+	"go-admin/common/mycasbin"
 )
 
 type SysMenu struct {
@@ -29,6 +30,10 @@ func (e *SysMenu) GetPage(c *dto.SysMenuGetPageReq, menus *[]models.SysMenu) *Sy
 		_ = e.AddError(err)
 		return e
 	}
+
+	// 加载权限信息
+	e.loadPermissionsForMenus(&menu)
+
 	for i := 0; i < len(menu); i++ {
 		if menu[i].ParentId != 0 {
 			continue
@@ -48,13 +53,17 @@ func (e *SysMenu) getPage(c *dto.SysMenuGetPageReq, list *[]models.SysMenu) *Sys
 		Scopes(
 			cDto.OrderDest("sort", false),
 			cDto.MakeCondition(c.GetNeedSearch()),
-		).Preload("SysApi").
+		).
 		Find(list).Error
 	if err != nil {
 		e.Log.Errorf("getSysMenuPage error:%s", err)
 		_ = e.AddError(err)
 		return e
 	}
+
+	// 批量加载关联的权限信息
+	e.loadPermissionsForMenus(list)
+
 	return e
 }
 
@@ -63,7 +72,7 @@ func (e *SysMenu) Get(d *dto.SysMenuGetReq, model *models.SysMenu) *SysMenu {
 	var err error
 	var data models.SysMenu
 
-	db := e.Orm.Model(&data).Preload("SysApi").
+	db := e.Orm.Model(&data).
 		First(model, d.GetId())
 	err = db.Error
 	if err != nil && errors.Is(err, gorm.ErrRecordNotFound) {
@@ -77,11 +86,18 @@ func (e *SysMenu) Get(d *dto.SysMenuGetReq, model *models.SysMenu) *SysMenu {
 		_ = e.AddError(err)
 		return e
 	}
-	apis := make([]int, 0)
-	for _, v := range model.SysApi {
-		apis = append(apis, v.Id)
+
+	// 加载关联的权限信息
+	if model.PermissionCode != "" {
+		var permission models.SysPermission
+		err = e.Orm.Where("code = ?", model.PermissionCode).First(&permission).Error
+		if err != nil {
+			e.Log.Warnf("加载菜单权限失败: %v", err)
+		} else {
+			model.Permission = permission
+		}
 	}
-	model.Apis = apis
+
 	return e
 }
 
@@ -92,18 +108,11 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) *SysMenu {
 	c.Generate(&data)
 	tx := e.Orm.Debug().Begin()
 	defer func() {
-		if err != nil {
+		if r := recover(); r != nil {
 			tx.Rollback()
-		} else {
-			tx.Commit()
+			panic(r) // 重新抛出panic
 		}
 	}()
-	err = tx.Where("id in ?", c.Apis).Find(&data.SysApi).Error
-	if err != nil {
-		tx.Rollback()
-		e.Log.Errorf("db error:%s", err)
-		_ = e.AddError(err)
-	}
 	err = tx.Create(&data).Error
 	if err != nil {
 		tx.Rollback()
@@ -130,15 +139,15 @@ func (e *SysMenu) initPaths(tx *gorm.DB, menu *models.SysMenu) error {
 		if err != nil {
 			return err
 		}
-		if parentMenu.Paths == "" {
+		if parentMenu.MenuPath == "" {
 			err = errors.New("父级paths异常，请尝试对当前节点父级菜单进行更新操作！")
 			return err
 		}
-		menu.Paths = parentMenu.Paths + "/" + pkg.IntToString(menu.MenuId)
+		menu.MenuPath = parentMenu.MenuPath + "/" + pkg.IntToString(menu.MenuId)
 	} else {
-		menu.Paths = "/0/" + pkg.IntToString(menu.MenuId)
+		menu.MenuPath = "/0/" + pkg.IntToString(menu.MenuId)
 	}
-	err = tx.Model(&data).Where("menu_id = ?", menu.MenuId).Update("paths", menu.Paths).Error
+	err = tx.Model(&data).Where("menu_id = ?", menu.MenuId).Update("menuPath", menu.MenuPath).Error
 	return err
 }
 
@@ -147,25 +156,19 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 	var err error
 	tx := e.Orm.Debug().Begin()
 	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r) // 重新抛出panic
+		}
 		if err != nil {
 			tx.Rollback()
 		} else {
 			tx.Commit()
 		}
 	}()
-	var alist = make([]models.SysApi, 0)
 	var model = models.SysMenu{}
-	tx.Preload("SysApi").First(&model, c.GetId())
-	oldPath := model.Paths
-	tx.Where("id in ?", c.Apis).Find(&alist)
-	err = tx.Model(&model).Association("SysApi").Delete(model.SysApi)
-	if err != nil {
-		e.Log.Errorf("delete policy error:%s", err)
-		_ = e.AddError(err)
-		return e
-	}
+	oldPath := model.MenuPath
 	c.Generate(&model)
-	model.SysApi = alist
 	db := tx.Model(&model).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)
@@ -179,8 +182,8 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 	var menuList []models.SysMenu
 	tx.Where("paths like ?", oldPath+"%").Find(&menuList)
 	for _, v := range menuList {
-		v.Paths = strings.Replace(v.Paths, oldPath, model.Paths, 1)
-		tx.Model(&v).Update("paths", v.Paths)
+		v.MenuPath = strings.Replace(v.MenuPath, oldPath, model.MenuPath, 1)
+		tx.Model(&v).Update(model.MenuPath, v.MenuPath)
 	}
 	return e
 }
@@ -190,14 +193,39 @@ func (e *SysMenu) Remove(d *dto.SysMenuDeleteReq) *SysMenu {
 	var err error
 	var data models.SysMenu
 
-	db := e.Orm.Model(&data).Delete(&data, d.Ids)
+	// 使用事务确保数据一致性
+	tx := e.Orm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r) // 重新抛出panic
+		}
+		if err != nil {
+			tx.Rollback()
+		} else {
+			tx.Commit()
+		}
+	}()
+
+	// 先删除角色与菜单的关联关系
+	err = tx.Where("menu_id in ?", d.Ids).Delete(&models.SysRoleMenu{}).Error
+	if err != nil {
+		e.Log.Errorf("Delete role-menu relations error: %s", err)
+		_ = e.AddError(err)
+		return e
+	}
+
+	// 删除菜单
+	db := tx.Model(&data).Delete(&data, d.Ids)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("Delete error: %s", err)
 		_ = e.AddError(err)
+		return e
 	}
 	if db.RowsAffected == 0 {
 		err = errors.New("无权删除该数据")
 		_ = e.AddError(err)
+		return e
 	}
 	return e
 }
@@ -216,6 +244,10 @@ func (e *SysMenu) GetList(c *dto.SysMenuGetPageReq, list *[]models.SysMenu) erro
 		e.Log.Errorf("db error:%s", err)
 		return err
 	}
+
+	// 加载权限信息
+	e.loadPermissionsForMenus(list)
+
 	return nil
 }
 
@@ -231,45 +263,12 @@ func (e *SysMenu) SetLabel() (m []dto.MenuLabel, err error) {
 		}
 		e := dto.MenuLabel{}
 		e.Id = list[i].MenuId
-		e.Label = list[i].Title
+		e.Label = list[i].MenuName
 		deptsInfo := menuLabelCall(&list, e)
 
 		m = append(m, deptsInfo)
 	}
 	return
-}
-
-// GetSysMenuByRoleName 左侧菜单
-func (e *SysMenu) GetSysMenuByRoleName(roleName ...string) ([]models.SysMenu, error) {
-	var MenuList []models.SysMenu
-	var role models.SysRole
-	var err error
-	admin := false
-	for _, s := range roleName {
-		if s == "admin" {
-			admin = true
-		}
-	}
-
-	if len(roleName) > 0 && admin {
-		var data []models.SysMenu
-		err = e.Orm.Where(" menu_type in ('M','C')").
-			Order("sort").
-			Find(&data).
-			Error
-		MenuList = data
-	} else {
-		err = e.Orm.Model(&role).Preload("SysMenu", func(db *gorm.DB) *gorm.DB {
-			return db.Where(" menu_type in ('M','C')").Order("sort")
-		}).Where("role_name in ?", roleName).Find(&role).
-			Error
-		MenuList = *role.SysMenu
-	}
-
-	if err != nil {
-		e.Log.Errorf("db error:%s", err)
-	}
-	return MenuList, err
 }
 
 // menuLabelCall 递归构造组织数据
@@ -284,7 +283,7 @@ func menuLabelCall(eList *[]models.SysMenu, dept dto.MenuLabel) dto.MenuLabel {
 		}
 		mi := dto.MenuLabel{}
 		mi.Id = list[j].MenuId
-		mi.Label = list[j].Title
+		mi.Label = list[j].MenuName
 		mi.Children = []dto.MenuLabel{}
 		if list[j].MenuType != "F" {
 			ms := menuLabelCall(eList, mi)
@@ -314,21 +313,19 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi := models.SysMenu{}
 		mi.MenuId = list[j].MenuId
 		mi.MenuName = list[j].MenuName
-		mi.Title = list[j].Title
 		mi.Icon = list[j].Icon
 		mi.Path = list[j].Path
 		mi.MenuType = list[j].MenuType
-		mi.Action = list[j].Action
-		mi.Permission = list[j].Permission
+		mi.Perm = list[j].Perm
 		mi.ParentId = list[j].ParentId
-		mi.NoCache = list[j].NoCache
-		mi.Breadcrumb = list[j].Breadcrumb
+		mi.KeepAlive = list[j].KeepAlive
 		mi.Component = list[j].Component
-		mi.Sort = list[j].Sort
-		mi.Visible = list[j].Visible
+		mi.SortValue = list[j].SortValue
+		mi.IsHide = list[j].IsHide
 		mi.CreatedAt = list[j].CreatedAt
-		mi.SysApi = list[j].SysApi
 		mi.Children = []models.SysMenu{}
+		mi.PermissionCode = list[j].PermissionCode
+		mi.Permission = list[j].Permission
 
 		if mi.MenuType != cModels.Button {
 			ms := menuCall(menuList, mi)
@@ -376,8 +373,8 @@ func recursiveSetMenu(orm *gorm.DB, mIds []int, menus *[]models.SysMenu) error {
 }
 
 // SetMenuRole 获取左侧菜单树使用
-func (e *SysMenu) SetMenuRole(roleName string) (m []models.SysMenu, err error) {
-	menus, err := e.getByRoleName(roleName)
+func (e *SysMenu) SetMenuRole(userId int) (m []models.SysMenu, err error) {
+	menus, err := e.getByUserId(userId)
 	m = make([]models.SysMenu, 0)
 	for i := 0; i < len(menus); i++ {
 		if menus[i].ParentId != 0 {
@@ -389,34 +386,128 @@ func (e *SysMenu) SetMenuRole(roleName string) (m []models.SysMenu, err error) {
 	return
 }
 
-func (e *SysMenu) getByRoleName(roleName string) ([]models.SysMenu, error) {
-	var role models.SysRole
+func (e *SysMenu) getByUserId(userId int) ([]models.SysMenu, error) {
 	var err error
 	data := make([]models.SysMenu, 0)
 
-	if roleName == "admin" {
-		err = e.Orm.Where(" menu_type in ('M','C') and deleted_at is null").
-			Order("sort").
-			Find(&data).
-			Error
-		err = errors.WithStack(err)
-	} else {
-		role.RoleKey = roleName
-		err = e.Orm.Model(&role).Where("role_key = ? ", roleName).Preload("SysMenu").First(&role).Error
+	// 1. 查询用户的角色
+	var userRoles []models.SysUserRole
+	err = e.Orm.Where("user_id = ?", userId).Find(&userRoles).Error
+	if err != nil {
+		return nil, err
+	}
 
-		if role.SysMenu != nil {
-			mIds := make([]int, 0)
-			for _, menu := range *role.SysMenu {
-				mIds = append(mIds, menu.MenuId)
-			}
-			if err := recursiveSetMenu(e.Orm, mIds, &data); err != nil {
-				return nil, err
-			}
+	if len(userRoles) == 0 {
+		// 用户没有角色，返回空菜单
+		return data, nil
+	}
 
-			data = menuDistinct(data)
+	// 2. 获取角色ID列表
+	roleIds := make([]int, 0, len(userRoles))
+	for _, ur := range userRoles {
+		roleIds = append(roleIds, ur.RoleId)
+	}
+
+	// 3. 查询角色信息，检查是否有SuperAdmin
+	var roles []models.SysRole
+	err = e.Orm.Where("role_id in ?", roleIds).Find(&roles).Error
+	if err != nil {
+		return nil, err
+	}
+
+	// 检查是否有admin角色
+	isSuperAdmin := false
+	for _, role := range roles {
+		if role.RoleKey == mycasbin.SuperAdmin {
+			isSuperAdmin = true
+			break
 		}
 	}
 
-	sort.Sort(models.SysMenuSlice(data))
+	// 4. SuperAdmin：直接加载全部菜单
+	if isSuperAdmin {
+		err = e.Orm.
+			Where("menu_type IN ('M','C') AND deleted_at IS NULL").
+			Order("sort_value").
+			Find(&data).
+			Error
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		// 5. 非 SuperAdmin：通过角色菜单关系查询菜单
+		var roleMenus []models.SysRoleMenu
+		err = e.Orm.Where("role_id in ?", roleIds).Find(&roleMenus).Error
+		if err != nil {
+			return nil, err
+		}
+
+		if len(roleMenus) == 0 {
+			// 角色没有菜单权限
+			return data, nil
+		}
+
+		// 6. 提取菜单ID
+		menuIDs := make([]int, 0, len(roleMenus))
+		for _, rm := range roleMenus {
+			menuIDs = append(menuIDs, rm.MenuId)
+		}
+
+		// 7. 递归补全父级菜单
+		if err := recursiveSetMenu(e.Orm, menuIDs, &data); err != nil {
+			return nil, err
+		}
+
+		// 8. 菜单去重
+		data = menuDistinct(data)
+
+		sort.Sort(models.SysMenuSlice(data))
+	}
+
+	// 加载权限信息
+	e.loadPermissionsForMenus(&data)
+
 	return data, err
+}
+
+func (e *SysMenu) loadPermissionsForMenus(menus *[]models.SysMenu) {
+	if len(*menus) == 0 {
+		return
+	}
+
+	// 收集所有权限Code
+	permissionCodes := make([]string, 0)
+	permissionMap := make(map[string]models.SysPermission)
+
+	for _, menu := range *menus {
+		if menu.PermissionCode != "" {
+			permissionCodes = append(permissionCodes, menu.PermissionCode)
+		}
+	}
+
+	if len(permissionCodes) == 0 {
+		return
+	}
+
+	// 批量查询权限
+	var permissions []models.SysPermission
+	err := e.Orm.Where("code IN ?", permissionCodes).Find(&permissions).Error
+	if err != nil {
+		e.Log.Warnf("批量加载菜单权限失败: %v", err)
+		return
+	}
+
+	// 构建权限映射
+	for _, perm := range permissions {
+		permissionMap[perm.Code] = perm
+	}
+
+	// 关联权限到菜单
+	for i := range *menus {
+		if (*menus)[i].PermissionCode != "" {
+			if perm, exists := permissionMap[(*menus)[i].PermissionCode]; exists {
+				(*menus)[i].Permission = perm
+			}
+		}
+	}
 }

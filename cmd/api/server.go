@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-admin-team/go-admin-core/config/source/file"
 	log "github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
@@ -27,6 +26,7 @@ import (
 	"go-admin/common/middleware/handler"
 	"go-admin/common/storage"
 	ext "go-admin/config"
+	filewrap "go-admin/config/filewarp"
 )
 
 var (
@@ -49,7 +49,7 @@ var (
 var AppRouters = make([]func(), 0)
 
 func init() {
-	StartCmd.PersistentFlags().StringVarP(&configYml, "config", "c", "config/settings.yml", "Start server with provided configuration file")
+	StartCmd.PersistentFlags().StringVarP(&configYml, "config", "c", "config/settings.yaml", "Start server with provided configuration file")
 	StartCmd.PersistentFlags().BoolVarP(&apiCheck, "api", "a", false, "Start server with check api data")
 
 	//注册路由 fixme 其他应用的路由，在本目录新建文件放在init方法
@@ -61,7 +61,8 @@ func setup() {
 	config.ExtendConfig = &ext.ExtConfig
 	//1. 读取配置
 	config.Setup(
-		file.NewSource(file.WithPath(configYml)),
+		filewrap.NewFileWrap(configYml),
+		// file.NewSource(file.WithPath(configYml)), // 原生支持重环境变量中替换
 		database.Setup,
 		storage.Setup,
 	)
@@ -69,7 +70,7 @@ func setup() {
 	queue := sdk.Runtime.GetMemoryQueue("")
 	queue.Register(global.LoginLog, models.SaveLoginLog)
 	queue.Register(global.OperateLog, models.SaveOperaLog)
-	queue.Register(global.ApiCheck, models.SaveSysApi)
+	// queue.Register(global.ApiCheck, models.SaveSysApi)
 	go queue.Run()
 
 	usageStr := `starting api server...`
@@ -87,8 +88,8 @@ func run() error {
 	}
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
-		Handler: sdk.Runtime.GetEngine(),
+		Addr:         fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
+		Handler:      sdk.Runtime.GetEngine(),
 		ReadTimeout:  time.Duration(config.ApplicationConfig.ReadTimeout) * time.Second,
 		WriteTimeout: time.Duration(config.ApplicationConfig.WriterTimeout) * time.Second,
 	}

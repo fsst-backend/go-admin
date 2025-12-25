@@ -1,9 +1,88 @@
 definitions:
+  dto.CPUInfo:
+    properties:
+      cpuInfo: {}
+      cpuNum:
+        type: integer
+      percent:
+        type: number
+    type: object
+  dto.DiskInfo:
+    properties:
+      percent:
+        type: number
+      total:
+        type: number
+      used:
+        type: number
+    type: object
+  dto.GeneralDelDto:
+    properties:
+      id:
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - id
+    type: object
+  dto.GeneralGetDto:
+    properties:
+      id:
+        type: integer
+    required:
+    - id
+    type: object
+  dto.GetServerMonitorInfoResp:
+    properties:
+      data:
+        $ref: '#/definitions/dto.ServerMonitorInfo'
+    type: object
   dto.GetSetSysConfigReq:
     properties:
       configKey:
         type: string
       configValue:
+        type: string
+    type: object
+  dto.MemoryInfo:
+    properties:
+      percent:
+        type: number
+      total:
+        type: integer
+      used:
+        type: integer
+    type: object
+  dto.NetworkInfo:
+    properties:
+      in:
+        type: number
+      out:
+        type: number
+    type: object
+  dto.OSInfo:
+    properties:
+      arch:
+        type: string
+      compiler:
+        type: string
+      goOs:
+        type: string
+      hostName:
+        type: string
+      ip:
+        type: string
+      mem:
+        type: integer
+      numGoroutine:
+        type: integer
+      projectDir:
+        type: string
+      time:
+        type: string
+      version:
         type: string
     type: object
   dto.PassWord:
@@ -38,6 +117,34 @@ definitions:
     required:
     - dataScope
     - roleId
+    type: object
+  dto.ServerMonitorInfo:
+    properties:
+      bootTime:
+        type: integer
+      code:
+        type: integer
+      cpu:
+        $ref: '#/definitions/dto.CPUInfo'
+      disk:
+        $ref: '#/definitions/dto.DiskInfo'
+      location:
+        type: string
+      mem:
+        $ref: '#/definitions/dto.MemoryInfo'
+      net:
+        $ref: '#/definitions/dto.NetworkInfo'
+      os:
+        $ref: '#/definitions/dto.OSInfo'
+      swap:
+        $ref: '#/definitions/dto.SwapInfo'
+    type: object
+  dto.SwapInfo:
+    properties:
+      total:
+        type: integer
+      used:
+        type: integer
     type: object
   dto.SysApiDeleteReq:
     properties:
@@ -170,14 +277,10 @@ definitions:
     type: object
   dto.SysDictDataDeleteReq:
     properties:
-      createBy:
-        type: integer
       ids:
         items:
           type: integer
         type: array
-      updateBy:
-        type: integer
     type: object
   dto.SysDictDataGetAllResp:
     properties:
@@ -221,6 +324,8 @@ definitions:
         type: string
       default:
         type: string
+      dictCode:
+        type: integer
       dictLabel:
         type: string
       dictSort:
@@ -229,8 +334,6 @@ definitions:
         type: string
       dictValue:
         type: string
-      id:
-        type: integer
       isDefault:
         type: string
       listClass:
@@ -307,129 +410,161 @@ definitions:
     type: object
   dto.SysMenuInsertReq:
     properties:
-      action:
-        description: 请求方式
-        type: string
-      apis:
-        items:
-          type: integer
-        type: array
-      breadcrumb:
-        description: 是否面包屑
+      activePath:
+        description: 激活路径
         type: string
       component:
         description: 组件
         type: string
       createBy:
         type: integer
+      externalLink:
+        description: 外部链接
+        type: string
+      fixedTab:
+        description: 是否固定标签页
+        type: boolean
       icon:
         description: 图标
         type: string
-      isFrame:
-        description: 是否frame
-        type: string
+      isExternal:
+        description: 是否外部链接
+        type: boolean
+      isFullPage:
+        description: 是否全屏页面
+        type: boolean
+      isHide:
+        description: 是否隐藏
+        type: boolean
+      isHideTab:
+        description: 是否隐藏标签页
+        type: boolean
+      isIframe:
+        description: 是否iframe
+        type: boolean
+      keepAlive:
+        description: 是否缓存
+        type: boolean
       menuId:
         description: 编码
         type: integer
       menuName:
         description: 菜单name
         type: string
+      menuPath:
+        description: 菜单类型 /0/1/7
+        type: string
       menuType:
         description: 菜单类型
         type: string
-      noCache:
-        description: 是否缓存
-        type: boolean
       parentId:
         description: 上级菜单
         type: integer
       path:
-        description: 路径
+        description: 路径 /camellia/sys_user
         type: string
-      paths:
-        description: id路径
+      perm:
+        description: 权限标识
         type: string
-      permission:
-        description: 权限编码
+      permissionCode:
+        description: 权限Code
         type: string
-      sort:
-        description: 排序
+      showBadge:
+        description: 是否显示徽章
+        type: boolean
+      sortValue:
+        description: 排序值
         type: integer
-      sysApi:
-        items:
-          $ref: '#/definitions/models.SysApi'
-        type: array
+      status:
+        description: 状态
+        type: string
+      textBadge:
+        description: 文本徽章
+        type: string
       title:
-        description: 显示名称
+        description: 显示标题
         type: string
       updateBy:
         type: integer
-      visible:
-        description: 是否显示
-        type: string
     type: object
   dto.SysMenuUpdateReq:
     properties:
-      action:
-        description: 请求方式
-        type: string
-      apis:
-        items:
-          type: integer
-        type: array
-      breadcrumb:
-        description: 是否面包屑
+      activePath:
+        description: 激活路径
         type: string
       component:
         description: 组件
         type: string
       createBy:
         type: integer
+      externalLink:
+        description: 外部链接
+        type: string
+      fixedTab:
+        description: 是否固定标签页
+        type: boolean
       icon:
         description: 图标
         type: string
-      isFrame:
-        description: 是否frame
-        type: string
+      isExternal:
+        description: 是否外部链接
+        type: boolean
+      isFullPage:
+        description: 是否全屏页面
+        type: boolean
+      isHide:
+        description: 是否隐藏
+        type: boolean
+      isHideTab:
+        description: 是否隐藏标签页
+        type: boolean
+      isIframe:
+        description: 是否iframe
+        type: boolean
+      keepAlive:
+        description: 是否缓存
+        type: boolean
       menuId:
         description: 编码
         type: integer
       menuName:
         description: 菜单name
         type: string
+      menuPath:
+        description: 菜单类型
+        type: string
       menuType:
         description: 菜单类型
         type: string
-      noCache:
-        description: 是否缓存
-        type: boolean
       parentId:
         description: 上级菜单
         type: integer
       path:
         description: 路径
         type: string
-      paths:
-        description: id路径
+      perm:
+        description: 权限标识
         type: string
-      permission:
-        description: 权限编码
+      permissionCode:
+        description: 权限Code
         type: string
-      sort:
-        description: 排序
+      showBadge:
+        description: 是否显示徽章
+        type: boolean
+      sortValue:
+        description: 排序值
         type: integer
-      sysApi:
-        items:
-          $ref: '#/definitions/models.SysApi'
-        type: array
+      status:
+        description: 状态
+        type: string
+      textBadge:
+        description: 文本徽章
+        type: string
       title:
-        description: 显示名称
+        description: 显示标题
         type: string
       updateBy:
         type: integer
-      visible:
-        description: 是否显示
-        type: string
     type: object
   dto.SysOperaLogDeleteReq:
     properties:
@@ -437,6 +572,71 @@ definitions:
         items:
           type: integer
         type: array
+    type: object
+  dto.SysPermissionDeleteReq:
+    properties:
+      createBy:
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
+      updateBy:
+        type: integer
+    type: object
+  dto.SysPermissionInsertReq:
+    properties:
+      apiIds:
+        items:
+          type: integer
+        type: array
+      code:
+        type: string
+      createBy:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      parentId:
+        type: integer
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: string
+      updateBy:
+        type: integer
+    type: object
+  dto.SysPermissionUpdateReq:
+    properties:
+      apiIds:
+        items:
+          type: integer
+        type: array
+      code:
+        type: string
+      createBy:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      parentId:
+        type: integer
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: string
+      updateBy:
+        type: integer
     type: object
   dto.SysPostDeleteReq:
     properties:
@@ -531,14 +731,6 @@ definitions:
       status:
         description: 状态 1禁用 2正常
         type: string
-      sysDept:
-        items:
-          $ref: '#/definitions/models.SysDept'
-        type: array
-      sysMenu:
-        items:
-          $ref: '#/definitions/models.SysMenu'
-        type: array
       updateBy:
         type: integer
     type: object
@@ -581,11 +773,11 @@ definitions:
         type: string
       sysDept:
         items:
-          $ref: '#/definitions/models.SysDept'
+          $ref: '#/definitions/go-admin_app_admin_models.SysDept'
         type: array
       sysMenu:
         items:
-          $ref: '#/definitions/models.SysMenu'
+          $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
         type: array
       updateBy:
         type: integer
@@ -610,8 +802,10 @@ definitions:
         type: integer
       remark:
         type: string
-      roleId:
-        type: integer
+      roleIds:
+        items:
+          type: integer
+        type: array
       sex:
         type: string
       status:
@@ -624,6 +818,22 @@ definitions:
         type: integer
       username:
         type: string
+    type: object
+  dto.SysUserRoleReq:
+    properties:
+      createBy:
+        type: integer
+      roleIds:
+        items:
+          type: integer
+        type: array
+      updateBy:
+        type: integer
+      userId:
+        type: integer
+    required:
+    - roleIds
+    - userId
     type: object
   dto.SysUserUpdateReq:
     properties:
@@ -643,8 +853,6 @@ definitions:
         type: integer
       remark:
         type: string
-      roleId:
-        type: integer
       sex:
         type: string
       status:
@@ -683,23 +891,7 @@ definitions:
         description: 用户ID
         type: integer
     type: object
-  handler.Login:
-    properties:
-      code:
-        type: string
-      password:
-        type: string
-      username:
-        type: string
-      uuid:
-        type: string
-    required:
-    - code
-    - password
-    - username
-    - uuid
-    type: object
-  models.SysApi:
+  go-admin_app_admin_models.SysApi:
     properties:
       action:
         type: string
@@ -708,6 +900,7 @@ definitions:
       createdAt:
         type: string
       handle:
+        description: 启用了，需要使用单独的权限报承载
         type: string
       id:
         type: integer
@@ -722,7 +915,7 @@ definitions:
       updatedAt:
         type: string
     type: object
-  models.SysConfig:
+  go-admin_app_admin_models.SysConfig:
     properties:
       configKey:
         type: string
@@ -747,11 +940,11 @@ definitions:
       updatedAt:
         type: string
     type: object
-  models.SysDept:
+  go-admin_app_admin_models.SysDept:
     properties:
       children:
         items:
-          $ref: '#/definitions/models.SysDept'
+          $ref: '#/definitions/go-admin_app_admin_models.SysDept'
         type: array
       createBy:
         type: integer
@@ -792,19 +985,13 @@ definitions:
       updatedAt:
         type: string
     type: object
-  models.SysMenu:
+  go-admin_app_admin_models.SysMenu:
     properties:
-      action:
-        type: string
-      apis:
-        items:
-          type: integer
-        type: array
-      breadcrumb:
+      activePath:
         type: string
       children:
         items:
-          $ref: '#/definitions/models.SysMenu'
+          $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
         type: array
       component:
         type: string
@@ -812,48 +999,104 @@ definitions:
         type: integer
       createdAt:
         type: string
-      dataScope:
+      externalLink:
         type: string
+      fixedTab:
+        type: boolean
       icon:
         type: string
-      is_select:
+      isExternal:
         type: boolean
-      isFrame:
-        type: string
+      isFullPage:
+        type: boolean
+      isHide:
+        type: boolean
+      isHideTab:
+        type: boolean
+      isIframe:
+        type: boolean
+      keepAlive:
+        type: boolean
       menuId:
         type: integer
       menuName:
         type: string
-      menuType:
+      menuPath:
         type: string
-      noCache:
-        type: boolean
-      params:
+      menuType:
+        description: 'M: Menu/Directory   C: Component/Page  F: Function/Button'
         type: string
       parentId:
         type: integer
       path:
         type: string
-      paths:
+      perm:
         type: string
       permission:
+        $ref: '#/definitions/go-admin_app_admin_models.SysPermission'
+      permissionCode:
         type: string
-      roleId:
+      showBadge:
+        type: boolean
+      sortValue:
         type: integer
-      sort:
-        type: integer
-      sysApi:
-        items:
-          $ref: '#/definitions/models.SysApi'
-        type: array
+      status:
+        type: string
+      textBadge:
+        type: string
       title:
         type: string
       updateBy:
         type: integer
       updatedAt:
         type: string
-      visible:
+    type: object
+  go-admin_app_admin_models.SysPermission:
+    properties:
+      apis:
+        items:
+          $ref: '#/definitions/go-admin_app_admin_models.SysApi'
+        type: array
+      code:
         type: string
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      parentId:
+        type: integer
+      remark:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      type:
+        type: string
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  handler.Login:
+    properties:
+      code:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+    required:
+    - code
+    - password
+    - username
+    - uuid
     type: object
   response.Page:
     properties:
@@ -898,8 +1141,6 @@ definitions:
       createBy:
         type: integer
       createdAt:
-        type: string
-      deletedAt:
         type: string
       dictType:
         type: string
@@ -989,8 +1230,6 @@ definitions:
         type: boolean
       dataScope:
         type: string
-      deletedAt:
-        type: string
       functionAuthor:
         description: 功能作者
         type: string
@@ -1056,16 +1295,14 @@ definitions:
     type: object
 info:
   contact: {}
-  description: |-
-    基于Gin + Vue + Element UI的前后端分离权限管理系统的接口文档
-    添加qq群: 521386980 进入技术交流群 请先star，谢谢！
+  description: 基于Gin + Vue + Element UI的前后端分离权限管理系统的接口文档
   license:
     name: MIT
     url: https://github.com/go-admin-team/go-admin/blob/master/LICENSE.md
   title: go-admin API
   version: 2.0.0
 paths:
-  /api/v1/app-config:
+  /lotus/api/v1/app-config:
     get:
       description: 获取系统配置信息，主要注意这里不在验证权限
       responses:
@@ -1083,7 +1320,7 @@ paths:
       summary: 获取系统前台配置信息，主要注意这里不在验证权限
       tags:
       - 配置管理
-  /api/v1/captcha:
+  /lotus/api/v1/captcha:
     get:
       description: 获取验证码
       responses:
@@ -1103,7 +1340,7 @@ paths:
       summary: 获取验证码
       tags:
       - 登陆
-  /api/v1/db/columns/page:
+  /lotus/api/v1/db/columns/page:
     get:
       description: 数据库表列分页列表 / database table column page list
       parameters:
@@ -1127,7 +1364,7 @@ paths:
       summary: 分页列表数据 / page list data
       tags:
       - 工具 / 生成工具
-  /api/v1/db/tables/page:
+  /lotus/api/v1/db/tables/page:
     get:
       description: 数据库表分页列表 / database table page list
       parameters:
@@ -1151,7 +1388,7 @@ paths:
       summary: 分页列表数据 / page list data
       tags:
       - 工具 / 生成工具
-  /api/v1/dept:
+  /lotus/api/v1/dept:
     delete:
       description: 删除数据
       parameters:
@@ -1217,34 +1454,11 @@ paths:
       summary: 添加部门
       tags:
       - 部门
-  /api/v1/dept/{deptId}:
-    get:
-      description: 获取JSON
-      parameters:
-      - description: deptId
-        in: path
-        name: deptId
-        type: string
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 获取部门数据
-      tags:
-      - 部门
     put:
       consumes:
       - application/json
       description: 获取JSON
       parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: integer
       - description: body
         in: body
         name: data
@@ -1261,7 +1475,20 @@ paths:
       summary: 修改部门
       tags:
       - 部门
-  /api/v1/dict-data/option-select:
+  /lotus/api/v1/dept/get:
+    get:
+      description: 获取JSON
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 获取部门数据
+      tags:
+      - 部门
+  /lotus/api/v1/dict-data/option-select:
     get:
       description: 数据字典根据key获取
       parameters:
@@ -1287,7 +1514,7 @@ paths:
       summary: 数据字典根据key获取
       tags:
       - 字典数据
-  /api/v1/dict/data:
+  /lotus/api/v1/dict/data:
     delete:
       description: 删除数据
       parameters:
@@ -1361,25 +1588,6 @@ paths:
       summary: 添加字典数据
       tags:
       - 字典数据
-  /api/v1/dict/data/{dictCode}:
-    get:
-      description: 获取JSON
-      parameters:
-      - description: 字典编码
-        in: path
-        name: dictCode
-        required: true
-        type: integer
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 通过编码获取字典数据
-      tags:
-      - 字典数据
     put:
       consumes:
       - application/json
@@ -1401,7 +1609,20 @@ paths:
       summary: 修改字典数据
       tags:
       - 字典数据
-  /api/v1/dict/type:
+  /lotus/api/v1/dict/data/get:
+    get:
+      description: 获取JSON
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 通过编码获取字典数据
+      tags:
+      - 字典数据
+  /lotus/api/v1/dict/type:
     delete:
       description: 删除数据
       parameters:
@@ -1475,7 +1696,28 @@ paths:
       summary: 添加字典类型
       tags:
       - 字典类型
-  /api/v1/dict/type-option-select:
+    put:
+      consumes:
+      - application/json
+      description: 获取JSON
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysDictTypeUpdateReq'
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 修改字典类型
+      tags:
+      - 字典类型
+  /lotus/api/v1/dict/type-option-select:
     get:
       description: 获取JSON
       parameters:
@@ -1501,15 +1743,9 @@ paths:
       summary: 字典类型全部数据 代码生成使用接口
       tags:
       - 字典类型
-  /api/v1/dict/type/{dictId}:
+  /lotus/api/v1/dict/type/get:
     get:
       description: 获取JSON
-      parameters:
-      - description: 字典类型编码
-        in: path
-        name: dictId
-        required: true
-        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -1520,28 +1756,7 @@ paths:
       summary: 字典类型通过字典id获取
       tags:
       - 字典类型
-    put:
-      consumes:
-      - application/json
-      description: 获取JSON
-      parameters:
-      - description: body
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/dto.SysDictTypeUpdateReq'
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 修改字典类型
-      tags:
-      - 字典类型
-  /api/v1/getinfo:
+  /lotus/api/v1/getinfo:
     get:
       description: 获取JSON
       responses:
@@ -1554,7 +1769,51 @@ paths:
       summary: 获取个人信息
       tags:
       - 个人中心
-  /api/v1/login:
+  /lotus/api/v1/job/remove:
+    post:
+      consumes:
+      - application/json
+      description: 删除定时任务
+      parameters:
+      - description: 删除数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GeneralDelDto'
+      responses:
+        "200":
+          description: '{"code": 200, "message": "删除成功"}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 删除定时任务
+      tags:
+      - 定时任务
+  /lotus/api/v1/job/start:
+    post:
+      consumes:
+      - application/json
+      description: 启动定时任务
+      parameters:
+      - description: 启动数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GeneralGetDto'
+      responses:
+        "200":
+          description: '{"code": 200, "message": "启动成功"}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 启动定时任务
+      tags:
+      - 定时任务
+  /lotus/api/v1/login:
     post:
       consumes:
       - application/json
@@ -1582,7 +1841,7 @@ paths:
       summary: 登陆
       tags:
       - 登陆
-  /api/v1/menu:
+  /lotus/api/v1/menu:
     delete:
       description: 删除数据
       parameters:
@@ -1640,34 +1899,11 @@ paths:
       summary: 创建菜单
       tags:
       - 菜单
-  /api/v1/menu/{id}:
-    get:
-      description: 获取JSON
-      parameters:
-      - description: id
-        in: path
-        name: id
-        type: string
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: Menu详情数据
-      tags:
-      - 菜单
     put:
       consumes:
       - application/json
       description: 获取JSON
       parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: integer
       - description: body
         in: body
         name: data
@@ -1684,17 +1920,9 @@ paths:
       summary: 修改菜单
       tags:
       - 菜单
-  /api/v1/menuTreeselect/{roleId}:
+  /lotus/api/v1/menu/get:
     get:
-      consumes:
-      - application/json
       description: 获取JSON
-      parameters:
-      - description: roleId
-        in: path
-        name: roleId
-        required: true
-        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -1702,10 +1930,30 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
+      summary: Menu详情数据
+      tags:
+      - 菜单
+  /lotus/api/v1/menuTreeselect:
+    get:
+      consumes:
+      - application/json
+      description: 获取JSON
+      parameters:
+      - description: 角色ID
+        in: query
+        name: roleId
+        type: integer
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
       summary: 角色修改使用的菜单列表
       tags:
       - 菜单
-  /api/v1/menurole:
+  /lotus/api/v1/menurole:
     get:
       description: 获取JSON
       responses:
@@ -1718,7 +1966,7 @@ paths:
       summary: 根据登录角色名称获取菜单列表数据（左菜单使用）
       tags:
       - 菜单
-  /api/v1/post:
+  /lotus/api/v1/post:
     delete:
       description: 删除数据
       parameters:
@@ -1788,7 +2036,6 @@ paths:
       summary: 添加岗位
       tags:
       - 岗位
-  /api/v1/post/{id}:
     put:
       consumes:
       - application/json
@@ -1810,15 +2057,9 @@ paths:
       summary: 修改岗位
       tags:
       - 岗位
-  /api/v1/post/{postId}:
+  /lotus/api/v1/post/get:
     get:
       description: 获取JSON
-      parameters:
-      - description: 编码
-        in: path
-        name: id
-        required: true
-        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -1829,7 +2070,7 @@ paths:
       summary: 获取岗位信息
       tags:
       - 岗位
-  /api/v1/public/uploadFile:
+  /lotus/api/v1/public/uploadFile:
     post:
       consumes:
       - multipart/form-data
@@ -1855,7 +2096,7 @@ paths:
       summary: 上传图片
       tags:
       - 公共接口
-  /api/v1/role:
+  /lotus/api/v1/role:
     delete:
       description: 删除数据
       parameters:
@@ -1867,37 +2108,29 @@ paths:
           $ref: '#/definitions/dto.SysRoleDeleteReq'
       responses:
         "200":
-          description: '{"code": 200, "data": [...]}'
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
       summary: 删除用户角色
       tags:
-      - 角色/Role
+      - 角色管理
     get:
-      description: Get JSON
+      description: 获取SysRole列表
       parameters:
-      - description: roleName
+      - description: 角色名称
         in: query
         name: roleName
         type: string
-      - description: status
+      - description: 状态
         in: query
         name: status
         type: string
-      - description: roleKey
+      - description: 角色代码
         in: query
         name: roleKey
         type: string
-      - description: 页条数
-        in: query
-        name: pageSize
-        type: integer
-      - description: 页码
-        in: query
-        name: pageIndex
-        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -1905,13 +2138,13 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
-      summary: 角色列表数据
+      summary: 获取SysRole列表
       tags:
-      - 角色/Role
+      - 角色管理
     post:
       consumes:
       - application/json
-      description: 获取JSON
+      description: 创建SysRole
       parameters:
       - description: data
         in: body
@@ -1926,49 +2159,9 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
-      summary: 创建角色
+      summary: 创建SysRole
       tags:
-      - 角色/Role
-  /api/v1/role-status/{id}:
-    put:
-      consumes:
-      - application/json
-      description: 获取JSON
-      parameters:
-      - description: body
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/dto.RoleDataScopeReq'
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 更新角色数据权限
-      tags:
-      - 角色/Role
-  /api/v1/role/{id}:
-    get:
-      description: 获取JSON
-      parameters:
-      - description: roleId
-        in: path
-        name: roleId
-        type: string
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 获取Role数据
-      tags:
-      - 角色/Role
+      - 角色管理
     put:
       consumes:
       - application/json
@@ -1982,28 +2175,90 @@ paths:
           $ref: '#/definitions/dto.SysRoleUpdateReq'
       responses:
         "200":
-          description: '{"code": 200, "data": [...]}'
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
       summary: 修改用户角色
       tags:
-      - 角色/Role
-  /api/v1/server-monitor:
-    get:
+      - 角色管理
+  /lotus/api/v1/role-status:
+    put:
+      consumes:
+      - application/json
       description: 获取JSON
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateStatusReq'
       responses:
         "200":
-          description: '{"code": 200, "data": [...]}'
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             $ref: '#/definitions/response.Response'
       security:
       - Bearer: []
-      summary: 系统信息
+      summary: 修改用户角色
       tags:
-      - 系统信息
-  /api/v1/set-config:
+      - 角色管理
+  /lotus/api/v1/role/get:
+    get:
+      description: 获取JSON
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 获取Role数据
+      tags:
+      - 角色管理
+  /lotus/api/v1/roledatascope:
+    put:
+      consumes:
+      - application/json
+      description: 获取JSON
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RoleDataScopeReq'
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 更新角色数据权限
+      tags:
+      - 角色管理
+  /lotus/api/v1/server/monitor:
+    get:
+      description: 获取系统信息
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.GetServerMonitorInfoResp'
+              type: object
+      security:
+      - Bearer: []
+      summary: 获取系统信息
+      tags:
+      - 系统监控
+  /lotus/api/v1/set-config:
     get:
       consumes:
       - application/json
@@ -2047,7 +2302,7 @@ paths:
       summary: 设置配置
       tags:
       - 配置管理
-  /api/v1/sys-api:
+  /lotus/api/v1/sys-api:
     delete:
       description: 删除接口管理
       parameters:
@@ -2107,36 +2362,13 @@ paths:
                   - properties:
                       list:
                         items:
-                          $ref: '#/definitions/models.SysApi'
+                          $ref: '#/definitions/go-admin_app_admin_models.SysApi'
                         type: array
                     type: object
               type: object
       security:
       - Bearer: []
       summary: 获取接口管理列表
-      tags:
-      - 接口管理
-  /api/v1/sys-api/{id}:
-    get:
-      description: 获取接口管理
-      parameters:
-      - description: id
-        in: path
-        name: id
-        type: string
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/models.SysApi'
-              type: object
-      security:
-      - Bearer: []
-      summary: 获取接口管理
       tags:
       - 接口管理
     put:
@@ -2160,7 +2392,25 @@ paths:
       summary: 修改接口管理
       tags:
       - 接口管理
-  /api/v1/sys-config:
+  /lotus/api/v1/sys-api/get:
+    get:
+      description: 获取接口管理
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysApi'
+              type: object
+      security:
+      - Bearer: []
+      summary: 获取接口管理
+      tags:
+      - 接口管理
+  /lotus/api/v1/sys-config:
     delete:
       description: 删除配置管理
       parameters:
@@ -2210,7 +2460,7 @@ paths:
         type: integer
       responses:
         "200":
-          description: '{"code": 200, "data": [...]}'
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -2221,7 +2471,7 @@ paths:
                   - properties:
                       list:
                         items:
-                          $ref: '#/definitions/models.SysApi'
+                          $ref: '#/definitions/go-admin_app_admin_models.SysConfig'
                         type: array
                     type: object
               type: object
@@ -2251,29 +2501,6 @@ paths:
       summary: 创建配置管理
       tags:
       - 配置管理
-  /api/v1/sys-config/{id}:
-    get:
-      description: 根据Key获取SysConfig的Service
-      parameters:
-      - description: configKey
-        in: path
-        name: configKey
-        type: string
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/dto.SysConfigByKeyReq'
-              type: object
-      security:
-      - Bearer: []
-      summary: 根据Key获取SysConfig的Service
-      tags:
-      - 配置管理
     put:
       consumes:
       - application/json
@@ -2295,7 +2522,25 @@ paths:
       summary: 修改配置管理
       tags:
       - 配置管理
-  /api/v1/sys-login-log:
+  /lotus/api/v1/sys-config/get:
+    get:
+      description: 根据Key获取SysConfig的Service
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.SysConfigByKeyReq'
+              type: object
+      security:
+      - Bearer: []
+      summary: 根据Key获取SysConfig的Service
+      tags:
+      - 配置管理
+  /lotus/api/v1/sys-login-log:
     delete:
       description: 登录日志删除
       parameters:
@@ -2352,14 +2597,9 @@ paths:
       summary: 登录日志列表
       tags:
       - 登录日志
-  /api/v1/sys-login-log/{id}:
+  /lotus/api/v1/sys-login-log/get:
     get:
       description: 获取JSON
-      parameters:
-      - description: id
-        in: path
-        name: id
-        type: string
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -2370,7 +2610,7 @@ paths:
       summary: 登录日志通过id获取
       tags:
       - 登录日志
-  /api/v1/sys-opera-log:
+  /lotus/api/v1/sys-opera-log:
     delete:
       description: 删除数据
       parameters:
@@ -2382,7 +2622,7 @@ paths:
           $ref: '#/definitions/dto.SysOperaLogDeleteReq'
       responses:
         "200":
-          description: '{"code": 200, "data": [...]}'
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             $ref: '#/definitions/response.Response'
       security:
@@ -2435,14 +2675,9 @@ paths:
       summary: 操作日志列表
       tags:
       - 操作日志
-  /api/v1/sys-opera-log/{id}:
+  /lotus/api/v1/sys-opera-log/get:
     get:
       description: 获取JSON
-      parameters:
-      - description: id
-        in: path
-        name: id
-        type: string
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -2453,17 +2688,180 @@ paths:
       summary: 操作日志通过id获取
       tags:
       - 操作日志
-  /api/v1/sys-user:
-    get:
-      description: 获取JSON
+  /lotus/api/v1/sys-permission:
+    delete:
+      description: 删除权限定义
       parameters:
-      - description: username
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysPermissionDeleteReq'
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 删除权限定义
+      tags:
+      - 权限定义
+    get:
+      description: 获取权限定义列表
+      parameters:
+      - description: 权限编码
         in: query
-        name: username
+        name: code
         type: string
+      - description: 权限名称
+        in: query
+        name: name
+        type: string
+      - description: 权限类型
+        in: query
+        name: type
+        type: string
+      - description: 状态
+        in: query
+        name: status
+        type: integer
+      - description: 页条数
+        in: query
+        name: pageSize
+        type: integer
+      - description: 页码
+        in: query
+        name: pageIndex
+        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/response.Page'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/go-admin_app_admin_models.SysPermission'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Bearer: []
+      summary: 获取权限定义列表
+      tags:
+      - 权限定义
+    post:
+      consumes:
+      - application/json
+      description: 创建权限定义
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysPermissionInsertReq'
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 创建权限定义
+      tags:
+      - 权限定义
+    put:
+      consumes:
+      - application/json
+      description: 修改权限定义
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysPermissionUpdateReq'
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 修改权限定义
+      tags:
+      - 权限定义
+  /lotus/api/v1/sys-permission/get:
+    get:
+      description: 获取单个权限定义
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysPermission'
+              type: object
+      security:
+      - Bearer: []
+      summary: 获取单个权限定义
+      tags:
+      - 权限定义
+  /lotus/api/v1/sys-user:
+    delete:
+      description: 删除数据
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 删除用户数据
+      tags:
+      - 用户
+    get:
+      consumes:
+      - application/json
+      description: 获取JSON
+      parameters:
+      - description: 用户名
+        in: query
+        name: username
+        type: string
+      - description: 昵称
+        in: query
+        name: nickName
+        type: string
+      - description: 手机号
+        in: query
+        name: phone
+        type: string
+      - description: 状态
+        in: query
+        name: status
+        type: string
+      - description: 页条数
+        in: query
+        name: pageSize
+        type: integer
+      - description: 页码
+        in: query
+        name: pageIndex
+        type: integer
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
           schema:
             type: string
       security:
@@ -2492,43 +2890,6 @@ paths:
       summary: 创建用户
       tags:
       - 用户
-  /api/v1/sys-user/{userId}:
-    delete:
-      description: 删除数据
-      parameters:
-      - description: userId
-        in: path
-        name: userId
-        required: true
-        type: integer
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 删除用户数据
-      tags:
-      - 用户
-    get:
-      description: 获取JSON
-      parameters:
-      - description: 用户编码
-        in: path
-        name: userId
-        required: true
-        type: integer
-      responses:
-        "200":
-          description: '{"code": 200, "data": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 获取用户
-      tags:
-      - 用户
     put:
       consumes:
       - application/json
@@ -2550,7 +2911,42 @@ paths:
       summary: 修改用户数据
       tags:
       - 用户
-  /api/v1/sys/tables/info:
+  /lotus/api/v1/sys-user/get:
+    get:
+      description: 获取JSON
+      responses:
+        "200":
+          description: '{"code": 200, "data": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 获取用户
+      tags:
+      - 用户
+  /lotus/api/v1/sys-user/role:
+    put:
+      consumes:
+      - application/json
+      description: 为用户分配角色
+      parameters:
+      - description: 用户角色授权请求
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysUserRoleReq'
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": [...]}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 设置用户角色
+      tags:
+      - 用户
+  /lotus/api/v1/sys/tables/info:
     post:
       consumes:
       - application/json
@@ -2591,7 +2987,7 @@ paths:
       summary: 修改表结构
       tags:
       - 工具 / 生成工具
-  /api/v1/sys/tables/info/{tableId}:
+  /lotus/api/v1/sys/tables/info/{tableId}:
     delete:
       description: 删除表结构
       parameters:
@@ -2626,7 +3022,7 @@ paths:
       summary: 获取配置
       tags:
       - 工具 / 生成工具
-  /api/v1/sys/tables/page:
+  /lotus/api/v1/sys/tables/page:
     get:
       description: 生成表分页列表
       parameters:
@@ -2650,7 +3046,7 @@ paths:
       summary: 分页列表数据
       tags:
       - 工具 / 生成工具
-  /api/v1/user/avatar:
+  /lotus/api/v1/user/avatar:
     post:
       consumes:
       - multipart/form-data
@@ -2671,7 +3067,7 @@ paths:
       summary: 修改头像
       tags:
       - 个人中心
-  /api/v1/user/profile:
+  /lotus/api/v1/user/profile:
     get:
       description: 获取JSON
       responses:
@@ -2684,7 +3080,7 @@ paths:
       summary: 获取个人中心用户
       tags:
       - 个人中心
-  /api/v1/user/pwd/reset:
+  /lotus/api/v1/user/pwd/reset:
     put:
       consumes:
       - application/json
@@ -2706,7 +3102,7 @@ paths:
       summary: 重置用户密码
       tags:
       - 用户
-  /api/v1/user/pwd/set:
+  /lotus/api/v1/user/pwd/set:
     put:
       consumes:
       - application/json
@@ -2728,7 +3124,7 @@ paths:
       summary: 修改密码
       tags:
       - 用户
-  /api/v1/user/status:
+  /lotus/api/v1/user/status:
     put:
       consumes:
       - application/json
@@ -2750,7 +3146,7 @@ paths:
       summary: 修改用户状态
       tags:
       - 用户
-  /logout:
+  /lotus/logout:
     post:
       consumes:
       - application/json

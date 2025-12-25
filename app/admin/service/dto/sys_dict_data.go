@@ -58,7 +58,7 @@ func (s *SysDictDataInsertReq) GetId() interface{} {
 }
 
 type SysDictDataUpdateReq struct {
-	Id        int    `uri:"dictCode" comment:""`
+	Id        int    `json:"dictCode" comment:""`
 	DictSort  int    `json:"dictSort" comment:""`
 	DictLabel string `json:"dictLabel" comment:""`
 	DictValue string `json:"dictValue" comment:""`
@@ -91,7 +91,7 @@ func (s *SysDictDataUpdateReq) GetId() interface{} {
 }
 
 type SysDictDataGetReq struct {
-	Id int `uri:"dictCode"`
+	Id int `form:"dictCode"`
 }
 
 func (s *SysDictDataGetReq) GetId() interface{} {

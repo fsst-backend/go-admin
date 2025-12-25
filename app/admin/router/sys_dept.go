@@ -1,10 +1,12 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 	"go-admin/app/admin/apis"
 	"go-admin/common/middleware"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-admin-team/go-admin-core/sdk"
+	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 )
 
 func init() {
@@ -15,18 +17,18 @@ func init() {
 func registerSysDeptRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
 	api := apis.SysDept{}
 
-	r := v1.Group("/dept").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
+	r := v1.Group("/dept").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		r.GET("", api.GetPage)
-		r.GET("/:id", api.Get)
+		r.GET("/get", api.Get)
 		r.POST("", api.Insert)
-		r.PUT("/:id", api.Update)
+		r.PUT("", api.Update)
 		r.DELETE("", api.Delete)
 	}
 
-	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc())
+	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	{
 		r1.GET("/deptTree", api.Get2Tree)
 	}
-
 }

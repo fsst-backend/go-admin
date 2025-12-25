@@ -39,7 +39,7 @@ type File struct {
 // @Param file formData file true "file"
 // @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
 // @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
-// @Router /api/v1/public/uploadFile [post]
+// @Router 	/lotus/api/v1/public/uploadFile [post]
 // @Security Bearer
 func (e File) UploadFile(c *gin.Context) {
 	e.MakeContext(c)

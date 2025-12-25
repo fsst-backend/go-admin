@@ -24,12 +24,12 @@ func (m *SysPostPageReq) GetNeedSearch() interface{} {
 
 // SysPostInsertReq 增使用的结构体
 type SysPostInsertReq struct {
-	PostId   int    `uri:"id"  comment:"id"`
-	PostName string `form:"postName"  comment:"名称"`
-	PostCode string `form:"postCode" comment:"编码"`
-	Sort     int    `form:"sort" comment:"排序"`
-	Status   int    `form:"status"   comment:"状态"`
-	Remark   string `form:"remark"   comment:"备注"`
+	PostId   int    `json:"postId"  comment:"id"`
+	PostName string `json:"postName"  comment:"名称"`
+	PostCode string `json:"postCode" comment:"编码"`
+	Sort     int    `json:"sort" comment:"排序"`
+	Status   int    `json:"status"   comment:"状态"`
+	Remark   string `json:"remark"   comment:"备注"`
 	common.ControlBy
 }
 
@@ -54,12 +54,12 @@ func (s *SysPostInsertReq) GetId() interface{} {
 
 // SysPostUpdateReq 改使用的结构体
 type SysPostUpdateReq struct {
-	PostId   int    `uri:"id"  comment:"id"`
-	PostName string `form:"postName"  comment:"名称"`
-	PostCode string `form:"postCode" comment:"编码"`
-	Sort     int    `form:"sort" comment:"排序"`
-	Status   int    `form:"status"   comment:"状态"`
-	Remark   string `form:"remark"   comment:"备注"`
+	PostId   int    `json:"postId"  comment:"id"`
+	PostName string `json:"postName"  comment:"名称"`
+	PostCode string `json:"postCode" comment:"编码"`
+	Sort     int    `json:"sort" comment:"排序"`
+	Status   int    `json:"status"   comment:"状态"`
+	Remark   string `json:"remark"   comment:"备注"`
 	common.ControlBy
 }
 
@@ -84,7 +84,7 @@ func (s *SysPostUpdateReq) GetId() interface{} {
 
 // SysPostGetReq 获取单个的结构体
 type SysPostGetReq struct {
-	Id int `uri:"id"`
+	Id int `form:"id"`
 }
 
 func (s *SysPostGetReq) GetId() interface{} {

@@ -2,12 +2,13 @@ package apis
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
-	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
+
+	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-admin-team/go-admin-core/sdk/api"
 )
 
 type SysOperaLog struct {
@@ -27,7 +28,7 @@ type SysOperaLog struct {
 // @Param beginTime query string false "beginTime"
 // @Param endTime query string false "endTime"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-opera-log [get]
+// @Router /lotus/api/v1/sys-opera-log [get]
 // @Security Bearer
 func (e SysOperaLog) GetPage(c *gin.Context) {
 	s := service.SysOperaLog{}
@@ -59,16 +60,15 @@ func (e SysOperaLog) GetPage(c *gin.Context) {
 // @Summary 操作日志通过id获取
 // @Description 获取JSON
 // @Tags 操作日志
-// @Param id path string false "id"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-opera-log/{id} [get]
+// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Router /lotus/api/v1/sys-opera-log/get [get]
 // @Security Bearer
 func (e SysOperaLog) Get(c *gin.Context) {
 	s := new(service.SysOperaLog)
-	req :=dto.SysOperaLogGetReq{}
+	req := dto.SysOperaLogGetReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
-		Bind(&req, nil).
+		Bind(&req, binding.Form).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -86,17 +86,16 @@ func (e SysOperaLog) Get(c *gin.Context) {
 }
 
 // Delete 操作日志删除
-// DeleteSysMenu 操作日志删除
 // @Summary 删除操作日志
 // @Description 删除数据
 // @Tags 操作日志
 // @Param data body dto.SysOperaLogDeleteReq true "body"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
-// @Router /api/v1/sys-opera-log [delete]
+// @Success 200 {object} response.Response "{\"code\": 200, \"data\": [...]}"
+// @Router /lotus/api/v1/sys-opera-log [delete]
 // @Security Bearer
 func (e SysOperaLog) Delete(c *gin.Context) {
 	s := new(service.SysOperaLog)
-	req :=dto.SysOperaLogDeleteReq{}
+	req := dto.SysOperaLogDeleteReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
 		Bind(&req, binding.JSON).
@@ -111,7 +110,7 @@ func (e SysOperaLog) Delete(c *gin.Context) {
 	err = s.Remove(&req)
 	if err != nil {
 		e.Logger.Error(err)
-		e.Error(500,err, fmt.Sprintf("删除失败！错误详情：%s", err.Error()))
+		e.Error(500, err, fmt.Sprintf("删除失败！错误详情：%s", err.Error()))
 		return
 	}
 	e.OK(req.GetId(), "删除成功")

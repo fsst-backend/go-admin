@@ -1,22 +1,23 @@
 package dto
 
 import (
-	vd "github.com/bytedance/go-tagexpr/v2/validator"
 	"net/http"
+
+	vd "github.com/bytedance/go-tagexpr/v2/validator"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 )
 
 type ObjectById struct {
-	Id  int   `uri:"id"`
+	Id  int   `form:"id"`
 	Ids []int `json:"ids"`
 }
 
 func (s *ObjectById) Bind(ctx *gin.Context) error {
 	var err error
 	log := api.GetRequestLogger(ctx)
-	err = ctx.ShouldBindUri(s)
+	err = ctx.ShouldBind(s)
 	if err != nil {
 		log.Warnf("ShouldBindUri error: %s", err.Error())
 		return err

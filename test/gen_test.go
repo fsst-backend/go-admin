@@ -3,29 +3,21 @@ package test
 import (
 	//"go-admin/models/tools"
 	//"os"
+
+	"fmt"
 	"testing"
+
+	"golang.org/x/crypto/bcrypt"
 	//"text/template"
 )
 
 func TestGoModelTemplate(t *testing.T) {
-	//t1, err := template.ParseFiles("model.go.template")
-	//if err != nil {
-	//	t.Error(err)
-	//}
-	//table := tools.SysTables{}
-	//table.TBName = "sys_tables"
-	//tab, err := table.Get()
-	//if err != nil {
-	//	t.Error(err)
-	//}
-	//file, err := os.Create("models/" + table.PackageName + ".go")
-	//if err != nil {
-	//	t.Error(err)
-	//}
-	//defer file.Close()
-	//
-	//_ = t1.Execute(file, tab)
-	t.Log("")
+	hash, err := bcrypt.GenerateFromPassword([]byte("R9&s7Bj3@y4w"), bcrypt.DefaultCost)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(string(hash))
+	t.Log(string(hash))
 }
 
 func TestGoApiTemplate(t *testing.T) {
