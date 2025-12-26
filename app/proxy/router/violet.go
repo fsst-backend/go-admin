@@ -24,6 +24,8 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 	r := v1.Group("/poplar/violet").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
 	{
 		// 通配符路由,捕获所有路径
+		// 注意: /*path 只捕获 /poplar/violet 之后的部分
+		// 如果需要保留完整路径,应在 Proxy 中使用 c.Request.URL.Path
 		r.Any("/*path", proxyAPI.Proxy)
 	}
 }

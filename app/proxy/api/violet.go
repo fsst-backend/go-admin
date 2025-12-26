@@ -49,11 +49,8 @@ func (vp VioletProxy) Proxy(c *gin.Context) {
 		originalDirector(req)
 
 		// 设置目标路径
-		// 从通配符路径中获取实际路径
-		path := c.Param("path")
-		if path == "" {
-			path = c.Request.URL.Path
-		}
+		// 使用 c.Request.URL.Path 以保留完整路径（包括 /poplar/violet 前缀）
+		path := c.Request.URL.Path
 		req.URL.Path = path
 		req.URL.RawQuery = c.Request.URL.RawQuery
 

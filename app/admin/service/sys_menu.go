@@ -174,7 +174,7 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 		return e
 	}
 	oldPath := model.MenuPath
-	
+
 	// 使用map进行更新，支持零值
 	updateData := map[string]interface{}{
 		"menu_name":       c.MenuName,
@@ -211,11 +211,12 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 		_ = e.AddError(errors.New("无权更新该数据"))
 		return e
 	}
+	// 更新子路径：如果父路径程改变，最通配罦衔路径也要修改
 	var menuList []models.SysMenu
-	tx.Where("paths like ?", oldPath+"%").Find(&menuList)
+	tx.Where("menu_path like ?", oldPath+"%").Find(&menuList)
 	for _, v := range menuList {
 		v.MenuPath = strings.Replace(v.MenuPath, oldPath, model.MenuPath, 1)
-		tx.Model(&v).Update(model.MenuPath, v.MenuPath)
+		tx.Model(&v).Where("menu_id = ?", v.MenuId).Update(models.SysMenuMenuPath, v.MenuPath)
 	}
 	return e
 }
