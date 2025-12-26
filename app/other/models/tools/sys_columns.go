@@ -42,10 +42,9 @@ type SysColumns struct {
 	FkCol              []SysColumns `gorm:"-" json:"fkCol"`
 	FkLabelId          string       `gorm:"" json:"fkLabelId"`
 	FkLabelName        string       `gorm:"size:255;" json:"fkLabelName"`
-	CreateBy           int          `gorm:"column:create_by;size:20;" json:"createBy"`
-	UpdateBy           int          `gorm:"column:update_By;size:20;" json:"updateBy"`
 
 	common.ModelTime
+	common.ControlBy
 }
 
 func (*SysColumns) TableName() string {

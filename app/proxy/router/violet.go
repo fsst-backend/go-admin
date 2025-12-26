@@ -21,7 +21,7 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 	}
 
 	// 需要认证和权限验证的代理路由
-	r := v1.Group("/violet").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+	r := v1.Group("/poplar/violet").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
 	{
 		// 通配符路由,捕获所有路径
 		r.Any("/*path", proxyAPI.Proxy)

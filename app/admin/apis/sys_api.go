@@ -25,8 +25,8 @@ type SysApi struct {
 // @Param title query string false "标题"
 // @Param path query string false "地址"
 // @Param action query string false "类型"
-// @Param pageSize query int false "页条数"
-// @Param pageIndex query int false "页码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response{data=response.Page{list=[]models.SysApi}} "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/sys-api [get]
 // @Security Bearer
@@ -52,7 +52,7 @@ func (e SysApi) GetPage(c *gin.Context) {
 		e.Error(500, err, "查询失败")
 		return
 	}
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 获取接口管理

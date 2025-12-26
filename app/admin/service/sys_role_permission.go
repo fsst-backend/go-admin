@@ -19,7 +19,7 @@ func (e *SysRolePermission) GetPage(c *dto.SysRolePermissionGetPageReq, list *[]
 	err := e.Orm.
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error

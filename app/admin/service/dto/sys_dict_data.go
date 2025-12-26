@@ -7,12 +7,12 @@ import (
 )
 
 type SysDictDataGetPageReq struct {
-	dto.Pagination `search:"-"`
-	Id             int    `form:"id" search:"type:exact;column:dict_code;table:sys_dict_data" comment:""`
-	DictLabel      string `form:"dictLabel" search:"type:contains;column:dict_label;table:sys_dict_data" comment:""`
-	DictValue      string `form:"dictValue" search:"type:contains;column:dict_value;table:sys_dict_data" comment:""`
-	DictType       string `form:"dictType" search:"type:contains;column:dict_type;table:sys_dict_data" comment:""`
-	Status         string `form:"status" search:"type:exact;column:status;table:sys_dict_data" comment:""`
+	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
+	Id                        int          `form:"id" search:"type:exact;column:dict_code;table:sys_dict_data" comment:""`
+	DictLabel                 string       `form:"dictLabel" search:"type:contains;column:dict_label;table:sys_dict_data" comment:""`
+	DictValue                 string       `form:"dictValue" search:"type:contains;column:dict_value;table:sys_dict_data" comment:""`
+	DictType                  string       `form:"dictType" search:"type:contains;column:dict_type;table:sys_dict_data" comment:""`
+	Status                    string       `form:"status" search:"type:exact;column:status;table:sys_dict_data" comment:""`
 }
 
 func (m *SysDictDataGetPageReq) GetNeedSearch() interface{} {

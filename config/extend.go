@@ -1,6 +1,6 @@
 package config
 
-import "go-admin/common/upload"
+import serviceauth "go-admin/common/upload"
 
 var ExtConfig Extend
 
@@ -30,13 +30,13 @@ type Extend struct {
 }
 
 type AMap struct {
-	Key string
+	Key string `yaml:"key" json:"key"` // 高德地图API密钥
 }
 
 // Violet 反向代理配置
 type Violet struct {
 	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址
-	DomainID  string `yaml:"domainID" json:"domainID"`   // 域ID
+	DomainID  int64  `yaml:"domainID" json:"domainID"`   // 域ID
 }
 
 // Upload 上传服务配置

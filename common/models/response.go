@@ -13,8 +13,8 @@ type Response struct {
 type Page struct {
 	List      interface{} `json:"list"`
 	Count     int         `json:"count"`
-	PageIndex int         `json:"pageIndex"`
-	PageSize  int         `json:"pageSize"`
+	Offset    int         `json:"offset"`
+	Limit     int         `json:"limit"`
 }
 
 // ReturnOK 正常返回

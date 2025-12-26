@@ -7,7 +7,7 @@ import (
 )
 
 type SysLoginLogGetPageReq struct {
-	dto.Pagination `search:"-"`
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 	Username       string `form:"username" search:"type:exact;column:username;table:sys_login_log" comment:"用户名"`
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_login_log" comment:"状态"`
 	Ipaddr         string `form:"ipaddr" search:"type:exact;column:ipaddr;table:sys_login_log" comment:"ip地址"`

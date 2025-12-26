@@ -9,7 +9,7 @@ import (
 
 // SysMenuGetPageReq 列表或者搜索使用结构体
 type SysMenuGetPageReq struct {
-	dto.Pagination `search:"-"`
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 	Title          string `form:"title" search:"type:contains;column:title;table:sys_menu" comment:"菜单名称"` // 菜单名称
 	Status         string `form:"status" search:"type:exact;column:status;table:sys_menu" comment:"状态"`    // 状态
 }

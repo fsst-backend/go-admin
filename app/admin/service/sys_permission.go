@@ -23,7 +23,7 @@ func (e *SysPermission) GetPage(c *dto.SysPermissionGetPageReq, list *[]models.S
 	err := e.Orm.
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
@@ -126,7 +126,16 @@ func (e *SysPermission) Update(c *dto.SysPermissionUpdateReq, cb *casbin.SyncedE
 	// 使用事务更新权限和 API 关联
 	return e.Orm.Transaction(func(tx *gorm.DB) error {
 		// 1. 更新权限基本信息
-		db := tx.Save(&model)
+		updateData := map[string]interface{}{
+			"code":      model.Code,
+			"name":      model.Name,
+			"type":      model.Type,
+			"parent_id": model.ParentId,
+			"sort":      model.Sort,
+			"status":    model.Status,
+			"remark":    model.Remark,
+		}
+		db := tx.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
 		if err := db.Error; err != nil {
 			e.Log.Errorf("Service UpdateSysPermission error:%s", err)
 			return err

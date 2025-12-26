@@ -32,6 +32,8 @@ type SysRole struct {
 // @Param roleName query string false "角色名称"
 // @Param status query string false "状态"
 // @Param roleKey query string false "角色代码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/role [get]
 // @Security Bearer
@@ -59,7 +61,7 @@ func (e SysRole) GetPage(c *gin.Context) {
 		return
 	}
 
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "获取成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "获取成功")
 }
 
 // Insert 创建SysRole

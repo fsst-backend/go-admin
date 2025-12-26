@@ -123,7 +123,17 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq) error {
 		deptPath = "/0/" + deptPath
 	}
 	model.DeptPath = deptPath
-	db := tx.Save(&model)
+	updateData := map[string]interface{}{
+		"dept_name": model.DeptName,
+		"parent_id": model.ParentId,
+		"dept_path": model.DeptPath,
+		"sort":      model.Sort,
+		"leader":    model.Leader,
+		"phone":     model.Phone,
+		"email":     model.Email,
+		"status":    model.Status,
+	}
+	db := tx.Model(&model).Where("dept_id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("UpdateSysDept error:%s", err)
 		return err

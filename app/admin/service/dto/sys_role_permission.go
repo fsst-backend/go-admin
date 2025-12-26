@@ -10,9 +10,9 @@ import (
 // 表：sys_role_permission
 
 type SysRolePermissionGetPageReq struct {
-	dto.Pagination `search:"-"`
-	RoleId         int `form:"roleId"         search:"type:exact;column:role_id;table:sys_role_permission" comment:"角色ID"`
-	PermissionId   int `form:"permissionId"   search:"type:exact;column:permission_id;table:sys_role_permission" comment:"权限ID"`
+	dto.OffsetLimitPagination `search:"-"`
+	RoleId                    int `form:"roleId"         search:"type:exact;column:role_id;table:sys_role_permission" comment:"角色ID"`
+	PermissionId              int `form:"permissionId"   search:"type:exact;column:permission_id;table:sys_role_permission" comment:"权限ID"`
 	SysRolePermissionOrder
 }
 

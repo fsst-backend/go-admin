@@ -68,8 +68,8 @@ func (vp VioletProxy) Proxy(c *gin.Context) {
 
 		// 添加自定义头:域ID
 		domainID := config.ExtConfig.Violet.DomainID
-		if domainID != "" {
-			req.Header.Set(config.HeaderPoplarDomainID, domainID)
+		if domainID != 0 {
+			req.Header.Set(config.HeaderPoplarDomainID, fmt.Sprintf("%d", domainID))
 		}
 
 		// 从JWT Claims中获取用户信息

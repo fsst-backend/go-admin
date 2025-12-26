@@ -48,7 +48,7 @@ func (e SysLoginLog) GetPage(c *gin.Context) {
 		e.Error(500, err, "查询失败")
 		return
 	}
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 登录日志通过id获取

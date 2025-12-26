@@ -74,7 +74,10 @@ func SaveOperaLog(message storage.Messager) (err error) {
 		// Log writing to the database ignores error
 		return nil
 	}
-	// JsonResult 已改为 JSON 类型,不需要截断
+	// JsonResult 已改为 JSON 类型，如果为空则设置为 null
+	if l.JsonResult == "" {
+		l.JsonResult = "{}"
+	}
 	err = db.Create(&l).Error
 	if err != nil {
 		log.Errorf("db create error, %s", err.Error())

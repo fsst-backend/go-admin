@@ -10,9 +10,9 @@ import (
 // 表：sys_user_role
 
 type SysUserRoleGetPageReq struct {
-	dto.Pagination `search:"-"`
-	UserId         int `form:"userId" search:"type:exact;column:user_id;table:sys_user_role" comment:"用户ID"`
-	RoleId         int `form:"roleId" search:"type:exact;column:role_id;table:sys_user_role" comment:"角色ID"`
+	dto.OffsetLimitPagination `search:"-"`
+	UserId                    int `form:"userId" search:"type:exact;column:user_id;table:sys_user_role" comment:"用户ID"`
+	RoleId                    int `form:"roleId" search:"type:exact;column:role_id;table:sys_user_role" comment:"角色ID"`
 	SysUserRoleOrder
 }
 

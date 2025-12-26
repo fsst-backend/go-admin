@@ -4,13 +4,14 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/go-admin-team/go-admin-core/sdk/runtime"
-	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/actions"
 	cDto "go-admin/common/dto"
 	"go-admin/common/global"
+
+	"github.com/go-admin-team/go-admin-core/sdk/runtime"
+	"github.com/go-admin-team/go-admin-core/sdk/service"
 )
 
 type SysApi struct {
@@ -25,7 +26,7 @@ func (e *SysApi) GetPage(c *dto.SysApiGetPageReq, p *actions.DataPermission, lis
 	orm := e.Orm.Debug().Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 			actions.Permission(data.TableName(), p),
 		)
 	if c.Type != "" {
@@ -79,7 +80,14 @@ func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *actions.DataPermission) error
 		return errors.New("无权更新该数据")
 	}
 	c.Generate(&model)
-	db = e.Orm.Save(&model)
+	updateData := map[string]interface{}{
+		"handle": model.Handle,
+		"title":  model.Title,
+		"path":   model.Path,
+		"type":   model.Type,
+		"action": model.Action,
+	}
+	db = e.Orm.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
 	if err := db.Error; err != nil {
 		e.Log.Errorf("Service UpdateSysApi error:%s", err)
 		return err

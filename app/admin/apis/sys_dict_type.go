@@ -25,8 +25,8 @@ type SysDictType struct {
 // @Param dictName query string false "dictName"
 // @Param dictId query string false "dictId"
 // @Param dictType query string false "dictType"
-// @Param pageSize query int false "页条数"
-// @Param pageIndex query int false "页码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/dict/type [get]
 // @Security Bearer
@@ -50,7 +50,7 @@ func (e SysDictType) GetPage(c *gin.Context) {
 		e.Error(500, err, "查询失败")
 		return
 	}
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 字典类型通过字典id获取

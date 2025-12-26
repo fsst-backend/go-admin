@@ -10,7 +10,7 @@ import (
 )
 
 type SysUserGetPageReq struct {
-	dto.Pagination `search:"-"`
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 	UserId         int    `form:"userId" search:"type:exact;column:user_id;table:sys_user" comment:"用户ID"`
 	Uuid           string `form:"uuid" search:"type:exact;column:uuid;table:sys_user" comment:"用户UUID"`
 	Username       string `form:"username" search:"type:contains;column:username;table:sys_user" comment:"用户名"`

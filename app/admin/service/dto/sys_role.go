@@ -8,7 +8,7 @@ import (
 )
 
 type SysRoleGetPageReq struct {
-	dto.Pagination `search:"-"`
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 
 	RoleId    int    `form:"roleId" search:"type:exact;column:role_id;table:sys_role" comment:"角色编码"`     // 角色编码
 	RoleName  string `form:"roleName" search:"type:exact;column:role_name;table:sys_role" comment:"角色名称"` // 角色名称

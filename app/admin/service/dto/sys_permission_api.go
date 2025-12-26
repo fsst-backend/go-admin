@@ -10,16 +10,16 @@ import (
 // 表：sys_permission_api
 
 type SysPermissionApiGetPageReq struct {
-	dto.Pagination `search:"-"`
-	PermissionId   int `form:"permissionId" search:"type:exact;column:permission_id;table:sys_permission_api" comment:"权限ID"`
-	ApiId          int `form:"apiId"        search:"type:exact;column:api_id;table:sys_permission_api" comment:"API ID"`
+	dto.OffsetLimitPagination `search:"-"`
+	PermissionId              int `form:"permissionId" search:"type:exact;column:permission_id;table:sys_permission_api" comment:"权限ID"`
+	ApiId                     int `form:"apiId"        search:"type:exact;column:api_id;table:sys_permission_api" comment:"API ID"`
 	SysPermissionApiOrder
 }
 
 type SysPermissionApiOrder struct {
-	IdOrder          string `form:"idOrder"          search:"type:order;column:id;table:sys_permission_api"`
+	IdOrder           string `form:"idOrder"          search:"type:order;column:id;table:sys_permission_api"`
 	PermissionIdOrder string `form:"permissionIdOrder" search:"type:order;column:permission_id;table:sys_permission_api"`
-	ApiIdOrder       string `form:"apiIdOrder"       search:"type:order;column:api_id;table:sys_permission_api"`
+	ApiIdOrder        string `form:"apiIdOrder"       search:"type:order;column:api_id;table:sys_permission_api"`
 }
 
 func (m *SysPermissionApiGetPageReq) GetNeedSearch() interface{} {

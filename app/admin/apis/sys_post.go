@@ -26,6 +26,8 @@ type SysPost struct {
 // @Param postCode query string false "postCode"
 // @Param postId query string false "postId"
 // @Param status query string false "status"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/post [get]
 // @Security Bearer
@@ -52,7 +54,7 @@ func (e SysPost) GetPage(c *gin.Context) {
 		return
 	}
 
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get

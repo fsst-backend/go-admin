@@ -11,7 +11,7 @@ import (
 // 表：sys_permission
 
 type SysPermissionGetPageReq struct {
-	dto.Pagination `search:"-"`
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 	Code           string `form:"code"  search:"type:contains;column:code;table:sys_permission" comment:"权限唯一编码"`
 	Name           string `form:"name"  search:"type:contains;column:name;table:sys_permission" comment:"权限名称"`
 	Type           string `form:"type"  search:"type:exact;column:type;table:sys_permission" comment:"权限类型(menu/button/api/page)"`

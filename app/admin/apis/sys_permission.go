@@ -25,8 +25,8 @@ type SysPermission struct {
 // @Param name query string false "权限名称"
 // @Param type query string false "权限类型"
 // @Param status query int false "状态"
-// @Param pageSize query int false "页条数"
-// @Param pageIndex query int false "页码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response{data=response.Page{list=[]models.SysPermission}} "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/sys-permission [get]
 // @Security Bearer
@@ -50,7 +50,7 @@ func (e SysPermission) GetPage(c *gin.Context) {
 		e.Error(500, err, "查询失败")
 		return
 	}
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 获取单个权限定义

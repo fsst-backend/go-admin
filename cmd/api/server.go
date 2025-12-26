@@ -80,6 +80,13 @@ func setup() {
 	// queue.Register(global.ApiCheck, models.SaveSysApi)
 	go queue.Run()
 
+	// 打印 ExtConfig 配置参数
+	log.Infof("ExtConfig - AMap.Key: %s", ext.ExtConfig.AMap.Key)
+	log.Infof("ExtConfig - Violet.TargetURL: %s", ext.ExtConfig.Violet.TargetURL)
+	log.Infof("ExtConfig - Violet.DomainID: %s", ext.ExtConfig.Violet.DomainID)
+	log.Infof("ExtConfig - Upload.AppKey: %s", ext.ExtConfig.Upload.AppKey)
+	log.Infof("ExtConfig - Upload.Secret: %s", ext.ExtConfig.Upload.Secret)
+
 	usageStr := `starting api server...`
 	log.Info(usageStr)
 }

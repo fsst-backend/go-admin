@@ -45,9 +45,15 @@ settings:
     dbname: dbname
     # 代码生成是使用前端代码存放位置，需要指定到src文件夹，相对路径
     frontpath: ../go-admin-ui/src
-  extend: # 扩展项使用说明
-    demo:
-      name: data
+  extend: # 扩展配置
+    amap:
+      key: de7a062c984bf828d5d1b3a631a517e4
+    violet:
+      targetURL: ${VIOLET_TARGET_URL}  # Violet 服务地址
+      domainID: ${DOMAIN_ID}          # 域ID
+    upload:
+      appKey: ${UPLOAD_APP_KEY}                    # 应用标识
+      secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥
   cache:
 #    redis:
 #      addr: 127.0.0.1:6379
@@ -70,14 +76,5 @@ settings:
 #        concurrency: 10
 #        blockingTimeout: 5
 #        reclaimInterval: 1
-    extend:
-    amap:
-      key: de7a062c984bf828d5d1b3a631a517e4
-    violet:
-      targetURL: ${VIOLET_TARGET_URL}  # Violet 服务地址
-      domainID: ${DOMAIN_ID}          # 域ID
-    upload:
-      appKey: ${UPLOAD_APP_KEY}                    # 应用标识
-      secret: ${UPLOAD_SECRET_KEY}     # 与上传服务约定的密钥
   locker:
     redis:

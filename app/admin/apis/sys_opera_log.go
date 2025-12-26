@@ -27,6 +27,8 @@ type SysOperaLog struct {
 // @Param status query string false "status"
 // @Param beginTime query string false "beginTime"
 // @Param endTime query string false "endTime"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/sys-opera-log [get]
 // @Security Bearer
@@ -53,7 +55,7 @@ func (e SysOperaLog) GetPage(c *gin.Context) {
 		return
 	}
 
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 操作日志通过id获取

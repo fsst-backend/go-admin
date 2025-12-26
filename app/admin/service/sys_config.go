@@ -19,7 +19,7 @@ func (e *SysConfig) GetPage(c *dto.SysConfigGetPageReq, list *[]models.SysConfig
 	err := e.Orm.
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
@@ -68,7 +68,15 @@ func (e *SysConfig) Update(c *dto.SysConfigControl) error {
 	var model = models.SysConfig{}
 	e.Orm.First(&model, c.GetId())
 	c.Generate(&model)
-	db := e.Orm.Save(&model)
+	updateData := map[string]interface{}{
+		"config_name":  model.ConfigName,
+		"config_key":   model.ConfigKey,
+		"config_value": model.ConfigValue,
+		"config_type":  model.ConfigType,
+		"is_frontend":  model.IsFrontend,
+		"remark":       model.Remark,
+	}
+	db := e.Orm.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
 	err = db.Error
 	if err != nil {
 		e.Log.Errorf("Service UpdateSysConfig error:%s", err)

@@ -29,7 +29,7 @@ func (e *SysRole) GetPage(c *dto.SysRoleGetPageReq, list *[]models.SysRole, coun
 	err = e.Orm.Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
@@ -256,8 +256,18 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) err
 
 	var model = models.SysRole{}
 	c.Generate(&model)
-	// 更新关联的数据，使用 FullSaveAssociations 模式
-	db := tx.Debug().Save(&model)
+	// 使用map指定字段更新，避免覆盖created_at，同时支持零值更新
+	updateData := map[string]interface{}{
+		"role_name":  model.RoleName,
+		"status":     model.Status,
+		"role_key":   model.RoleKey,
+		"role_sort":  model.RoleSort,
+		"flag":       model.Flag,
+		"remark":     model.Remark,
+		"admin":      model.Admin,
+		"data_scope": model.DataScope,
+	}
+	db := tx.Debug().Model(&models.SysRole{}).Where("role_id = ?", c.RoleId).Updates(updateData)
 
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)

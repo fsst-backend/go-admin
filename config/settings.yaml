@@ -48,6 +48,14 @@ settings:
   extend: # 扩展项使用说明
     demo:
       name: data
+    amap:
+      key: de7a062c984bf828d5d1b3a631a517e4
+    violet:
+      targetURL: http://localhost:8080  # Violet 服务地址
+      domainID: default-domain          # 域ID
+    upload:
+      appKey: admin                     # 应用标识
+      secret: your-secret-key           # 密钥
   cache:
 #    redis:
 #      addr: 127.0.0.1:6379

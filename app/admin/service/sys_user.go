@@ -28,7 +28,7 @@ func (e *SysUser) GetPage(c *dto.SysUserGetPageReq, p *actions.DataPermission, l
 	db := e.Orm.Debug().
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()), // 使用 offset/limit 分页
 			actions.Permission(data.TableName(), p),
 		).
 		Find(list).Limit(-1).Offset(-1).
@@ -605,7 +605,7 @@ func (e *SysUser) SetUserRole(c *dto.SysUserRoleReq, cb *casbin.SyncedEnforcer) 
 	// 5. 数据库操作成功后，同步到Casbin
 	if cb != nil {
 		userSubject := fmt.Sprintf("user_%d", c.UserId)
-		
+
 		// 5.1 删除Casbin中的旧的用户角色关联
 		_, err = cb.RemoveFilteredGroupingPolicy(0, userSubject)
 		if err != nil {

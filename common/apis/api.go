@@ -125,8 +125,8 @@ func (e *Api) OK(data interface{}, msg string) {
 }
 
 // PageOK 分页数据处理
-func (e *Api) PageOK(result interface{}, count int, pageIndex int, pageSize int, msg string) {
-	response.PageOK(e.Context, result, count, pageIndex, pageSize, msg)
+func (e *Api) PageOK(result interface{}, count int, offset int, limit int, msg string) {
+	response.PageOK(e.Context, result, count, offset, limit, msg)
 }
 
 // Custom 兼容函数

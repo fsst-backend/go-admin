@@ -23,7 +23,7 @@ func (e *SysPost) GetPage(c *dto.SysPostPageReq, list *[]models.SysPost, count *
 	err = e.Orm.Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
@@ -73,8 +73,15 @@ func (e *SysPost) Update(c *dto.SysPostUpdateReq) error {
 	var model = models.SysPost{}
 	e.Orm.First(&model, c.GetId())
 	c.Generate(&model)
-
-	db := e.Orm.Save(&model)
+	updateData := map[string]interface{}{
+		"post_id":   model.PostId,
+		"post_name": model.PostName,
+		"post_code": model.PostCode,
+		"sort":      model.Sort,
+		"status":    model.Status,
+		"remark":    model.Remark,
+	}
+	db := e.Orm.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)
 		return err

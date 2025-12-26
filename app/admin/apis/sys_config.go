@@ -23,8 +23,8 @@ type SysConfig struct {
 // @Param configKey query string false "key"
 // @Param configType query string false "类型"
 // @Param isFrontend query int false "是否前端"
-// @Param pageSize query int false "页条数"
-// @Param pageIndex query int false "页码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response{data=response.Page{list=[]models.SysConfig}} "{\"code\": 200, \"data\": [...]}"
 // @Router /lotus/api/v1/sys-config [get]
 // @Security Bearer
@@ -48,7 +48,7 @@ func (e SysConfig) GetPage(c *gin.Context) {
 		e.Error(500, err, "查询失败")
 		return
 	}
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get 获取配置管理

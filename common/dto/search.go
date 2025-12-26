@@ -83,3 +83,21 @@ func Paginate(pageSize, pageIndex int) func(db *gorm.DB) *gorm.DB {
 		return db.Offset(offset).Limit(pageSize)
 	}
 }
+
+// PaginateOffsetLimit 使用 offset 和 limit 进行分页
+func PaginateOffsetLimit(limit, offset int) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		if offset < 0 {
+			offset = 0
+		}
+		if limit <= 0 {
+			limit = 10 // 默认值
+		}
+		return db.Offset(offset).Limit(limit)
+	}
+}
+
+// NewPaginate 使用 offset 和 limit 进行分页 (替换旧的 pageIndex/pageSize 方式)
+func NewPaginate(limit, offset int) func(db *gorm.DB) *gorm.DB {
+	return PaginateOffsetLimit(limit, offset)
+}

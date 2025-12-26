@@ -2,11 +2,13 @@ package dto
 
 import (
 	"go-admin/app/admin/models"
+	"go-admin/common/dto"
 	common "go-admin/common/models"
 )
 
 // SysDeptGetPageReq 列表或者搜索使用结构体
 type SysDeptGetPageReq struct {
+	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
 	DeptId         int    `form:"deptId" search:"type:exact;column:dept_id;table:sys_dept" comment:"id"`       //id
 	ParentId       int    `form:"parentId" search:"type:exact;column:parent_id;table:sys_dept" comment:"上级部门"` //上级部门
 	DeptPath       string `form:"deptPath" search:"type:exact;column:dept_path;table:sys_dept" comment:""`     //路径

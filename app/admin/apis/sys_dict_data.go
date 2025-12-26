@@ -24,8 +24,8 @@ type SysDictData struct {
 // @Param status query string false "status"
 // @Param dictCode query string false "dictCode"
 // @Param dictType query string false "dictType"
-// @Param pageSize query int false "页条数"
-// @Param pageIndex query int false "页码"
+// @Param limit query int false "页条数"
+// @Param offset query int false "页码"
 // @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
 // @Router /lotus/api/v1/dict/data [get]
 // @Security Bearer
@@ -51,7 +51,7 @@ func (e SysDictData) GetPage(c *gin.Context) {
 		return
 	}
 
-	e.PageOK(list, int(count), req.GetPageIndex(), req.GetPageSize(), "查询成功")
+	e.PageOK(list, int(count), req.GetOffset(), req.GetLimit(), "查询成功")
 }
 
 // Get

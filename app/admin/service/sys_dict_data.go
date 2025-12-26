@@ -23,7 +23,7 @@ func (e *SysDictData) GetPage(c *dto.SysDictDataGetPageReq, list *[]models.SysDi
 	err = e.Orm.Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error

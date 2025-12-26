@@ -403,13 +403,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -578,13 +578,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -1128,6 +1128,18 @@ const docTemplateadmin = `{
                         "description": "status",
                         "name": "status",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页条数",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "offset",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1331,6 +1343,18 @@ const docTemplateadmin = `{
                         "type": "string",
                         "description": "角色代码",
                         "name": "roleKey",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页条数",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -1686,13 +1710,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -1872,13 +1896,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -2227,6 +2251,18 @@ const docTemplateadmin = `{
                         "description": "endTime",
                         "name": "endTime",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页条数",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "offset",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -2332,13 +2368,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],
@@ -2555,13 +2591,13 @@ const docTemplateadmin = `{
                     {
                         "type": "integer",
                         "description": "页条数",
-                        "name": "pageSize",
+                        "name": "limit",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "description": "页码",
-                        "name": "pageIndex",
+                        "name": "offset",
                         "in": "query"
                     }
                 ],

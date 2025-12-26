@@ -24,7 +24,7 @@ func (e *SysDictType) GetPage(c *dto.SysDictTypeGetPageReq, list *[]models.SysDi
 	err = e.Orm.Model(&data).
 		Scopes(
 			cDto.MakeCondition(c.GetNeedSearch()),
-			cDto.Paginate(c.GetPageSize(), c.GetPageIndex()),
+			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).
 		Find(list).Limit(-1).Offset(-1).
 		Count(count).Error
@@ -77,7 +77,13 @@ func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq) error {
 	var model = models.SysDictType{}
 	e.Orm.First(&model, c.GetId())
 	c.Generate(&model)
-	db := e.Orm.Save(&model)
+	updateData := map[string]interface{}{
+		"dict_name": model.DictName,
+		"dict_type": model.DictType,
+		"status":    model.Status,
+		"remark":    model.Remark,
+	}
+	db := e.Orm.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error: %s", err)
 		return err

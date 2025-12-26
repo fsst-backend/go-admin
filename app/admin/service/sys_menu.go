@@ -147,7 +147,7 @@ func (e *SysMenu) initPaths(tx *gorm.DB, menu *models.SysMenu) error {
 	} else {
 		menu.MenuPath = "/0/" + pkg.IntToString(menu.MenuId)
 	}
-	err = tx.Model(&data).Where("menu_id = ?", menu.MenuId).Update("menuPath", menu.MenuPath).Error
+	err = tx.Model(&data).Where("menu_id = ?", menu.MenuId).Update(models.SysMenuMenuPath, menu.MenuPath).Error
 	return err
 }
 
@@ -167,9 +167,41 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 		}
 	}()
 	var model = models.SysMenu{}
+	// 先查询原记录以获取oldPath
+	if err = tx.First(&model, c.MenuId).Error; err != nil {
+		e.Log.Errorf("db error:%s", err)
+		_ = e.AddError(err)
+		return e
+	}
 	oldPath := model.MenuPath
-	c.Generate(&model)
-	db := tx.Model(&model).Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model)
+	
+	// 使用map进行更新，支持零值
+	updateData := map[string]interface{}{
+		"menu_name":       c.MenuName,
+		"title":           c.Title,
+		"menu_type":       c.MenuType,
+		"menu_path":       c.MenuPath,
+		"path":            c.Path,
+		"perm":            c.Perm,
+		"component":       c.Component,
+		"icon":            c.Icon,
+		"sort_value":      c.SortValue,
+		"is_external":     c.IsExternal,
+		"external_link":   c.ExternalLink,
+		"text_badge":      c.TextBadge,
+		"active_path":     c.ActivePath,
+		"status":          c.Status,
+		"keep_alive":      c.KeepAlive,
+		"is_hide":         c.IsHide,
+		"is_iframe":       c.IsIframe,
+		"show_badge":      c.ShowBadge,
+		"fixed_tab":       c.FixedTab,
+		"is_hide_tab":     c.IsHideTab,
+		"is_full_page":    c.IsFullPage,
+		"parent_id":       c.ParentId,
+		"permission_code": c.PermissionCode,
+	}
+	db := tx.Model(&models.SysMenu{}).Where("menu_id = ?", c.MenuId).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)
 		_ = e.AddError(err)

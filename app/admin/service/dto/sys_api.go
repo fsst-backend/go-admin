@@ -8,12 +8,12 @@ import (
 
 // SysApiGetPageReq 功能列表请求参数
 type SysApiGetPageReq struct {
-	dto.Pagination `search:"-"`
-	Title          string `form:"title"  search:"type:contains;column:title;table:sys_api" comment:"标题"`
-	Path           string `form:"path"  search:"type:contains;column:path;table:sys_api" comment:"地址"`
-	Action         string `form:"action"  search:"type:exact;column:action;table:sys_api" comment:"请求方式"`
-	ParentId       string `form:"parentId"  search:"-" comment:"按钮id"`
-	Type           string `form:"type" search:"-" comment:"类型"`
+	dto.OffsetLimitPagination `search:"-"`
+	Title                     string `form:"title"  search:"type:contains;column:title;table:sys_api" comment:"标题"`
+	Path                      string `form:"path"  search:"type:contains;column:path;table:sys_api" comment:"地址"`
+	Action                    string `form:"action"  search:"type:exact;column:action;table:sys_api" comment:"请求方式"`
+	ParentId                  string `form:"parentId"  search:"-" comment:"按钮id"`
+	Type                      string `form:"type" search:"-" comment:"类型"`
 	SysApiOrder
 }
 

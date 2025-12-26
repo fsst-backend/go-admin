@@ -1551,11 +1551,11 @@ paths:
         type: string
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
@@ -1659,11 +1659,11 @@ paths:
         type: string
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
@@ -2005,6 +2005,14 @@ paths:
         in: query
         name: status
         type: string
+      - description: 页条数
+        in: query
+        name: limit
+        type: integer
+      - description: 页码
+        in: query
+        name: offset
+        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -2131,6 +2139,14 @@ paths:
         in: query
         name: roleKey
         type: string
+      - description: 页条数
+        in: query
+        name: limit
+        type: integer
+      - description: 页码
+        in: query
+        name: offset
+        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -2343,11 +2359,11 @@ paths:
         type: string
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
@@ -2452,11 +2468,11 @@ paths:
         type: integer
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
@@ -2665,6 +2681,14 @@ paths:
         in: query
         name: endTime
         type: string
+      - description: 页条数
+        in: query
+        name: limit
+        type: integer
+      - description: 页码
+        in: query
+        name: offset
+        type: integer
       responses:
         "200":
           description: '{"code": 200, "data": [...]}'
@@ -2729,11 +2753,11 @@ paths:
         type: integer
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
@@ -2853,11 +2877,11 @@ paths:
         type: string
       - description: 页条数
         in: query
-        name: pageSize
+        name: limit
         type: integer
       - description: 页码
         in: query
-        name: pageIndex
+        name: offset
         type: integer
       responses:
         "200":
