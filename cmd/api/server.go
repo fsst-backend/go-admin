@@ -16,10 +16,13 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/router"
 	"go-admin/app/jobs"
+	jobsModels "go-admin/app/jobs/models"
+	otherModels "go-admin/app/other/models/tools"
 	"go-admin/common/database"
 	"go-admin/common/global"
 	common "go-admin/common/middleware"
@@ -66,6 +69,10 @@ func setup() {
 		database.Setup,
 		storage.Setup,
 	)
+
+	//2. 执行数据库自动迁移
+	autoMigrate()
+
 	//注册监听函数
 	queue := sdk.Runtime.GetMemoryQueue("")
 	queue.Register(global.LoginLog, models.SaveLoginLog)
@@ -75,6 +82,118 @@ func setup() {
 
 	usageStr := `starting api server...`
 	log.Info(usageStr)
+}
+
+// autoMigrate 执行数据库自动迁移
+func autoMigrate() {
+	db := sdk.Runtime.GetDbByKey("*")
+	if db == nil {
+		log.Warn("数据库连接不存在,跳过自动迁移")
+		return
+	}
+
+	log.Info("开始执行数据库自动迁移...")
+
+	// 设置表选项
+	if config.DatabaseConfig.Driver == "mysql" || config.DatabaseConfig.Driver == "tidb" {
+		db = db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
+	}
+
+	// 修复问题表结构
+	fixLegacyTables(db)
+
+	// 执行 AutoMigrate
+	err := db.AutoMigrate(
+		// admin 模块模型
+		new(models.SysDept),
+		new(models.SysRoleDept),
+		new(models.SysConfig),
+		new(models.SysMenu),
+		new(models.SysRoleMenu),
+		new(models.SysLoginLog),
+		new(models.SysOperaLog),
+		new(models.SysUserRole),
+		new(models.SysRolePermission),
+		new(models.SysUser),
+		new(models.SysRole),
+		new(models.SysPost),
+		new(models.SysDictData),
+		new(models.SysDictType),
+		new(models.SysApi),
+		new(models.SysPermission),
+		new(models.SysPermissionApi),
+		new(models.CasbinRule),
+		// jobs 模块模型
+		new(jobsModels.SysJob),
+		// other 模块模型
+		new(otherModels.SysTables),
+		new(otherModels.SysColumns),
+	)
+
+	if err != nil {
+		log.Errorf("数据库自动迁移失败: %v", err)
+		// 不中断程序启动,只记录错误
+	} else {
+		log.Info("数据库自动迁移完成")
+	}
+}
+
+// fixLegacyTables 修复遗留的问题表结构
+func fixLegacyTables(db *gorm.DB) {
+	// 修复 sys_role_dept 表的主键问题
+	// 如果表存在但主键结构不对,删除并重建
+	if db.Migrator().HasTable("sys_role_dept") {
+		// 检查是否有 id 列
+		if !db.Migrator().HasColumn(&models.SysRoleDept{}, "id") {
+			log.Warn("sys_role_dept 表结构不正确,将删除并重建")
+			if err := db.Migrator().DropTable("sys_role_dept"); err != nil {
+				log.Errorf("删除 sys_role_dept 表失败: %v", err)
+			} else {
+				log.Info("sys_role_dept 表已删除,将由 AutoMigrate 重新创建")
+			}
+		}
+	}
+
+	// 修复 sys_opera_log 表的 json_result 字段类型问题
+	if db.Migrator().HasTable("sys_opera_log") {
+		// 检查 json_result 列是否已经是 JSON 类型
+		if !isJsonColumnType(db, "sys_opera_log", "json_result") {
+			log.Warn("sys_opera_log 表 json_result 字段不是 JSON 类型,将转换为 JSON 类型")
+			// 首先将现有的非 JSON 数据转换为 JSON 格式
+			convertJsonResultToValidJson(db)
+		}
+	}
+}
+
+// isJsonColumnType 检查列是否为 JSON 类型
+func isJsonColumnType(db *gorm.DB, tableName, columnName string) bool {
+	typeSQL := "SHOW COLUMNS FROM `" + tableName + "` WHERE Field = ?"
+	var result []map[string]interface{}
+	if err := db.Raw(typeSQL, columnName).Scan(&result).Error; err != nil {
+		log.Warnf("检查列类型失败: %v", err)
+		return false
+	}
+	if len(result) == 0 {
+		return false
+	}
+	columnType, ok := result[0]["Type"]
+	if !ok {
+		return false
+	}
+	return columnType == "json"
+}
+
+// convertJsonResultToValidJson 将现有的 json_result 数据转换为有效的 JSON 格式
+func convertJsonResultToValidJson(db *gorm.DB) {
+	// 首先将非 JSON 数据包装为 JSON 格式
+	log.Info("正在转换 sys_opera_log 表中的 json_result 数据为 JSON 格式")
+	// 使用 SQL 直接更新，将非 JSON 数据转义为 JSON 字符串格式
+	updateSQL := "UPDATE sys_opera_log SET json_result = CONCAT('{\"data\":', JSON_QUOTE(json_result), '}') WHERE JSON_VALID(json_result) = 0 AND json_result IS NOT NULL AND json_result != ''"
+	if err := db.Exec(updateSQL).Error; err != nil {
+		log.Warnf("更新 json_result 数据失败: %v, 将跳过并继续", err)
+	} else {
+		log.Info("json_result 数据转换完成")
+	}
 }
 
 func run() error {

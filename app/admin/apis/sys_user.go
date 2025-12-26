@@ -17,6 +17,7 @@ import (
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/actions"
+	"go-admin/common/mycasbin"
 )
 
 type SysUser struct {
@@ -442,31 +443,81 @@ func (e SysUser) GetInfo(c *gin.Context) {
 		return
 	}
 	p := actions.GetPermissionFromContext(c)
-	var roles = make([]string, 1)
-	roles[0] = user.GetRoleName(c)
-	var permissions = make([]string, 1)
-	permissions[0] = "*:*:*"
-	var buttons = make([]string, 1)
-	buttons[0] = "*:*:*"
-
-	var mp = make(map[string]interface{})
-	mp["roles"] = roles
-	if user.GetRoleName(c) == "admin" || user.GetRoleName(c) == "系统管理员" {
-		mp["permissions"] = permissions
-		mp["buttons"] = buttons
-	} else {
-		list, _ := r.GetPremissonByRoleId(user.GetRoleId(c), c.Request.Host)
-		mp["permissions"] = list
-		mp["buttons"] = list
-	}
-	sysUser := models.SysUser{}
 	req.Id = user.GetUserId(c)
+
+	// 获取用户信息
+	sysUser := models.SysUser{}
 	err = s.Get(&req, p, &sysUser)
 	if err != nil {
 		e.Error(http.StatusUnauthorized, err, "登录失败")
 		return
 	}
-	mp["introduction"] = " am a super administrator"
+
+	// 查询用户的角色
+	var userRoles []models.SysUserRole
+	err = e.Orm.Where("user_id = ?", sysUser.UserId).Find(&userRoles).Error
+	if err != nil {
+		e.Error(http.StatusInternalServerError, err, "查询用户角色失败")
+		return
+	}
+
+	// 查询角色详细信息
+	roles := make([]string, 0)
+	var permissions []string
+	var buttons []string
+	isSuperAdmin := false
+
+	if len(userRoles) > 0 {
+		roleIds := make([]int, 0, len(userRoles))
+		for _, ur := range userRoles {
+			roleIds = append(roleIds, ur.RoleId)
+		}
+
+		var roleList []models.SysRole
+		err = e.Orm.Where("role_id in ?", roleIds).Find(&roleList).Error
+		if err != nil {
+			e.Error(http.StatusInternalServerError, err, "查询角色信息失败")
+			return
+		}
+
+		// 收集角色名称和检查是否为 SuperAdmin
+		for _, role := range roleList {
+			roles = append(roles, role.RoleName)
+			if role.RoleKey == mycasbin.SuperAdmin {
+				isSuperAdmin = true
+			}
+		}
+	}
+
+	// 设置权限
+	if isSuperAdmin {
+		// SuperAdmin 拥有所有权限
+		permissions = []string{"*:*:*"}
+		buttons = []string{"*:*:*"}
+	} else {
+		// 普通用户:合并所有角色的权限
+		permissionMap := make(map[string]bool)
+		for _, ur := range userRoles {
+			list, _ := r.GetPremissonByRoleId(ur.RoleId, c.Request.Host)
+			for _, perm := range list {
+				permissionMap[perm] = true
+			}
+		}
+
+		// 将 map 转换为切片
+		permissions = make([]string, 0, len(permissionMap))
+		for perm := range permissionMap {
+			permissions = append(permissions, perm)
+		}
+		buttons = permissions // buttons 和 permissions 保持一致
+	}
+
+	// 构建响应数据
+	mp := make(map[string]interface{})
+	mp["roles"] = roles
+	mp["permissions"] = permissions
+	mp["buttons"] = buttons
+	mp["introduction"] = "I am a super administrator"
 	mp["avatar"] = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
 	if sysUser.Avatar != "" {
 		mp["avatar"] = sysUser.Avatar

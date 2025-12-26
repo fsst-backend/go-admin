@@ -51,7 +51,7 @@ func (e *SysMenu) getPage(c *dto.SysMenuGetPageReq, list *[]models.SysMenu) *Sys
 
 	err = e.Orm.Model(&data).
 		Scopes(
-			cDto.OrderDest("sort", false),
+			cDto.OrderDest(models.SysMenuSortValue, false),
 			cDto.MakeCondition(c.GetNeedSearch()),
 		).
 		Find(list).Error

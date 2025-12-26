@@ -611,17 +611,39 @@ func (e *SysRole) GetWithName(d *dto.SysRoleByName, model *models.SysRole) *SysR
 	return e
 }
 
-// GetById 获取SysRole对象
+// GetPremissonByRoleId 根据角色ID获取权限代码列表
 func (e *SysRole) GetPremissonByRoleId(roleId int, host string) ([]string, error) {
-	permissions := make([]string, 0)
-	// 当前仅返回空列表，具体权限字符串计算逻辑可根据 sys_permission/sys_permission_api 关系后续补充
-	model := models.SysRole{}
-	model.RoleId = roleId
-	if err := e.Orm.Model(&model).First(&model).Error; err != nil {
+	// 1. 查询角色的权限关联
+	var rolePerms []models.SysRolePermission
+	if err := e.Orm.Where("role_id = ?", roleId).Find(&rolePerms).Error; err != nil {
 		return nil, err
 	}
 
-	return permissions, nil
+	if len(rolePerms) == 0 {
+		return []string{}, nil
+	}
+
+	// 2. 获取权限ID列表
+	permIds := make([]int, 0, len(rolePerms))
+	for _, rp := range rolePerms {
+		permIds = append(permIds, rp.PermissionId)
+	}
+
+	// 3. 查询权限详情,只获取已启用的权限
+	var permissions []models.SysPermission
+	if err := e.Orm.Where("id in ? AND status = ?", permIds, 1).Find(&permissions).Error; err != nil {
+		return nil, err
+	}
+
+	// 4. 收集权限代码
+	permissionCodes := make([]string, 0, len(permissions))
+	for _, perm := range permissions {
+		if perm.Code != "" {
+			permissionCodes = append(permissionCodes, perm.Code)
+		}
+	}
+
+	return permissionCodes, nil
 }
 
 // GetById 获取SysRole对象

@@ -20,7 +20,7 @@ type SysOperaLog struct {
 	OperParam     string    `json:"operParam" gorm:"type:text;comment:请求参数"`
 	Status        string    `json:"status" gorm:"type:varchar(4);comment:操作状态 1:正常 2:关闭"`
 	OperTime      time.Time `json:"operTime" gorm:"type:timestamp;comment:操作时间"`
-	JsonResult    string    `json:"jsonResult" gorm:"type:varchar(255);comment:返回数据"`
+	JsonResult    string    `json:"jsonResult" gorm:"type:json;comment:返回数据"`
 	Remark        string    `json:"remark" gorm:"type:varchar(255);comment:备注"`
 	LatencyTime   string    `json:"latencyTime" gorm:"type:varchar(128);comment:耗时"`
 	UserAgent     string    `json:"userAgent" gorm:"type:varchar(255);comment:ua"`

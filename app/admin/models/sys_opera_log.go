@@ -25,10 +25,10 @@ type SysOperaLog struct {
 	OperUrl       string    `json:"operUrl" gorm:"size:255;comment:访问地址"`
 	OperIp        string    `json:"operIp" gorm:"size:128;comment:客户端ip"`
 	OperLocation  string    `json:"operLocation" gorm:"size:128;comment:访问位置"`
-	OperParam     string    `json:"operParam" gorm:"text;comment:请求参数"`
+	OperParam     string    `json:"operParam" gorm:"type:text;comment:请求参数"`
 	Status        string    `json:"status" gorm:"size:4;comment:操作状态 1:正常 2:关闭"`
 	OperTime      time.Time `json:"operTime" gorm:"comment:操作时间"`
-	JsonResult    string    `json:"jsonResult" gorm:"size:255;comment:返回数据"`
+	JsonResult    string    `json:"jsonResult" gorm:"type:json;comment:返回数据"`
 	Remark        string    `json:"remark" gorm:"size:255;comment:备注"`
 	LatencyTime   string    `json:"latencyTime" gorm:"size:128;comment:耗时"`
 	UserAgent     string    `json:"userAgent" gorm:"size:255;comment:ua"`
@@ -74,10 +74,7 @@ func SaveOperaLog(message storage.Messager) (err error) {
 		// Log writing to the database ignores error
 		return nil
 	}
-	// 超出100个字符返回值截断
-	if len(l.JsonResult) > 100 {
-		l.JsonResult = l.JsonResult[:100]
-	}
+	// JsonResult 已改为 JSON 类型,不需要截断
 	err = db.Create(&l).Error
 	if err != nil {
 		log.Errorf("db create error, %s", err.Error())

@@ -47,10 +47,13 @@ func newDataPermission(tx *gorm.DB, userId interface{}) (*DataPermission, error)
 	var err error
 	p := &DataPermission{}
 
+	// 用户和角色是多对多关系,需要通过 sys_user_role 中间表关联
 	err = tx.Table("sys_user").
 		Select("sys_user.user_id", "sys_role.role_id", "sys_user.dept_id", "sys_role.data_scope").
-		Joins("left join sys_role on sys_role.role_id = sys_user.role_id").
+		Joins("left join sys_user_role on sys_user_role.user_id = sys_user.user_id").
+		Joins("left join sys_role on sys_role.role_id = sys_user_role.role_id").
 		Where("sys_user.user_id = ?", userId).
+		Limit(1). // 只取第一个角色的数据权限
 		Scan(p).Error
 	if err != nil {
 		err = errors.New("获取用户数据出错 msg:" + err.Error())
