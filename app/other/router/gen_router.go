@@ -1,23 +1,25 @@
 package router
 
 import (
+	"go-admin/app/admin/apis"
+
 	"github.com/gin-gonic/gin"
 	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 )
 
 func init() {
-	// routerCheckRole = append(routerCheckRole, sysNoCheckRoleRouter, registerDBRouter, registerSysTableRouter)
+	routerCheckRole = append(routerCheckRole, sysNoCheckRoleRouter, registerDBRouter, registerSysTableRouter)
 }
 
 func sysNoCheckRoleRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) {
 
 	// optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
 
-	// r1 := v1.Group("")
-	// {
-	// 	sys := apis.System{}
-	// 	r1.GET("/captcha", sys.GenerateCaptchaHandler)
-	// }
+	r1 := v1.Group("")
+	{
+		sys := apis.System{}
+		r1.GET("/captcha", sys.GenerateCaptchaHandler)
+	}
 
 	// r := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	// {
