@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/go-admin-team/go-admin-core/sdk/config"
-	"gorm.io/gorm/clause"
 
 	"github.com/casbin/casbin/v2"
 
@@ -374,10 +373,12 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) err
 		}
 	}
 
-	// 删除旧的Casbin策略
-	_, err = cb.RemoveFilteredPolicy(0, model.RoleKey)
-	if err != nil {
-		return err
+	// 删除旧的Casbin策略（SuperAdmin除外）
+	if model.RoleKey != mycasbin.SuperAdmin {
+		_, err = cb.RemoveFilteredPolicy(0, model.RoleKey)
+		if err != nil {
+			return err
+		}
 	}
 
 	// 从权限API关系表获取API权限
@@ -423,8 +424,8 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) err
 		policies = append(policies, policy)
 	}
 
-	// 写入新的Casbin策略
-	if len(policies) > 0 {
+	// 写入新的Casbin策略（SuperAdmin除外）
+	if model.RoleKey != mycasbin.SuperAdmin && len(policies) > 0 {
 		_, err = cb.AddNamedPolicies("p", policies)
 		if err != nil {
 			return err
@@ -484,7 +485,7 @@ func (e *SysRole) Remove(c *dto.SysRoleDeleteReq, cb *casbin.SyncedEnforcer) err
 
 	// 删除角色本身
 	var model = models.SysRole{}
-	db := tx.Select(clause.Associations).Delete(&model)
+	db := tx.Where("role_id = ?", c.GetId()).Delete(&model)
 
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)

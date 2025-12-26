@@ -527,7 +527,6 @@ func (e SysUser) GetInfo(c *gin.Context) {
 	mp["uuid"] = sysUser.UUID
 	mp["deptId"] = sysUser.DeptId
 	mp["name"] = sysUser.NickName
-	mp["code"] = 200
 	e.OK(mp, "")
 }
 

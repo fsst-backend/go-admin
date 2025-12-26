@@ -10,11 +10,12 @@ import (
 
 	"github.com/shirou/gopsutil/v3/net"
 
+	"go-admin/app/other/service/dto"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
-	"go-admin/app/other/service/dto"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
@@ -90,7 +91,6 @@ func getOSInfo() dto.OSInfo {
 		Compiler:     runtime.Compiler,
 		Version:      runtime.Version(),
 		NumGoroutine: runtime.NumGoroutine(),
-		Ip:           pkg.GetLocalHost(),
 		ProjectDir:   pkg.GetCurrentPath(),
 		HostName:     sysInfo.Hostname,
 		Time:         time.Now().Format("2006-01-02 15:04:05"),

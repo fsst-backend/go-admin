@@ -55,12 +55,12 @@ const docTemplateadmin = `{
             "get": {
                 "description": "获取验证码",
                 "tags": [
-                    "登陆"
+                    "登殆"
                 ],
                 "summary": "获取验证码",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\\\"code\\\": 0, \\\"data\\\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -4760,10 +4760,10 @@ const docTemplateadmin = `{
                 "count": {
                     "type": "integer"
                 },
-                "pageIndex": {
+                "limit": {
                     "type": "integer"
                 },
-                "pageSize": {
+                "offset": {
                     "type": "integer"
                 }
             }
