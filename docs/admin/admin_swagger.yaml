@@ -1933,26 +1933,6 @@ paths:
       summary: Menu详情数据
       tags:
       - 菜单
-  /lotus/api/v1/menuTreeselect:
-    get:
-      consumes:
-      - application/json
-      description: 获取JSON
-      parameters:
-      - description: 角色ID
-        in: query
-        name: roleId
-        type: integer
-      responses:
-        "200":
-          description: '{\"code\": 200, \"data\": [...]}'
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - Bearer: []
-      summary: 角色修改使用的菜单列表
-      tags:
-      - 菜单
   /lotus/api/v1/menurole:
     get:
       description: 获取JSON
@@ -2234,6 +2214,28 @@ paths:
       summary: 获取Role数据
       tags:
       - 角色管理
+  /lotus/api/v1/roleMenuTreeselect:
+    get:
+      consumes:
+      - application/json
+      description: 根据角色ID查询所有菜单，然后根据该角色的已经关联的菜单标记对它们不可选控
+      parameters:
+      - description: 角色ID
+        in: query
+        name: roleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{\"code\": 200, \"data\": {...}}'
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: 获取角色的菜单树形结构
+      tags:
+      - 菜单
   /lotus/api/v1/roledatascope:
     put:
       consumes:

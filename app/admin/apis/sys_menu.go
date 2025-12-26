@@ -201,15 +201,15 @@ func (e SysMenu) GetMenuRole(c *gin.Context) {
 	e.OK(result, "")
 }
 
-// GetMenuTreeSelect 根据角色ID查询菜单下拉树结构
-// @Summary 角色修改使用的菜单列表
-// @Description 获取JSON
+// roleMenuTreeselect 根据角色ID查询菜单下拉树结构
+// @Summary 获取角色的菜单树形结构
+// @Description 根据角色ID查询所有菜单，然后根据该角色的已经关联的菜单标记对它们不可选控
 // @Tags 菜单
 // @Accept  application/json
-// @Product application/json
+// @Produce application/json
 // @Param roleId query int false "角色ID"
-// @Success 200 {object} response.Response "{\"code\": 200, \"data\": [...]}
-// @Router /lotus/api/v1/menuTreeselect [get]
+// @Success 200 {object} response.Response "{\"code\": 200, \"data\": {...}}"
+// @Router /lotus/api/v1/roleMenuTreeselect [get]
 // @Security Bearer
 func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 	m := service.SysMenu{}
@@ -248,7 +248,7 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 
 	// 3. 返回结果
 	e.OK(gin.H{
-		"menus":       result,       // 所有菜单树形结构
-		"checkedKeys": menuIds,      // 当前角色已勾选的菜单ID列表
+		"menus":       result,  // 所有菜单树形结构
+		"checkedKeys": menuIds, // 当前角色已勾选的菜单ID列表
 	}, "获取成功")
 }

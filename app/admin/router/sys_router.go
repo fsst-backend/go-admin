@@ -84,8 +84,8 @@ func registerBaseRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlewar
 	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
 	v1auth := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
-		v1auth.GET("/roleMenuTreeselect/:roleId", api.GetMenuTreeSelect)
-		//v1.GET("/menuTreeselect", api.GetMenuTreeSelect)
+		v1auth.GET("/roleMenuTreeselect", api.GetMenuTreeSelect)
+		// v1.GET("/menuTreeselect", api.GetMenuTreeSelect)
 		v1auth.GET("/roleDeptTreeselect/:roleId", api2.GetDeptTreeRoleSelect)
 		v1auth.POST("/logout", handler.LogOut)
 	}

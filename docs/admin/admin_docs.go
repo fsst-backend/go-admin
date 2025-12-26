@@ -1037,39 +1037,6 @@ const docTemplateadmin = `{
                 }
             }
         },
-        "/lotus/api/v1/menuTreeselect": {
-            "get": {
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "description": "获取JSON",
-                "consumes": [
-                    "application/json"
-                ],
-                "tags": [
-                    "菜单"
-                ],
-                "summary": "角色修改使用的菜单列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "角色ID",
-                        "name": "roleId",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/lotus/api/v1/menurole": {
             "get": {
                 "security": [
@@ -1518,6 +1485,42 @@ const docTemplateadmin = `{
                 "responses": {
                     "200": {
                         "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/roleMenuTreeselect": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "根据角色ID查询所有菜单，然后根据该角色的已经关联的菜单标记对它们不可选控",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜单"
+                ],
+                "summary": "获取角色的菜单树形结构",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "角色ID",
+                        "name": "roleId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 200, \\\"data\\\": {...}}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
