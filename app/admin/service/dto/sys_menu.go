@@ -171,7 +171,8 @@ func (s *SysMenuDeleteReq) GetId() interface{} {
 
 type MenuLabel struct {
 	Id       int         `json:"id,omitempty" gorm:"-"`
-	Label    string      `json:"label,omitempty" gorm:"-"`
+	MenuName string      `json:"menuName,omitempty" gorm:"-"`
+	Title    string      `json:"title,omitempty" gorm:"-"`
 	Children []MenuLabel `json:"children,omitempty" gorm:"-"`
 }
 

@@ -296,7 +296,8 @@ func (e *SysMenu) SetLabel() (m []dto.MenuLabel, err error) {
 		}
 		e := dto.MenuLabel{}
 		e.Id = list[i].MenuId
-		e.Label = list[i].MenuName
+		e.MenuName = list[i].MenuName
+		e.Title = list[i].Title
 		deptsInfo := menuLabelCall(&list, e)
 
 		m = append(m, deptsInfo)
@@ -316,7 +317,8 @@ func menuLabelCall(eList *[]models.SysMenu, dept dto.MenuLabel) dto.MenuLabel {
 		}
 		mi := dto.MenuLabel{}
 		mi.Id = list[j].MenuId
-		mi.Label = list[j].MenuName
+		mi.MenuName = list[j].MenuName
+		mi.Title = list[j].Title
 		mi.Children = []dto.MenuLabel{}
 		if list[j].MenuType != "F" {
 			ms := menuLabelCall(eList, mi)
