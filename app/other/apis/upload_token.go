@@ -20,7 +20,7 @@ type UploadToken struct {
 // @Tags 上传服务
 // @Accept application/json
 // @Product application/json
-// @Success 200 {object} response.Response "{\"code\": 200, \"data\": {\"appKey\": \"admin\", \"token\": \"xxx\", \"expire\": 1234567890}}"
+// @Success 200 {object} response.Response "{"code": 0, "message": {\"appKey\": \"admin\", \"token\": \"xxx\", \"expire\": 1234567890}}"
 // @Router /lotus/api/v1/upload/token [get]
 // @Security Bearer
 func (e UploadToken) GetToken(c *gin.Context) {

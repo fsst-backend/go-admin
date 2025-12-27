@@ -28,7 +28,7 @@ const docTemplateadmin = `{
                 "summary": "获取系统前台配置信息，主要注意这里不在验证权限",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -60,7 +60,7 @@ const docTemplateadmin = `{
                 "summary": "获取验证码",
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 0, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -115,7 +115,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -152,7 +152,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -194,7 +194,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -228,7 +228,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": -1, \"message\": \"添加失败\"}",
+                        "description": "{\"code\": 500, \"message\": \"添加失败\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -262,7 +262,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": -1, \"message\": \"添加失败\"}",
+                        "description": "{\"code\": 500, \"message\": \"添加失败\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -293,7 +293,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": -1, \"message\": \"删除失败\"}",
+                        "description": "{\"code\": 500, \"message\": \"删除失败\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -315,7 +315,7 @@ const docTemplateadmin = `{
                 "summary": "获取部门数据",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -346,7 +346,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -415,7 +415,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -449,7 +449,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -483,7 +483,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"添加成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"添加成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -514,7 +514,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -536,7 +536,7 @@ const docTemplateadmin = `{
                 "summary": "通过编码获取字典数据",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -590,7 +590,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -624,7 +624,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -658,7 +658,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -689,7 +689,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -731,7 +731,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -753,7 +753,7 @@ const docTemplateadmin = `{
                 "summary": "字典类型通过字典id获取",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -775,7 +775,7 @@ const docTemplateadmin = `{
                 "summary": "获取个人信息",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -811,7 +811,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -847,7 +847,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"启动成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"启动成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -878,7 +878,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"expire\": \"2019-08-07T12:45:48+08:00\", \"token\": \".eyJleHAiOjE1NjUxNTMxNDgsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTU2NTE0OTU0OH0.-zvzHvbg0A\" }",
+                        "description": "{\"code\": 0, \"expire\": \"2019-08-07T12:45:48+08:00\", \"token\": \".eyJleHAiOjE1NjUxNTMxNDgsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTU2NTE0OTU0OH0.-zvzHvbg0A\" }",
                         "schema": {
                             "type": "string"
                         }
@@ -908,7 +908,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -942,7 +942,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -976,7 +976,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1007,7 +1007,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1029,7 +1029,7 @@ const docTemplateadmin = `{
                 "summary": "Menu详情数据",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1051,7 +1051,7 @@ const docTemplateadmin = `{
                 "summary": "根据登录角色名称获取菜单列表数据（左菜单使用）",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1111,7 +1111,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1145,7 +1145,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1179,7 +1179,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1210,7 +1210,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1232,7 +1232,7 @@ const docTemplateadmin = `{
                 "summary": "获取岗位信息",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1273,7 +1273,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": -1, \"message\": \"添加失败\"}",
+                        "description": "{\"code\": 500, \"message\": \"添加失败\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -1327,7 +1327,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1361,7 +1361,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1395,7 +1395,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1426,7 +1426,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1462,7 +1462,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1484,7 +1484,7 @@ const docTemplateadmin = `{
                 "summary": "获取Role数据",
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1520,7 +1520,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": {...}}",
+                        "description": "{\"code\": 200, \"message\": {...}}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1556,7 +1556,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1578,7 +1578,7 @@ const docTemplateadmin = `{
                 "summary": "获取系统信息",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1615,7 +1615,7 @@ const docTemplateadmin = `{
                 "summary": "获取配置",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1665,7 +1665,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1725,7 +1725,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1786,7 +1786,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1817,7 +1817,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1839,7 +1839,7 @@ const docTemplateadmin = `{
                 "summary": "获取接口管理",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1911,7 +1911,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -1972,7 +1972,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"修改成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2006,7 +2006,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"创建成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"创建成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2039,7 +2039,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"message\": \"删除成功\"}",
+                        "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2061,7 +2061,7 @@ const docTemplateadmin = `{
                 "summary": "根据Key获取SysConfig的Service",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -2133,7 +2133,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2164,7 +2164,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2186,7 +2186,7 @@ const docTemplateadmin = `{
                 "summary": "登录日志通过id获取",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2270,7 +2270,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2301,7 +2301,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2323,7 +2323,7 @@ const docTemplateadmin = `{
                 "summary": "操作日志通过id获取",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2383,7 +2383,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -2444,7 +2444,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2478,7 +2478,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2509,7 +2509,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2531,7 +2531,7 @@ const docTemplateadmin = `{
                 "summary": "获取单个权限定义",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "allOf": [
                                 {
@@ -2606,7 +2606,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "type": "string"
                         }
@@ -2640,7 +2640,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2674,7 +2674,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2694,7 +2694,7 @@ const docTemplateadmin = `{
                 "summary": "删除用户数据",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2716,7 +2716,7 @@ const docTemplateadmin = `{
                 "summary": "获取用户",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2752,7 +2752,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2850,7 +2850,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2911,7 +2911,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2936,7 +2936,7 @@ const docTemplateadmin = `{
                 "summary": "生成上传服务token",
                 "responses": {
                     "200": {
-                        "description": "{\\\"code\\\": 200, \\\"data\\\": {\\\"appKey\\\": \\\"admin\\\", \\\"token\\\": \\\"xxx\\\", \\\"expire\\\": 1234567890}}",
+                        "description": "{\"code\": 0, \"message\": {\\\"appKey\\\": \\\"admin\\\", \\\"token\\\": \\\"xxx\\\", \\\"expire\\\": 1234567890}}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2970,7 +2970,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -2992,7 +2992,7 @@ const docTemplateadmin = `{
                 "summary": "获取个人中心用户",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -3028,7 +3028,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -3064,7 +3064,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -3100,7 +3100,7 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"data\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -3122,7 +3122,7 @@ const docTemplateadmin = `{
                 "summary": "退出登录",
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200, \"msg\": \"成功退出系统\" }",
+                        "description": "{\"code\": 0, \"msg\": \"成功退出系统\" }",
                         "schema": {
                             "type": "string"
                         }

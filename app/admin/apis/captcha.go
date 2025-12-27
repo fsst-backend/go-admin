@@ -14,7 +14,7 @@ type System struct {
 // @Summary 获取验证码
 // @Description 获取验证码
 // @Tags 登殆
-// @Success 200 {object} response.Response{data=string,id=string,msg=string} "{\"code\": 0, \"data\": [...]}"
+// @Success 200 {object} response.Response{data=string,id=string,msg=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/captcha [get]
 func (e System) GenerateCaptchaHandler(c *gin.Context) {
 	if err := e.MakeContext(c).Errors; err != nil {

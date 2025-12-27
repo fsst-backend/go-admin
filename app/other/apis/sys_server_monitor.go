@@ -51,7 +51,7 @@ func GetHourDiffer(startTime, endTime string) int64 {
 // @Summary 获取系统信息
 // @Description 获取系统信息
 // @Tags 系统监控
-// @Success 200 {object} response.Response{data=dto.GetServerMonitorInfoResp} "{"code": 200, "data": [...]}"
+// @Success 200 {object} response.Response{data=dto.GetServerMonitorInfoResp} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/server/monitor [get]
 // @Security Bearer
 func (e ServerMonitor) ServerInfo(c *gin.Context) {

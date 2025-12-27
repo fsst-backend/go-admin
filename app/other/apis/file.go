@@ -37,8 +37,8 @@ type File struct {
 // @Accept multipart/form-data
 // @Param type query string true "type" (1：单图，2：多图, 3：base64图片)
 // @Param file formData file true "file"
-// @Success 200 {string} string	"{"code": 200, "message": "添加成功"}"
-// @Success 200 {string} string	"{"code": -1, "message": "添加失败"}"
+// @Success 200 {string} string	"{"code": 0, "message": "添加成功"}"
+// @Success 200 {string} string	"{"code": 500, "message": "添加失败"}"
 // @Router 	/lotus/api/v1/public/uploadFile [post]
 // @Security Bearer
 func (e File) UploadFile(c *gin.Context) {

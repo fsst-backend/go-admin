@@ -23,7 +23,7 @@ type SysJob struct {
 // @Accept application/json
 // @Product application/json
 // @Param data body dto.GeneralDelDto true "删除数据"
-// @Success 200 {object} response.Response "{"code": 200, "message": "删除成功"}
+// @Success 200 {object} response.Response "{"code": 0, "message": "删除成功"}"
 // @Router /lotus/api/v1/job/remove [post]
 // @Security Bearer
 func (e SysJob) RemoveJobForService(c *gin.Context) {
@@ -55,7 +55,7 @@ func (e SysJob) RemoveJobForService(c *gin.Context) {
 // @Accept application/json
 // @Product application/json
 // @Param data body dto.GeneralGetDto true "启动数据"
-// @Success 200 {object} response.Response "{"code": 200, "message": "启动成功"}
+// @Success 200 {object} response.Response "{"code": 0, "message": "启动成功"}
 // @Router /lotus/api/v1/job/start [post]
 // @Security Bearer
 func (e SysJob) StartJobForService(c *gin.Context) {

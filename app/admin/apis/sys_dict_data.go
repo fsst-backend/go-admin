@@ -26,7 +26,7 @@ type SysDictData struct {
 // @Param dictType query string false "dictType"
 // @Param limit query int false "页条数"
 // @Param offset query int false "页码"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
+// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/data [get]
 // @Security Bearer
 func (e SysDictData) GetPage(c *gin.Context) {
@@ -58,7 +58,7 @@ func (e SysDictData) GetPage(c *gin.Context) {
 // @Summary 通过编码获取字典数据
 // @Description 获取JSON
 // @Tags 字典数据
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}
+// @Success 200 {object} response.Response "{"code": 0, "message": [...]}
 // @Router /lotus/api/v1/dict/data/get [get]
 // @Security Bearer
 func (e SysDictData) Get(c *gin.Context) {
@@ -94,7 +94,7 @@ func (e SysDictData) Get(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysDictDataInsertReq true "data"
-// @Success 200 {object} response.Response	"{"code": 200, "message": "添加成功"}"
+// @Success 200 {object} response.Response	"{"code": 0, "message": "添加成功"}"
 // @Router /lotus/api/v1/dict/data [post]
 // @Security Bearer
 func (e SysDictData) Insert(c *gin.Context) {
@@ -127,7 +127,7 @@ func (e SysDictData) Insert(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysDictDataUpdateReq true "body"
-// @Success 200 {object} response.Response	"{"code": 200, "message": "修改成功"}"
+// @Success 200 {object} response.Response	"{"code": 0, "message": "修改成功"}"
 // @Router /lotus/api/v1/dict/data [put]
 // @Security Bearer
 func (e SysDictData) Update(c *gin.Context) {
@@ -157,7 +157,7 @@ func (e SysDictData) Update(c *gin.Context) {
 // @Description 删除数据
 // @Tags 字典数据
 // @Param dictCode body dto.SysDictDataDeleteReq true "body"
-// @Success 200 {object} response.Response	"{"code": 200, "message": "删除成功"}"
+// @Success 200 {object} response.Response	"{"code": 0, "message": "删除成功"}"
 // @Router /lotus/api/v1/dict/data [delete]
 // @Security Bearer
 func (e SysDictData) Delete(c *gin.Context) {
@@ -187,7 +187,7 @@ func (e SysDictData) Delete(c *gin.Context) {
 // @Description 数据字典根据key获取
 // @Tags 字典数据
 // @Param dictType query int true "dictType"
-// @Success 200 {object} response.Response{data=[]dto.SysDictDataGetAllResp}  "{"code": 200, "data": [...]}"
+// @Success 200 {object} response.Response{data=[]dto.SysDictDataGetAllResp}  "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict-data/option-select [get]
 // @Security Bearer
 func (e SysDictData) GetAll(c *gin.Context) {

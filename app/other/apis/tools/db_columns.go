@@ -15,7 +15,7 @@ import (
 // @Param tableName query string false "tableName / 数据表名称"
 // @Param pageSize query int false "pageSize / 页条数"
 // @Param pageIndex query int false "pageIndex / 页码"
-// @Success 200 {object} response.Response "{"code": 200, "data": [...]}"
+// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/db/columns/page [get]
 func (e Gen) GetDBColumnList(c *gin.Context) {
 	e.Context = c
