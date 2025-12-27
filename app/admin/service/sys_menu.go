@@ -346,6 +346,7 @@ func menuCall(menuList *[]models.SysMenu, menu models.SysMenu) models.SysMenu {
 		mi := models.SysMenu{}
 		mi.MenuId = list[j].MenuId
 		mi.MenuName = list[j].MenuName
+		mi.Title = list[j].Title
 		mi.Icon = list[j].Icon
 		mi.Path = list[j].Path
 		mi.MenuType = list[j].MenuType
