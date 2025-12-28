@@ -31,7 +31,7 @@ type {{.ClassName}} struct {
 {{- end }}
 // @Param pageSize query int false "页条数"
 // @Param pageIndex query int false "页码"
-// @Success 200 {object} response.Response{data=response.Page{list=[]models.{{.ClassName}}}} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=response.Page{list=[]models.{{.ClassName}}}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/{{.ModuleName}} [get]
 // @Security Bearer
 func (e {{.ClassName}}) GetPage(c *gin.Context) {
@@ -66,7 +66,7 @@ func (e {{.ClassName}}) GetPage(c *gin.Context) {
 // @Description 获取{{.TableComment}}
 // @Tags {{.TableComment}}
 // @Param id path int false "id"
-// @Success 200 {object} response.Response{data=models.{{.ClassName}}} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=models.{{.ClassName}}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/{{.ModuleName}}/{id} [get]
 // @Security Bearer
 func (e {{.ClassName}}) Get(c *gin.Context) {

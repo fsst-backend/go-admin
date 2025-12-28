@@ -27,7 +27,7 @@ type SysDictType struct {
 // @Param dictType query string false "dictType"
 // @Param limit query int false "页条数"
 // @Param offset query int false "页码"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=response.Page{list=[]models.SysDictType}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/type [get]
 // @Security Bearer
 func (e SysDictType) GetPage(c *gin.Context) {
@@ -57,7 +57,7 @@ func (e SysDictType) GetPage(c *gin.Context) {
 // @Summary 字典类型通过字典id获取
 // @Description 获取JSON
 // @Tags 字典类型
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}
+// @Success 200 {object} response.Response{message=models.SysDictType} "{"code": 0, "message": [...]}
 // @Router /lotus/api/v1/dict/type/get [get]
 // @Security Bearer
 func (e SysDictType) Get(c *gin.Context) {
@@ -89,7 +89,7 @@ func (e SysDictType) Get(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysDictTypeInsertReq true "data"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/type [post]
 // @Security Bearer
 func (e SysDictType) Insert(c *gin.Context) {
@@ -122,7 +122,7 @@ func (e SysDictType) Insert(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysDictTypeUpdateReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/type [put]
 // @Security Bearer
 func (e SysDictType) Update(c *gin.Context) {
@@ -152,7 +152,7 @@ func (e SysDictType) Update(c *gin.Context) {
 // @Description 删除数据
 // @Tags 字典类型
 // @Param dictCode body dto.SysDictTypeDeleteReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/type [delete]
 // @Security Bearer
 func (e SysDictType) Delete(c *gin.Context) {
@@ -184,7 +184,7 @@ func (e SysDictType) Delete(c *gin.Context) {
 // @Param dictName query string false "dictName"
 // @Param dictId query string false "dictId"
 // @Param dictType query string false "dictType"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=[]models.SysDictType} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dict/type-option-select [get]
 // @Security Bearer
 func (e SysDictType) GetAll(c *gin.Context) {

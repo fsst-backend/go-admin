@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 
+	"go-admin/app/other/service/dto"
 	serviceauth "go-admin/common/upload"
 	"go-admin/config"
 )
@@ -20,7 +21,7 @@ type UploadToken struct {
 // @Tags 上传服务
 // @Accept application/json
 // @Product application/json
-// @Success 200 {object} response.Response "{"code": 0, "message": {\"appKey\": \"admin\", \"token\": \"xxx\", \"expire\": 1234567890}}"
+// @Success 200 {object} response.Response{message=dto.GenTokenResponse} "{"code": 0, "message": {\"appKey\": \"admin\", \"token\": \"xxx\", \"expire\": 1234567890}}"
 // @Router /lotus/api/v1/upload/token [get]
 // @Security Bearer
 func (e UploadToken) GetToken(c *gin.Context) {
@@ -37,9 +38,9 @@ func (e UploadToken) GetToken(c *gin.Context) {
 	// 生成 token,有效期 1 小时
 	token, expire := serviceauth.GenerateUploadToken(uploadConfig, time.Hour)
 
-	e.OK(gin.H{
-		"appKey": uploadConfig.AppKey,
-		"token":  token,
-		"expire": expire,
+	e.OK(dto.GenTokenResponse{
+		AppKey: uploadConfig.AppKey,
+		Token:  token,
+		Expire: expire,
 	}, "生成成功")
 }

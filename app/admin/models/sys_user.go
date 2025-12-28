@@ -22,7 +22,7 @@ type SysUser struct {
 	DeptId   int      `json:"deptId" gorm:"size:20;comment:部门"`
 	PostId   int      `json:"postId" gorm:"size:20;comment:岗位"`
 	Remark   string   `json:"remark" gorm:"size:255;comment:备注"`
-	Status   string   `json:"status" gorm:"size:4;comment:状态"`
+	Status   string   `json:"status" gorm:"size:4;comment:状态"` // 状态
 	DeptIds  []int    `json:"deptIds" gorm:"-"`
 	PostIds  []int    `json:"postIds" gorm:"-"`
 	RoleIds  []int    `json:"roleIds" gorm:"-"`

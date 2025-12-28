@@ -1,6 +1,8 @@
 package apis
 
 import (
+	"go-admin/app/admin/service/dto"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/captcha"
@@ -14,7 +16,7 @@ type System struct {
 // @Summary 获取验证码
 // @Description 获取验证码
 // @Tags 登殆
-// @Success 200 {object} response.Response{data=string,id=string,msg=string} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=dto.Captcha} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/captcha [get]
 func (e System) GenerateCaptchaHandler(c *gin.Context) {
 	if err := e.MakeContext(c).Errors; err != nil {
@@ -28,8 +30,5 @@ func (e System) GenerateCaptchaHandler(c *gin.Context) {
 		return
 	}
 	e.Logger.Infof("Captcha generated - id: %s, answer: %s", id, answer)
-	e.OK(gin.H{
-		"id":   id,
-		"data": b64s,
-	}, "success")
+	e.OK(dto.Captcha{Id: id, Captcha: b64s}, "success")
 }

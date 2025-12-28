@@ -27,7 +27,7 @@ type SysApi struct {
 // @Param action query string false "类型"
 // @Param limit query int false "页条数"
 // @Param offset query int false "页码"
-// @Success 200 {object} response.Response{data=response.Page{list=[]models.SysApi}} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=response.Page{list=[]models.SysApi}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-api [get]
 // @Security Bearer
 func (e SysApi) GetPage(c *gin.Context) {
@@ -59,7 +59,7 @@ func (e SysApi) GetPage(c *gin.Context) {
 // @Summary 获取接口管理
 // @Description 获取接口管理
 // @Tags 接口管理
-// @Success 200 {object} response.Response{data=models.SysApi} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=models.SysApi} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-api/get [get]
 // @Security Bearer
 func (e SysApi) Get(c *gin.Context) {
@@ -92,7 +92,7 @@ func (e SysApi) Get(c *gin.Context) {
 // @Accept application/json
 // @Product application/json
 // @Param data body dto.SysApiUpdateReq true "body"
-// @Success 200 {object} response.Response	"{"code": 0, "message": "修改成功"}"
+// @Success 200 {object} response.Response{message=string}	"{"code": 0, "message": "修改成功"}"
 // @Router /lotus/api/v1/sys-api [put]
 // @Security Bearer
 func (e SysApi) Update(c *gin.Context) {
@@ -122,7 +122,7 @@ func (e SysApi) Update(c *gin.Context) {
 // @Description 删除接口管理
 // @Tags 接口管理
 // @Param data body dto.SysApiDeleteReq true "body"
-// @Success 200 {object} response.Response	"{"code": 0, "message": "删除成功"}"
+// @Success 200 {object} response.Response{message=string}	"{"code": 0, "message": "删除成功"}"
 // @Router /lotus/api/v1/sys-api [delete]
 // @Security Bearer
 func (e SysApi) DeleteSysApi(c *gin.Context) {

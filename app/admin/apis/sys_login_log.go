@@ -25,7 +25,7 @@ type SysLoginLog struct {
 // @Param status query string false "状态"
 // @Param beginTime query string false "开始时间"
 // @Param endTime query string false "结束时间"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=response.Page{list=[]models.SysLoginLog}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-login-log [get]
 // @Security Bearer
 func (e SysLoginLog) GetPage(c *gin.Context) {
@@ -55,7 +55,7 @@ func (e SysLoginLog) GetPage(c *gin.Context) {
 // @Summary 登录日志通过id获取
 // @Description 获取JSON
 // @Tags 登录日志
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}
+// @Success 200 {object} response.Response{message=models.SysLoginLog} "{"code": 0, "message": [...]}
 // @Router /lotus/api/v1/sys-login-log/get [get]
 // @Security Bearer
 func (e SysLoginLog) Get(c *gin.Context) {
@@ -85,7 +85,7 @@ func (e SysLoginLog) Get(c *gin.Context) {
 // @Description 登录日志删除
 // @Tags 登录日志
 // @Param data body dto.SysLoginLogDeleteReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-login-log [delete]
 // @Security Bearer
 func (e SysLoginLog) Delete(c *gin.Context) {

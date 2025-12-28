@@ -28,7 +28,7 @@ type SysPost struct {
 // @Param status query string false "status"
 // @Param limit query int false "页条数"
 // @Param offset query int false "页码"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=[]models.SysPost} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/post [get]
 // @Security Bearer
 func (e SysPost) GetPage(c *gin.Context) {
@@ -61,7 +61,7 @@ func (e SysPost) GetPage(c *gin.Context) {
 // @Summary 获取岗位信息
 // @Description 获取JSON
 // @Tags 岗位
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}
+// @Success 200 {object} response.Response{message=models.SysPost} "{"code": 0, "message": [...]}
 // @Router /lotus/api/v1/post/get [get]
 // @Security Bearer
 func (e SysPost) Get(c *gin.Context) {
@@ -95,7 +95,7 @@ func (e SysPost) Get(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysPostInsertReq true "data"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/post [post]
 // @Security Bearer
 func (e SysPost) Insert(c *gin.Context) {
@@ -127,7 +127,7 @@ func (e SysPost) Insert(c *gin.Context) {
 // @Accept  application/json
 // @Product application/json
 // @Param data body dto.SysPostUpdateReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/post [put]
 // @Security Bearer
 func (e SysPost) Update(c *gin.Context) {
@@ -159,7 +159,7 @@ func (e SysPost) Update(c *gin.Context) {
 // @Description 删除数据
 // @Tags 岗位
 // @Param id body dto.SysPostDeleteReq true "请求参数"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/post [delete]
 // @Security Bearer
 func (e SysPost) Delete(c *gin.Context) {

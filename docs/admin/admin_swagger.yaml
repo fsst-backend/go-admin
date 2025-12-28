@@ -7,6 +7,35 @@ definitions:
       percent:
         type: number
     type: object
+  dto.Captcha:
+    properties:
+      captcha:
+        type: string
+      id:
+        type: string
+    type: object
+  dto.DeptLabel:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/dto.DeptLabel'
+        type: array
+      id:
+        type: integer
+      label:
+        type: string
+    type: object
+  dto.DeptTreeRoleSelect:
+    properties:
+      checkedKeys:
+        items:
+          type: integer
+        type: array
+      depts:
+        items:
+          $ref: '#/definitions/dto.DeptLabel'
+        type: array
+    type: object
   dto.DiskInfo:
     properties:
       percent:
@@ -15,6 +44,15 @@ definitions:
         type: number
       used:
         type: number
+    type: object
+  dto.GenTokenResponse:
+    properties:
+      appKey:
+        type: string
+      expire:
+        type: integer
+      token:
+        type: string
     type: object
   dto.GeneralDelDto:
     properties:
@@ -891,6 +929,9 @@ definitions:
         description: 用户ID
         type: integer
     type: object
+  gin.H:
+    additionalProperties: {}
+    type: object
   go-admin_app_admin_models.SysApi:
     properties:
       action:
@@ -985,6 +1026,39 @@ definitions:
       updatedAt:
         type: string
     type: object
+  go-admin_app_admin_models.SysLoginLog:
+    properties:
+      browser:
+        type: string
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      id:
+        type: integer
+      ipaddr:
+        type: string
+      loginLocation:
+        type: string
+      loginTime:
+        type: string
+      msg:
+        type: string
+      os:
+        type: string
+      platform:
+        type: string
+      remark:
+        type: string
+      status:
+        type: string
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
   go-admin_app_admin_models.SysMenu:
     properties:
       activePath:
@@ -1051,6 +1125,55 @@ definitions:
       updatedAt:
         type: string
     type: object
+  go-admin_app_admin_models.SysOperaLog:
+    properties:
+      businessType:
+        type: string
+      businessTypes:
+        type: string
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      deptName:
+        type: string
+      id:
+        type: integer
+      jsonResult:
+        type: string
+      latencyTime:
+        type: string
+      method:
+        type: string
+      operIp:
+        type: string
+      operLocation:
+        type: string
+      operName:
+        type: string
+      operParam:
+        type: string
+      operTime:
+        type: string
+      operUrl:
+        type: string
+      operatorType:
+        type: string
+      remark:
+        type: string
+      requestMethod:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+      userAgent:
+        type: string
+    type: object
   go-admin_app_admin_models.SysPermission:
     properties:
       apis:
@@ -1082,6 +1205,134 @@ definitions:
       updatedAt:
         type: string
     type: object
+  go-admin_app_admin_models.SysPost:
+    properties:
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      dataScope:
+        type: string
+      params:
+        type: string
+      postCode:
+        description: 岗位代码
+        type: string
+      postId:
+        description: 岗位编号
+        type: integer
+      postName:
+        description: 岗位名称
+        type: string
+      remark:
+        description: 描述
+        type: string
+      sort:
+        description: 岗位排序
+        type: integer
+      status:
+        description: 状态
+        type: integer
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  go-admin_app_admin_models.SysRole:
+    properties:
+      Menus:
+        items:
+          $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
+        type: array
+      admin:
+        type: boolean
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      dataScope:
+        type: string
+      flag:
+        type: string
+      permissions:
+        items:
+          $ref: '#/definitions/go-admin_app_admin_models.SysPermission'
+        type: array
+      remark:
+        description: 备注
+        type: string
+      roleId:
+        description: 角色编码
+        type: integer
+      roleKey:
+        description: 角色代码
+        type: string
+      roleName:
+        description: 角色名称
+        type: string
+      roleSort:
+        description: 角色排序
+        type: integer
+      status:
+        description: 状态 1禁用 2正常
+        type: string
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  go-admin_app_admin_models.SysUser:
+    properties:
+      avatar:
+        type: string
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      dept:
+        $ref: '#/definitions/go-admin_app_admin_models.SysDept'
+      deptId:
+        type: integer
+      deptIds:
+        items:
+          type: integer
+        type: array
+      email:
+        type: string
+      nickName:
+        type: string
+      phone:
+        type: string
+      post:
+        $ref: '#/definitions/go-admin_app_admin_models.SysPost'
+      postId:
+        type: integer
+      postIds:
+        items:
+          type: integer
+        type: array
+      remark:
+        type: string
+      roleIds:
+        items:
+          type: integer
+        type: array
+      sex:
+        type: string
+      status:
+        description: 状态
+        type: string
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+      userId:
+        type: integer
+      username:
+        type: string
+      uuid:
+        type: string
+    type: object
   handler.Login:
     properties:
       code:
@@ -1098,12 +1349,67 @@ definitions:
     - username
     - uuid
     type: object
+  models.SysDictData:
+    properties:
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      cssClass:
+        type: string
+      default:
+        type: string
+      dictCode:
+        type: integer
+      dictLabel:
+        type: string
+      dictSort:
+        type: integer
+      dictType:
+        type: string
+      dictValue:
+        type: string
+      isDefault:
+        type: string
+      listClass:
+        type: string
+      remark:
+        type: string
+      status:
+        type: integer
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.SysDictType:
+    properties:
+      createBy:
+        type: integer
+      createdAt:
+        type: string
+      dictName:
+        type: string
+      dictType:
+        type: string
+      id:
+        type: integer
+      remark:
+        type: string
+      status:
+        type: integer
+      updateBy:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
   response.Page:
     properties:
       count:
         type: integer
       limit:
         type: integer
+      list: {}
       offset:
         type: integer
     type: object
@@ -1111,6 +1417,7 @@ definitions:
     properties:
       code:
         type: integer
+      message: {}
       msg:
         type: string
       requestId:
@@ -1312,7 +1619,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   additionalProperties:
                     type: string
                   type: object
@@ -1330,12 +1637,8 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
-                  type: string
-                id:
-                  type: string
-                msg:
-                  type: string
+                message:
+                  $ref: '#/definitions/dto.Captcha'
               type: object
       summary: 获取验证码
       tags:
@@ -1400,9 +1703,23 @@ paths:
           $ref: '#/definitions/dto.SysDeptDeleteReq'
       responses:
         "200":
+          description: '{"code": 0, "message": "删除成功"}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+        "500":
           description: '{"code": 500, "message": "删除失败"}'
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除部门
@@ -1427,7 +1744,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysDept'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 分页部门列表数据
@@ -1446,9 +1770,23 @@ paths:
           $ref: '#/definitions/dto.SysDeptInsertReq'
       responses:
         "200":
+          description: '{"code": 0, "message": "添加成功"}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+        "500":
           description: '{"code": 500, "message": "添加失败"}'
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 添加部门
@@ -1467,9 +1805,23 @@ paths:
           $ref: '#/definitions/dto.SysDeptUpdateReq'
       responses:
         "200":
+          description: '{"code": 0, "message": "添加成功"}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+        "500":
           description: '{"code": 500, "message": "添加失败"}'
           schema:
-            type: string
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改部门
@@ -1482,10 +1834,59 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysDept'
+              type: object
       security:
       - Bearer: []
       summary: 获取部门数据
+      tags:
+      - 部门
+  /lotus/api/v1/dept/tree:
+    get:
+      description: 获取JSON
+      responses:
+        "200":
+          description: '{"code": 0, "message": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/dto.DeptLabel'
+                  type: array
+              type: object
+      security:
+      - Bearer: []
+      summary: 用户管理 左侧部门树
+      tags:
+      - 部门
+  /lotus/api/v1/dept/tree/{roleId}:
+    get:
+      description: 获取JSON
+      parameters:
+      - description: 角色ID
+        in: path
+        name: roleId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: '{"code": 0, "message": {...}}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/dto.DeptTreeRoleSelect'
+              type: object
+      security:
+      - Bearer: []
+      summary: 用户管理 部门树角色选择
       tags:
       - 部门
   /lotus/api/v1/dict-data/option-select:
@@ -1504,7 +1905,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   items:
                     $ref: '#/definitions/dto.SysDictDataGetAllResp'
                   type: array
@@ -1528,7 +1929,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "删除成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除字典数据
@@ -1561,7 +1967,19 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  allOf:
+                  - $ref: '#/definitions/response.Page'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/models.SysDictData'
+                        type: array
+                    type: object
+              type: object
       security:
       - Bearer: []
       summary: 字典数据列表
@@ -1582,7 +2000,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "添加成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 添加字典数据
@@ -1603,7 +2026,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "修改成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改字典数据
@@ -1616,7 +2044,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/models.SysDictData'
+              type: object
       security:
       - Bearer: []
       summary: 通过编码获取字典数据
@@ -1636,7 +2069,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除字典类型
@@ -1669,7 +2107,19 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  allOf:
+                  - $ref: '#/definitions/response.Page'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/models.SysDictType'
+                        type: array
+                    type: object
+              type: object
       security:
       - Bearer: []
       summary: 字典类型列表数据
@@ -1690,7 +2140,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 添加字典类型
@@ -1711,7 +2166,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改字典类型
@@ -1737,7 +2197,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/models.SysDictType'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 字典类型全部数据 代码生成使用接口
@@ -1750,7 +2217,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/models.SysDictType'
+              type: object
       security:
       - Bearer: []
       summary: 字典类型通过字典id获取
@@ -1785,7 +2257,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "删除成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除定时任务
@@ -1807,7 +2284,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "启动成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 启动定时任务
@@ -1855,7 +2337,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除菜单
@@ -1872,7 +2359,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: Menu列表数据
@@ -1893,7 +2387,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 创建菜单
@@ -1914,7 +2413,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改菜单
@@ -1927,7 +2431,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
+              type: object
       security:
       - Bearer: []
       summary: Menu详情数据
@@ -1940,7 +2449,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 根据登录角色名称获取菜单列表数据（左菜单使用）
@@ -1960,7 +2476,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除岗位
@@ -1997,7 +2518,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysPost'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 岗位列表数据
@@ -2018,7 +2546,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 添加岗位
@@ -2039,7 +2572,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改岗位
@@ -2052,7 +2590,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysPost'
+              type: object
       security:
       - Bearer: []
       summary: 获取岗位信息
@@ -2098,7 +2641,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除用户角色
@@ -2131,7 +2679,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysRole'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 获取SysRole列表
@@ -2152,7 +2707,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 创建SysRole
@@ -2173,7 +2733,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改用户角色
@@ -2195,7 +2760,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改用户角色
@@ -2208,7 +2778,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysRole'
+              type: object
       security:
       - Bearer: []
       summary: 获取Role数据
@@ -2230,7 +2805,12 @@ paths:
         "200":
           description: '{"code": 200, "message": {...}}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 获取角色的菜单树形结构
@@ -2252,7 +2832,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 更新角色数据权限
@@ -2268,7 +2853,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   $ref: '#/definitions/dto.GetServerMonitorInfoResp'
               type: object
       security:
@@ -2288,7 +2873,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   additionalProperties: true
                   type: object
               type: object
@@ -2314,7 +2899,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "修改成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 设置配置
@@ -2334,7 +2924,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "删除成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除接口管理
@@ -2374,7 +2969,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   allOf:
                   - $ref: '#/definitions/response.Page'
                   - properties:
@@ -2404,7 +2999,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "修改成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改接口管理
@@ -2420,7 +3020,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   $ref: '#/definitions/go-admin_app_admin_models.SysApi'
               type: object
       security:
@@ -2443,7 +3043,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "删除成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除配置管理
@@ -2483,7 +3088,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   allOf:
                   - $ref: '#/definitions/response.Page'
                   - properties:
@@ -2513,7 +3118,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "创建成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 创建配置管理
@@ -2534,7 +3144,12 @@ paths:
         "200":
           description: '{"code": 0, "message": "修改成功"}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改配置管理
@@ -2550,7 +3165,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   $ref: '#/definitions/dto.SysConfigByKeyReq'
               type: object
       security:
@@ -2572,7 +3187,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 登录日志删除
@@ -2609,7 +3229,19 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  allOf:
+                  - $ref: '#/definitions/response.Page'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/go-admin_app_admin_models.SysLoginLog'
+                        type: array
+                    type: object
+              type: object
       security:
       - Bearer: []
       summary: 登录日志列表
@@ -2622,7 +3254,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysLoginLog'
+              type: object
       security:
       - Bearer: []
       summary: 登录日志通过id获取
@@ -2642,7 +3279,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除操作日志
@@ -2695,7 +3337,14 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  items:
+                    $ref: '#/definitions/go-admin_app_admin_models.SysOperaLog'
+                  type: array
+              type: object
       security:
       - Bearer: []
       summary: 操作日志列表
@@ -2708,7 +3357,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysOperaLog'
+              type: object
       security:
       - Bearer: []
       summary: 操作日志通过id获取
@@ -2728,7 +3382,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除权限定义
@@ -2768,7 +3427,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   allOf:
                   - $ref: '#/definitions/response.Page'
                   - properties:
@@ -2798,7 +3457,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 创建权限定义
@@ -2819,7 +3483,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改权限定义
@@ -2835,7 +3504,7 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
-                data:
+                message:
                   $ref: '#/definitions/go-admin_app_admin_models.SysPermission'
               type: object
       security:
@@ -2850,7 +3519,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 删除用户数据
@@ -2910,7 +3584,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 创建用户
@@ -2931,7 +3610,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改用户数据
@@ -2944,7 +3628,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/go-admin_app_admin_models.SysUser'
+              type: object
       security:
       - Bearer: []
       summary: 获取用户
@@ -2966,7 +3655,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 设置用户角色
@@ -3082,7 +3776,12 @@ paths:
           description: '{"code": 0, "message": {\"appKey\": \"admin\", \"token\":
             \"xxx\", \"expire\": 1234567890}}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/dto.GenTokenResponse'
+              type: object
       security:
       - Bearer: []
       summary: 生成上传服务token
@@ -3103,7 +3802,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改头像
@@ -3116,7 +3820,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/gin.H'
+              type: object
       security:
       - Bearer: []
       summary: 获取个人中心用户
@@ -3138,7 +3847,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 重置用户密码
@@ -3160,7 +3874,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改密码
@@ -3182,7 +3901,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
       security:
       - Bearer: []
       summary: 修改用户状态

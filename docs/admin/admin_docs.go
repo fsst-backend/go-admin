@@ -37,7 +37,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "type": "object",
                                             "additionalProperties": {
                                                 "type": "string"
@@ -69,14 +69,8 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
-                                            "type": "string"
-                                        },
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "msg": {
-                                            "type": "string"
+                                        "message": {
+                                            "$ref": "#/definitions/dto.Captcha"
                                         }
                                     }
                                 }
@@ -196,7 +190,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -228,9 +237,39 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
+                        "description": "{\"code\": 0, \"message\": \"添加成功\"}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
                         "description": "{\"code\": 500, \"message\": \"添加失败\"}",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -262,9 +301,39 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
+                        "description": "{\"code\": 0, \"message\": \"添加成功\"}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
                         "description": "{\"code\": 500, \"message\": \"添加失败\"}",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -293,9 +362,39 @@ const docTemplateadmin = `{
                 ],
                 "responses": {
                     "200": {
+                        "description": "{\"code\": 0, \"message\": \"删除成功\"}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
                         "description": "{\"code\": 500, \"message\": \"删除失败\"}",
                         "schema": {
-                            "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -317,7 +416,99 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/dept/tree": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "tags": [
+                    "部门"
+                ],
+                "summary": "用户管理 左侧部门树",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 0, \"message\": [...]}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/dto.DeptLabel"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/dept/tree/{roleId}": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "获取JSON",
+                "tags": [
+                    "部门"
+                ],
+                "summary": "用户管理 部门树角色选择",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "角色ID",
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 0, \"message\": {...}}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/dto.DeptTreeRoleSelect"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -355,7 +546,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/dto.SysDictDataGetAllResp"
@@ -417,7 +608,34 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/response.Page"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "list": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/models.SysDictData"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -451,7 +669,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -485,7 +715,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"添加成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -516,7 +758,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -538,7 +792,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/models.SysDictData"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -592,7 +858,34 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/response.Page"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "list": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/models.SysDictType"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -626,7 +919,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -660,7 +965,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -691,7 +1008,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -733,7 +1062,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.SysDictType"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -755,7 +1099,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/models.SysDictType"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -813,7 +1169,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -849,7 +1217,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"启动成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -910,7 +1290,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -944,7 +1339,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -978,7 +1385,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1009,7 +1428,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1031,7 +1462,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1053,7 +1496,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1113,7 +1571,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysPost"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1147,7 +1620,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1181,7 +1666,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1212,7 +1709,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1234,7 +1743,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysPost"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1329,7 +1850,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysRole"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1363,7 +1899,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1397,7 +1945,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1428,7 +1988,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1464,7 +2036,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1486,7 +2070,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysRole"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1522,7 +2118,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 200, \"message\": {...}}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1558,7 +2166,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1587,7 +2207,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "$ref": "#/definitions/dto.GetServerMonitorInfoResp"
                                         }
                                     }
@@ -1624,7 +2244,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "type": "object",
                                             "additionalProperties": true
                                         }
@@ -1667,7 +2287,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1734,7 +2366,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "allOf": [
                                                 {
                                                     "$ref": "#/definitions/response.Page"
@@ -1788,7 +2420,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1819,7 +2463,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -1848,7 +2504,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "$ref": "#/definitions/go-admin_app_admin_models.SysApi"
                                         }
                                     }
@@ -1920,7 +2576,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "allOf": [
                                                 {
                                                     "$ref": "#/definitions/response.Page"
@@ -1974,7 +2630,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"修改成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2008,7 +2676,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"创建成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2041,7 +2721,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"删除成功\"}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2070,7 +2762,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "$ref": "#/definitions/dto.SysConfigByKeyReq"
                                         }
                                     }
@@ -2135,7 +2827,34 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/response.Page"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "list": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/go-admin_app_admin_models.SysLoginLog"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2166,7 +2885,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2188,7 +2919,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysLoginLog"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2272,7 +3015,22 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/go-admin_app_admin_models.SysOperaLog"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2303,7 +3061,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2325,7 +3095,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysOperaLog"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2392,7 +3174,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "allOf": [
                                                 {
                                                     "$ref": "#/definitions/response.Page"
@@ -2446,7 +3228,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2480,7 +3274,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2511,7 +3317,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2540,7 +3358,7 @@ const docTemplateadmin = `{
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "data": {
+                                        "message": {
                                             "$ref": "#/definitions/go-admin_app_admin_models.SysPermission"
                                         }
                                     }
@@ -2642,7 +3460,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2676,7 +3506,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2696,7 +3538,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2718,7 +3572,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/go-admin_app_admin_models.SysUser"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2754,7 +3620,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2938,7 +3816,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": {\\\"appKey\\\": \\\"admin\\\", \\\"token\\\": \\\"xxx\\\", \\\"expire\\\": 1234567890}}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/dto.GenTokenResponse"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2972,7 +3862,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2994,7 +3896,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/gin.H"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3030,7 +3944,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3066,7 +3992,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3102,7 +4040,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -3144,6 +4094,51 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "dto.Captcha": {
+            "type": "object",
+            "properties": {
+                "captcha": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.DeptLabel": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.DeptLabel"
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "label": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.DeptTreeRoleSelect": {
+            "type": "object",
+            "properties": {
+                "checkedKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "depts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.DeptLabel"
+                    }
+                }
+            }
+        },
         "dto.DiskInfo": {
             "type": "object",
             "properties": {
@@ -3155,6 +4150,20 @@ const docTemplateadmin = `{
                 },
                 "used": {
                     "type": "number"
+                }
+            }
+        },
+        "dto.GenTokenResponse": {
+            "type": "object",
+            "properties": {
+                "appKey": {
+                    "type": "string"
+                },
+                "expire": {
+                    "type": "integer"
+                },
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -4447,6 +5456,10 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "gin.H": {
+            "type": "object",
+            "additionalProperties": {}
+        },
         "go-admin_app_admin_models.SysApi": {
             "type": "object",
             "properties": {
@@ -4585,6 +5598,56 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "go-admin_app_admin_models.SysLoginLog": {
+            "type": "object",
+            "properties": {
+                "browser": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ipaddr": {
+                    "type": "string"
+                },
+                "loginLocation": {
+                    "type": "string"
+                },
+                "loginTime": {
+                    "type": "string"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "os": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "go-admin_app_admin_models.SysMenu": {
             "type": "object",
             "properties": {
@@ -4684,6 +5747,80 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "go-admin_app_admin_models.SysOperaLog": {
+            "type": "object",
+            "properties": {
+                "businessType": {
+                    "type": "string"
+                },
+                "businessTypes": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deptName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "jsonResult": {
+                    "type": "string"
+                },
+                "latencyTime": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "operIp": {
+                    "type": "string"
+                },
+                "operLocation": {
+                    "type": "string"
+                },
+                "operName": {
+                    "type": "string"
+                },
+                "operParam": {
+                    "type": "string"
+                },
+                "operTime": {
+                    "type": "string"
+                },
+                "operUrl": {
+                    "type": "string"
+                },
+                "operatorType": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "requestMethod": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userAgent": {
+                    "type": "string"
+                }
+            }
+        },
         "go-admin_app_admin_models.SysPermission": {
             "type": "object",
             "properties": {
@@ -4731,6 +5868,193 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "go-admin_app_admin_models.SysPost": {
+            "type": "object",
+            "properties": {
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "dataScope": {
+                    "type": "string"
+                },
+                "params": {
+                    "type": "string"
+                },
+                "postCode": {
+                    "description": "岗位代码",
+                    "type": "string"
+                },
+                "postId": {
+                    "description": "岗位编号",
+                    "type": "integer"
+                },
+                "postName": {
+                    "description": "岗位名称",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "描述",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "岗位排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "go-admin_app_admin_models.SysRole": {
+            "type": "object",
+            "properties": {
+                "Menus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
+                    }
+                },
+                "admin": {
+                    "type": "boolean"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "dataScope": {
+                    "type": "string"
+                },
+                "flag": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/go-admin_app_admin_models.SysPermission"
+                    }
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "roleId": {
+                    "description": "角色编码",
+                    "type": "integer"
+                },
+                "roleKey": {
+                    "description": "角色代码",
+                    "type": "string"
+                },
+                "roleName": {
+                    "description": "角色名称",
+                    "type": "string"
+                },
+                "roleSort": {
+                    "description": "角色排序",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "状态 1禁用 2正常",
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "go-admin_app_admin_models.SysUser": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "dept": {
+                    "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
+                },
+                "deptId": {
+                    "type": "integer"
+                },
+                "deptIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "email": {
+                    "type": "string"
+                },
+                "nickName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "post": {
+                    "$ref": "#/definitions/go-admin_app_admin_models.SysPost"
+                },
+                "postId": {
+                    "type": "integer"
+                },
+                "postIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "sex": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
         "handler.Login": {
             "type": "object",
             "required": [
@@ -4754,6 +6078,88 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "models.SysDictData": {
+            "type": "object",
+            "properties": {
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "cssClass": {
+                    "type": "string"
+                },
+                "default": {
+                    "type": "string"
+                },
+                "dictCode": {
+                    "type": "integer"
+                },
+                "dictLabel": {
+                    "type": "string"
+                },
+                "dictSort": {
+                    "type": "integer"
+                },
+                "dictType": {
+                    "type": "string"
+                },
+                "dictValue": {
+                    "type": "string"
+                },
+                "isDefault": {
+                    "type": "string"
+                },
+                "listClass": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SysDictType": {
+            "type": "object",
+            "properties": {
+                "createBy": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "dictName": {
+                    "type": "string"
+                },
+                "dictType": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updateBy": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "response.Page": {
             "type": "object",
             "properties": {
@@ -4763,6 +6169,7 @@ const docTemplateadmin = `{
                 "limit": {
                     "type": "integer"
                 },
+                "list": {},
                 "offset": {
                     "type": "integer"
                 }
@@ -4774,6 +6181,7 @@ const docTemplateadmin = `{
                 "code": {
                     "type": "integer"
                 },
+                "message": {},
                 "msg": {
                     "type": "string"
                 },

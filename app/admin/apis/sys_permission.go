@@ -27,7 +27,7 @@ type SysPermission struct {
 // @Param status query int false "状态"
 // @Param limit query int false "页条数"
 // @Param offset query int false "页码"
-// @Success 200 {object} response.Response{data=response.Page{list=[]models.SysPermission}} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=response.Page{list=[]models.SysPermission}} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-permission [get]
 // @Security Bearer
 func (e SysPermission) GetPage(c *gin.Context) {
@@ -57,7 +57,7 @@ func (e SysPermission) GetPage(c *gin.Context) {
 // @Summary 获取单个权限定义
 // @Description 获取单个权限定义
 // @Tags 权限定义
-// @Success 200 {object} response.Response{data=models.SysPermission} "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=models.SysPermission} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-permission/get [get]
 // @Security Bearer
 func (e SysPermission) Get(c *gin.Context) {
@@ -88,7 +88,7 @@ func (e SysPermission) Get(c *gin.Context) {
 // @Accept application/json
 // @Product application/json
 // @Param data body dto.SysPermissionInsertReq true "data"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-permission [post]
 // @Security Bearer
 func (e SysPermission) Insert(c *gin.Context) {
@@ -119,7 +119,7 @@ func (e SysPermission) Insert(c *gin.Context) {
 // @Accept application/json
 // @Product application/json
 // @Param data body dto.SysPermissionUpdateReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-permission [put]
 // @Security Bearer
 func (e SysPermission) Update(c *gin.Context) {
@@ -157,7 +157,7 @@ func (e SysPermission) Update(c *gin.Context) {
 // @Description 删除权限定义
 // @Tags 权限定义
 // @Param data body dto.SysPermissionDeleteReq true "body"
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/sys-permission [delete]
 // @Security Bearer
 func (e SysPermission) Delete(c *gin.Context) {
