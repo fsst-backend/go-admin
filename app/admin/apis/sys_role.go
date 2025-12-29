@@ -278,15 +278,43 @@ func (e SysRole) Update2DataScope(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
-	data := &models.SysRole{
-		RoleId:    req.RoleId,
-		DataScope: req.DataScope,
-	}
-	data.UpdateBy = user.GetUserId(c)
 	err = s.UpdateDataScope(&req).Error
 	if err != nil {
 		e.Error(500, err, fmt.Sprintf("更新角色数据权限失败！错误详情：%s", err.Error()))
 		return
 	}
 	e.OK(nil, "操作成功")
+}
+
+// SetRoleMenus 设置角色与菜单的绑定关系
+// @Summary 设置角色与菜单的绑定关系
+// @Description 设置角色与菜单的绑定关系
+// @Tags 角色管理
+// @Accept application/json
+// @Product application/json
+// @Param data body dto.SetRoleMenusReq true "body"
+// @Success 200 {object} response.Response{message=string} "{\"code\": 0, \"message\": [...]}"
+// @Router /lotus/api/v1/role-menu [put]
+// @Security Bearer
+func (e SysRole) SetRoleMenus(c *gin.Context) {
+	s := service.SysRole{}
+	req := dto.SetRoleMenusReq{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req, binding.JSON, nil).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
+	cb := sdk.Runtime.GetCasbinKey(c.Request.Host)
+	err = s.SetRoleMenus(req.RoleId, req.MenuIds, cb)
+	if err != nil {
+		e.Error(500, err, fmt.Sprintf("设置角色菜单关系失败！错误详情：%s", err.Error()))
+		return
+	}
+	e.OK(nil, "设置角色菜单关系成功")
 }

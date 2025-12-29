@@ -177,6 +177,18 @@ definitions:
       swap:
         $ref: '#/definitions/dto.SwapInfo'
     type: object
+  dto.SetRoleMenusReq:
+    properties:
+      menuIds:
+        items:
+          type: integer
+        type: array
+      roleId:
+        type: integer
+    required:
+    - menuIds
+    - roleId
+    type: object
   dto.SwapInfo:
     properties:
       total:
@@ -2742,6 +2754,33 @@ paths:
       security:
       - Bearer: []
       summary: 修改用户角色
+      tags:
+      - 角色管理
+  /lotus/api/v1/role-menu:
+    put:
+      consumes:
+      - application/json
+      description: 设置角色与菜单的绑定关系
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SetRoleMenusReq'
+      responses:
+        "200":
+          description: '{\"code\": 0, \"message\": [...]}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+      security:
+      - Bearer: []
+      summary: 设置角色与菜单的绑定关系
       tags:
       - 角色管理
   /lotus/api/v1/role-status:

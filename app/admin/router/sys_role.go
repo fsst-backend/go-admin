@@ -26,9 +26,10 @@ func registerSysRoleRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 		r.PUT("", api.Update)
 		r.DELETE("", api.Delete)
 	}
-	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc())
+	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		r1.PUT("/role-status", api.Update2Status)
 		r1.PUT("/roledatascope", api.Update2DataScope)
+		r1.PUT("/role-menu", api.SetRoleMenus) // 设置角色与菜单的绑定关系
 	}
 }

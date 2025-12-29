@@ -154,6 +154,12 @@ func (s *RoleDataScopeReq) Generate(model *models.SysRole) {
 	model.DataScope = s.DataScope
 }
 
+// SetRoleMenusReq 设置角色菜单关系请求结构体
+type SetRoleMenusReq struct {
+	RoleId  int   `json:"roleId" binding:"required"`
+	MenuIds []int `json:"menuIds" binding:"required"`
+}
+
 type DeptIdList struct {
 	DeptId int `json:"DeptId"`
 }

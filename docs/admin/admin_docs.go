@@ -2006,6 +2006,54 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "/lotus/api/v1/role-menu": {
+            "put": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "设置角色与菜单的绑定关系",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "角色管理"
+                ],
+                "summary": "设置角色与菜单的绑定关系",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SetRoleMenusReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\\\"code\\\": 0, \\\"message\\\": [...]}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/lotus/api/v1/role-status": {
             "put": {
                 "security": [
@@ -4353,6 +4401,24 @@ const docTemplateadmin = `{
                 },
                 "swap": {
                     "$ref": "#/definitions/dto.SwapInfo"
+                }
+            }
+        },
+        "dto.SetRoleMenusReq": {
+            "type": "object",
+            "required": [
+                "menuIds",
+                "roleId"
+            ],
+            "properties": {
+                "menuIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "roleId": {
+                    "type": "integer"
                 }
             }
         },
