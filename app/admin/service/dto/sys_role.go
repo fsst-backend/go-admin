@@ -34,19 +34,17 @@ func (m *SysRoleGetPageReq) GetNeedSearch() interface{} {
 }
 
 type SysRoleInsertReq struct {
-	RoleId    int              `json:"roleId" comment:"角色编码"`   // 角色编码
-	RoleName  string           `json:"roleName" comment:"角色名称"` // 角色名称
-	Status    string           `json:"status" comment:"状态"`     // 状态 1禁用 2正常
-	RoleKey   string           `json:"roleKey" comment:"角色代码"`  // 角色代码
-	RoleSort  int              `json:"roleSort" comment:"角色排序"` // 角色排序
-	Flag      string           `json:"flag" comment:"标记"`       // 标记
-	Remark    string           `json:"remark" comment:"备注"`     // 备注
-	Admin     bool             `json:"admin" comment:"是否管理员"`
-	DataScope string           `json:"dataScope"`
-	SysMenu   []models.SysMenu `json:"-"`
-	MenuIds   []int            `json:"menuIds"`
-	SysDept   []models.SysDept `json:"-"`
-	DeptIds   []int            `json:"deptIds"`
+	RoleId    int    `json:"roleId" comment:"角色编码"`   // 角色编码
+	RoleName  string `json:"roleName" comment:"角色名称"` // 角色名称
+	Status    string `json:"status" comment:"状态"`     // 状态 1禁用 2正常
+	RoleKey   string `json:"roleKey" comment:"角色代码"`  // 角色代码
+	RoleSort  int    `json:"roleSort" comment:"角色排序"` // 角色排序
+	Flag      string `json:"flag" comment:"标记"`       // 标记
+	Remark    string `json:"remark" comment:"备注"`     // 备注
+	Admin     bool   `json:"admin" comment:"是否管理员"`
+	DataScope string `json:"dataScope"`
+	MenuIds   []int  `json:"menuIds"`
+	DeptIds   []int  `json:"deptIds"`
 	common.ControlBy
 }
 
@@ -69,19 +67,17 @@ func (s *SysRoleInsertReq) GetId() interface{} {
 }
 
 type SysRoleUpdateReq struct {
-	RoleId    int              `json:"roleId" comment:"角色编码"`   // 角色编码
-	RoleName  string           `json:"roleName" comment:"角色名称"` // 角色名称
-	Status    string           `json:"status" comment:"状态"`     // 状态
-	RoleKey   string           `json:"roleKey" comment:"角色代码"`  // 角色代码
-	RoleSort  int              `json:"roleSort" comment:"角色排序"` // 角色排序
-	Flag      string           `json:"flag" comment:"标记"`       // 标记
-	Remark    string           `json:"remark" comment:"备注"`     // 备注
-	Admin     bool             `json:"admin" comment:"是否管理员"`
-	DataScope string           `json:"dataScope"`
-	SysMenu   []models.SysMenu `json:"sysMenu"`
-	MenuIds   []int            `json:"menuIds"`
-	SysDept   []models.SysDept `json:"sysDept"`
-	DeptIds   []int            `json:"deptIds"`
+	RoleId    int    `json:"roleId" comment:"角色编码"`   // 角色编码
+	RoleName  string `json:"roleName" comment:"角色名称"` // 角色名称
+	Status    string `json:"status" comment:"状态"`     // 状态
+	RoleKey   string `json:"roleKey" comment:"角色代码"`  // 角色代码
+	RoleSort  int    `json:"roleSort" comment:"角色排序"` // 角色排序
+	Flag      string `json:"flag" comment:"标记"`       // 标记
+	Remark    string `json:"remark" comment:"备注"`     // 备注
+	Admin     bool   `json:"admin" comment:"是否管理员"`
+	DataScope string `json:"dataScope"`
+	MenuIds   []int  `json:"menuIds"`
+	DeptIds   []int  `json:"deptIds"`
 	common.ControlBy
 }
 

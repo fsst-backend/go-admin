@@ -821,14 +821,6 @@ definitions:
       status:
         description: 状态
         type: string
-      sysDept:
-        items:
-          $ref: '#/definitions/go-admin_app_admin_models.SysDept'
-        type: array
-      sysMenu:
-        items:
-          $ref: '#/definitions/go-admin_app_admin_models.SysMenu'
-        type: array
       updateBy:
         type: integer
     type: object

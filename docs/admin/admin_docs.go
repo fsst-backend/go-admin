@@ -5343,18 +5343,6 @@ const docTemplateadmin = `{
                     "description": "状态",
                     "type": "string"
                 },
-                "sysDept": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/go-admin_app_admin_models.SysDept"
-                    }
-                },
-                "sysMenu": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
-                    }
-                },
                 "updateBy": {
                     "type": "integer"
                 }
