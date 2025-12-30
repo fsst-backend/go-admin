@@ -42,7 +42,7 @@ type SysRoleInsertReq struct {
 	Flag      string `json:"flag" comment:"标记"`       // 标记
 	Remark    string `json:"remark" comment:"备注"`     // 备注
 	Admin     bool   `json:"admin" comment:"是否管理员"`
-	DataScope string `json:"dataScope"`
+	DataScope string `json:"dataScope"` // "": 只能访问自己的, "1": 所有, "2": 角色所在部门, "3": 用户主部门  "4": 用户主部门以及子部门  "5": 用户自己创建数据
 	MenuIds   []int  `json:"menuIds"`
 	DeptIds   []int  `json:"deptIds"`
 	common.ControlBy
@@ -60,6 +60,8 @@ func (s *SysRoleInsertReq) Generate(model *models.SysRole) {
 	model.Remark = s.Remark
 	model.Admin = s.Admin
 	model.DataScope = s.DataScope
+	model.CreateBy = s.CreateBy
+	model.UpdateBy = s.UpdateBy
 }
 
 func (s *SysRoleInsertReq) GetId() interface{} {
@@ -67,17 +69,14 @@ func (s *SysRoleInsertReq) GetId() interface{} {
 }
 
 type SysRoleUpdateReq struct {
-	RoleId    int    `json:"roleId" comment:"角色编码"`   // 角色编码
-	RoleName  string `json:"roleName" comment:"角色名称"` // 角色名称
-	Status    string `json:"status" comment:"状态"`     // 状态
-	RoleKey   string `json:"roleKey" comment:"角色代码"`  // 角色代码
-	RoleSort  int    `json:"roleSort" comment:"角色排序"` // 角色排序
-	Flag      string `json:"flag" comment:"标记"`       // 标记
-	Remark    string `json:"remark" comment:"备注"`     // 备注
-	Admin     bool   `json:"admin" comment:"是否管理员"`
-	DataScope string `json:"dataScope"`
-	MenuIds   []int  `json:"menuIds"`
-	DeptIds   []int  `json:"deptIds"`
+	RoleId   int    `json:"roleId" comment:"角色编码"`   // 角色编码
+	RoleName string `json:"roleName" comment:"角色名称"` // 角色名称
+	RoleKey  string `json:"roleKey" comment:"角色代码"`  // 角色代码
+	RoleSort int    `json:"roleSort" comment:"角色排序"` // 角色排序
+	Flag     string `json:"flag" comment:"标记"`       // 标记
+	Remark   string `json:"remark" comment:"备注"`     // 备注
+	Admin    bool   `json:"admin" comment:"是否管理员"`
+	DeptIds  []int  `json:"deptIds"`
 	common.ControlBy
 }
 
@@ -86,13 +85,13 @@ func (s *SysRoleUpdateReq) Generate(model *models.SysRole) {
 		model.RoleId = s.RoleId
 	}
 	model.RoleName = s.RoleName
-	model.Status = s.Status
 	model.RoleKey = s.RoleKey
 	model.RoleSort = s.RoleSort
 	model.Flag = s.Flag
 	model.Remark = s.Remark
 	model.Admin = s.Admin
-	model.DataScope = s.DataScope
+	model.CreateBy = s.CreateBy
+	model.UpdateBy = s.UpdateBy
 }
 
 func (s *SysRoleUpdateReq) GetId() interface{} {

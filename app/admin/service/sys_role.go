@@ -257,14 +257,13 @@ func (e *SysRole) Update(c *dto.SysRoleUpdateReq, cb *casbin.SyncedEnforcer) err
 	c.Generate(&model)
 	// 使用map指定字段更新，避免覆盖created_at，同时支持零值更新
 	updateData := map[string]interface{}{
-		"role_name":  model.RoleName,
-		"status":     model.Status,
-		"role_key":   model.RoleKey,
-		"role_sort":  model.RoleSort,
-		"flag":       model.Flag,
-		"remark":     model.Remark,
-		"admin":      model.Admin,
-		"data_scope": model.DataScope,
+		"role_name": model.RoleName,
+		"role_key":  model.RoleKey,
+		"role_sort": model.RoleSort,
+		"flag":      model.Flag,
+		"remark":    model.Remark,
+		"admin":     model.Admin,
+		"update_by": model.UpdateBy,
 	}
 	db := tx.Debug().Model(&models.SysRole{}).Where("role_id = ?", c.RoleId).Updates(updateData)
 
@@ -433,9 +432,12 @@ func (e *SysRole) UpdateStatus(c *dto.UpdateStatusReq) error {
 		return err
 	}
 
-	c.Generate(&model)
-	// 更新关联的数据，使用 FullSaveAssociations 模式
-	db := tx.Session(&gorm.Session{FullSaveAssociations: true}).Debug().Save(&model)
+	// 只更新状态字段，避免使用 FullSaveAssociations 更新整个对象
+	updateData := map[string]interface{}{
+		"status":    c.Status,
+		"update_by": c.UpdateBy,
+	}
+	db := tx.Model(&model).Where("role_id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error:%s", err)
 		return err
@@ -615,6 +617,21 @@ func (e *SysRole) GetRoleMenuId(roleId int) ([]int, error) {
 		}
 		e.Log.Errorf("Query role error: %s", err)
 		return nil, err
+	}
+
+	if role.RoleKey == mycasbin.SuperAdmin {
+		// SuperAdmin 角色应该拥有所有菜单权限
+		var allMenus []models.SysMenu
+		err = e.Orm.Find(&allMenus).Error
+		if err != nil {
+			e.Log.Errorf("Query all menus error: %s", err)
+			return nil, err
+		}
+		menuIds := make([]int, 0, len(allMenus))
+		for _, menu := range allMenus {
+			menuIds = append(menuIds, menu.MenuId)
+		}
+		return menuIds, nil
 	}
 
 	// 2. 查询角色菜单关系

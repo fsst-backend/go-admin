@@ -391,7 +391,7 @@ func recursiveSetMenu(orm *gorm.DB, mIds []int, menus *[]models.SysMenu) error {
 	}
 	var subMenus []models.SysMenu
 	err := orm.Where(fmt.Sprintf(" menu_type in ('%s', '%s', '%s') and menu_id in ?",
-		cModels.Directory, cModels.Menu, cModels.Button), mIds).Order("sort").Find(&subMenus).Error
+		cModels.Directory, cModels.Menu, cModels.Button), mIds).Order("sort_value").Find(&subMenus).Error
 	if err != nil {
 		return err
 	}

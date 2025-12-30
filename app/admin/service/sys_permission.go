@@ -9,6 +9,7 @@ import (
 	"go-admin/app/admin/service/dto"
 	cDto "go-admin/common/dto"
 	cModels "go-admin/common/models"
+	"go-admin/common/mycasbin"
 
 	"github.com/go-admin-team/go-admin-core/sdk/service"
 	"gorm.io/gorm"
@@ -197,6 +198,9 @@ func (e *SysPermission) Update(c *dto.SysPermissionUpdateReq, cb *casbin.SyncedE
 
 			// 为每个角色重建 Casbin 策略
 			for _, role := range roles {
+				if role.RoleKey == mycasbin.SuperAdmin {
+					continue // 跳过 SuperAdmin 角色
+				}
 				if err := e.rebuildRoleCasbinPolicy(tx, cb, role.RoleId, role.RoleKey); err != nil {
 					e.Log.Errorf("Rebuild role casbin policy error:%s", err)
 					return err

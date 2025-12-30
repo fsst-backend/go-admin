@@ -5244,6 +5244,7 @@ const docTemplateadmin = `{
                     "type": "integer"
                 },
                 "dataScope": {
+                    "description": "\"\": 只能访问自己的, \"1\": 所有, \"2\": 角色所在部门, \"3\": 用户主部门  \"4\": 用户主部门以及子部门  \"5\": 用户自己创建数据",
                     "type": "string"
                 },
                 "deptIds": {
@@ -5312,12 +5313,6 @@ const docTemplateadmin = `{
                 "flag": {
                     "description": "标记",
                     "type": "string"
-                },
-                "menuIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
                 },
                 "remark": {
                     "description": "备注",
@@ -5988,6 +5983,7 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "dataScope": {
+                    "description": "数据范围",
                     "type": "string"
                 },
                 "flag": {

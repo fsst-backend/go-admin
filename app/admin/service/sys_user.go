@@ -299,21 +299,25 @@ func (e *SysUser) Update(c *dto.SysUserUpdateReq, p *actions.DataPermission) err
 }
 
 // UpdateAvatar 更新用户头像
-func (e *SysUser) UpdateAvatar(c *dto.UpdateSysUserAvatarReq, p *actions.DataPermission) error {
+func (e *SysUser) UpdateAvatar(userId int, c *dto.UpdateSysUserAvatarReq, p *actions.DataPermission) error {
 	var err error
 	var model models.SysUser
 	db := e.Orm.Scopes(
 		actions.Permission(model.TableName(), p),
-	).First(&model, c.GetId())
+	).Where("user_id = ?", userId).First(&model)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("Service UpdateSysUser error: %s", err)
 		return err
 	}
 	if db.RowsAffected == 0 {
 		return errors.New("无权更新该数据")
-
 	}
-	err = e.Orm.Table(model.TableName()).Where("user_id =? ", c.UserId).Updates(c).Error
+	// 只更新头像字段，使用 map 指定特定字段
+	updateData := map[string]interface{}{
+		"avatar":    c.Avatar,
+		"update_by": c.UpdateBy,
+	}
+	err = e.Orm.Table(model.TableName()).Where("user_id = ?", userId).Updates(updateData).Error
 	if err != nil {
 		e.Log.Errorf("Service UpdateSysUser error: %s", err)
 		return err

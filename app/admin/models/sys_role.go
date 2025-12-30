@@ -11,7 +11,7 @@ type SysRole struct {
 	Flag        string          `json:"flag" gorm:"size:128;"`                  //
 	Remark      string          `json:"remark" gorm:"size:255;"`                //备注
 	Admin       bool            `json:"admin" gorm:"size:4;"`
-	DataScope   string          `json:"dataScope" gorm:"size:128;"`
+	DataScope   string          `json:"dataScope" gorm:"size:128;"` // 数据范围
 	Permissions []SysPermission `json:"permissions,omitempty" gorm:"-"`
 	Menus       []SysMenu       `json:"Menus,omitempty" gorm:"-"`
 	models.ControlBy

@@ -12,7 +12,6 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
-	"github.com/google/uuid"
 
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
@@ -220,9 +219,9 @@ func (e SysUser) Delete(c *gin.Context) {
 // @Summary 修改头像
 // @Description 获取JSON
 // @Tags 个人中心
-// @Accept multipart/form-data
-// @Param file formData file true "file"
-// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}"
+// @Accept application/json
+// @Param data body dto.UpdateSysUserAvatarReq true "body"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": [...]}}"
 // @Router /lotus/api/v1/user/avatar [post]
 // @Security Bearer
 func (e SysUser) InsetAvatar(c *gin.Context) {
@@ -230,6 +229,7 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 	req := dto.UpdateSysUserAvatarReq{}
 	err := e.MakeContext(c).
 		MakeOrm().
+		Bind(&req, binding.JSON, nil).
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
@@ -237,31 +237,17 @@ func (e SysUser) InsetAvatar(c *gin.Context) {
 		e.Error(500, err, err.Error())
 		return
 	}
+
 	// 数据权限检查
 	p := actions.GetPermissionFromContext(c)
-	form, _ := c.MultipartForm()
-	files := form.File["upload[]"]
-	guid := uuid.New().String()
-	filPath := "static/uploadfile/" + guid + ".jpg"
-	for _, file := range files {
-		e.Logger.Debugf("upload avatar file: %s", file.Filename)
-		// 上传文件至指定目录
-		err = c.SaveUploadedFile(file, filPath)
-		if err != nil {
-			e.Logger.Errorf("save file error, %s", err.Error())
-			e.Error(500, err, "")
-			return
-		}
-	}
-	req.UserId = p.UserId
-	req.Avatar = "/" + filPath
-
-	err = s.UpdateAvatar(&req, p)
+	// 使用当前登录用户ID更新头像
+	currentUserId := user.GetUserId(c)
+	err = s.UpdateAvatar(currentUserId, &req, p)
 	if err != nil {
 		e.Logger.Error(err)
 		return
 	}
-	e.OK(filPath, "修改成功")
+	e.OK(req.Avatar, "修改成功")
 }
 
 // UpdateStatus 修改用户状态

@@ -90,6 +90,7 @@ func (e SysRole) Insert(c *gin.Context) {
 
 	// 设置创建人
 	req.CreateBy = user.GetUserId(c)
+	req.UpdateBy = user.GetUserId(c)
 	if req.Status == "" {
 		req.Status = "2"
 	}
@@ -223,8 +224,7 @@ func (e SysRole) Delete(c *gin.Context) {
 	e.OK(req.GetId(), fmt.Sprintf("删除角色角色 %v 状态成功！", req.GetId()))
 }
 
-// Update2Status 修改用户角色状态
-// @Summary 修改用户角色
+// @Summary 修改用户角色状态
 // @Description 获取JSON
 // @Tags 角色管理
 // @Accept  application/json
@@ -255,7 +255,6 @@ func (e SysRole) Update2Status(c *gin.Context) {
 	e.OK(req.GetId(), fmt.Sprintf("更新角色 %v 状态成功！", req.GetId()))
 }
 
-// Update2DataScope 更新角色数据权限
 // @Summary 更新角色数据权限
 // @Description 获取JSON
 // @Tags 角色管理
