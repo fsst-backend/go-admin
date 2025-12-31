@@ -3,16 +3,18 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"go-admin/cmd/app"
 	"go-admin/common/global"
 	"os"
+
+	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 
 	"github.com/spf13/cobra"
 
 	"go-admin/cmd/api"
 	"go-admin/cmd/config"
 	"go-admin/cmd/migrate"
+	"go-admin/cmd/swagger"
 	"go-admin/cmd/version"
 )
 
@@ -47,9 +49,10 @@ func init() {
 	rootCmd.AddCommand(version.StartCmd)
 	rootCmd.AddCommand(config.StartCmd)
 	rootCmd.AddCommand(app.StartCmd)
+	rootCmd.AddCommand(swagger.Cmd)
 }
 
-//Execute : apply commands
+// Execute : apply commands
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(-1)

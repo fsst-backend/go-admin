@@ -32,8 +32,6 @@ func registerSysUserRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 
 	user := v1.Group("/user").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole()).Use(actions.PermissionAction())
 	{
-		user.GET("/profile", api.GetProfile)
-		user.POST("/avatar", api.InsetAvatar)
 		user.PUT("/pwd/set", api.UpdatePwd)
 		user.PUT("/pwd/reset", api.ResetPwd)
 		user.PUT("/status", api.UpdateStatus)
@@ -41,5 +39,7 @@ func registerSysUserRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 	v1auth := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	{
 		v1auth.GET("/getinfo", api.GetInfo)
+		user.GET("/profile", api.GetProfile)
+		user.POST("/avatar", api.InsetAvatar)
 	}
 }
