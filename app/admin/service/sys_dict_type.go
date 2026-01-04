@@ -83,7 +83,7 @@ func (e *SysDictType) Update(c *dto.SysDictTypeUpdateReq) error {
 		"status":    model.Status,
 		"remark":    model.Remark,
 	}
-	db := e.Orm.Model(&model).Where("id = ?", c.GetId()).Updates(updateData)
+	db := e.Orm.Model(&model).Where("dict_id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
 		e.Log.Errorf("db error: %s", err)
 		return err
