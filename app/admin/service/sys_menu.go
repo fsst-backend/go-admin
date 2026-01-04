@@ -140,15 +140,87 @@ func (e *SysMenu) initPaths(tx *gorm.DB, menu *models.SysMenu) error {
 			return err
 		}
 		if parentMenu.MenuPath == "" {
-			err = errors.New("父级paths异常，请尝试对当前节点父级菜单进行更新操作！")
-			return err
+			// 父级MenuPath异常，重建整条链路路径
+			return e.RebuildAllMenuPath(tx)
+		} else {
+			menu.MenuPath = parentMenu.MenuPath + "/" + pkg.IntToString(menu.MenuId)
 		}
-		menu.MenuPath = parentMenu.MenuPath + "/" + pkg.IntToString(menu.MenuId)
 	} else {
 		menu.MenuPath = "/0/" + pkg.IntToString(menu.MenuId)
 	}
 	err = tx.Model(&data).Where("menu_id = ?", menu.MenuId).Update(models.SysMenuMenuPath, menu.MenuPath).Error
 	return err
+}
+
+// RebuildAllMenuPath 全量重建所有菜单的 menu_path
+func (e *SysMenu) RebuildAllMenuPath(tx *gorm.DB) error {
+	// 1. 查询所有菜单
+	var menus []models.SysMenu
+	if err := tx.Find(&menus).Error; err != nil {
+		return err
+	}
+
+	if len(menus) == 0 {
+		return nil
+	}
+
+	// 2. 构建 parent -> children 映射
+	childrenMap := make(map[int64][]*models.SysMenu)
+	menuMap := make(map[int64]*models.SysMenu)
+
+	for i := range menus {
+		m := &menus[i]
+		menuMap[int64(m.MenuId)] = m
+		childrenMap[int64(m.ParentId)] = append(childrenMap[int64(m.ParentId)], m)
+	}
+
+	// 3. DFS 构建路径
+	pathMap := make(map[int64]string)
+	visited := make(map[int64]bool)
+
+	var dfs func(m *models.SysMenu, parentPath string) error
+	dfs = func(m *models.SysMenu, parentPath string) error {
+		// 环检测（防止 parent 指向自己 / 死循环）
+		if visited[int64(m.MenuId)] {
+			return fmt.Errorf("menu cycle detected, menu_id=%d", m.MenuId)
+		}
+		visited[int64(m.MenuId)] = true
+
+		currentPath := parentPath + "/" + pkg.IntToString(m.MenuId)
+		pathMap[int64(m.MenuId)] = currentPath
+
+		for _, child := range childrenMap[int64(m.MenuId)] {
+			if err := dfs(child, currentPath); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+
+	// 4. 从虚拟根开始
+	for _, root := range childrenMap[0] {
+		rootPath := "/0/" + pkg.IntToString(root.MenuId)
+		pathMap[int64(root.MenuId)] = rootPath
+		visited[int64(root.MenuId)] = true
+
+		for _, child := range childrenMap[int64(root.MenuId)] {
+			if err := dfs(child, rootPath); err != nil {
+				return err
+			}
+		}
+	}
+
+	// 5. 更新数据库（逐条，安全优先）
+	for id, path := range pathMap {
+		if err := tx.Model(&models.SysMenu{}).
+			Where("menu_id = ?", id).
+			Update(models.SysMenuMenuPath, path).Error; err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Update 修改SysMenu对象

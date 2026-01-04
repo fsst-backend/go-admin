@@ -25,7 +25,7 @@ type SysMenu struct {
 	FixedTab       bool          `json:"fixedTab" gorm:"column:fixed_tab;size:1;DEFAULT:0;"`
 	IsHideTab      bool          `json:"isHideTab" gorm:"column:is_hide_tab;size:1;DEFAULT:0;"`
 	IsFullPage     bool          `json:"isFullPage" gorm:"column:is_full_page;size:1;DEFAULT:0;"`
-	ParentId       int           `json:"parentId" gorm:"column:parent_id;size:11;"`
+	ParentId       int           `json:"parentId" gorm:"column:parent_id;type:bigint;comment:父菜单ID"`
 	PermissionCode string        `json:"permissionCode" gorm:"column:permission_code;size:128;comment:关联权限表code"`
 	Children       []SysMenu     `json:"children,omitempty" gorm:"-"`
 	Permission     SysPermission `json:"permission,omitempty" gorm:"-"`
