@@ -286,6 +286,10 @@ func (e *SysPermission) Remove(d *dto.SysPermissionDeleteReq, cb *casbin.SyncedE
 
 // rebuildRoleCasbinPolicy 重建指定角色的 Casbin 策略
 func (e *SysPermission) rebuildRoleCasbinPolicy(tx *gorm.DB, cb *casbin.SyncedEnforcer, roleId int, roleKey string) error {
+	if roleKey == mycasbin.SuperAdmin {
+		return nil // 跳过 SuperAdmin 角色
+	}
+
 	// 1. 查询该角色的所有权限
 	var rolePerms []models.SysRolePermission
 	if err := tx.Where("role_id = ?", roleId).Find(&rolePerms).Error; err != nil {
