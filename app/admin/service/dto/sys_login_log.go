@@ -7,13 +7,13 @@ import (
 )
 
 type SysLoginLogGetPageReq struct {
-	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
-	Username       string `form:"username" search:"type:exact;column:username;table:sys_login_log" comment:"用户名"`
-	Status         string `form:"status" search:"type:exact;column:status;table:sys_login_log" comment:"状态"`
-	Ipaddr         string `form:"ipaddr" search:"type:exact;column:ipaddr;table:sys_login_log" comment:"ip地址"`
-	LoginLocation  string `form:"loginLocation" search:"type:exact;column:login_location;table:sys_login_log" comment:"归属地"`
-	BeginTime      string `form:"beginTime" search:"type:gte;column:ctime;table:sys_login_log" comment:"创建时间"`
-	EndTime        string `form:"endTime" search:"type:lte;column:ctime;table:sys_login_log" comment:"创建时间"`
+	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
+	Username                  *string      `form:"username" search:"type:exact;column:username;table:sys_login_log" comment:"用户名"`
+	Status                    *string      `form:"status" search:"type:exact;column:status;table:sys_login_log" comment:"状态"`
+	Ipaddr                    *string      `form:"ipaddr" search:"type:exact;column:ipaddr;table:sys_login_log" comment:"ip地址"`
+	LoginLocation             *string      `form:"loginLocation" search:"type:exact;column:login_location;table:sys_login_log" comment:"归属地"`
+	BeginTime                 *string      `form:"beginTime" search:"type:gte;column:ctime;table:sys_login_log" comment:"创建时间"`
+	EndTime                   *string      `form:"endTime" search:"type:lte;column:ctime;table:sys_login_log" comment:"创建时间"`
 	SysLoginLogOrder
 }
 

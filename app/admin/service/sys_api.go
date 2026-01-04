@@ -29,8 +29,8 @@ func (e *SysApi) GetPage(c *dto.SysApiGetPageReq, p *actions.DataPermission, lis
 			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 			actions.Permission(data.TableName(), p),
 		)
-	if c.Type != "" {
-		qType := c.Type
+	if c.Type != nil && *c.Type != "" {
+		qType := *c.Type
 		if qType == "暂无" {
 			qType = ""
 		}

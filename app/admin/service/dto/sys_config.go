@@ -8,11 +8,11 @@ import (
 
 // SysConfigGetPageReq 列表或者搜索使用结构体
 type SysConfigGetPageReq struct {
-	dto.OffsetLimitPagination `search:"-"`  // 使用 offset/limit 分页
-	ConfigName     string `form:"configName" search:"type:contains;column:config_name;table:sys_config"`
-	ConfigKey      string `form:"configKey" search:"type:contains;column:config_key;table:sys_config"`
-	ConfigType     string `form:"configType" search:"type:exact;column:config_type;table:sys_config"`
-	IsFrontend     string `form:"isFrontend" search:"type:exact;column:is_frontend;table:sys_config"`
+	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
+	ConfigName                *string      `form:"configName" search:"type:contains;column:config_name;table:sys_config"`
+	ConfigKey                 *string      `form:"configKey" search:"type:contains;column:config_key;table:sys_config"`
+	ConfigType                *string      `form:"configType" search:"type:exact;column:config_type;table:sys_config"`
+	IsFrontend                *string      `form:"isFrontend" search:"type:exact;column:is_frontend;table:sys_config"`
 	SysConfigOrder
 }
 

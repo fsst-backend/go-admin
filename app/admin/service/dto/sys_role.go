@@ -10,15 +10,15 @@ import (
 type SysRoleGetPageReq struct {
 	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
 
-	RoleId    int    `form:"roleId" search:"type:exact;column:role_id;table:sys_role" comment:"角色编码"`     // 角色编码
-	RoleName  string `form:"roleName" search:"type:exact;column:role_name;table:sys_role" comment:"角色名称"` // 角色名称
-	Status    string `form:"status" search:"type:exact;column:status;table:sys_role" comment:"状态"`        // 状态
-	RoleKey   string `form:"roleKey" search:"type:exact;column:role_key;table:sys_role" comment:"角色代码"`   // 角色代码
-	RoleSort  int    `form:"roleSort" search:"type:exact;column:role_sort;table:sys_role" comment:"角色排序"` // 角色排序
-	Flag      string `form:"flag" search:"type:exact;column:flag;table:sys_role" comment:"标记"`            // 标记
-	Remark    string `form:"remark" search:"type:exact;column:remark;table:sys_role" comment:"备注"`        // 备注
-	Admin     bool   `form:"admin" search:"type:exact;column:admin;table:sys_role" comment:"是否管理员"`
-	DataScope string `form:"dataScope" search:"type:exact;column:data_scope;table:sys_role" comment:"是否管理员"`
+	RoleId    *int    `form:"roleId" search:"type:exact;column:role_id;table:sys_role" comment:"角色编码"`     // 角色编码
+	RoleName  *string `form:"roleName" search:"type:exact;column:role_name;table:sys_role" comment:"角色名称"` // 角色名称
+	Status    *string `form:"status" search:"type:exact;column:status;table:sys_role" comment:"状态"`        // 状态
+	RoleKey   *string `form:"roleKey" search:"type:exact;column:role_key;table:sys_role" comment:"角色代码"`   // 角色代码
+	RoleSort  *int    `form:"roleSort" search:"type:exact;column:role_sort;table:sys_role" comment:"角色排序"` // 角色排序
+	Flag      *string `form:"flag" search:"type:exact;column:flag;table:sys_role" comment:"标记"`            // 标记
+	Remark    *string `form:"remark" search:"type:exact;column:remark;table:sys_role" comment:"备注"`        // 备注
+	Admin     *bool   `form:"admin" search:"type:exact;column:admin;table:sys_role" comment:"是否管理员"`
+	DataScope *string `form:"dataScope" search:"type:exact;column:data_scope;table:sys_role" comment:"数据范围"`
 }
 
 type SysRoleOrder struct {

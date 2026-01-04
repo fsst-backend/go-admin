@@ -11,16 +11,16 @@ import (
 
 type SysUserGetPageReq struct {
 	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
-	UserId                    int          `form:"userId" search:"type:exact;column:user_id;table:sys_user" comment:"用户ID"`
-	Uuid                      string       `form:"uuid" search:"type:exact;column:uuid;table:sys_user" comment:"用户UUID"`
-	Username                  string       `form:"username" search:"type:contains;column:username;table:sys_user" comment:"用户名"`
-	NickName                  string       `form:"nickName" search:"type:contains;column:nick_name;table:sys_user" comment:"昵称"`
-	Phone                     string       `form:"phone" search:"type:contains;column:phone;table:sys_user" comment:"手机号"`
-	RoleId                    string       `form:"roleId" search:"type:exact;column:role_id;table:sys_user" comment:"角色ID"`
-	Sex                       string       `form:"sex" search:"type:exact;column:sex;table:sys_user" comment:"性别"`
-	Email                     string       `form:"email" search:"type:contains;column:email;table:sys_user" comment:"邮箱"`
-	PostId                    string       `form:"postId" search:"type:exact;column:post_id;table:sys_user" comment:"岗位"`
-	Status                    string       `form:"status" search:"type:exact;column:status;table:sys_user" comment:"状态"`
+	UserId                    *int         `form:"userId" search:"type:exact;column:user_id;table:sys_user" comment:"用户ID"`
+	Uuid                      *string      `form:"uuid" search:"type:exact;column:uuid;table:sys_user" comment:"用户UUID"`
+	Username                  *string      `form:"username" search:"type:contains;column:username;table:sys_user" comment:"用户名"`
+	NickName                  *string      `form:"nickName" search:"type:contains;column:nick_name;table:sys_user" comment:"昵称"`
+	Phone                     *string      `form:"phone" search:"type:contains;column:phone;table:sys_user" comment:"手机号"`
+	RoleId                    *int         `form:"roleId" search:"type:exact;column:role_id;table:sys_user" comment:"角色ID"`
+	Sex                       *string      `form:"sex" search:"type:exact;column:sex;table:sys_user" comment:"性别"`
+	Email                     *string      `form:"email" search:"type:contains;column:email;table:sys_user" comment:"邮箱"`
+	PostId                    *int         `form:"postId" search:"type:exact;column:post_id;table:sys_user" comment:"岗位"`
+	Status                    *string      `form:"status" search:"type:exact;column:status;table:sys_user" comment:"状态"`
 	DeptJoin                  `search:"type:left;on:dept_id:dept_id;table:sys_user;join:sys_dept"`
 	SysUserOrder
 }

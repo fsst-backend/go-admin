@@ -11,8 +11,8 @@ import (
 
 type SysPermissionApiGetPageReq struct {
 	dto.OffsetLimitPagination `search:"-"`
-	PermissionId              int `form:"permissionId" search:"type:exact;column:permission_id;table:sys_permission_api" comment:"权限ID"`
-	ApiId                     int `form:"apiId"        search:"type:exact;column:api_id;table:sys_permission_api" comment:"API ID"`
+	PermissionId              *int `form:"permissionId" search:"type:exact;column:permission_id;table:sys_permission_api" comment:"权限ID"`
+	ApiId                     *int `form:"apiId"        search:"type:exact;column:api_id;table:sys_permission_api" comment:"API ID"`
 	SysPermissionApiOrder
 }
 
