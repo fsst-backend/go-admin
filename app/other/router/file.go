@@ -28,6 +28,6 @@ func registerFileRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlewar
 func registerDocRouter(v1 *gin.RouterGroup) {
 	r := v1.Group("")
 	{
-		r.StaticFile("/docs", "/app/docs")
+		r.Static("/docs", "/app/docs")
 	}
 }
