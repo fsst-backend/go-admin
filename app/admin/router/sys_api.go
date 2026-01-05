@@ -22,5 +22,6 @@ func registerSysApiRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlew
 		r.GET("", api.GetPage)
 		r.GET("/get", api.Get)
 		r.PUT("", api.Update)
+		r.DELETE("", api.DeleteSysApi)
 	}
 }
