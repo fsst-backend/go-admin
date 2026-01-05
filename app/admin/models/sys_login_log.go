@@ -14,18 +14,18 @@ import (
 
 type SysLoginLog struct {
 	models.Model
-	Username      string    `json:"username" gorm:"size:128;comment:用户名"`
-	Status        string    `json:"status" gorm:"size:4;comment:状态"`
-	Ipaddr        string    `json:"ipaddr" gorm:"size:255;comment:ip地址"`
-	LoginLocation string    `json:"loginLocation" gorm:"size:255;comment:归属地"`
-	Browser       string    `json:"browser" gorm:"size:255;comment:浏览器"`
-	Os            string    `json:"os" gorm:"size:255;comment:系统"`
-	Platform      string    `json:"platform" gorm:"size:255;comment:固件"`
-	LoginTime     time.Time `json:"loginTime" gorm:"comment:登录时间"`
-	Remark        string    `json:"remark" gorm:"size:255;comment:备注"`
-	Msg           string    `json:"msg" gorm:"size:255;comment:信息"`
-	CreatedAt     time.Time `json:"createdAt" gorm:"comment:创建时间"`
-	UpdatedAt     time.Time `json:"updatedAt" gorm:"comment:最后更新时间"`
+	Username      string    `json:"username" gorm:"column:username;type:varchar(128);size:128;comment:用户名"`
+	Status        string    `json:"status" gorm:"column:status;type:tinyint;size:4;comment:状态"`
+	Ipaddr        string    `json:"ipaddr" gorm:"column:ipaddr;type:varchar(255);size:255;comment:ip地址"`
+	LoginLocation string    `json:"loginLocation" gorm:"column:login_location;type:varchar(255);size:255;comment:归属地"`
+	Browser       string    `json:"browser" gorm:"column:browser;type:varchar(255);size:255;comment:浏览器"`
+	Os            string    `json:"os" gorm:"column:os;type:varchar(255);size:255;comment:系统"`
+	Platform      string    `json:"platform" gorm:"column:platform;type:varchar(255);size:255;comment:固件"`
+	LoginTime     time.Time `json:"loginTime" gorm:"column:login_time;type:datetime;comment:登录时间"`
+	Remark        string    `json:"remark" gorm:"column:remark;type:varchar(255);size:255;comment:备注"`
+	Msg           string    `json:"msg" gorm:"column:msg;type:varchar(255);size:255;comment:信息"`
+	CreatedAt     time.Time `json:"createdAt" gorm:"column:created_at;type:datetime;comment:创建时间"`
+	UpdatedAt     time.Time `json:"updatedAt" gorm:"column:updated_at;type:datetime;comment:最后更新时间"`
 	models.ControlBy
 }
 
@@ -41,6 +41,23 @@ func (e *SysLoginLog) Generate() models.ActiveRecord {
 func (e *SysLoginLog) GetId() interface{} {
 	return e.Id
 }
+
+// SysLoginLog字段常量定义 - 用于GORM查询和函数调用
+const (
+	SysLoginLogId            = "id"
+	SysLoginLogUsername      = "username"
+	SysLoginLogStatus        = "status"
+	SysLoginLogIpaddr        = "ipaddr"
+	SysLoginLogLoginLocation = "login_location"
+	SysLoginLogBrowser       = "browser"
+	SysLoginLogOs            = "os"
+	SysLoginLogPlatform      = "platform"
+	SysLoginLogLoginTime     = "login_time"
+	SysLoginLogRemark        = "remark"
+	SysLoginLogMsg           = "msg"
+	SysLoginLogCreatedAt     = "created_at"
+	SysLoginLogUpdatedAt     = "updated_at"
+)
 
 // SaveLoginLog 从队列中获取登录日志
 func SaveLoginLog(message storage.Messager) (err error) {

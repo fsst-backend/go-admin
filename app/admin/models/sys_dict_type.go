@@ -5,11 +5,11 @@ import (
 )
 
 type SysDictType struct {
-	ID       int    `json:"id" gorm:"primaryKey;column:dict_id;autoIncrement;comment:主键编码"`
-	DictName string `json:"dictName" gorm:"size:128;comment:DictName"`
-	DictType string `json:"dictType" gorm:"size:128;comment:DictType"`
-	Status   int    `json:"status" gorm:"size:4;comment:Status"`
-	Remark   string `json:"remark" gorm:"size:255;comment:Remark"`
+	ID       int    `json:"id" gorm:"column:dict_id;type:int;primaryKey;autoIncrement;comment:主键编码"`
+	DictName string `json:"dictName" gorm:"column:dict_name;type:varchar(128);size:128;comment:DictName"`
+	DictType string `json:"dictType" gorm:"column:dict_type;type:varchar(128);size:128;comment:DictType"`
+	Status   int    `json:"status" gorm:"column:status;type:tinyint;size:4;comment:Status"`
+	Remark   string `json:"remark" gorm:"column:remark;type:varchar(255);size:255;comment:Remark"`
 	models.ControlBy
 	models.ModelTime
 }
@@ -26,3 +26,12 @@ func (e *SysDictType) Generate() models.ActiveRecord {
 func (e *SysDictType) GetId() interface{} {
 	return e.ID
 }
+
+// SysDictType字段常量定义 - 用于GORM查询和函数调用
+const (
+	SysDictTypeId       = "dict_id"
+	SysDictTypeDictName = "dict_name"
+	SysDictTypeDictType = "dict_type"
+	SysDictTypeStatus   = "status"
+	SysDictTypeRemark   = "remark"
+)

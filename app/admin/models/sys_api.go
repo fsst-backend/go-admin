@@ -12,18 +12,19 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk"
 	"github.com/go-admin-team/go-admin-core/sdk/runtime"
 	"github.com/go-admin-team/go-admin-core/storage"
+	"gorm.io/gorm"
 
 	"go-admin/common/models"
 )
 
 type SysApi struct {
-	Id     int    `json:"id" gorm:"primaryKey;autoIncrement;comment:主键编码"`
-	Handle string `json:"handle" gorm:"size:128;comment:handle"` // 启用了，需要使用单独的权限报承载
-	Title  string `json:"title" gorm:"size:128;comment:标题"`
-	Path   string `json:"path" gorm:"size:128;comment:地址"`
-	Action string `json:"action" gorm:"size:16;comment:请求类型"`
-	Type   string `json:"type" gorm:"size:16;comment:接口类型"`
-	Tag    string `json:"tag" gorm:"size:128;comment:标签"`
+	Id     int    `json:"id" gorm:"column:id;type:int;primaryKey;autoIncrement;comment:主键编码"`
+	Handle string `json:"handle" gorm:"column:handle;type:varchar(128);size:128;comment:handle"` // 启用了，需要使用单独的权限报承载
+	Title  string `json:"title" gorm:"column:title;type:varchar(128);size:128;comment:标题"`
+	Path   string `json:"path" gorm:"column:path;type:varchar(128);size:128;comment:地址"`
+	Action string `json:"action" gorm:"column:action;type:varchar(16);size:16;comment:请求类型"`
+	Type   string `json:"type" gorm:"column:type;type:varchar(16);size:16;comment:接口类型"`
+	Tag    string `json:"tag" gorm:"column:tag;type:varchar(128);size:128;comment:标签"`
 	models.ModelTime
 	models.ControlBy
 }
@@ -39,6 +40,21 @@ func (e *SysApi) Generate() models.ActiveRecord {
 
 func (e *SysApi) GetId() interface{} {
 	return e.Id
+}
+
+// SysApi字段常量定义 - 用于GORM查询和函数调用
+const (
+	SysApiId     = "id"
+	SysApiHandle = "handle"
+	SysApiTitle  = "title"
+	SysApiPath   = "path"
+	SysApiAction = "action"
+	SysApiType   = "type"
+	SysApiTag    = "tag"
+)
+
+func (e *SysApi) AutoMigrate(db *gorm.DB) {
+
 }
 
 func SaveSysApi(message storage.Messager) (err error) {

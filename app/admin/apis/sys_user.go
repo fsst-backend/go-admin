@@ -1,8 +1,10 @@
 package apis
 
 import (
+	"errors"
 	"go-admin/app/admin/models"
 	"net/http"
+	"regexp"
 
 	"github.com/gin-gonic/gin/binding"
 	"golang.org/x/crypto/bcrypt"
@@ -124,6 +126,12 @@ func (e SysUser) Insert(c *gin.Context) {
 	// 设置创建人
 	req.SetCreateBy(user.GetUserId(c))
 
+	if err := CheckUsername(req.Username); err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
 	var hash []byte
 	// 密码加密
 	if hash, err = bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
@@ -159,6 +167,12 @@ func (e SysUser) Update(c *gin.Context) {
 		MakeService(&s.Service).
 		Errors
 	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
+	if err := CheckUsername(req.Username); err != nil {
 		e.Logger.Error(err)
 		e.Error(500, err, err.Error())
 		return
@@ -553,4 +567,30 @@ func (e SysUser) SetUserRole(c *gin.Context) {
 		return
 	}
 	e.OK(req.UserId, "设置用户角色成功")
+}
+
+func CheckUsername(username string) error {
+	// 长度校验
+	if len(username) < 4 || len(username) > 32 {
+		return errors.New("用户名长度必须在 4~32 位之间")
+	}
+
+	// 字符范围校验
+	allowed := regexp.MustCompile(`^[a-zA-Z0-9@_.]+$`)
+	if !allowed.MatchString(username) {
+		return errors.New("用户名只能包含字母、数字、@、_、.")
+	}
+
+	// 不能以 . 或 _ 开头或结尾
+	if username[0] == '.' || username[0] == '_' ||
+		username[len(username)-1] == '.' || username[len(username)-1] == '_' {
+		return errors.New("用户名不能以 . 或 _ 开头或结尾")
+	}
+
+	// 不允许连续符号
+	if regexp.MustCompile(`(\.\.|__)`).MatchString(username) {
+		return errors.New("用户名不能包含连续的 . 或 _")
+	}
+
+	return nil
 }
