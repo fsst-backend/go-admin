@@ -15,10 +15,10 @@
     "application/json"
   ],
   "paths": {
-    "/poplar/violet/backend/bonus_activity/activity/batch_sign_up": {
+    "/poplar/violet/backend/activity/batch_sign_up": {
       "post": {
         "summary": "批量报名活动",
-        "operationId": "BatchSignUpBonusActivityHandler",
+        "operationId": "BatchSignUpActivityHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -33,57 +33,27 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/BatchSignUpBonusActivityRequest"
+              "$ref": "#/definitions/BatchSignUpActivityRequest"
             }
           }
         ],
         "tags": [
-          "bonus_activity"
+          "activity"
         ],
         "consumes": [
           "application/json"
         ]
       }
     },
-    "/poplar/violet/backend/bonus_activity/activity/close": {
+    "/poplar/violet/backend/activity/bonus/create": {
       "post": {
-        "summary": "关闭活动列表",
-        "operationId": "CloseBonusActivityHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CloseBonusActivityRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/create": {
-      "post": {
-        "summary": "创建活动列表",
+        "summary": "创建赠金活动列表",
         "operationId": "CreateBonusActivityHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Empty"
+              "$ref": "#/definitions/CreateBonusActivityResponse"
             }
           }
         },
@@ -105,9 +75,9 @@
         ]
       }
     },
-    "/poplar/violet/backend/bonus_activity/activity/detail": {
+    "/poplar/violet/backend/activity/bonus/detail": {
       "get": {
-        "summary": "获取活动详情",
+        "summary": "获取赠金活动详情",
         "operationId": "GetBonusActivityDetailHandler",
         "responses": {
           "200": {
@@ -135,249 +105,9 @@
         ]
       }
     },
-    "/poplar/violet/backend/bonus_activity/activity/sign_up": {
+    "/poplar/violet/backend/activity/bonus/update": {
       "post": {
-        "summary": "报名活动",
-        "operationId": "SignUpBonusActivityHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SignUpBonusActivityRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/statistics": {
-      "get": {
-        "summary": "获取赠金活动统计数据",
-        "operationId": "GetBonusActivityStatisticsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetBonusActivityStatisticsResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "title",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "activity_code",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/status/update": {
-      "post": {
-        "summary": "更改活动状态",
-        "operationId": "UpdateBonusActivityStatusHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateBonusActivityStatusRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/symbol/create": {
-      "post": {
-        "summary": "添加品种",
-        "operationId": "AddBonusActivitySymbolHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateBonusActivitySymbolRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/symbol/delete": {
-      "post": {
-        "summary": "删除品种",
-        "operationId": "DeleteBonusActivitySymbolHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteBonusActivitySymbolRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/symbol/list": {
-      "get": {
-        "summary": "获取品种列表",
-        "operationId": "GetBonusActivitySymbolListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetBonusActivitySymbolListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/symbol/update": {
-      "post": {
-        "summary": "更新品种",
-        "operationId": "UpdateBonusActivitySymbolHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateBonusActivitySymbolRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/activity/update": {
-      "post": {
-        "summary": "更新活动列表",
+        "summary": "更新赠金活动列表",
         "operationId": "UpdateBonusActivityHandler",
         "responses": {
           "200": {
@@ -405,104 +135,9 @@
         ]
       }
     },
-    "/poplar/violet/backend/bonus_activity/list/get": {
+    "/poplar/violet/backend/activity/bonus/user/list": {
       "get": {
-        "summary": "获取活动列表",
-        "operationId": "GetBonusActivityListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetBonusActivityListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "title",
-            "description": " 标题",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "activity_code",
-            "description": " 编号",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "status_list",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/user/activity/batch_settlement": {
-      "post": {
-        "summary": "批量结算用户赠金活动",
-        "operationId": "BatchSettlementUserBonusActivityHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/BatchSettlementUserBonusActivityRequest"
-            }
-          }
-        ],
-        "tags": [
-          "bonus_activity"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/bonus_activity/user/activity/list": {
-      "get": {
-        "summary": "获取用户参加活动列表",
+        "summary": "获取用户参加活动列表 -- 暂时",
         "operationId": "GetUserBonusActivityListHandler",
         "responses": {
           "200": {
@@ -558,10 +193,68 @@
         ]
       }
     },
-    "/poplar/violet/backend/bonus_activity/user/activity/settlement": {
+    "/poplar/violet/backend/activity/list/get": {
+      "get": {
+        "summary": "获取活动列表",
+        "operationId": "GetActivityListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetActivityListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "description": " 标题",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "activity_code",
+            "description": " 编号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/sign_up": {
       "post": {
-        "summary": "结算用户赠金活动",
-        "operationId": "SettlementUserBonusActivityHandler",
+        "summary": "报名活动",
+        "operationId": "SignUpActivityHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -576,12 +269,340 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SettlementUserBonusActivityRequest"
+              "$ref": "#/definitions/SignUpActivityRequest"
             }
           }
         ],
         "tags": [
-          "bonus_activity"
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/statistics": {
+      "get": {
+        "summary": "获取活动统计数据",
+        "operationId": "GetActivityStatisticsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetActivityStatisticsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "activity_code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/status/update": {
+      "post": {
+        "summary": "更改活动状态",
+        "operationId": "UpdateActivityStatusHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateActivityStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/symbol/create": {
+      "post": {
+        "summary": "添加品种",
+        "operationId": "AddActivitySymbolHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateActivitySymbolRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/symbol/delete": {
+      "post": {
+        "summary": "删除品种",
+        "operationId": "DeleteActivitySymbolHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteActivitySymbolRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/symbol/list": {
+      "get": {
+        "summary": "获取品种列表",
+        "operationId": "GetActivitySymbolListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetActivitySymbolListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/symbol/update": {
+      "post": {
+        "summary": "更新品种",
+        "operationId": "UpdateActivitySymbolHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateActivitySymbolRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/user/batch_settlement": {
+      "post": {
+        "summary": "批量结算用户活动",
+        "operationId": "BatchSettlementUserActivityHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchSettlementUserActivityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/user/list": {
+      "get": {
+        "summary": "获取用户参加活动列表",
+        "operationId": "GetUserActivityListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserBonusActivityListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "description": " 标题",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "activity_code",
+            "description": " 活动代码",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account_ids",
+            "description": " 账号ID列表",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/user/settlement": {
+      "post": {
+        "summary": "结算用户活动",
+        "operationId": "SettlementUserActivityHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SettlementUserActivityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
         ],
         "consumes": [
           "application/json"
@@ -24103,6 +24124,35 @@
       },
       "title": "ActiveTimeRangeForm"
     },
+    "ActivityBase": {
+      "type": "object",
+      "properties": {
+        "activity_code": {
+          "type": "string",
+          "description": " 活动代码"
+        },
+        "title": {
+          "type": "string",
+          "description": " 活动名称"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动类型 1:充值满赠 2:交易赠金"
+        },
+        "registration_start_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 报名开始时间"
+        },
+        "registration_end_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 报名结束时间"
+        }
+      },
+      "title": "ActivityBase"
+    },
     "ActivityCondition": {
       "type": "object",
       "properties": {
@@ -24118,6 +24168,76 @@
       },
       "title": "ActivityCondition"
     },
+    "ActivityList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "activity_code": {
+          "type": "string",
+          "description": " 活动代码"
+        },
+        "activity_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动类型 1=赠金活动"
+        },
+        "reward_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 赠金类型 1:充值满赠 2:任务赠金 3:体验价"
+        },
+        "title": {
+          "type": "string",
+          "description": " 活动名称"
+        },
+        "registration_start_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 报名开始时间"
+        },
+        "registration_end_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 报名结束时间"
+        },
+        "participation_counts": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 参与人数"
+        },
+        "created_by": {
+          "type": "string",
+          "description": " 创建人"
+        },
+        "created_by_name": {
+          "type": "string",
+          "description": " 创建人名称"
+        },
+        "audit_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 审核时间"
+        },
+        "audit_by": {
+          "type": "string",
+          "description": " 审核人"
+        },
+        "audit_by_name": {
+          "type": "string",
+          "description": " 审核人名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
+        }
+      },
+      "title": "ActivityList"
+    },
     "ActivityOrderCondition": {
       "type": "object",
       "properties": {
@@ -24131,6 +24251,31 @@
         }
       },
       "title": "ActivityOrderCondition"
+    },
+    "ActivityPromotion": {
+      "type": "object",
+      "properties": {
+        "activity_url": {
+          "type": "string",
+          "description": " 活动落地页链接"
+        },
+        "introduction": {
+          "type": "string",
+          "description": " 活动简介"
+        },
+        "ui_config": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityUIConfig"
+          },
+          "description": " UI图片资源配置"
+        },
+        "mutex_config": {
+          "$ref": "#/definitions/MutexConfig",
+          "description": " 互斥活动配置,为空全部排斥"
+        }
+      },
+      "title": "ActivityPromotion"
     },
     "ActivityStatistics": {
       "type": "object",
@@ -24186,6 +24331,28 @@
         }
       },
       "title": "ActivityStatistics"
+    },
+    "ActivityUIConfig": {
+      "type": "object",
+      "properties": {
+        "banner": {
+          "type": "string",
+          "description": " 广告位"
+        },
+        "popup": {
+          "type": "string",
+          "description": " 弹窗"
+        },
+        "intro": {
+          "type": "string",
+          "description": " 规则介绍"
+        },
+        "language": {
+          "type": "string",
+          "description": " 语言"
+        }
+      },
+      "title": "ActivityUIConfig"
     },
     "ActivityUserCondition": {
       "type": "object",
@@ -26370,7 +26537,7 @@
       },
       "title": "BatchSetRegisterStatusReq"
     },
-    "BatchSettlementUserBonusActivityRequest": {
+    "BatchSettlementUserActivityRequest": {
       "type": "object",
       "properties": {
         "participation_ids": {
@@ -26382,11 +26549,11 @@
           "description": " 参与记录ID列表"
         }
       },
-      "title": "BatchSettlementUserBonusActivityRequest"
+      "title": "BatchSettlementUserActivityRequest"
     },
-    "BatchSignUpBonusActivityRequest": {
+    "BatchSignUpActivityRequest": {
       "type": "object",
-      "title": "BatchSignUpBonusActivityRequest"
+      "title": "BatchSignUpActivityRequest"
     },
     "BatchUpdateInboundReconciliationIds": {
       "type": "object",
@@ -26772,48 +26939,6 @@
     "BonusActivity": {
       "type": "object",
       "properties": {
-        "activity_code": {
-          "type": "string",
-          "description": " 活动代码"
-        },
-        "title": {
-          "type": "string",
-          "description": " 活动名称"
-        },
-        "type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动类型 1:充值满赠 2:交易赠金"
-        },
-        "introduction": {
-          "type": "string",
-          "description": " 活动简介"
-        },
-        "activity_url": {
-          "type": "string",
-          "description": " 活动落地页链接"
-        },
-        "ui_config": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityUIConfig"
-          },
-          "description": " UI图片资源配置"
-        },
-        "mutex_config": {
-          "$ref": "#/definitions/BonusMutexConfig",
-          "description": " 互斥活动配置,为空全部排斥"
-        },
-        "registration_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名开始时间"
-        },
-        "registration_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名结束时间"
-        },
         "net_deposit_time_type": {
           "type": "integer",
           "format": "int64",
@@ -26921,66 +27046,6 @@
       },
       "title": "BonusActivity"
     },
-    "BonusActivityList": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " ID"
-        },
-        "activity_code": {
-          "type": "string",
-          "description": " 活动代码"
-        },
-        "title": {
-          "type": "string",
-          "description": " 活动名称"
-        },
-        "registration_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名开始时间"
-        },
-        "registration_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名结束时间"
-        },
-        "participation_counts": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 参与人数"
-        },
-        "created_by": {
-          "type": "string",
-          "description": " 创建人"
-        },
-        "created_by_name": {
-          "type": "string",
-          "description": " 创建人名称"
-        },
-        "audit_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 审核时间"
-        },
-        "audit_by": {
-          "type": "string",
-          "description": " 审核人"
-        },
-        "audit_by_name": {
-          "type": "string",
-          "description": " 审核人名称"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
-        }
-      },
-      "title": "BonusActivityList"
-    },
     "BonusActivityTier": {
       "type": "object",
       "properties": {
@@ -27021,47 +27086,6 @@
         }
       },
       "title": "BonusActivityTier"
-    },
-    "BonusActivityUIConfig": {
-      "type": "object",
-      "properties": {
-        "banner": {
-          "type": "string",
-          "description": " 广告位"
-        },
-        "popup": {
-          "type": "string",
-          "description": " 弹窗"
-        },
-        "intro": {
-          "type": "string",
-          "description": " 规则介绍"
-        },
-        "language": {
-          "type": "string",
-          "description": " 语言"
-        }
-      },
-      "title": "BonusActivityUIConfig"
-    },
-    "BonusMutexConfig": {
-      "type": "object",
-      "properties": {
-        "is_all_mutex": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否全部互斥"
-        },
-        "activity_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 互斥ID列表也改为 int64"
-        }
-      },
-      "title": "BonusMutexConfig"
     },
     "BonusProductGroup": {
       "type": "object",
@@ -27481,17 +27505,6 @@
         }
       },
       "title": "CircleTimeRangeForm"
-    },
-    "CloseBonusActivityRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动ID"
-        }
-      },
-      "title": "CloseBonusActivityRequest"
     },
     "CloseDateRangeForm": {
       "type": "object",
@@ -28322,170 +28335,7 @@
       },
       "title": "CreateAccountAdjustmentReq"
     },
-    "CreateBonusActivityRequest": {
-      "type": "object",
-      "properties": {
-        "activity_code": {
-          "type": "string",
-          "description": " 活动代码"
-        },
-        "title": {
-          "type": "string",
-          "description": " 活动名称"
-        },
-        "type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动类型 1:充值满赠 2:交易赠金"
-        },
-        "introduction": {
-          "type": "string",
-          "description": " 活动简介"
-        },
-        "activity_url": {
-          "type": "string",
-          "description": " 活动落地页链接"
-        },
-        "ui_config": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityUIConfig"
-          },
-          "description": " UI图片资源配置"
-        },
-        "mutex_config": {
-          "$ref": "#/definitions/BonusMutexConfig",
-          "description": " 互斥活动配置,为空全部排斥"
-        },
-        "registration_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名开始时间"
-        },
-        "registration_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名结束时间"
-        },
-        "net_deposit_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计时间类型1=固定时间段2=活动开始到指定时间3=用户参加到指定时间4=用户参加后N天"
-        },
-        "net_deposit_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计开始时间"
-        },
-        "net_deposit_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计结束时间"
-        },
-        "net_deposit_after_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计相对天数"
-        },
-        "trade_count_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计时间类型1=指定开始时间到奖励到期2=活动开始到奖励到期3=用户参加到奖励到期4=首层奖励到奖励到期"
-        },
-        "trade_count_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计开始时间"
-        },
-        "trade_count_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计结束时间"
-        },
-        "reward_expiry_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 奖励到期类型1=固定日期2=相对有效期"
-        },
-        "reward_expiry_date": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 固定到期日期"
-        },
-        "reward_expiry_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 相对有效期天数"
-        },
-        "is_multi_join_allowed": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否允许多次参与"
-        },
-        "join_mode": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名方式 0:线上 1:线下 2:线上+线下"
-        },
-        "settlement_cycle": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 1=实时2=每30分钟3=每日凌晨1点4=用户活动到期次日凌晨1点"
-        },
-        "auto_grant": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否自动发放"
-        },
-        "withdraw_settle": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 取款是否触发结算"
-        },
-        "max_bonus_cap": {
-          "type": "string",
-          "description": " 单人最高赠金上限"
-        },
-        "min_position_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 最低持仓时间(分钟)"
-        },
-        "is_tier_designated": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否可以跃迁"
-        },
-        "calc_order_same_tier": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 同层级计算顺序 1:同时释放 2:顺序"
-        },
-        "first_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 先赠注入账户类型1=钱包账号"
-        },
-        "second_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 后赠注入账户类型1=钱包账号 2=虚拟账号 3=真实账号"
-        },
-        "tiers": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityTier"
-          },
-          "description": " 层级配置"
-        },
-        "action": {
-          "type": "string",
-          "description": " 行为 STAGING|SUBMIT"
-        }
-      },
-      "title": "CreateBonusActivityRequest"
-    },
-    "CreateBonusActivitySymbolRequest": {
+    "CreateActivitySymbolRequest": {
       "type": "object",
       "properties": {
         "name": {
@@ -28501,7 +28351,51 @@
           "description": " 品种组合"
         }
       },
-      "title": "CreateBonusActivitySymbolRequest"
+      "title": "CreateActivitySymbolRequest"
+    },
+    "CreateBonusActivityRequest": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "bonus_activity_main": {
+          "$ref": "#/definitions/BonusActivity",
+          "description": " 活动信息主体"
+        },
+        "activity_base_info": {
+          "$ref": "#/definitions/ActivityBase",
+          "description": " 活动基础信息"
+        },
+        "activity_promotion_info": {
+          "$ref": "#/definitions/ActivityPromotion",
+          "description": " 活动营销推广信息"
+        },
+        "tiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BonusActivityTier"
+          },
+          "description": " 层级配置"
+        },
+        "action": {
+          "type": "string",
+          "description": " 行为 STAGING|SUBMIT"
+        }
+      },
+      "title": "CreateBonusActivityRequest"
+    },
+    "CreateBonusActivityResponse": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        }
+      },
+      "title": "CreateBonusActivityResponse"
     },
     "CreateCurrencyResqust": {
       "type": "object",
@@ -30538,6 +30432,17 @@
         "label_id"
       ]
     },
+    "DeleteActivitySymbolRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteActivitySymbolRequest"
+    },
     "DeleteBankReq": {
       "type": "object",
       "properties": {
@@ -30570,17 +30475,6 @@
         }
       },
       "title": "DeleteBlack"
-    },
-    "DeleteBonusActivitySymbolRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " ID"
-        }
-      },
-      "title": "DeleteBonusActivitySymbolRequest"
     },
     "DeleteContentRequest": {
       "type": "object",
@@ -32944,6 +32838,122 @@
       },
       "title": "FunnelListResponse"
     },
+    "GetActivityListRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "activity_code": {
+          "type": "string",
+          "description": " 编号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetActivityListRequest"
+    },
+    "GetActivityListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityList"
+          },
+          "description": " 活动列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetActivityListResponse"
+    },
+    "GetActivityStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "activity_code": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetActivityStatisticsRequest"
+    },
+    "GetActivityStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityStatistics"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetActivityStatisticsResponse"
+    },
+    "GetActivitySymbolListRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetActivitySymbolListRequest"
+    },
+    "GetActivitySymbolListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BonusProductGroup"
+          },
+          "description": " 品种列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetActivitySymbolListResponse"
+    },
     "GetAllCountryNameResp": {
       "type": "object",
       "properties": {
@@ -33143,156 +33153,21 @@
     "GetBonusActivityDetailResponse": {
       "type": "object",
       "properties": {
-        "id": {
+        "activity_id": {
           "type": "integer",
-          "format": "int64",
-          "description": " 活动ID"
+          "format": "int64"
         },
-        "activity_code": {
-          "type": "string",
-          "description": " 活动代码"
+        "bonus_activity_main": {
+          "$ref": "#/definitions/BonusActivity",
+          "description": " 活动信息主体"
         },
-        "title": {
-          "type": "string",
-          "description": " 活动名称"
+        "activity_base_info": {
+          "$ref": "#/definitions/ActivityBase",
+          "description": " 活动基础信息"
         },
-        "type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动类型 1:充值满赠 2:交易赠金"
-        },
-        "introduction": {
-          "type": "string",
-          "description": " 活动简介"
-        },
-        "activity_url": {
-          "type": "string",
-          "description": " 活动落地页链接"
-        },
-        "ui_config": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityUIConfig"
-          },
-          "description": " UI图片资源配置"
-        },
-        "mutex_config": {
-          "$ref": "#/definitions/BonusMutexConfig",
-          "description": " 互斥活动配置,为空全部排斥"
-        },
-        "registration_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名开始时间"
-        },
-        "registration_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名结束时间"
-        },
-        "net_deposit_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计时间类型1=固定时间段2=活动开始到指定时间3=用户参加到指定时间4=用户参加后N天"
-        },
-        "net_deposit_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计开始时间"
-        },
-        "net_deposit_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计结束时间"
-        },
-        "net_deposit_after_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计相对天数"
-        },
-        "trade_count_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计时间类型1=指定开始时间到奖励到期2=活动开始到奖励到期3=用户参加到奖励到期4=首层奖励到奖励到期"
-        },
-        "trade_count_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计开始时间"
-        },
-        "trade_count_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计结束时间"
-        },
-        "reward_expiry_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 奖励到期类型1=固定日期2=相对有效期"
-        },
-        "reward_expiry_date": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 固定到期日期"
-        },
-        "reward_expiry_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 相对有效期天数"
-        },
-        "is_multi_join_allowed": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否允许多次参与"
-        },
-        "join_mode": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名方式 0:线上 1:线下 2:线上+线下"
-        },
-        "settlement_cycle": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 1=实时2=每30分钟3=每日凌晨1点4=用户活动到期次日凌晨1点"
-        },
-        "auto_grant": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否自动发放"
-        },
-        "withdraw_settle": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 取款是否触发结算"
-        },
-        "max_bonus_cap": {
-          "type": "string",
-          "description": " 单人最高赠金上限"
-        },
-        "min_position_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 最低持仓时间(分钟)"
-        },
-        "is_tier_designated": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否可以跃迁"
-        },
-        "calc_order_same_tier": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 同层级计算顺序 1:同时释放 2:顺序"
-        },
-        "first_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 先赠注入账户类型1=钱包账号"
-        },
-        "second_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 后赠注入账户类型1=钱包账号 2=虚拟账号 3=真实账号"
+        "activity_promotion_info": {
+          "$ref": "#/definitions/ActivityPromotion",
+          "description": " 活动营销推广信息"
         },
         "tiers": {
           "type": "array",
@@ -33300,132 +33175,14 @@
             "$ref": "#/definitions/BonusActivityTier"
           },
           "description": " 层级配置"
-        }
-      },
-      "title": "GetBonusActivityDetailResponse"
-    },
-    "GetBonusActivityListRequest": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string",
-          "description": " 标题"
-        },
-        "activity_code": {
-          "type": "string",
-          "description": " 编号"
         },
         "status": {
           "type": "integer",
-          "format": "int32",
-          "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
-        },
-        "status_list": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetBonusActivityListRequest"
-    },
-    "GetBonusActivityListResponse": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityList"
-          },
-          "description": " 活动列表"
-        },
-        "total": {
-          "type": "integer",
           "format": "int64",
-          "description": " 总数"
+          "description": "状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
         }
       },
-      "title": "GetBonusActivityListResponse"
-    },
-    "GetBonusActivityStatisticsRequest": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "activity_code": {
-          "type": "string"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetBonusActivityStatisticsRequest"
-    },
-    "GetBonusActivityStatisticsResponse": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ActivityStatistics"
-          }
-        },
-        "Total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetBonusActivityStatisticsResponse"
-    },
-    "GetBonusActivitySymbolListRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetBonusActivitySymbolListRequest"
-    },
-    "GetBonusActivitySymbolListResponse": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusProductGroup"
-          },
-          "description": " 品种列表"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总数"
-        }
-      },
-      "title": "GetBonusActivitySymbolListResponse"
+      "title": "GetBonusActivityDetailResponse"
     },
     "GetCalendarDetailRequest": {
       "type": "object",
@@ -41145,6 +40902,25 @@
       },
       "title": "MultiLanguageContent"
     },
+    "MutexConfig": {
+      "type": "object",
+      "properties": {
+        "is_all_mutex": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否全部互斥"
+        },
+        "activity_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 互斥ID列表也改为 int64"
+        }
+      },
+      "title": "MutexConfig"
+    },
     "NetDeposit": {
       "type": "object",
       "properties": {
@@ -45915,7 +45691,7 @@
       },
       "title": "SettlementSymbolAccumulate"
     },
-    "SettlementUserBonusActivityRequest": {
+    "SettlementUserActivityRequest": {
       "type": "object",
       "properties": {
         "participation_id": {
@@ -45924,7 +45700,7 @@
           "description": " 参与记录ID"
         }
       },
-      "title": "SettlementUserBonusActivityRequest"
+      "title": "SettlementUserActivityRequest"
     },
     "ShareConfig": {
       "type": "object",
@@ -45945,7 +45721,7 @@
       },
       "title": "ShareConfig"
     },
-    "SignUpBonusActivityRequest": {
+    "SignUpActivityRequest": {
       "type": "object",
       "properties": {
         "activity_id": {
@@ -45976,7 +45752,7 @@
           "description": " 持仓时间(分钟)"
         }
       },
-      "title": "SignUpBonusActivityRequest"
+      "title": "SignUpActivityRequest"
     },
     "SignalProviderActiveOrderInfo": {
       "type": "object",
@@ -50474,6 +50250,45 @@
       },
       "title": "UpdateAccountAdjustmentAudit"
     },
+    "UpdateActivityStatusRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
+        }
+      },
+      "title": "UpdateActivityStatusRequest"
+    },
+    "UpdateActivitySymbolRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 组合名称"
+        },
+        "purpose": {
+          "type": "string",
+          "description": " 用途"
+        },
+        "group": {
+          "$ref": "#/definitions/BonusProductGroupItem",
+          "description": " 品种组合"
+        }
+      },
+      "title": "UpdateActivitySymbolRequest"
+    },
     "UpdateBankReq": {
       "type": "object",
       "properties": {
@@ -50567,151 +50382,17 @@
           "format": "int64",
           "description": " 活动ID"
         },
-        "activity_code": {
-          "type": "string",
-          "description": " 活动代码"
+        "bonus_activity_main": {
+          "$ref": "#/definitions/BonusActivity",
+          "description": " 活动信息主体"
         },
-        "title": {
-          "type": "string",
-          "description": " 活动名称"
+        "activity_base_info": {
+          "$ref": "#/definitions/ActivityBase",
+          "description": " 活动基础信息"
         },
-        "type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动类型 1:充值满赠 2:交易赠金"
-        },
-        "introduction": {
-          "type": "string",
-          "description": " 活动简介"
-        },
-        "activity_url": {
-          "type": "string",
-          "description": " 活动落地页链接"
-        },
-        "ui_config": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BonusActivityUIConfig"
-          },
-          "description": " UI图片资源配置"
-        },
-        "mutex_config": {
-          "$ref": "#/definitions/BonusMutexConfig",
-          "description": " 互斥活动配置,为空全部排斥"
-        },
-        "registration_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名开始时间"
-        },
-        "registration_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名结束时间"
-        },
-        "net_deposit_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计时间类型1=固定时间段2=活动开始到指定时间3=用户参加到指定时间4=用户参加后N天"
-        },
-        "net_deposit_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计开始时间"
-        },
-        "net_deposit_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计结束时间"
-        },
-        "net_deposit_after_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 入金统计相对天数"
-        },
-        "trade_count_time_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计时间类型1=指定开始时间到奖励到期2=活动开始到奖励到期3=用户参加到奖励到期4=首层奖励到奖励到期"
-        },
-        "trade_count_start_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计开始时间"
-        },
-        "trade_count_end_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 手数统计结束时间"
-        },
-        "reward_expiry_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 奖励到期类型1=固定日期2=相对有效期"
-        },
-        "reward_expiry_date": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 固定到期日期"
-        },
-        "reward_expiry_days": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 相对有效期天数"
-        },
-        "is_multi_join_allowed": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否允许多次参与"
-        },
-        "join_mode": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 报名方式 0:线上 1:线下 2:线上+线下"
-        },
-        "settlement_cycle": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 1=实时2=每30分钟3=每日凌晨1点4=用户活动到期次日凌晨1点"
-        },
-        "auto_grant": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否自动发放"
-        },
-        "withdraw_settle": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 取款是否触发结算"
-        },
-        "max_bonus_cap": {
-          "type": "string",
-          "description": " 单人最高赠金上限"
-        },
-        "min_position_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 最低持仓时间(分钟)"
-        },
-        "is_tier_designated": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否可以跃迁"
-        },
-        "calc_order_same_tier": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 同层级计算顺序 1:同时释放 2:顺序"
-        },
-        "first_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 先赠注入账户类型1=钱包账号"
-        },
-        "second_gift_account_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 后赠注入账户类型1=钱包账号 2=虚拟账号 3=真实账号"
+        "activity_promotion_info": {
+          "$ref": "#/definitions/ActivityPromotion",
+          "description": " 活动营销推广信息"
         },
         "tiers": {
           "type": "array",
@@ -50726,44 +50407,6 @@
         }
       },
       "title": "UpdateBonusActivityRequest"
-    },
-    "UpdateBonusActivityStatusRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 活动ID"
-        },
-        "action": {
-          "type": "string",
-          "description": " 行为 SUBMIT|APPROVE|REJECT"
-        }
-      },
-      "title": "UpdateBonusActivityStatusRequest"
-    },
-    "UpdateBonusActivitySymbolRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " ID"
-        },
-        "name": {
-          "type": "string",
-          "description": " 组合名称"
-        },
-        "purpose": {
-          "type": "string",
-          "description": " 用途"
-        },
-        "group": {
-          "$ref": "#/definitions/BonusProductGroupItem",
-          "description": " 品种组合"
-        }
-      },
-      "title": "UpdateBonusActivitySymbolRequest"
     },
     "UpdateCountrySettingReq": {
       "type": "object",
@@ -54998,6 +54641,11 @@
         "created_by_name": {
           "type": "string",
           "description": " 创建人名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 状态 1=进行中 2=已结算"
         },
         "user_part_tier_detail": {
           "$ref": "#/definitions/PartTierInfo",
