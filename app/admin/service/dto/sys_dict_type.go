@@ -9,7 +9,7 @@ import (
 
 type SysDictTypeGetPageReq struct {
 	dto.OffsetLimitPagination `search:"-"` // 使用 offset/limit 分页
-	DictId                    []int        `form:"dictId" search:"type:in;column:dict_id;table:sys_dict_type"`
+	DictId                    *[]int       `form:"dictId" search:"type:in;column:dict_id;table:sys_dict_type"`
 	DictName                  *string      `form:"dictName" search:"type:icontains;column:dict_name;table:sys_dict_type"`
 	DictType                  *string      `form:"dictType" search:"type:icontains;column:dict_type;table:sys_dict_type"`
 	Status                    *int         `form:"status" search:"type:exact;column:status;table:sys_dict_type"`
