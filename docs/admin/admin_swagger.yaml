@@ -655,6 +655,7 @@ definitions:
       sort:
         type: integer
       status:
+        description: 状态 1启用 0禁用
         type: integer
       type:
         type: string
@@ -792,8 +793,6 @@ definitions:
         type: boolean
       createBy:
         type: integer
-      dataScope:
-        type: string
       deptIds:
         items:
           type: integer
@@ -816,9 +815,6 @@ definitions:
       roleSort:
         description: 角色排序
         type: integer
-      status:
-        description: 状态
-        type: string
       updateBy:
         type: integer
     type: object
@@ -919,6 +915,15 @@ definitions:
       updateBy:
         type: integer
     type: object
+  dto.UpdateSysUserAvatarReq:
+    properties:
+      avatar:
+        type: string
+      createBy:
+        type: integer
+      updateBy:
+        type: integer
+    type: object
   dto.UpdateSysUserStatusReq:
     properties:
       createBy:
@@ -948,6 +953,8 @@ definitions:
       id:
         type: integer
       path:
+        type: string
+      tag:
         type: string
       title:
         type: string
@@ -2798,7 +2805,7 @@ paths:
               type: object
       security:
       - Bearer: []
-      summary: 修改用户角色
+      summary: 修改用户角色状态
       tags:
       - 角色管理
   /lotus/api/v1/role/get:
@@ -3820,17 +3827,18 @@ paths:
   /lotus/api/v1/user/avatar:
     post:
       consumes:
-      - multipart/form-data
+      - application/json
       description: 获取JSON
       parameters:
-      - description: file
-        in: formData
-        name: file
+      - description: body
+        in: body
+        name: data
         required: true
-        type: file
+        schema:
+          $ref: '#/definitions/dto.UpdateSysUserAvatarReq'
       responses:
         "200":
-          description: '{"code": 0, "message": [...]}'
+          description: '{"code": 0, "message": [...]}}'
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'

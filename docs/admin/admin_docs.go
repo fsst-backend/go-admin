@@ -2068,7 +2068,7 @@ const docTemplateadmin = `{
                 "tags": [
                     "角色管理"
                 ],
-                "summary": "修改用户角色",
+                "summary": "修改用户角色状态",
                 "parameters": [
                     {
                         "description": "body",
@@ -3891,7 +3891,7 @@ const docTemplateadmin = `{
                 ],
                 "description": "获取JSON",
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "tags": [
                     "个人中心"
@@ -3899,16 +3899,18 @@ const docTemplateadmin = `{
                 "summary": "修改头像",
                 "parameters": [
                     {
-                        "type": "file",
-                        "description": "file",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateSysUserAvatarReq"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 0, \"message\": [...]}",
+                        "description": "{\"code\": 0, \"message\": [...]}}",
                         "schema": {
                             "allOf": [
                                 {
@@ -5097,6 +5099,7 @@ const docTemplateadmin = `{
                     "type": "integer"
                 },
                 "status": {
+                    "description": "状态 1启用 0禁用",
                     "type": "integer"
                 },
                 "type": {
@@ -5301,9 +5304,6 @@ const docTemplateadmin = `{
                 "createBy": {
                     "type": "integer"
                 },
-                "dataScope": {
-                    "type": "string"
-                },
                 "deptIds": {
                     "type": "array",
                     "items": {
@@ -5333,10 +5333,6 @@ const docTemplateadmin = `{
                 "roleSort": {
                     "description": "角色排序",
                     "type": "integer"
-                },
-                "status": {
-                    "description": "状态",
-                    "type": "string"
                 },
                 "updateBy": {
                     "type": "integer"
@@ -5487,6 +5483,20 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "dto.UpdateSysUserAvatarReq": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "updateBy": {
+                    "type": "integer"
+                }
+            }
+        },
         "dto.UpdateSysUserStatusReq": {
             "type": "object",
             "properties": {
@@ -5529,6 +5539,9 @@ const docTemplateadmin = `{
                     "type": "integer"
                 },
                 "path": {
+                    "type": "string"
+                },
+                "tag": {
                     "type": "string"
                 },
                 "title": {

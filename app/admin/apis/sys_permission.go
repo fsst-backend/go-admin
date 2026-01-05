@@ -106,7 +106,7 @@ func (e SysPermission) Insert(c *gin.Context) {
 	}
 	req.SetCreateBy(user.GetUserId(c))
 	if err = s.Insert(&req); err != nil {
-		e.Error(500, err, "创建失败")
+		e.Error(500, err, err.Error())
 		return
 	}
 	e.OK(req.GetId(), "创建成功")

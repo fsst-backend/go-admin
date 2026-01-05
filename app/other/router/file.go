@@ -11,6 +11,7 @@ import (
 
 func init() {
 	// routerCheckRole = append(routerCheckRole, registerFileRouter)
+	routerNoCheckRole = append(routerNoCheckRole, registerDocRouter)
 }
 
 // 需认证的路由代码
@@ -21,5 +22,12 @@ func registerFileRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlewar
 	r := v1.Group("").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	{
 		r.POST("/public/uploadFile", api.UploadFile)
+	}
+}
+
+func registerDocRouter(v1 *gin.RouterGroup) {
+	r := v1.Group("")
+	{
+		r.StaticFile("/docs", "/app/docs")
 	}
 }
