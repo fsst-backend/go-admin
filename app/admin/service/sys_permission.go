@@ -84,6 +84,17 @@ func (e *SysPermission) Insert(c *dto.SysPermissionInsertReq) error {
 	var data models.SysPermission
 	c.Generate(&data)
 
+	// 检查权限code是否已存在
+	var count int64
+	err := e.Orm.Model(&models.SysPermission{}).Where("code = ?", data.Code).Count(&count).Error
+	if err != nil {
+		e.Log.Errorf("Service check permission code exists error:%s", err)
+		return err
+	}
+	if count > 0 {
+		return errors.New("权限标识已存在")
+	}
+
 	// 使用事务创建权限和 API 关联
 	return e.Orm.Transaction(func(tx *gorm.DB) error {
 		// 1. 创建权限记录
