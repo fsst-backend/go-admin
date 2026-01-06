@@ -85,10 +85,10 @@ func setup() {
 	log.Infof("ExtConfig - Violet.DomainID: %d", ext.ExtConfig.Violet.DomainID)
 	log.Infof("ExtConfig - Upload.AppKey: %s", ext.ExtConfig.Upload.AppKey)
 	log.Infof("ExtConfig - Upload.Secret: %s", ext.ExtConfig.Upload.Secret)
-	log.Infof("ExtConfig - FrontendConfig.BaseSiteURL: %s", ext.ExtConfig.FrontendConfig.BaseSiteURL)
-	log.Infof("ExtConfig - FrontendConfig.BaseAPIURL: %s", ext.ExtConfig.FrontendConfig.BaseAPIURL)
-	log.Infof("ExtConfig - FrontendConfig.BaseH5URL: %s", ext.ExtConfig.FrontendConfig.BaseH5URL)
-	log.Infof("ExtConfig - FrontendConfig.BaseUploadURL: %s", ext.ExtConfig.FrontendConfig.BaseUploadURL)
+	log.Infof("ExtConfig - Frontend.BaseSiteURL: %s", ext.ExtConfig.Frontend.BaseSiteURL)
+	log.Infof("ExtConfig - Frontend.BaseAPIURL: %s", ext.ExtConfig.Frontend.BaseAPIURL)
+	log.Infof("ExtConfig - Frontend.BaseH5URL: %s", ext.ExtConfig.Frontend.BaseH5URL)
+	log.Infof("ExtConfig - Frontend.BaseUploadURL: %s", ext.ExtConfig.Frontend.BaseUploadURL)
 
 	usageStr := `starting api server...`
 	log.Info(usageStr)
