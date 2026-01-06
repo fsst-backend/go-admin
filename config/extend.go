@@ -27,7 +27,7 @@ type Extend struct {
 	AMap     AMap           // 这里配置对应配置文件的结构即可
 	Violet   Violet         // Violet 反向代理配置
 	Upload   Upload         // Upload 上传服务配置
-	frontend FrontendConfig // 前端配置
+	Frontend FrontendConfig // 前端配置
 }
 
 type AMap struct {

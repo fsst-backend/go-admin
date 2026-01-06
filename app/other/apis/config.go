@@ -20,10 +20,10 @@ type Config struct{}
 // @Router /lotus/api/v1/config/frontend [get]
 func (e Config) GetFrontendConfig(c *gin.Context) {
 	var configData = dto.FrontendConfig{
-		BaseSiteURL:   config.ExtConfig.FrontendConfig.BaseSiteURL,
-		BaseAPIURL:    config.ExtConfig.FrontendConfig.BaseAPIURL,
-		BaseH5URL:     config.ExtConfig.FrontendConfig.BaseH5URL,
-		BaseUploadURL: config.ExtConfig.FrontendConfig.BaseUploadURL,
+		BaseSiteURL:   config.ExtConfig.Frontend.BaseSiteURL,
+		BaseAPIURL:    config.ExtConfig.Frontend.BaseAPIURL,
+		BaseH5URL:     config.ExtConfig.Frontend.BaseH5URL,
+		BaseUploadURL: config.ExtConfig.Frontend.BaseUploadURL,
 	}
 
 	c.JSON(200, models.Response{Code: 200, Data: configData, Msg: "获取成功"})
