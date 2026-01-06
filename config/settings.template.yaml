@@ -54,6 +54,11 @@ settings:
     upload:
       appKey: ${UPLOAD_APP_KEY}                    # 应用标识
       secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥
+    frontend:
+      baseSiteURL: ${BASE_SITE_URL}      # 基础站点URL
+      baseAPIURL: ${BASE_API_URL}        # 基础API URL
+      baseH5URL: ${BASE_H5_URL}          # H5基础URL
+      baseUploadURL: ${BASE_UPLOAD_URL}  # 上传基础URL
   cache:
 #    redis:
 #      addr: 127.0.0.1:6379
