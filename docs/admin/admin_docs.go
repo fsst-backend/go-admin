@@ -80,6 +80,38 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "/lotus/api/v1/config/frontend": {
+            "get": {
+                "description": "获取前端所需的基础配置信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "配置管理"
+                ],
+                "summary": "获取前端配置",
+                "responses": {
+                    "200": {
+                        "description": "前端配置信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/models.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/dto.FrontendConfig"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/lotus/api/v1/db/columns/page": {
             "get": {
                 "description": "数据库表列分页列表 / database table column page list",
@@ -1446,6 +1478,40 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "/lotus/api/v1/menu/export": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "导出菜单和权限数据",
+                "tags": [
+                    "菜单"
+                ],
+                "summary": "导出菜单和权限数据",
+                "responses": {
+                    "200": {
+                        "description": "成功导出菜单和权限数据",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/dto.MenuPermissionIO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/lotus/api/v1/menu/get": {
             "get": {
                 "security": [
@@ -1471,6 +1537,54 @@ const docTemplateadmin = `{
                                     "properties": {
                                         "message": {
                                             "$ref": "#/definitions/go-admin_app_admin_models.SysMenu"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/lotus/api/v1/menu/import": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "导入菜单和权限数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "菜单"
+                ],
+                "summary": "导入菜单和权限数据",
+                "parameters": [
+                    {
+                        "description": "菜单和权限数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.MenuPermissionIO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "导入成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
                                         }
                                     }
                                 }
@@ -4132,6 +4246,17 @@ const docTemplateadmin = `{
         }
     },
     "definitions": {
+        "dto.ApiIO": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
         "dto.CPUInfo": {
             "type": "object",
             "properties": {
@@ -4200,6 +4325,23 @@ const docTemplateadmin = `{
                 },
                 "used": {
                     "type": "number"
+                }
+            }
+        },
+        "dto.FrontendConfig": {
+            "type": "object",
+            "properties": {
+                "base_api_url": {
+                    "type": "string"
+                },
+                "base_h5_url": {
+                    "type": "string"
+                },
+                "base_site_url": {
+                    "type": "string"
+                },
+                "base_upload_url": {
+                    "type": "string"
                 }
             }
         },
@@ -4278,6 +4420,60 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "dto.MenuIO": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.MenuIO"
+                    }
+                },
+                "component": {
+                    "type": "string"
+                },
+                "menuName": {
+                    "description": "菜单name",
+                    "type": "string"
+                },
+                "menuType": {
+                    "description": "菜单类型",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "url /camellia/sys_user",
+                    "type": "string"
+                },
+                "perm": {
+                    "description": "权限标识",
+                    "type": "string"
+                },
+                "permission_code": {
+                    "type": "string"
+                },
+                "title": {
+                    "description": "显示标题",
+                    "type": "string"
+                }
+            }
+        },
+        "dto.MenuPermissionIO": {
+            "type": "object",
+            "properties": {
+                "menus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.MenuIO"
+                    }
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.PermissionIO"
+                    }
+                }
+            }
+        },
         "dto.NetworkInfo": {
             "type": "object",
             "properties": {
@@ -4331,6 +4527,26 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "oldPassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.PermissionIO": {
+            "type": "object",
+            "properties": {
+                "apis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ApiIO"
+                    }
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
                     "type": "string"
                 }
             }
@@ -6137,6 +6353,26 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "代码",
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "description": "数据集"
+                },
+                "msg": {
+                    "description": "消息",
+                    "type": "string"
+                },
+                "requestId": {
                     "type": "string"
                 }
             }

@@ -1,4 +1,11 @@
 definitions:
+  dto.ApiIO:
+    properties:
+      method:
+        type: string
+      url:
+        type: string
+    type: object
   dto.CPUInfo:
     properties:
       cpuInfo: {}
@@ -44,6 +51,17 @@ definitions:
         type: number
       used:
         type: number
+    type: object
+  dto.FrontendConfig:
+    properties:
+      base_api_url:
+        type: string
+      base_h5_url:
+        type: string
+      base_site_url:
+        type: string
+      base_upload_url:
+        type: string
     type: object
   dto.GenTokenResponse:
     properties:
@@ -93,6 +111,43 @@ definitions:
       used:
         type: integer
     type: object
+  dto.MenuIO:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/dto.MenuIO'
+        type: array
+      component:
+        type: string
+      menuName:
+        description: 菜单name
+        type: string
+      menuType:
+        description: 菜单类型
+        type: string
+      path:
+        description: url /camellia/sys_user
+        type: string
+      perm:
+        description: 权限标识
+        type: string
+      permission_code:
+        type: string
+      title:
+        description: 显示标题
+        type: string
+    type: object
+  dto.MenuPermissionIO:
+    properties:
+      menus:
+        items:
+          $ref: '#/definitions/dto.MenuIO'
+        type: array
+      permissions:
+        items:
+          $ref: '#/definitions/dto.PermissionIO'
+        type: array
+    type: object
   dto.NetworkInfo:
     properties:
       in:
@@ -128,6 +183,19 @@ definitions:
       newPassword:
         type: string
       oldPassword:
+        type: string
+    type: object
+  dto.PermissionIO:
+    properties:
+      apis:
+        items:
+          $ref: '#/definitions/dto.ApiIO'
+        type: array
+      code:
+        type: string
+      name:
+        type: string
+      type:
         type: string
     type: object
   dto.ResetSysUserPwdReq:
@@ -1359,6 +1427,20 @@ definitions:
     - username
     - uuid
     type: object
+  models.Response:
+    properties:
+      code:
+        description: 代码
+        example: 200
+        type: integer
+      data:
+        description: 数据集
+      msg:
+        description: 消息
+        type: string
+      requestId:
+        type: string
+    type: object
   models.SysDictData:
     properties:
       createBy:
@@ -1653,6 +1735,24 @@ paths:
       summary: 获取验证码
       tags:
       - 登殆
+  /lotus/api/v1/config/frontend:
+    get:
+      consumes:
+      - application/json
+      description: 获取前端所需的基础配置信息
+      responses:
+        "200":
+          description: 前端配置信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.FrontendConfig'
+              type: object
+      summary: 获取前端配置
+      tags:
+      - 配置管理
   /lotus/api/v1/db/columns/page:
     get:
       description: 数据库表列分页列表 / database table column page list
@@ -2434,6 +2534,24 @@ paths:
       summary: 修改菜单
       tags:
       - 菜单
+  /lotus/api/v1/menu/export:
+    get:
+      description: 导出菜单和权限数据
+      responses:
+        "200":
+          description: 成功导出菜单和权限数据
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/dto.MenuPermissionIO'
+              type: object
+      security:
+      - Bearer: []
+      summary: 导出菜单和权限数据
+      tags:
+      - 菜单
   /lotus/api/v1/menu/get:
     get:
       description: 获取JSON
@@ -2450,6 +2568,33 @@ paths:
       security:
       - Bearer: []
       summary: Menu详情数据
+      tags:
+      - 菜单
+  /lotus/api/v1/menu/import:
+    post:
+      consumes:
+      - application/json
+      description: 导入菜单和权限数据
+      parameters:
+      - description: 菜单和权限数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.MenuPermissionIO'
+      responses:
+        "200":
+          description: 导入成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+      security:
+      - Bearer: []
+      summary: 导入菜单和权限数据
       tags:
       - 菜单
   /lotus/api/v1/menurole:
