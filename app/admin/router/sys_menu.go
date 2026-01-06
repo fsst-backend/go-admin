@@ -25,6 +25,9 @@ func registerSysMenuRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddle
 		r.POST("", api.Insert)
 		r.PUT("", api.Update)
 		r.DELETE("", api.Delete)
+		// 菜单权限导入导出
+		r.GET("/export", api.ExportMenuPermission)
+		r.POST("/import", api.ImportMenuPermission)
 	}
 
 	r1 := v1.Group("").Use(authMiddleware.MiddlewareFunc())

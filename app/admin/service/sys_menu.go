@@ -106,6 +106,30 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) *SysMenu {
 	var err error
 	var data models.SysMenu
 	c.Generate(&data)
+
+	// 检查PermissionCode是否为空
+	if data.PermissionCode != "" {
+		// 检查PermissionCode是否已存在
+		var count int64
+		err = e.Orm.Model(&models.SysMenu{}).Where("permission_code = ?", data.PermissionCode, data.MenuId).Count(&count).Error
+		if err != nil {
+			e.Log.Errorf("检查PermissionCode唯一性失败: %s", err)
+			_ = e.AddError(err)
+			return e
+		}
+		if count > 0 {
+			err = errors.New("PermissionCode已存在，请使用唯一的PermissionCode")
+			e.Log.Errorf("PermissionCode重复: %s", data.PermissionCode)
+			_ = e.AddError(err)
+			return e
+		}
+	} else {
+		err = errors.New("PermissionCode不能为空")
+		e.Log.Errorf("PermissionCode 参数为空")
+		_ = e.AddError(err)
+		return e
+	}
+
 	tx := e.Orm.Debug().Begin()
 	defer func() {
 		if r := recover(); r != nil {
@@ -249,29 +273,28 @@ func (e *SysMenu) Update(c *dto.SysMenuUpdateReq) *SysMenu {
 
 	// 使用map进行更新，支持零值
 	updateData := map[string]interface{}{
-		"menu_name":       c.MenuName,
-		"title":           c.Title,
-		"menu_type":       c.MenuType,
-		"menu_path":       c.MenuPath,
-		"path":            c.Path,
-		"perm":            c.Perm,
-		"component":       c.Component,
-		"icon":            c.Icon,
-		"sort_value":      c.SortValue,
-		"is_external":     c.IsExternal,
-		"external_link":   c.ExternalLink,
-		"text_badge":      c.TextBadge,
-		"active_path":     c.ActivePath,
-		"status":          c.Status,
-		"keep_alive":      c.KeepAlive,
-		"is_hide":         c.IsHide,
-		"is_iframe":       c.IsIframe,
-		"show_badge":      c.ShowBadge,
-		"fixed_tab":       c.FixedTab,
-		"is_hide_tab":     c.IsHideTab,
-		"is_full_page":    c.IsFullPage,
-		"parent_id":       c.ParentId,
-		"permission_code": c.PermissionCode,
+		"menu_name":     c.MenuName,
+		"title":         c.Title,
+		"menu_type":     c.MenuType,
+		"menu_path":     c.MenuPath,
+		"path":          c.Path,
+		"perm":          c.Perm,
+		"component":     c.Component,
+		"icon":          c.Icon,
+		"sort_value":    c.SortValue,
+		"is_external":   c.IsExternal,
+		"external_link": c.ExternalLink,
+		"text_badge":    c.TextBadge,
+		"active_path":   c.ActivePath,
+		"status":        c.Status,
+		"keep_alive":    c.KeepAlive,
+		"is_hide":       c.IsHide,
+		"is_iframe":     c.IsIframe,
+		"show_badge":    c.ShowBadge,
+		"fixed_tab":     c.FixedTab,
+		"is_hide_tab":   c.IsHideTab,
+		"is_full_page":  c.IsFullPage,
+		"parent_id":     c.ParentId,
 	}
 	db := tx.Model(&models.SysMenu{}).Where("menu_id = ?", c.MenuId).Updates(updateData)
 	if err = db.Error; err != nil {
@@ -618,4 +641,356 @@ func (e *SysMenu) loadPermissionsForMenus(menus *[]models.SysMenu) {
 			}
 		}
 	}
+}
+
+// ExportMenuPermission 导出菜单和权限数据
+func (e *SysMenu) ExportMenuPermission() (*dto.MenuPermissionIO, error) {
+	// 获取所有菜单
+	var allMenus []models.SysMenu
+	var menuReq dto.SysMenuGetPageReq
+	err := e.GetList(&menuReq, &allMenus)
+	if err != nil {
+		e.Log.Errorf("获取菜单列表失败: %v", err)
+		return nil, err
+	}
+
+	// 构建菜单树
+	menuTree := make([]models.SysMenu, 0)
+	for i := 0; i < len(allMenus); i++ {
+		if allMenus[i].ParentId != 0 {
+			continue
+		}
+		menuInfo := menuCall(&allMenus, allMenus[i])
+		menuTree = append(menuTree, menuInfo)
+	}
+
+	// 转换为导出格式
+	menuIOList := convertMenusToIO(menuTree)
+
+	// 获取所有权限
+	var permissions []models.SysPermission
+	err = e.Orm.Find(&permissions).Error
+	if err != nil {
+		e.Log.Errorf("获取权限列表失败: %v", err)
+		return nil, err
+	}
+
+	// 转换为导出格式
+	permissionIOList := make([]dto.PermissionIO, 0)
+	for _, perm := range permissions {
+		// 获取权限关联的API
+		var permApis []models.SysPermissionApi
+		err = e.Orm.Where("permission_id = ?", perm.Id).Find(&permApis).Error
+		if err != nil {
+			e.Log.Warnf("获取权限API关联失败: %v", err)
+			continue
+		}
+
+		// 获取API详情
+		apiIds := make([]int, 0)
+		for _, pa := range permApis {
+			apiIds = append(apiIds, pa.ApiId)
+		}
+
+		var apis []models.SysApi
+		if len(apiIds) > 0 {
+			err = e.Orm.Where("id in ?", apiIds).Find(&apis).Error
+			if err != nil {
+				e.Log.Warnf("获取API详情失败: %v", err)
+			}
+		}
+
+		apiIOList := make([]dto.ApiIO, 0)
+		for _, api := range apis {
+			apiIOList = append(apiIOList, dto.ApiIO{
+				Method: api.Action,
+				URL:    api.Path,
+			})
+		}
+
+		permissionIOList = append(permissionIOList, dto.PermissionIO{
+			Code: perm.Code,
+			Name: perm.Name,
+			Type: perm.Type,
+			Apis: apiIOList,
+		})
+	}
+
+	result := &dto.MenuPermissionIO{
+		Menus:       menuIOList,
+		Permissions: permissionIOList,
+	}
+
+	return result, nil
+}
+
+// convertMenusToIO 递归转换菜单模型为导出格式
+func convertMenusToIO(menus []models.SysMenu) []dto.MenuIO {
+	result := make([]dto.MenuIO, 0)
+	for _, menu := range menus {
+		menuIO := dto.MenuIO{
+			MenuType:       menu.MenuType,
+			Path:           menu.Path,
+			Component:      menu.Component,
+			Perm:           menu.Perm,
+			MenuName:       menu.MenuName,
+			Title:          menu.Title,
+			PermissionCode: menu.PermissionCode,
+			Children:       convertMenusToIO(menu.Children),
+		}
+		result = append(result, menuIO)
+	}
+	return result
+}
+
+// ImportMenuPermission 导入菜单和权限数据
+func (e *SysMenu) ImportMenuPermission(data *dto.MenuPermissionIO) error {
+	// 开始事务
+	tx := e.Orm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r)
+		}
+	}()
+
+	// 导入权限数据
+	err := e.importPermissions(tx, data.Permissions)
+	if err != nil {
+		e.Log.Errorf("导入权限数据失败: %v", err)
+		tx.Rollback()
+		return err
+	}
+
+	// 导入菜单数据
+	err = e.importMenus(tx, data.Menus)
+	if err != nil {
+		e.Log.Errorf("导入菜单数据失败: %v", err)
+		tx.Rollback()
+		return err
+	}
+
+	// 提交事务
+	if err := tx.Commit().Error; err != nil {
+		e.Log.Errorf("提交事务失败: %v", err)
+		return err
+	}
+
+	return nil
+}
+
+// importPermissions 导入权限数据
+func (e *SysMenu) importPermissions(tx *gorm.DB, permissions []dto.PermissionIO) error {
+	for _, perm := range permissions {
+		// 检查权限是否已存在
+		var existingPermission models.SysPermission
+		if err := tx.Where("code = ?", perm.Code).First(&existingPermission).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				// 权限不存在，创建新权限
+				permissionModel := models.SysPermission{
+					Code:     perm.Code,
+					Name:     perm.Name,
+					Type:     perm.Type,
+					ParentId: 0, // 暂时设置为0，如果需要层级关系可以扩展
+					Sort:     0, // 暂时设置为0
+					Status:   1, // 默认启用
+				}
+
+				if err := tx.Create(&permissionModel).Error; err != nil {
+					e.Log.Errorf("创建权限失败: %v, Code: %s", err, perm.Code)
+					return err
+				}
+
+				// 创建API关联
+				for _, api := range perm.Apis {
+					// 先查找API是否存在
+					var apiModel models.SysApi
+					if err := tx.Where("path = ? AND action = ?", api.URL, api.Method).First(&apiModel).Error; err != nil {
+						if errors.Is(err, gorm.ErrRecordNotFound) {
+							// 如果API不存在，跳过关联
+							e.Log.Warnf("API不存在，跳过关联: %s %s", api.Method, api.URL)
+							continue
+						} else {
+							// 其他错误，返回
+							e.Log.Errorf("查询API失败: %v", err)
+							return err
+						}
+					}
+
+					// 创建权限API关联
+					permApi := models.SysPermissionApi{
+						PermissionId: permissionModel.Id,
+						ApiId:        apiModel.Id,
+					}
+					if err := tx.Create(&permApi).Error; err != nil {
+						e.Log.Errorf("创建权限API关联失败: %v", err)
+						return err
+					}
+				}
+			} else {
+				// 其他错误，返回
+				e.Log.Errorf("查询权限失败: %v", err)
+				return err
+			}
+		} else {
+			// 权限已存在，更新权限信息
+			updateData := map[string]interface{}{
+				"name":   perm.Name,
+				"type":   perm.Type,
+				"status": 1, // 默认启用
+			}
+			if err := tx.Model(&existingPermission).Updates(updateData).Error; err != nil {
+				e.Log.Errorf("更新权限失败: %v, Code: %s", err, perm.Code)
+				return err
+			}
+
+			// 删除旧的API关联
+			if err := tx.Where("permission_id = ?", existingPermission.Id).Delete(&models.SysPermissionApi{}).Error; err != nil {
+				e.Log.Errorf("删除权限API关联失败: %v", err)
+				return err
+			}
+
+			// 重新创建API关联
+			for _, api := range perm.Apis {
+				// 先查找API是否存在
+				var apiModel models.SysApi
+				if err := tx.Where("path = ? AND action = ?", api.URL, api.Method).First(&apiModel).Error; err != nil {
+					if errors.Is(err, gorm.ErrRecordNotFound) {
+						// 如果API不存在，跳过关联
+						e.Log.Warnf("API不存在，跳过关联: %s %s", api.Method, api.URL)
+						continue
+					} else {
+						// 其他错误，返回
+						e.Log.Errorf("查询API失败: %v", err)
+						return err
+					}
+				}
+
+				// 创建权限API关联
+				permApi := models.SysPermissionApi{
+					PermissionId: existingPermission.Id,
+					ApiId:        apiModel.Id,
+				}
+				if err := tx.Create(&permApi).Error; err != nil {
+					e.Log.Errorf("创建权限API关联失败: %v", err)
+					return err
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// importMenus 导入菜单数据
+func (e *SysMenu) importMenus(tx *gorm.DB, menus []dto.MenuIO) error {
+	// 使用map存储已创建的菜单，以便处理父子关系
+	menuIdMap := make(map[string]int) // key: 菜单PermissionCode，value: 菜单ID
+
+	// 递归导入菜单及其子菜单，同时设置排序顺序
+	for i, menu := range menus {
+		menu.SortOrder = i + 1 // 设置排序顺序
+		err := e.importSingleMenu(tx, menu, 0, &menuIdMap)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// importSingleMenu 导入单个菜单
+func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, menuIdMap *map[string]int) error {
+	// 检查菜单是否已存在（通过permission_code）
+	var existingMenu models.SysMenu
+	if err := tx.Where("permission_code = ?", menu.PermissionCode).First(&existingMenu).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// 菜单不存在，创建新菜单
+			menuModel := models.SysMenu{
+				MenuType:       menu.MenuType,
+				Path:           menu.Path,
+				Component:      menu.Component,
+				Perm:           menu.Perm,
+				MenuName:       menu.MenuName,
+				Title:          menu.Title,
+				PermissionCode: menu.PermissionCode,
+				ParentId:       parentId,
+				SortValue:      menu.SortOrder, // 使用导入顺序作为排序值
+				Status:         "1",            // 默认启用
+				KeepAlive:      true,           // 默认保持活跃
+			}
+
+			// 检查PermissionCode是否为空
+			if menuModel.PermissionCode != "" {
+				// 检查PermissionCode是否已存在
+				var count int64
+				err = tx.Model(&models.SysMenu{}).Where("permission_code = ?", menuModel.PermissionCode).Count(&count).Error
+				if err != nil {
+					e.Log.Errorf("检查PermissionCode唯一性失败: %s", err)
+					return err
+				}
+				if count > 0 {
+					err = errors.New("PermissionCode已存在，请使用唯一的PermissionCode")
+					e.Log.Errorf("PermissionCode重复: %s", menuModel.PermissionCode)
+					return err
+				}
+			}
+
+			// 创建菜单
+			if err := tx.Create(&menuModel).Error; err != nil {
+				e.Log.Errorf("创建菜单失败: %v, Name: %s", err, menu.MenuName)
+				return err
+			}
+
+			// 存储菜单ID映射
+			(*menuIdMap)[menu.PermissionCode] = menuModel.MenuId
+
+			// 递归导入子菜单
+			for i, child := range menu.Children {
+				child.SortOrder = i + 1 // 设置子菜单排序顺序
+				err := e.importSingleMenu(tx, child, menuModel.MenuId, menuIdMap)
+				if err != nil {
+					return err
+				}
+			}
+
+		} else {
+			// 其他错误，返回
+			e.Log.Errorf("查询菜单失败: %v", err)
+			return err
+		}
+	} else {
+		// 菜单已存在，更新菜单信息
+		updateData := map[string]interface{}{
+			"menu_type":       menu.MenuType,
+			"path":            menu.Path,
+			"component":       menu.Component,
+			"perm":            menu.Perm,
+			"menu_name":       menu.MenuName,
+			"title":           menu.Title,
+			"permission_code": menu.PermissionCode,
+			"sort_value":      menu.SortOrder, // 更新排序值为导入顺序
+			"parent_id":       parentId,
+			"status":          "1",  // 默认启用
+			"keep_alive":      true, // 默认保持活跃
+		}
+		if err := tx.Model(&existingMenu).Updates(updateData).Error; err != nil {
+			e.Log.Errorf("更新菜单失败: %v, Name: %s", err, menu.MenuName)
+			return err
+		}
+
+		// 存储菜单ID映射
+		(*menuIdMap)[menu.PermissionCode] = existingMenu.MenuId
+
+		// 递归导入子菜单
+		for i, child := range menu.Children {
+			child.SortOrder = i + 1 // 设置子菜单排序顺序
+			err := e.importSingleMenu(tx, child, existingMenu.MenuId, menuIdMap)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }

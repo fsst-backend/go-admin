@@ -2,6 +2,7 @@ package apis
 
 import (
 	"go-admin/app/admin/models"
+	"go-admin/app/admin/service/dto"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -9,7 +10,6 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 
 	"go-admin/app/admin/service"
-	"go-admin/app/admin/service/dto"
 )
 
 type SysMenu struct {
@@ -251,4 +251,66 @@ func (e SysMenu) GetMenuTreeSelect(c *gin.Context) {
 		"menus":       result,  // 所有菜单树形结构
 		"checkedKeys": menuIds, // 当前角色已勾选的菜单ID列表
 	}, "获取成功")
+}
+
+// ExportMenuPermission 导出菜单和权限数据
+// @Summary 导出菜单和权限数据
+// @Description 导出菜单和权限数据
+// @Tags 菜单
+// @Success 200 {object} response.Response{message=dto.MenuPermissionIO} "成功导出菜单和权限数据"
+// @Router /lotus/api/v1/menu/export [get]
+// @Security Bearer
+func (e SysMenu) ExportMenuPermission(c *gin.Context) {
+	s := service.SysMenu{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
+	result, err := s.ExportMenuPermission()
+	if err != nil {
+		e.Logger.Errorf("导出菜单和权限失败: %v", err)
+		e.Error(500, err, "导出失败")
+		return
+	}
+
+	e.OK(result, "导出成功")
+}
+
+// ImportMenuPermission 导入菜单和权限数据
+// @Summary 导入菜单和权限数据
+// @Description 导入菜单和权限数据
+// @Tags 菜单
+// @Accept application/json
+// @Param data body dto.MenuPermissionIO true "菜单和权限数据"
+// @Success 200 {object} response.Response{message=string} "导入成功"
+// @Router /lotus/api/v1/menu/import [post]
+// @Security Bearer
+func (e SysMenu) ImportMenuPermission(c *gin.Context) {
+	req := dto.MenuPermissionIO{}
+	s := service.SysMenu{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req, binding.JSON).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+
+	err = s.ImportMenuPermission(&req)
+	if err != nil {
+		e.Logger.Errorf("导入菜单和权限失败: %v", err)
+		e.Error(500, err, "导入失败")
+		return
+	}
+
+	e.OK(nil, "导入成功")
 }
