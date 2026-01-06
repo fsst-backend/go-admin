@@ -1,7 +1,7 @@
 package router
 
 import (
-	"net/http"
+	"go-admin/app/other/apis"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,9 +12,8 @@ func init() {
 
 // 需认证的路由代码
 func registerFrontendRouter(v1 *gin.RouterGroup) {
-	//前端路由
-	v1.GET("config/frontend", func(c *gin.Context) {
-		c.Status(http.StatusOK)
-	})
+	//前端配置路由
+	var configApi = apis.Config{}
+	v1.GET("config/frontend", configApi.GetFrontendConfig)
 
 }
