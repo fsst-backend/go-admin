@@ -10,19 +10,19 @@ import (
 
 type SysUser struct {
 	UserId   int      `gorm:"column:user_id;type:int;primaryKey;autoIncrement;comment:编码"  json:"userId"`
-	UUID     string   `json:"uuid" gorm:"column:uuid;type:varchar(255);size:255;comment:UUID"`
-	Username string   `json:"username" gorm:"column:username;type:varchar(64);size:64;comment:用户名"`
-	Password string   `json:"-" gorm:"column:password;type:varchar(128);size:128;comment:密码"`
-	NickName string   `json:"nickName" gorm:"column:nick_name;type:varchar(128);size:128;comment:昵称"`
-	Phone    string   `json:"phone" gorm:"column:phone;type:varchar(11);size:11;comment:手机号"`
-	Salt     string   `json:"-" gorm:"column:salt;type:varchar(255);size:255;comment:加盐"`
-	Avatar   string   `json:"avatar" gorm:"column:avatar;type:varchar(255);size:255;comment:头像"`
-	Sex      string   `json:"sex" gorm:"column:sex;type:varchar(255);size:255;comment:性别"`
-	Email    string   `json:"email" gorm:"column:email;type:varchar(128);size:128;comment:邮箱"`
-	DeptId   int      `json:"deptId" gorm:"column:dept_id;type:int;size:20;comment:部门"`
-	PostId   int      `json:"postId" gorm:"column:post_id;type:int;size:20;comment:岗位"`
-	Remark   string   `json:"remark" gorm:"column:remark;type:varchar(255);size:255;comment:备注"`
-	Status   string   `json:"status" gorm:"column:status;type:tinyint;size:4;comment:状态"` // 状态
+	UUID     string   `json:"uuid" gorm:"column:uuid;type:varchar(255);comment:UUID"`
+	Username string   `json:"username" gorm:"column:username;type:varchar(64);comment:用户名"`
+	Password string   `json:"-" gorm:"column:password;type:varchar(128);comment:密码"`
+	NickName string   `json:"nickName" gorm:"column:nick_name;type:varchar(128);comment:昵称"`
+	Phone    string   `json:"phone" gorm:"column:phone;type:varchar(11);comment:手机号"`
+	Salt     string   `json:"-" gorm:"column:salt;type:varchar(255);comment:加盐"`
+	Avatar   string   `json:"avatar" gorm:"column:avatar;type:varchar(255);comment:头像"`
+	Sex      string   `json:"sex" gorm:"column:sex;type:varchar(255);comment:性别"`
+	Email    string   `json:"email" gorm:"column:email;type:varchar(128);comment:邮箱"`
+	DeptId   int      `json:"deptId" gorm:"column:dept_id;type:int;comment:部门"`
+	PostId   int      `json:"postId" gorm:"column:post_id;type:int;comment:岗位"`
+	Remark   string   `json:"remark" gorm:"column:remark;type:varchar(255);comment:备注"`
+	Status   string   `json:"status" gorm:"column:status;type:tinyint;comment:状态"` // 状态
 	DeptIds  []int    `json:"deptIds" gorm:"-"`
 	PostIds  []int    `json:"postIds" gorm:"-"`
 	RoleIds  []int    `json:"roleIds" gorm:"-"`

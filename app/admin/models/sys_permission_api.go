@@ -7,8 +7,8 @@ import "go-admin/common/models"
 
 type SysPermissionApi struct {
 	Id           int `json:"id" gorm:"column:id;type:int;primaryKey;autoIncrement;comment:主键编码"`
-	PermissionId int `json:"permissionId" gorm:"column:permission_id;type:int;size:20;index;comment:权限ID"`
-	ApiId        int `json:"apiId" gorm:"column:api_id;type:int;size:20;index;comment:API ID"`
+	PermissionId int `json:"permissionId" gorm:"column:permission_id;type:int;index;comment:权限ID"`
+	ApiId        int `json:"apiId" gorm:"column:api_id;type:int;index;comment:API ID"`
 	models.ControlBy
 	models.ModelTime
 }
