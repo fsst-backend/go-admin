@@ -89,8 +89,56 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "activity_id",
             "description": " 活动ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "bonus_activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/bonus/statistics": {
+      "get": {
+        "summary": "获取赠金活动统计数据",
+        "operationId": "GetBonusActivityStatisticsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBonusActivityStatisticsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "activity_code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -137,7 +185,7 @@
     },
     "/poplar/violet/backend/activity/bonus/user/list": {
       "get": {
-        "summary": "获取用户参加活动列表 -- 暂时",
+        "summary": "获取用户参加赠金活动列表 -- 暂时",
         "operationId": "GetUserBonusActivityListHandler",
         "responses": {
           "200": {
@@ -163,7 +211,7 @@
             "type": "string"
           },
           {
-            "name": "account_ids",
+            "name": "user_ids",
             "description": " 账号ID列表",
             "in": "query",
             "required": false,
@@ -190,6 +238,36 @@
         ],
         "consumes": [
           "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/delete": {
+      "post": {
+        "summary": "删除活动",
+        "operationId": "DeleteActivityHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteActivityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/json"
         ]
       }
     },
@@ -283,7 +361,7 @@
     },
     "/poplar/violet/backend/activity/statistics": {
       "get": {
-        "summary": "获取活动统计数据",
+        "summary": "获取全部活动统计数据",
         "operationId": "GetActivityStatisticsHandler",
         "responses": {
           "200": {
@@ -529,7 +607,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetUserBonusActivityListResponse"
+              "$ref": "#/definitions/GetUserActivityListResponse"
             }
           }
         },
@@ -549,7 +627,7 @@
             "type": "string"
           },
           {
-            "name": "account_ids",
+            "name": "user_ids",
             "description": " 账号ID列表",
             "in": "query",
             "required": false,
@@ -24135,10 +24213,15 @@
           "type": "string",
           "description": " 活动名称"
         },
-        "type": {
+        "activity_type": {
           "type": "integer",
           "format": "int64",
-          "description": " 活动类型 1:充值满赠 2:交易赠金"
+          "description": " 活动类型 1=赠金活动"
+        },
+        "reward_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 赠金类型 1:充值满赠 2:任务赠金 3:体验价"
         },
         "registration_start_time": {
           "type": "integer",
@@ -24149,6 +24232,10 @@
           "type": "integer",
           "format": "int64",
           "description": " 报名结束时间"
+        },
+        "remark": {
+          "type": "string",
+          "description": " 审核备注"
         }
       },
       "title": "ActivityBase"
@@ -24234,6 +24321,10 @@
           "type": "integer",
           "format": "int64",
           "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
+        },
+        "remark": {
+          "type": "string",
+          "description": " 审核备注"
         }
       },
       "title": "ActivityList"
@@ -24289,6 +24380,16 @@
           "type": "string",
           "description": " 活动标题"
         },
+        "activity_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动类型 1=赠金活动"
+        },
+        "reward_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 赠金类型 1:充值满赠 2:任务赠金 3:体验价"
+        },
         "activity_user_counts": {
           "type": "integer",
           "format": "int64",
@@ -24302,18 +24403,6 @@
           "type": "string",
           "description": " 手数"
         },
-        "reward_amount": {
-          "type": "string",
-          "description": " 赠金"
-        },
-        "deduct_reward": {
-          "type": "string",
-          "description": " 扣回赠金"
-        },
-        "net_reward_amount": {
-          "type": "string",
-          "description": " 净赠金"
-        },
         "deposit_average": {
           "type": "string",
           "description": " 存款平均"
@@ -24321,13 +24410,6 @@
         "volumn_average": {
           "type": "string",
           "description": " 手数平均"
-        },
-        "tier_levels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TierUserCount"
-          },
-          "description": " 层级用户数量"
         }
       },
       "title": "ActivityStatistics"
@@ -27046,6 +27128,61 @@
       },
       "title": "BonusActivity"
     },
+    "BonusActivityStatistics": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 活动标题"
+        },
+        "activity_user_counts": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 参与人数"
+        },
+        "deposit_amount": {
+          "type": "string",
+          "description": " 存款"
+        },
+        "volumn": {
+          "type": "string",
+          "description": " 手数"
+        },
+        "reward_amount": {
+          "type": "string",
+          "description": " 赠金"
+        },
+        "deduct_reward": {
+          "type": "string",
+          "description": " 扣回赠金"
+        },
+        "net_reward_amount": {
+          "type": "string",
+          "description": " 净赠金"
+        },
+        "deposit_average": {
+          "type": "string",
+          "description": " 存款平均"
+        },
+        "volumn_average": {
+          "type": "string",
+          "description": " 手数平均"
+        },
+        "tier_levels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TierUserCount"
+          },
+          "description": " 层级用户数量"
+        }
+      },
+      "title": "BonusActivityStatistics"
+    },
     "BonusActivityTier": {
       "type": "object",
       "properties": {
@@ -27206,6 +27343,122 @@
         }
       },
       "title": "BonusTierRewardConfig"
+    },
+    "BonusUserParticipationList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "activity_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "activity_code": {
+          "type": "string",
+          "description": " 活动代码"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "user_name": {
+          "type": "string",
+          "description": " 用户姓名"
+        },
+        "first_bonus": {
+          "type": "string",
+          "description": " 先赠金"
+        },
+        "release_first_bonus": {
+          "type": "string",
+          "description": " 释放先赠金"
+        },
+        "lock_first_bonus": {
+          "type": "string",
+          "description": " 锁定先赠金"
+        },
+        "deduct_first_bonus": {
+          "type": "string",
+          "description": " 扣回先赠金"
+        },
+        "second_bonus": {
+          "type": "string",
+          "description": " 后赠金"
+        },
+        "release_second_bonus": {
+          "type": "string",
+          "description": " 释放后赠金"
+        },
+        "lock_second_bonus": {
+          "type": "string",
+          "description": " 锁定后赠金"
+        },
+        "deduct_second_bonus": {
+          "type": "string",
+          "description": " 放弃后赠金"
+        },
+        "days_remaining": {
+          "type": "string",
+          "description": " 剩余天数"
+        },
+        "tier_level": {
+          "type": "string",
+          "description": " 层级"
+        },
+        "init_net_deposit": {
+          "type": "string",
+          "description": " 初始净入金"
+        },
+        "account_net_deposit": {
+          "type": "string",
+          "description": " 统计净入金"
+        },
+        "join_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 加入时间"
+        },
+        "reward_end_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 奖励到期时间"
+        },
+        "created_by": {
+          "type": "string",
+          "description": " 创建人"
+        },
+        "created_by_name": {
+          "type": "string",
+          "description": " 创建人名称"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 状态 1=进行中 2=已结算"
+        },
+        "user_part_tier_detail": {
+          "$ref": "#/definitions/PartTierInfo",
+          "description": " 赠金层级明细"
+        },
+        "user_part_tier_time_detail": {
+          "$ref": "#/definitions/UserPartTierTimeInfo",
+          "description": " 赠金层级时间"
+        }
+      },
+      "title": "BonusUserParticipationList"
     },
     "BusinessData": {
       "type": "object",
@@ -30432,6 +30685,17 @@
         "label_id"
       ]
     },
+    "DeleteActivityRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        }
+      },
+      "title": "DeleteActivityRequest"
+    },
     "DeleteActivitySymbolRequest": {
       "type": "object",
       "properties": {
@@ -32912,9 +33176,10 @@
             "$ref": "#/definitions/ActivityStatistics"
           }
         },
-        "Total": {
+        "total": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " 总数"
         }
       },
       "title": "GetActivityStatisticsResponse"
@@ -33142,7 +33407,7 @@
     "GetBonusActivityDetailRequest": {
       "type": "object",
       "properties": {
-        "id": {
+        "activity_id": {
           "type": "integer",
           "format": "int64",
           "description": " 活动ID"
@@ -33183,6 +33448,23 @@
         }
       },
       "title": "GetBonusActivityDetailResponse"
+    },
+    "GetBonusActivityStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BonusActivityStatistics"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetBonusActivityStatisticsResponse"
     },
     "GetCalendarDetailRequest": {
       "type": "object",
@@ -37572,6 +37854,24 @@
       },
       "title": "GetUpdateRecordsResponse"
     },
+    "GetUserActivityListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserParticipationList"
+          },
+          "description": " 用户活动列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetUserActivityListResponse"
+    },
     "GetUserBonusActivityListRequest": {
       "type": "object",
       "properties": {
@@ -37583,7 +37883,7 @@
           "type": "string",
           "description": " 活动代码"
         },
-        "account_ids": {
+        "user_ids": {
           "type": "array",
           "items": {
             "type": "integer",
@@ -37608,7 +37908,7 @@
         "list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/UserParticipationList"
+            "$ref": "#/definitions/BonusUserParticipationList"
           },
           "description": " 用户活动列表"
         },
@@ -41746,6 +42046,24 @@
       },
       "title": "PageRequest"
     },
+    "PartOrderInfo": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string",
+          "description": " 订单号"
+        },
+        "release_volumn": {
+          "type": "string",
+          "description": " 释放手数"
+        },
+        "release_amount": {
+          "type": "string",
+          "description": " 释放金额"
+        }
+      },
+      "title": "PartOrderInfo"
+    },
     "PartTierInfo": {
       "type": "object",
       "properties": {
@@ -45729,7 +46047,7 @@
           "format": "int64",
           "description": " 活动ID"
         },
-        "account_ids": {
+        "user_ids": {
           "type": "array",
           "items": {
             "type": "integer",
@@ -50262,6 +50580,10 @@
           "type": "integer",
           "format": "int64",
           "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
+        },
+        "remark": {
+          "type": "string",
+          "description": " 审核备注"
         }
       },
       "title": "UpdateActivityStatusRequest"
@@ -50377,7 +50699,7 @@
     "UpdateBonusActivityRequest": {
       "type": "object",
       "properties": {
-        "id": {
+        "activity_id": {
           "type": "integer",
           "format": "int64",
           "description": " 活动ID"
@@ -50404,6 +50726,10 @@
         "action": {
           "type": "string",
           "description": " 行为 STAGING|SUBMIT"
+        },
+        "remark": {
+          "type": "string",
+          "description": " 审核备注"
         }
       },
       "title": "UpdateBonusActivityRequest"
@@ -54417,8 +54743,11 @@
           "format": "int64",
           "description": " 添加时间"
         },
-        "order_no": {
-          "type": "string",
+        "order_info": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartOrderInfo"
+          },
           "description": " 订单号"
         },
         "remark": {
@@ -54567,54 +54896,29 @@
           "type": "string",
           "description": " 活动代码"
         },
+        "activity_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动类型 1=赠金活动"
+        },
+        "reward_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 赠金类型 1:充值满赠 2:任务赠金 3:体验价"
+        },
         "account_id": {
           "type": "integer",
           "format": "int64",
           "description": " 账号ID"
         },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
         "user_name": {
           "type": "string",
           "description": " 用户姓名"
-        },
-        "first_bonus": {
-          "type": "string",
-          "description": " 先赠金"
-        },
-        "release_first_bonus": {
-          "type": "string",
-          "description": " 释放先赠金"
-        },
-        "lock_first_bonus": {
-          "type": "string",
-          "description": " 锁定先赠金"
-        },
-        "deduct_first_bonus": {
-          "type": "string",
-          "description": " 扣回先赠金"
-        },
-        "second_bonus": {
-          "type": "string",
-          "description": " 后赠金"
-        },
-        "release_second_bonus": {
-          "type": "string",
-          "description": " 释放后赠金"
-        },
-        "lock_second_bonus": {
-          "type": "string",
-          "description": " 锁定后赠金"
-        },
-        "deduct_second_bonus": {
-          "type": "string",
-          "description": " 放弃后赠金"
-        },
-        "days_remaining": {
-          "type": "string",
-          "description": " 剩余天数"
-        },
-        "tier_level": {
-          "type": "string",
-          "description": " 层级"
         },
         "init_net_deposit": {
           "type": "string",
@@ -54647,13 +54951,9 @@
           "format": "int64",
           "description": " 状态 1=进行中 2=已结算"
         },
-        "user_part_tier_detail": {
-          "$ref": "#/definitions/PartTierInfo",
-          "description": " 赠金层级明细"
-        },
-        "user_part_tier_time_detail": {
-          "$ref": "#/definitions/UserPartTierTimeInfo",
-          "description": " 赠金层级时间"
+        "volumn": {
+          "type": "string",
+          "description": " 手数"
         }
       },
       "title": "UserParticipationList"

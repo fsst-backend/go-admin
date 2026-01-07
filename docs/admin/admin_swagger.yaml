@@ -113,12 +113,32 @@ definitions:
     type: object
   dto.MenuIO:
     properties:
+      activePath:
+        type: string
       children:
         items:
           $ref: '#/definitions/dto.MenuIO'
         type: array
       component:
         type: string
+      externalLink:
+        type: string
+      fixedTab:
+        type: boolean
+      icon:
+        type: string
+      isExternal:
+        type: boolean
+      isFullPage:
+        type: boolean
+      isHide:
+        type: boolean
+      isHideTab:
+        type: boolean
+      isIframe:
+        type: boolean
+      keepAlive:
+        type: boolean
       menuName:
         description: 菜单name
         type: string
@@ -132,6 +152,14 @@ definitions:
         description: 权限标识
         type: string
       permission_code:
+        type: string
+      showBadge:
+        type: boolean
+      sortValue:
+        type: integer
+      status:
+        type: string
+      textBadge:
         type: string
       title:
         description: 显示标题
@@ -329,6 +357,9 @@ definitions:
     properties:
       createBy:
         type: integer
+      deptCatalog:
+        description: 部门类型 finance 财务  hr 人力资源 customer_service 客服
+        type: string
       deptId:
         description: 编码
         type: integer
@@ -363,6 +394,9 @@ definitions:
     properties:
       createBy:
         type: integer
+      deptCatalog:
+        description: 部门类型 finance 财务  hr 人力资源 customer_service 客服
+        type: string
       deptId:
         description: 编码
         type: integer
@@ -913,8 +947,8 @@ definitions:
       sex:
         type: string
       status:
-        default: "1"
-        type: string
+        default: 1
+        type: integer
       updateBy:
         type: integer
       userId:
@@ -960,8 +994,8 @@ definitions:
       sex:
         type: string
       status:
-        default: "1"
-        type: string
+        default: 1
+        type: integer
       updateBy:
         type: integer
       userId:
@@ -997,7 +1031,7 @@ definitions:
       createBy:
         type: integer
       status:
-        type: string
+        type: integer
       updateBy:
         type: integer
       userId:
@@ -1070,6 +1104,9 @@ definitions:
         type: string
       dataScope:
         type: string
+      deptCatalog:
+        description: 部门类型 finance 财务  hr 人力资源 customer_service 客服
+        type: string
       deptId:
         description: 部门编码
         type: integer
@@ -1082,7 +1119,7 @@ definitions:
         description: 邮箱
         type: string
       leader:
-        description: 负责人
+        description: 负责人 对应的uuid
         type: string
       params:
         type: string
@@ -1096,7 +1133,7 @@ definitions:
         description: 排序
         type: integer
       status:
-        description: 状态
+        description: 状态  1 启用 0 未启用
         type: integer
       updateBy:
         type: integer
@@ -1399,7 +1436,7 @@ definitions:
         type: string
       status:
         description: 状态
-        type: string
+        type: integer
       updateBy:
         type: integer
       updatedAt:
@@ -1838,13 +1875,17 @@ paths:
     get:
       description: 分页列表
       parameters:
-      - description: deptName
+      - description: 部门名称
         in: query
         name: deptName
         type: string
-      - description: deptId
+      - description: 部门ID
         in: query
         name: deptId
+        type: integer
+      - description: 部门类型
+        in: query
+        name: deptCatalog
         type: string
       - description: position
         in: query
@@ -3190,6 +3231,25 @@ paths:
       security:
       - Bearer: []
       summary: 修改接口管理
+      tags:
+      - 接口管理
+  /lotus/api/v1/sys-api/generate-from-swagger:
+    post:
+      description: 扫描 /app/doc 目录下的 swagger 文件，自动生成或更新 API
+      responses:
+        "200":
+          description: '{"code": 0, "message": "生成成功"}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  additionalProperties: true
+                  type: object
+              type: object
+      security:
+      - Bearer: []
+      summary: 从 Swagger 文件自动生成 API
       tags:
       - 接口管理
   /lotus/api/v1/sys-api/get:

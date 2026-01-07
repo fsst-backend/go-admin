@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package lotus;
+option go_package = "../pb";
+
+
+message Status {
+    bool success = 1; // 操作是否成功
+    int32 code = 2; // 错误码
+    string message = 3; // 错误信息
+}
+
+message AdminUser {
+    int32 id = 1;
+    string uid = 2;
+    string name = 3;
+    string alias = 4;
+    string avatar = 5;
+    string email = 6;
+    string tel = 7;
+    int32 state = 8;
+}
+
+message GetAdminUserReq {
+    string uid = 1;
+}
+
+message GetAdminUserResp {
+    AdminUser data = 1;
+    Status status = 2;
+}
+
+message GetAdminUserListReq {
+   repeated string uids = 1;
+}
+
+message GetAdminUserListResp {
+    repeated AdminUser data = 1;
+    Status status = 2;
+}
+
+// department 部门
+message Department {
+    int32 id = 1; 
+    string alias = 2;
+    string brief = 3;
+    string logo_url = 4;
+    string catalog = 5;
+    repeated AdminUser leader = 6;
+    repeated AdminUser member = 7;
+    repeated Department children = 8; 
+}
+
+message GetAllDepartmentReq {
+    string catalog = 1;
+}
+
+message GetAllDepartmentResppone {
+    repeated Department data = 1;
+    Status status = 2;
+}
+
+// AdminUserService 管理后台用户相关操作
+service AdminUserService {
+    // GetAdminUserInfo 根据用户 ID 查询用户信息
+    rpc GetAdminUserInfo(GetAdminUserReq) returns (GetAdminUserResp);
+    // GetAdminUserList 根据用户 ID 列表查询用户信息列表
+    rpc GetAdminUserList(GetAdminUserListReq) returns (GetAdminUserListResp);
+     // GetAllDepartments 根据目录查询部门列表
+    rpc GetAllDepartments(GetAllDepartmentReq) returns (GetAllDepartmentResppone);
+}

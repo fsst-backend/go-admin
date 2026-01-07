@@ -3,11 +3,13 @@ package api
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
+	"github.com/cockroachdb/cmux"
 	"github.com/gin-gonic/gin"
 	log "github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk"
@@ -17,6 +19,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
+	adminGrpc "go-admin/app/admin/grpc"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/router"
 	"go-admin/app/jobs"
@@ -29,6 +32,7 @@ import (
 	"go-admin/common/storage"
 	ext "go-admin/config"
 	filewrap "go-admin/config/filewarp"
+	"go-admin/grpc/pb"
 )
 
 var (
@@ -155,17 +159,9 @@ func run() error {
 		f()
 	}
 
-	srv := &http.Server{
-		Addr:         fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
-		Handler:      sdk.Runtime.GetEngine(),
-		ReadTimeout:  time.Duration(config.ApplicationConfig.ReadTimeout) * time.Second,
-		WriteTimeout: time.Duration(config.ApplicationConfig.WriterTimeout) * time.Second,
-	}
-
 	go func() {
 		jobs.InitJob()
 		jobs.Setup(sdk.Runtime.GetDb())
-
 	}()
 
 	if apiCheck {
@@ -185,24 +181,62 @@ func run() error {
 		}
 	}
 
+	plainl, err := net.Listen("tcp", fmt.Sprintf(":%d", config.ApplicationConfig.Port))
+	if err != nil {
+		log.Fatalf("tcp conn:%v", err)
+	}
+	m := cmux.New(plainl)
+
+	// gRPC 必须优先
+	grpcL := m.Match(cmux.HTTP2())
+
+	httpL := m.Match(cmux.HTTP1Fast())
+	srv := &http.Server{
+		Addr:         fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
+		Handler:      sdk.Runtime.GetEngine(),
+		ReadTimeout:  time.Duration(config.ApplicationConfig.ReadTimeout) * time.Second,
+		WriteTimeout: time.Duration(config.ApplicationConfig.WriterTimeout) * time.Second,
+	}
+
+	grpcServer := NewGrpcServer()
+
+	// 初始化 AdminService 并注入日志、ORM 和配置
+	adminService := &adminGrpc.AdminService{
+		Logger: log.NewHelper(sdk.Runtime.GetLogger()), // 注入日志
+		Config: &ext.ExtConfig,                         // 注入扩展配置（环境变量）
+	}
+	adminService.MakeOrm() // 注入 ORM（从 Runtime 获取数据库连接）
+	pb.RegisterAdminUserServiceServer(grpcServer, adminService)
+
 	go func() {
 		// 服务连接
-		if config.SslConfig.Enable {
-			if err := srv.ListenAndServeTLS(config.SslConfig.Pem, config.SslConfig.KeyStr); err != nil && !errors.Is(err, http.ErrServerClosed) {
-				log.Fatal("listen: ", err)
-			}
-		} else {
-			if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-				log.Fatal("listen: ", err)
-			}
+		log.Infof("http server start on port: %d", config.ApplicationConfig.Port)
+		if err := srv.Serve(httpL); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatal("listen: ", err)
 		}
+		log.Infof("http server stop")
 	}()
+
+	go func() {
+		log.Infof("grpc server start on port: %d", config.ApplicationConfig.Port)
+		if err := grpcServer.Serve(grpcL); err != nil {
+			log.Fatal("grpc serve:", err)
+		}
+		log.Infof("grpc server stop")
+	}()
+
+	go func() {
+		log.Infof("cmux server start on port: %d", config.ApplicationConfig.Port)
+		if err := m.Serve(); err != nil {
+			log.Fatal("cmux serve:", err)
+		}
+		log.Infof("cmux server stop")
+	}()
+
 	fmt.Println(pkg.Red(string(global.LogoContent)))
 	tip()
 	fmt.Println(pkg.Green("Server run at:"))
 	fmt.Printf("-  Local:   %s://localhost:%d/ \r\n", "http", config.ApplicationConfig.Port)
-	fmt.Println(pkg.Green("Swagger run at:"))
-	fmt.Printf("-  Local:   http://localhost:%d/swagger/admin/index.html \r\n", config.ApplicationConfig.Port)
 	fmt.Printf("%s Enter Control + C Shutdown Server \r\n", pkg.GetCurrentTimeStr())
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal, 1)
@@ -212,6 +246,8 @@ func run() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	log.Info("Shutdown Server ... ")
+
+	grpcServer.GracefulStop()
 
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
@@ -251,5 +287,4 @@ func initRouter() {
 		Use(api.SetRequestLogger)
 
 	common.InitMiddleware(r)
-
 }

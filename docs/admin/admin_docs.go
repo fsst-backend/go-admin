@@ -201,14 +201,20 @@ const docTemplateadmin = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "deptName",
+                        "description": "部门名称",
                         "name": "deptName",
                         "in": "query"
                     },
                     {
-                        "type": "string",
-                        "description": "deptId",
+                        "type": "integer",
+                        "description": "部门ID",
                         "name": "deptId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "部门类型",
+                        "name": "deptCatalog",
                         "in": "query"
                     },
                     {
@@ -2643,6 +2649,41 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "/lotus/api/v1/sys-api/generate-from-swagger": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "扫描 /app/doc 目录下的 swagger 文件，自动生成或更新 API",
+                "tags": [
+                    "接口管理"
+                ],
+                "summary": "从 Swagger 文件自动生成 API",
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 0, \"message\": \"生成成功\"}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "additionalProperties": true
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/lotus/api/v1/sys-api/get": {
             "get": {
                 "security": [
@@ -4423,6 +4464,9 @@ const docTemplateadmin = `{
         "dto.MenuIO": {
             "type": "object",
             "properties": {
+                "activePath": {
+                    "type": "string"
+                },
                 "children": {
                     "type": "array",
                     "items": {
@@ -4431,6 +4475,33 @@ const docTemplateadmin = `{
                 },
                 "component": {
                     "type": "string"
+                },
+                "externalLink": {
+                    "type": "string"
+                },
+                "fixedTab": {
+                    "type": "boolean"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "isExternal": {
+                    "type": "boolean"
+                },
+                "isFullPage": {
+                    "type": "boolean"
+                },
+                "isHide": {
+                    "type": "boolean"
+                },
+                "isHideTab": {
+                    "type": "boolean"
+                },
+                "isIframe": {
+                    "type": "boolean"
+                },
+                "keepAlive": {
+                    "type": "boolean"
                 },
                 "menuName": {
                     "description": "菜单name",
@@ -4449,6 +4520,18 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "permission_code": {
+                    "type": "string"
+                },
+                "showBadge": {
+                    "type": "boolean"
+                },
+                "sortValue": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "textBadge": {
                     "type": "string"
                 },
                 "title": {
@@ -4750,6 +4833,10 @@ const docTemplateadmin = `{
                 "createBy": {
                     "type": "integer"
                 },
+                "deptCatalog": {
+                    "description": "部门类型 finance 财务  hr 人力资源 customer_service 客服",
+                    "type": "string"
+                },
                 "deptId": {
                     "description": "编码",
                     "type": "integer"
@@ -4796,6 +4883,10 @@ const docTemplateadmin = `{
             "properties": {
                 "createBy": {
                     "type": "integer"
+                },
+                "deptCatalog": {
+                    "description": "部门类型 finance 财务  hr 人力资源 customer_service 客服",
+                    "type": "string"
                 },
                 "deptId": {
                     "description": "编码",
@@ -5595,8 +5686,8 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "status": {
-                    "type": "string",
-                    "default": "1"
+                    "type": "integer",
+                    "default": 1
                 },
                 "updateBy": {
                     "type": "integer"
@@ -5665,8 +5756,8 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "status": {
-                    "type": "string",
-                    "default": "1"
+                    "type": "integer",
+                    "default": 1
                 },
                 "updateBy": {
                     "type": "integer"
@@ -5720,7 +5811,7 @@ const docTemplateadmin = `{
                     "type": "integer"
                 },
                 "status": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "updateBy": {
                     "type": "integer"
@@ -5830,6 +5921,10 @@ const docTemplateadmin = `{
                 "dataScope": {
                     "type": "string"
                 },
+                "deptCatalog": {
+                    "description": "部门类型 finance 财务  hr 人力资源 customer_service 客服",
+                    "type": "string"
+                },
                 "deptId": {
                     "description": "部门编码",
                     "type": "integer"
@@ -5846,7 +5941,7 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "leader": {
-                    "description": "负责人",
+                    "description": "负责人 对应的uuid",
                     "type": "string"
                 },
                 "params": {
@@ -5865,7 +5960,7 @@ const docTemplateadmin = `{
                     "type": "integer"
                 },
                 "status": {
-                    "description": "状态",
+                    "description": "状态  1 启用 0 未启用",
                     "type": "integer"
                 },
                 "updateBy": {
@@ -6315,7 +6410,7 @@ const docTemplateadmin = `{
                 },
                 "status": {
                     "description": "状态",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "updateBy": {
                     "type": "integer"

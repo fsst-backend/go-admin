@@ -20,7 +20,7 @@ type SysUserGetPageReq struct {
 	Sex                       *string      `form:"sex" search:"type:exact;column:sex;table:sys_user" comment:"性别"`
 	Email                     *string      `form:"email" search:"type:contains;column:email;table:sys_user" comment:"邮箱"`
 	PostId                    *int         `form:"postId" search:"type:exact;column:post_id;table:sys_user" comment:"岗位"`
-	Status                    *string      `form:"status" search:"type:exact;column:status;table:sys_user" comment:"状态"`
+	Status                    *int         `form:"status" search:"type:exact;column:status;table:sys_user" comment:"状态"`
 	DeptJoin                  `search:"type:left;on:dept_id:dept_id;table:sys_user;join:sys_dept"`
 	SysUserOrder
 }
@@ -67,8 +67,8 @@ func (s *UpdateSysUserAvatarReq) Generate(model *models.SysUser) {
 }
 
 type UpdateSysUserStatusReq struct {
-	UserId int    `json:"userId" comment:"用户ID" vd:"$>0"` // 用户ID
-	Status string `json:"status" comment:"状态" vd:"len($)>0"`
+	UserId int `json:"userId" comment:"用户ID" vd:"$>0"` // 用户ID
+	Status int `json:"status" comment:"状态" vd:"$>=0"`
 	common.ControlBy
 }
 
@@ -96,7 +96,7 @@ type SysUserInsertReq struct {
 	DeptId   int    `json:"deptId" comment:"部门" vd:"$>0"`
 	PostId   int    `json:"postId" comment:"岗位"`
 	Remark   string `json:"remark" comment:"备注"`
-	Status   string `json:"status" comment:"状态" vd:"len($)>0" default:"1"`
+	Status   int    `json:"status" comment:"状态" vd:"$>=0" default:"1"`
 	common.ControlBy
 }
 
@@ -135,7 +135,7 @@ type SysUserUpdateReq struct {
 	DeptId   int    `json:"deptId" comment:"部门" vd:"$>0"`
 	PostId   int    `json:"postId" comment:"岗位"`
 	Remark   string `json:"remark" comment:"备注"`
-	Status   string `json:"status" comment:"状态" default:"1"`
+	Status   int    `json:"status" comment:"状态" default:"1"`
 	common.ControlBy
 }
 

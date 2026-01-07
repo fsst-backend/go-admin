@@ -26,5 +26,5 @@ func (e Config) GetFrontendConfig(c *gin.Context) {
 		BaseUploadURL: config.ExtConfig.Frontend.BaseUploadURL,
 	}
 
-	c.JSON(200, models.Response{Code: 200, Data: configData, Msg: "获取成功"})
+	c.JSON(200, models.Response{Code: 0, Data: configData, Msg: "获取成功"})
 }

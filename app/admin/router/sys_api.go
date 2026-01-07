@@ -23,5 +23,6 @@ func registerSysApiRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddlew
 		r.GET("/get", api.Get)
 		r.PUT("", api.Update)
 		r.DELETE("", api.DeleteSysApi)
+		r.POST("/generate-from-swagger", api.GenerateFromSwagger)
 	}
 }

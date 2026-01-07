@@ -22,8 +22,9 @@ type SysDept struct {
 // @Summary 分页部门列表数据
 // @Description 分页列表
 // @Tags 部门
-// @Param deptName query string false "deptName"
-// @Param deptId query string false "deptId"
+// @Param deptName query string false "部门名称"
+// @Param deptId query int false "部门ID"
+// @Param deptCatalog query string false "部门类型"
 // @Param position query string false "position"
 // @Success 200 {object} response.Response{message=[]models.SysDept} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/dept [get]

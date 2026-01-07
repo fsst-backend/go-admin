@@ -124,14 +124,15 @@ func (e *SysDept) Update(c *dto.SysDeptUpdateReq) error {
 	}
 	model.DeptPath = deptPath
 	updateData := map[string]interface{}{
-		"dept_name": model.DeptName,
-		"parent_id": model.ParentId,
-		"dept_path": model.DeptPath,
-		"sort":      model.Sort,
-		"leader":    model.Leader,
-		"phone":     model.Phone,
-		"email":     model.Email,
-		"status":    model.Status,
+		"dept_name":    model.DeptName,
+		"parent_id":    model.ParentId,
+		"dept_path":    model.DeptPath,
+		"dept_catalog": model.DeptCatalog,
+		"sort":         model.Sort,
+		"leader":       model.Leader,
+		"phone":        model.Phone,
+		"email":        model.Email,
+		"status":       model.Status,
 	}
 	db := tx.Model(&model).Where("dept_id = ?", c.GetId()).Updates(updateData)
 	if err = db.Error; err != nil {
@@ -240,6 +241,7 @@ func (e *SysDept) deptPageCall(deptlist *[]models.SysDept, menu models.SysDept) 
 		mi.ParentId = list[j].ParentId
 		mi.DeptPath = list[j].DeptPath
 		mi.DeptName = list[j].DeptName
+		mi.DeptCatalog = list[j].DeptCatalog
 		mi.Sort = list[j].Sort
 		mi.Leader = list[j].Leader
 		mi.Phone = list[j].Phone
