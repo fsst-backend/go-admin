@@ -111,7 +111,7 @@ func (e *SysMenu) Insert(c *dto.SysMenuInsertReq) *SysMenu {
 	if data.PermissionCode != "" {
 		// 检查PermissionCode是否已存在
 		var count int64
-		err = e.Orm.Model(&models.SysMenu{}).Where("permission_code = ?", data.PermissionCode, data.MenuId).Count(&count).Error
+		err = e.Orm.Model(&models.SysMenu{}).Where("permission_code = ?", data.PermissionCode).Count(&count).Error
 		if err != nil {
 			e.Log.Errorf("检查PermissionCode唯一性失败: %s", err)
 			_ = e.AddError(err)
@@ -736,6 +736,20 @@ func convertMenusToIO(menus []models.SysMenu) []dto.MenuIO {
 			MenuName:       menu.MenuName,
 			Title:          menu.Title,
 			PermissionCode: menu.PermissionCode,
+			Icon:           menu.Icon,
+			SortValue:      menu.SortValue,
+			IsExternal:     menu.IsExternal,
+			ExternalLink:   menu.ExternalLink,
+			TextBadge:      menu.TextBadge,
+			ActivePath:     menu.ActivePath,
+			Status:         menu.Status,
+			KeepAlive:      menu.KeepAlive,
+			IsHide:         menu.IsHide,
+			IsIframe:       menu.IsIframe,
+			ShowBadge:      menu.ShowBadge,
+			FixedTab:       menu.FixedTab,
+			IsHideTab:      menu.IsHideTab,
+			IsFullPage:     menu.IsFullPage,
 			Children:       convertMenusToIO(menu.Children),
 		}
 		result = append(result, menuIO)
@@ -889,8 +903,7 @@ func (e *SysMenu) importMenus(tx *gorm.DB, menus []dto.MenuIO) error {
 
 	// 递归导入菜单及其子菜单，同时设置排序顺序
 	for i, menu := range menus {
-		menu.SortOrder = i + 1 // 设置排序顺序
-		err := e.importSingleMenu(tx, menu, 0, &menuIdMap)
+		err := e.importSingleMenu(tx, menu, 0, &menuIdMap, i+1)
 		if err != nil {
 			return err
 		}
@@ -900,7 +913,7 @@ func (e *SysMenu) importMenus(tx *gorm.DB, menus []dto.MenuIO) error {
 }
 
 // importSingleMenu 导入单个菜单
-func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, menuIdMap *map[string]int) error {
+func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, menuIdMap *map[string]int, sortOrder int) error {
 	// 检查菜单是否已存在（通过permission_code）
 	var existingMenu models.SysMenu
 	if err := tx.Where("permission_code = ?", menu.PermissionCode).First(&existingMenu).Error; err != nil {
@@ -914,10 +927,20 @@ func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, m
 				MenuName:       menu.MenuName,
 				Title:          menu.Title,
 				PermissionCode: menu.PermissionCode,
+				Icon:           menu.Icon,
+				SortValue:      menu.SortValue,
+				IsExternal:     menu.IsExternal,
+				ExternalLink:   menu.ExternalLink,
+				TextBadge:      menu.TextBadge,
+				ActivePath:     menu.ActivePath,
+				Status:         menu.Status,
+				KeepAlive:      menu.KeepAlive,
+				IsHide:         menu.IsHide,
+				IsIframe:       menu.IsIframe,
+				ShowBadge:      menu.ShowBadge,
+				FixedTab:       menu.FixedTab,
+				IsHideTab:      menu.IsHideTab,
 				ParentId:       parentId,
-				SortValue:      menu.SortOrder, // 使用导入顺序作为排序值
-				Status:         "1",            // 默认启用
-				KeepAlive:      true,           // 默认保持活跃
 			}
 
 			// 检查PermissionCode是否为空
@@ -947,8 +970,7 @@ func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, m
 
 			// 递归导入子菜单
 			for i, child := range menu.Children {
-				child.SortOrder = i + 1 // 设置子菜单排序顺序
-				err := e.importSingleMenu(tx, child, menuModel.MenuId, menuIdMap)
+				err := e.importSingleMenu(tx, child, menuModel.MenuId, menuIdMap, i+1)
 				if err != nil {
 					return err
 				}
@@ -969,10 +991,20 @@ func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, m
 			"menu_name":       menu.MenuName,
 			"title":           menu.Title,
 			"permission_code": menu.PermissionCode,
-			"sort_value":      menu.SortOrder, // 更新排序值为导入顺序
+			"icon":            menu.Icon,
+			"sort_value":      menu.SortValue,
+			"is_external":     menu.IsExternal,
+			"external_link":   menu.ExternalLink,
+			"text_badge":      menu.TextBadge,
+			"active_path":     menu.ActivePath,
+			"status":          menu.Status,
+			"keep_alive":      menu.KeepAlive,
+			"is_hide":         menu.IsHide,
+			"is_iframe":       menu.IsIframe,
+			"show_badge":      menu.ShowBadge,
+			"fixed_tab":       menu.FixedTab,
+			"is_hide_tab":     menu.IsHideTab,
 			"parent_id":       parentId,
-			"status":          "1",  // 默认启用
-			"keep_alive":      true, // 默认保持活跃
 		}
 		if err := tx.Model(&existingMenu).Updates(updateData).Error; err != nil {
 			e.Log.Errorf("更新菜单失败: %v, Name: %s", err, menu.MenuName)
@@ -984,8 +1016,7 @@ func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, m
 
 		// 递归导入子菜单
 		for i, child := range menu.Children {
-			child.SortOrder = i + 1 // 设置子菜单排序顺序
-			err := e.importSingleMenu(tx, child, existingMenu.MenuId, menuIdMap)
+			err := e.importSingleMenu(tx, child, existingMenu.MenuId, menuIdMap, i+1)
 			if err != nil {
 				return err
 			}
