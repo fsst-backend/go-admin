@@ -23,7 +23,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Empty"
+              "$ref": "#/definitions/BatchSignUpActivityResponse"
             }
           }
         },
@@ -42,6 +42,26 @@
         ],
         "consumes": [
           "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/batch_sign_up_template": {
+      "get": {
+        "summary": "获取批量报名模板",
+        "operationId": "GetBatchSignUpTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBatchSignUpTemplateResponse"
+            }
+          }
+        },
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -494,6 +514,36 @@
         ],
         "consumes": [
           "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/activity/symbol/detail": {
+      "get": {
+        "summary": "获取品种详情",
+        "operationId": "GetActivitySymbolDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetActivitySymbolDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -24376,6 +24426,10 @@
           "format": "int64",
           "description": " 活动ID"
         },
+        "activity_code": {
+          "type": "string",
+          "description": " 活动编号"
+        },
         "title": {
           "type": "string",
           "description": " 活动标题"
@@ -26633,9 +26687,90 @@
       },
       "title": "BatchSettlementUserActivityRequest"
     },
+    "BatchSignUpActivity": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动ID"
+        },
+        "activity_code": {
+          "type": "string",
+          "description": " 活动编号"
+        },
+        "activity_title": {
+          "type": "string",
+          "description": " 活动标题"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "user_name": {
+          "type": "string",
+          "description": " 用户名称"
+        },
+        "init_net_deposit": {
+          "type": "string",
+          "description": " 初始入金"
+        },
+        "volume_monitor_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 持仓时间(分钟)"
+        }
+      },
+      "title": "BatchSignUpActivity"
+    },
     "BatchSignUpActivityRequest": {
       "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BatchSignUpActivity"
+          },
+          "description": " 批量报名"
+        }
+      },
       "title": "BatchSignUpActivityRequest"
+    },
+    "BatchSignUpActivityResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BatchSignUpMessage"
+          }
+        }
+      },
+      "title": "BatchSignUpActivityResponse"
+    },
+    "BatchSignUpMessage": {
+      "type": "object",
+      "properties": {
+        "activity_code": {
+          "type": "string",
+          "description": " 活动编号"
+        },
+        "activity_title": {
+          "type": "string",
+          "description": " 活动标题"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "message": {
+          "type": "string",
+          "description": " 信息"
+        }
+      },
+      "title": "BatchSignUpMessage"
     },
     "BatchUpdateInboundReconciliationIds": {
       "type": "object",
@@ -27136,6 +27271,10 @@
           "format": "int64",
           "description": " 活动ID"
         },
+        "activity_code": {
+          "type": "string",
+          "description": " 活动代码"
+        },
         "title": {
           "type": "string",
           "description": " 活动标题"
@@ -27172,6 +27311,11 @@
         "volumn_average": {
           "type": "string",
           "description": " 手数平均"
+        },
+        "tier_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 层级数量"
         },
         "tier_levels": {
           "type": "array",
@@ -33184,6 +33328,48 @@
       },
       "title": "GetActivityStatisticsResponse"
     },
+    "GetActivitySymbolDetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetActivitySymbolDetailRequest"
+    },
+    "GetActivitySymbolDetailResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 组合名称"
+        },
+        "purpose": {
+          "type": "string",
+          "description": " 用途"
+        },
+        "group": {
+          "$ref": "#/definitions/BonusProductGroupItem",
+          "description": " 品种组合"
+        },
+        "create_by": {
+          "type": "string",
+          "description": " 创建人"
+        },
+        "create_by_name": {
+          "type": "string",
+          "description": " 创建人名称"
+        }
+      },
+      "title": "GetActivitySymbolDetailResponse"
+    },
     "GetActivitySymbolListRequest": {
       "type": "object",
       "properties": {
@@ -33403,6 +33589,23 @@
         }
       },
       "title": "GetBankOptionResp"
+    },
+    "GetBatchSignUpTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "fileData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/byte"
+          },
+          "description": " Excel 文件字节数据，不序列化到 JSON"
+        },
+        "file_name": {
+          "type": "string",
+          "description": " 文件名"
+        }
+      },
+      "title": "GetBatchSignUpTemplateResponse"
     },
     "GetBonusActivityDetailRequest": {
       "type": "object",
@@ -42605,6 +42808,14 @@
           "type": "integer",
           "format": "int32",
           "description": " 支付方式"
+        },
+        "fsst_api_key": {
+          "type": "string",
+          "description": " FSST api key"
+        },
+        "fsst_api_secret": {
+          "type": "string",
+          "description": " FSST api secret"
         }
       },
       "title": "PayPlatformInfo"
@@ -47963,6 +48174,18 @@
           "type": "integer",
           "format": "int64",
           "description": " 用户数量"
+        },
+        "tier_reward": {
+          "type": "string",
+          "description": " 层级奖励"
+        },
+        "tier_deduct_reward": {
+          "type": "string",
+          "description": " 层级扣除奖励"
+        },
+        "tier_net_reward": {
+          "type": "string",
+          "description": " 层级净奖励"
         }
       },
       "title": "TierUserCount"
