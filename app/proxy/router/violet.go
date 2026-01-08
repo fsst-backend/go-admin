@@ -30,7 +30,7 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 	}
 
 	// 需要认证但无需权限验证的代理路由
-	noCheck := v1.Group("/poplar/violet/export").Use(authMiddleware.MiddlewareFunc())
+	noCheck := v1.Group("/poplar/violet/export")
 	{
 		// 通配符路由,捕获所有路径
 		// 注意: /*path 只捕获 /poplar/violet 之后的部分
