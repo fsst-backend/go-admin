@@ -20,6 +20,14 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 		// TargetURL: "http://target-service:8080",
 	}
 
+	noauth := v1.Group("/poplar/violet").Use(authMiddleware.MiddlewareFunc())
+	{
+		// 通配符路由,捕获所有路径
+		// 注意: /*path 只捕获 /poplar/violet 之后的部分
+		// 如果需要保留完整路径,应在 Proxy 中使用 c.Request.URL.Path
+		noauth.Any("backend/activity/batch_sign_up_template'", proxyAPI.Proxy)
+	}
+
 	// 需要认证和权限验证的代理路由
 	r := v1.Group("/poplar/violet").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
 	{
