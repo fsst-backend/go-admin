@@ -14,7 +14,7 @@ type SysUser struct {
 	Username string   `json:"username" gorm:"column:username;type:varchar(64);comment:用户名"`
 	Password string   `json:"-" gorm:"column:password;type:varchar(128);comment:密码"`
 	NickName string   `json:"nickName" gorm:"column:nick_name;type:varchar(128);comment:昵称"`
-	Phone    string   `json:"phone" gorm:"column:phone;type:varchar(11);comment:手机号"`
+	Phone    string   `json:"phone" gorm:"column:phone;type:varchar(32);comment:手机号"`
 	Salt     string   `json:"-" gorm:"column:salt;type:varchar(255);comment:加盐"`
 	Avatar   string   `json:"avatar" gorm:"column:avatar;type:varchar(255);comment:头像"`
 	Sex      string   `json:"sex" gorm:"column:sex;type:varchar(255);comment:性别"`

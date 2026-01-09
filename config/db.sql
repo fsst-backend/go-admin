@@ -62,9 +62,9 @@ INSERT INTO sys_dict_type VALUES (9, '操作类型', 'sys_oper_type', 1, '操作
 INSERT INTO sys_dict_type VALUES (10, '通知状态', 'sys_notice_status', 1, '通知状态列表', 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:37.914', NULL);
 INSERT INTO sys_dict_type VALUES (11, '内容状态', 'sys_content_status', 1, '', 1, 1, '2021-05-13 19:56:40.813', '2021-05-13 19:56:40.813', NULL);
 
--- sys_job 表结构: job_id, job_name, job_group, job_type, cron_expression, invoke_target, args, misfire_policy, concurrent, status, entry_id, created_at, updated_at, deleted_at, create_by, update_by
-INSERT INTO sys_job VALUES (1, '接口测试', 'DEFAULT', 1, '0/5 * * * * ', 'http://localhost:8000', '', 1, 1, 1, 0, '2021-05-13 19:56:37.914', '2021-06-14 20:59:55.417', NULL, 1, 1);
-INSERT INTO sys_job VALUES (2, '函数测试', 'DEFAULT', 2, '0/5 * * * * ', 'ExamplesOne', '参数', 1, 1, 1, 0, '2021-05-13 19:56:37.914', '2021-05-31 23:55:37.221', NULL, 1, 1);
+-- sys_job 表结构: job_id, job_name, job_group, job_type, cron_expression, invoke_target, args, misfire_policy, concurrent, status, entry_id, create_by, update_by, created_at, updated_at, deleted_at
+INSERT INTO sys_job (job_id, job_name, job_group, job_type, cron_expression, invoke_target, args, misfire_policy, concurrent, status, entry_id, create_by, update_by, created_at, updated_at, deleted_at) VALUES (1, '接口测试', 'DEFAULT', 1, '0/5 * * * * ', 'http://localhost:13348', '', 1, 1, 1, 0, 1, 1, '2021-05-13 19:56:37.914', '2021-06-14 20:59:55.417', NULL);
+INSERT INTO sys_job (job_id, job_name, job_group, job_type, cron_expression, invoke_target, args, misfire_policy, concurrent, status, entry_id, create_by, update_by, created_at, updated_at, deleted_at) VALUES (2, '函数测试', 'DEFAULT', 2, '0/5 * * * * ', 'ExamplesOne', '参数', 1, 1, 1, 0, 1, 1, '2021-05-13 19:56:37.914', '2021-05-31 23:55:37.221', NULL);
 
 -- sys_post 表结构: post_id, post_name, post_code, sort, status, remark, create_by, update_by, created_at, updated_at, deleted_at
 INSERT INTO sys_post VALUES (1, '首席执行官', 'CEO', 0, 1, '首席执行官', 1, 1, '2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
@@ -75,7 +75,7 @@ INSERT INTO sys_post VALUES (3, '首席运营官', 'COO', 3, 1, '测试工程师
 INSERT INTO sys_role VALUES (1, '系统管理员', '2', 'superadmin', 1, '', '', true, '', 1, 1, '2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
 
 -- sys_user 表结构: user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at
-INSERT INTO sys_user VALUES (1, 'b270eb86-6b4e-4bc1-9bb1-aa4a807a3ab5', 'admin@761242.com', '$2a$10$679frSflZc5DhKHb7k9uduoU8V9IcwQ1H4JahWd44WjM2BzGhHxE2', 'futren', '17777777789', '', '', '1', '1@qq.com', 1, 1, '', 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
+INSERT INTO sys_user (user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at) VALUES (1, '8ab590bb-f729-493e-ba2f-c1f863ecd6f5', 'admin@futureinvest.id', '$2a$10$SnRmYPQii2Vs3.YG5tGtZe3RSiBabbr8ZNLGWARW1oKSZL90POeSy', 'futren', '886227485995', '', '', '1', 'admin@futureinvest.id', 1, 1, '', 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
 
 -- sys_user_role 表结构: id, user_id, role_id, create_by, update_by, created_at, updated_at, deleted_at
 INSERT INTO sys_user_role VALUES (1, 1, 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:37.914', NULL);
@@ -83,7 +83,7 @@ INSERT INTO sys_user_role VALUES (1, 1, 1, 1, 1, '2021-05-13 19:56:37.914', '202
 -- sys_casbin_rule 表结构: id, ptype, v0, v1, v2, v3, v4, v5
 -- ptype='p' 表示策略(policy): v0=角色, v1=资源路径, v2=操作方法
 -- ptype='g' 表示角色继承/用户角色关系(grouping): v0=用户, v1=角色
-INSERT INTO sys_casbin_rule VALUES (1, 'p', 'superadmin', '*', '*', '', '', '');
-INSERT INTO sys_casbin_rule VALUES (2, 'g', 'user_1', 'superadmin', '', '', '', '');
+INSERT INTO sys_casbin_rule (id, ptype, v0, v1, v2, v3, v4, v5) VALUES (1, 'p', 'superadmin', '*', '*', '', '', '');
+INSERT INTO sys_casbin_rule (id, ptype, v0, v1, v2, v3, v4, v5) VALUES (2, 'g', 'user_1', 'superadmin', '', '', '', '');
 
 -- 数据完成 ;
