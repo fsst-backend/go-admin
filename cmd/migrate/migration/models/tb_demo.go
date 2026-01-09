@@ -1,10 +1,12 @@
 package models
 
+import "go-admin/common/models"
+
 type TbDemo struct {
-	Model
-	Name string `json:"name" gorm:"type:varchar(128);comment:名称"`
-	ModelTime
-	ControlBy
+	models.Model
+	Name string `json:"name" gorm:"column:name;type:varchar(128);comment:名称"`
+	models.ModelTime
+	models.ControlBy
 }
 
 func (TbDemo) TableName() string {

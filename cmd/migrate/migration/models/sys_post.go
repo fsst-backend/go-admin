@@ -1,14 +1,16 @@
 package models
 
+import "go-admin/common/models"
+
 type SysPost struct {
-	PostId   int    `gorm:"primaryKey;autoIncrement" json:"postId"` //岗位编号
-	PostName string `gorm:"size:128;" json:"postName"`              //岗位名称
-	PostCode string `gorm:"size:128;" json:"postCode"`              //岗位代码
-	Sort     int    `gorm:"size:4;" json:"sort"`                    //岗位排序
-	Status   int    `gorm:"size:4;" json:"status"`                  //状态
-	Remark   string `gorm:"size:255;" json:"remark"`                //描述
-	ControlBy
-	ModelTime
+	PostId   int    `gorm:"column:post_id;type:int;primaryKey;autoIncrement" json:"postId"` //岗位编号
+	PostName string `gorm:"column:post_name;type:varchar(128);" json:"postName"`            //岗位名称
+	PostCode string `gorm:"column:post_code;type:varchar(128);" json:"postCode"`            //岗位代码
+	Sort     int    `gorm:"column:sort;type:int;" json:"sort"`                              //岗位排序
+	Status   int    `gorm:"column:status;type:tinyint;" json:"status"`                      //状态
+	Remark   string `gorm:"column:remark;type:varchar(255);" json:"remark"`                 //描述
+	models.ControlBy
+	models.ModelTime
 }
 
 func (SysPost) TableName() string {

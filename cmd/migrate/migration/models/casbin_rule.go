@@ -1,8 +1,7 @@
 package models
 
-// CasbinRule sys_casbin_rule
 type CasbinRule struct {
-	ID    uint   `gorm:"primaryKey"`
+	ID    uint   `gorm:"primaryKey;autoIncrement"`
 	Ptype string `gorm:"size:32;uniqueIndex:idx_casbin"`
 	V0    string `gorm:"size:64;uniqueIndex:idx_casbin"`  // subject
 	V1    string `gorm:"size:128;uniqueIndex:idx_casbin"` // object (url / resource)

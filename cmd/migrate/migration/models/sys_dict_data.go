@@ -1,19 +1,21 @@
 package models
 
+import "go-admin/common/models"
+
 type DictData struct {
-	DictCode  int    `gorm:"primaryKey;autoIncrement;" json:"dictCode" example:"1"` //字典编码
-	DictSort  int    `gorm:"" json:"dictSort"`                                      //显示顺序
-	DictLabel string `gorm:"size:128;" json:"dictLabel"`                            //数据标签
-	DictValue string `gorm:"size:255;" json:"dictValue"`                            //数据键值
-	DictType  string `gorm:"size:64;" json:"dictType"`                              //字典类型
-	CssClass  string `gorm:"size:128;" json:"cssClass"`                             //
-	ListClass string `gorm:"size:128;" json:"listClass"`                            //
-	IsDefault string `gorm:"size:8;" json:"isDefault"`                              //
-	Status    int    `gorm:"size:4;" json:"status"`                                 //状态
-	Default   string `gorm:"size:8;" json:"default"`                                //
-	Remark    string `gorm:"size:255;" json:"remark"`                               //备注
-	ControlBy
-	ModelTime
+	DictCode  int    `json:"dictCode" gorm:"column:dict_code;type:int;primaryKey;autoIncrement;comment:主键编码"`
+	DictSort  int    `json:"dictSort" gorm:"column:dict_sort;type:int;comment:DictSort"`
+	DictLabel string `json:"dictLabel" gorm:"column:dict_label;type:varchar(128);comment:DictLabel"`
+	DictValue string `json:"dictValue" gorm:"column:dict_value;type:varchar(255);comment:DictValue"`
+	DictType  string `json:"dictType" gorm:"column:dict_type;type:varchar(64);comment:DictType"`
+	CssClass  string `json:"cssClass" gorm:"column:css_class;type:varchar(128);comment:CssClass"`
+	ListClass string `json:"listClass" gorm:"column:list_class;type:varchar(128);comment:ListClass"`
+	IsDefault string `json:"isDefault" gorm:"column:is_default;type:varchar(8);comment:IsDefault"`
+	Status    int    `json:"status" gorm:"column:status;type:tinyint;comment:Status"`
+	Default   string `json:"default" gorm:"column:default_value;type:varchar(8);comment:Default"`
+	Remark    string `json:"remark" gorm:"column:remark;type:varchar(255);comment:Remark"`
+	models.ControlBy
+	models.ModelTime
 }
 
 func (DictData) TableName() string {
