@@ -425,7 +425,7 @@ func (e SysUser) GetProfile(c *gin.Context) {
 // @Summary 获取个人信息
 // @Description 获取JSON
 // @Tags 个人中心
-// @Success 200 {object} response.Response "{"code": 0, "message": [...]}"
+// @Success 200 {object} response.Response{message=dto.SysUserInfoResp} "{"code": 0, "message": [...]}"
 // @Router /lotus/api/v1/getinfo [get]
 // @Security Bearer
 func (e SysUser) GetInfo(c *gin.Context) {
@@ -513,21 +513,24 @@ func (e SysUser) GetInfo(c *gin.Context) {
 	}
 
 	// 构建响应数据
-	mp := make(map[string]interface{})
-	mp["roles"] = roles
-	mp["permissions"] = permissions
-	mp["buttons"] = buttons
-	mp["introduction"] = "I am a super administrator"
-	mp["avatar"] = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
-	if sysUser.Avatar != "" {
-		mp["avatar"] = sysUser.Avatar
+	resp := dto.SysUserInfoResp{
+		Roles:        roles,
+		Permissions:  permissions,
+		Buttons:      buttons,
+		Introduction: "I am a super administrator",
+		Avatar:       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+		UserName:     sysUser.Username,
+		UserId:       sysUser.UserId,
+		UUID:         sysUser.UUID,
+		DeptId:       sysUser.DeptId,
+		Alias:        sysUser.NickName,
+		Phone:        sysUser.Phone,
+		Email:        sysUser.Email,
 	}
-	mp["userName"] = sysUser.Username
-	mp["userId"] = sysUser.UserId
-	mp["uuid"] = sysUser.UUID
-	mp["deptId"] = sysUser.DeptId
-	mp["name"] = sysUser.NickName
-	e.OK(mp, "")
+	if sysUser.Avatar != "" {
+		resp.Avatar = sysUser.Avatar
+	}
+	e.OK(resp, "")
 }
 
 // SetUserRole

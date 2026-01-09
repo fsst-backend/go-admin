@@ -192,3 +192,19 @@ type SysUserRoleReq struct {
 func (s *SysUserRoleReq) GetId() interface{} {
 	return s.UserId
 }
+
+// SysUserInfoResp 用户信息响应
+type SysUserInfoResp struct {
+	Roles        []string `json:"roles" comment:"角色列表"`
+	Permissions  []string `json:"permissions" comment:"权限列表"`
+	Buttons      []string `json:"buttons" comment:"按钮权限列表"`
+	Introduction string   `json:"introduction" comment:"介绍"`
+	Avatar       string   `json:"avatar" comment:"头像"`
+	UserName     string   `json:"userName" comment:"登录名"`
+	UserId       int      `json:"userId" comment:"用户ID"`
+	UUID         string   `json:"uuid" comment:"用户UUID"`
+	DeptId       int      `json:"deptId" comment:"部门ID"`
+	Alias        string   `json:"name" comment:"昵称"`
+	Phone        string   `json:"phone" comment:"电话号码"`
+	Email        string   `json:"email" comment:"邮箱"`
+}
