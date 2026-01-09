@@ -45,26 +45,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/activity/batch_sign_up_template": {
-      "get": {
-        "summary": "获取批量报名模板",
-        "operationId": "GetBatchSignUpTemplateHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetBatchSignUpTemplateResponse"
-            }
-          }
-        },
-        "tags": [
-          "activity"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
     "/poplar/violet/backend/activity/bonus/create": {
       "post": {
         "summary": "创建赠金活动列表",
@@ -752,7 +732,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 返佣记录ID\r",
+            "description": " 返佣记录ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -760,7 +740,7 @@
           },
           {
             "name": "status",
-            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝\r",
+            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -768,7 +748,7 @@
           },
           {
             "name": "remark",
-            "description": " 备注\r",
+            "description": " 备注",
             "in": "query",
             "required": false,
             "type": "string"
@@ -797,7 +777,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 返佣记录ID\r",
+            "description": " 返佣记录ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -805,7 +785,7 @@
           },
           {
             "name": "status",
-            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝\r",
+            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -813,7 +793,7 @@
           },
           {
             "name": "remark",
-            "description": " 备注\r",
+            "description": " 备注",
             "in": "query",
             "required": false,
             "type": "string"
@@ -842,7 +822,7 @@
         "parameters": [
           {
             "name": "uid",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -850,21 +830,21 @@
           },
           {
             "name": "user_name",
-            "description": " 用户名\r",
+            "description": " 用户名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "vip",
-            "description": " 用户等级\r",
+            "description": " 用户等级",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态\r",
+            "description": " 状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -872,7 +852,7 @@
           },
           {
             "name": "exam_id",
-            "description": " 考试ID\r",
+            "description": " 考试ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -880,7 +860,7 @@
           },
           {
             "name": "super_user_group_id",
-            "description": " 上级用户组ID\r",
+            "description": " 上级用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -888,7 +868,7 @@
           },
           {
             "name": "account_id",
-            "description": " 交易员账号\r",
+            "description": " 交易员账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -896,7 +876,7 @@
           },
           {
             "name": "exam_enroll_id",
-            "description": " 报名费订单号\r",
+            "description": " 报名费订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -904,7 +884,7 @@
           },
           {
             "name": "super_uid",
-            "description": " 直属返佣对象\r",
+            "description": " 直属返佣对象",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -912,7 +892,7 @@
           },
           {
             "name": "id",
-            "description": " 返佣订单号\r",
+            "description": " 返佣订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -920,7 +900,7 @@
           },
           {
             "name": "rule_id",
-            "description": " 返佣规则ID\r",
+            "description": " 返佣规则ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -978,7 +958,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1008,28 +988,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键词\r",
+            "description": " 关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "tel",
-            "description": " 手机号\r",
+            "description": " 手机号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "email",
-            "description": " 邮箱\r",
+            "description": " 邮箱",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "inviter_uid",
-            "description": " 邀请人ID\r",
+            "description": " 邀请人ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1037,14 +1017,14 @@
           },
           {
             "name": "invitee_vip_level",
-            "description": " 被邀请人vip等级\r",
+            "description": " 被邀请人vip等级",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_private_copy_trading",
-            "description": " 是否私有跟单\r",
+            "description": " 是否私有跟单",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -1052,7 +1032,7 @@
           },
           {
             "name": "is_signal_provider",
-            "description": " 是否交易员\r",
+            "description": " 是否交易员",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -1060,7 +1040,7 @@
           },
           {
             "name": "invitation_code",
-            "description": " 邀请码\r",
+            "description": " 邀请码",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1117,28 +1097,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " uid or 名称\r",
+            "description": " uid or 名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "tel",
-            "description": " 手机号\r",
+            "description": " 手机号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "email",
-            "description": " 邮箱\r",
+            "description": " 邮箱",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态 0:正常 1:禁用\r",
+            "description": " 状态 0:正常 1:禁用",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1146,14 +1126,14 @@
           },
           {
             "name": "vip_level",
-            "description": " vip等级\r",
+            "description": " vip等级",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "superior_inviter",
-            "description": " 上级邀请人ID\r",
+            "description": " 上级邀请人ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1161,7 +1141,7 @@
           },
           {
             "name": "is_signal_provider",
-            "description": " 是否带单员\r",
+            "description": " 是否带单员",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -1183,7 +1163,7 @@
           },
           {
             "name": "become_signal_provider_start_time",
-            "description": " 成为带单员开始时间\r",
+            "description": " 成为带单员开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1191,7 +1171,7 @@
           },
           {
             "name": "become_signal_provider_end_time",
-            "description": " 成为带单员结束时间\r",
+            "description": " 成为带单员结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1445,7 +1425,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 品种组ID\r",
+            "description": " 品种组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1489,21 +1469,21 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "name",
-            "description": " 品种组名称\r",
+            "description": " 品种组名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "type",
-            "description": " 品种类型\r",
+            "description": " 品种类型",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1546,7 +1526,7 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台，可选过滤\r",
+            "description": " 交易平台，可选过滤",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1635,7 +1615,7 @@
         "parameters": [
           {
             "name": "rule_id",
-            "description": " 配置ID\r",
+            "description": " 配置ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1665,21 +1645,21 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 平台\r",
+            "description": " 平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1687,7 +1667,7 @@
           },
           {
             "name": "account_id",
-            "description": " 交易账号ID\r",
+            "description": " 交易账号ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1695,7 +1675,7 @@
           },
           {
             "name": "trader_rule_id",
-            "description": " 交易返佣规则ID\r",
+            "description": " 交易返佣规则ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1703,7 +1683,7 @@
           },
           {
             "name": "status",
-            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝\r",
+            "description": " 状态 0: 待审核 1: 已审核 2: 已拒绝",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1711,7 +1691,7 @@
           },
           {
             "name": "trader_rebate_uid",
-            "description": " 交易返佣用户ID\r",
+            "description": " 交易返佣用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1719,7 +1699,7 @@
           },
           {
             "name": "order_id",
-            "description": " 订单ID\r",
+            "description": " 订单ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1727,7 +1707,7 @@
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1844,7 +1824,7 @@
         "parameters": [
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1852,7 +1832,7 @@
           },
           {
             "name": "vip",
-            "description": " VIP等级\r",
+            "description": " VIP等级",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2019,7 +1999,7 @@
         "parameters": [
           {
             "name": "commission_volume_history_id",
-            "description": " 返佣记录ID\r",
+            "description": " 返佣记录ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2049,7 +2029,7 @@
         "parameters": [
           {
             "name": "history_id",
-            "description": " 返佣记录ID\r",
+            "description": " 返佣记录ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2159,21 +2139,21 @@
         "parameters": [
           {
             "name": "keywords",
-            "description": " 搜索关键词\r",
+            "description": " 搜索关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 是否自动返佣\r",
+            "description": " 是否自动返佣",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -2181,14 +2161,14 @@
           },
           {
             "name": "transaction_group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "product_group_id",
-            "description": " 品种组ID\r",
+            "description": " 品种组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2196,7 +2176,7 @@
           },
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2268,7 +2248,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2348,28 +2328,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 搜索关键词\r",
+            "description": " 搜索关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "tel",
-            "description": " 手机号\r",
+            "description": " 手机号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "email",
-            "description": " 邮箱\r",
+            "description": " 邮箱",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态 0: 待处理 1: 已处理 2: 已取消\r",
+            "description": " 状态 0: 待处理 1: 已处理 2: 已取消",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2377,21 +2357,21 @@
           },
           {
             "name": "vip_level",
-            "description": " VIP等级\r",
+            "description": " VIP等级",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "order_id",
-            "description": " 订单ID\r",
+            "description": " 订单ID",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "wallet_order_id",
-            "description": " 钱包订单ID\r",
+            "description": " 钱包订单ID",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2899,35 +2879,35 @@
         "parameters": [
           {
             "name": "follower_uid_or_name",
-            "description": " 跟单员UID/姓名，模糊匹配\r",
+            "description": " 跟单员UID/姓名，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "follower_nick_name",
-            "description": " 跟单员昵称\r",
+            "description": " 跟单员昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "sp_uid_or_name",
-            "description": " 带单员UID/姓名，模糊匹配\r",
+            "description": " 带单员UID/姓名，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "sp_nick_name",
-            "description": " 带单员昵称\r",
+            "description": " 带单员昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型\r",
+            "description": " 跟单类型",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2935,7 +2915,7 @@
           },
           {
             "name": "follow_mode",
-            "description": " 跟单模式\r",
+            "description": " 跟单模式",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2943,7 +2923,7 @@
           },
           {
             "name": "is_profit",
-            "description": " 是否盈利\r",
+            "description": " 是否盈利",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -2951,7 +2931,7 @@
           },
           {
             "name": "uncompensated_reason",
-            "description": " 未赔付原因\r",
+            "description": " 未赔付原因",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2959,14 +2939,14 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account_id",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2974,21 +2954,21 @@
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "side",
-            "description": " 交易方向\r",
+            "description": " 交易方向",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "open_time_range",
-            "description": " 开仓时间范围\r",
+            "description": " 开仓时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -2996,7 +2976,7 @@
           },
           {
             "name": "close_time_range",
-            "description": " 平仓时间范围\r",
+            "description": " 平仓时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -3004,7 +2984,7 @@
           },
           {
             "name": "position_id",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3012,7 +2992,7 @@
           },
           {
             "name": "order_id",
-            "description": " 交易单号/平仓单号\r",
+            "description": " 交易单号/平仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3020,7 +3000,7 @@
           },
           {
             "name": "is_cancelled",
-            "description": " 是否已取消 false:已完成 true:已取消-已平仓\r",
+            "description": " 是否已取消 false:已完成 true:已取消-已平仓",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -3028,7 +3008,7 @@
           },
           {
             "name": "offset",
-            "description": " 分页偏移量\r",
+            "description": " 分页偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3036,7 +3016,7 @@
           },
           {
             "name": "limit",
-            "description": " 分页限制\r",
+            "description": " 分页限制",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3066,35 +3046,35 @@
         "parameters": [
           {
             "name": "follower_uid_or_name",
-            "description": " 跟单员UID/姓名，模糊匹配\r",
+            "description": " 跟单员UID/姓名，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "follower_nick_name",
-            "description": " 跟单员昵称\r",
+            "description": " 跟单员昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "sp_uid_or_name",
-            "description": " 带单员UID，模糊匹配\r",
+            "description": " 带单员UID，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "sp_nick_name",
-            "description": " 带单员昵称\r",
+            "description": " 带单员昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型\r",
+            "description": " 跟单类型",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3102,7 +3082,7 @@
           },
           {
             "name": "follow_mode",
-            "description": " 跟单模式\r",
+            "description": " 跟单模式",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3110,7 +3090,7 @@
           },
           {
             "name": "is_profit",
-            "description": " 是否盈利\r",
+            "description": " 是否盈利",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -3118,7 +3098,7 @@
           },
           {
             "name": "uncompensated_reason",
-            "description": " 未赔付原因\r",
+            "description": " 未赔付原因",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3126,14 +3106,14 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account_id",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3141,21 +3121,21 @@
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "side",
-            "description": " 交易方向 Buy/Sell\r",
+            "description": " 交易方向 Buy/Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "open_time_range",
-            "description": " 开仓时间范围\r",
+            "description": " 开仓时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -3163,7 +3143,7 @@
           },
           {
             "name": "position_id",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3171,7 +3151,7 @@
           },
           {
             "name": "is_cancelled",
-            "description": " 是否已取消 false:进行中 true:已取消-持仓中\r",
+            "description": " 是否已取消 false:进行中 true:已取消-持仓中",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -3179,7 +3159,7 @@
           },
           {
             "name": "offset",
-            "description": " 分页偏移量\r",
+            "description": " 分页偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3187,7 +3167,7 @@
           },
           {
             "name": "limit",
-            "description": " 分页限制\r",
+            "description": " 分页限制",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3217,7 +3197,7 @@
         "parameters": [
           {
             "name": "sp_id",
-            "description": " 带单员ID\r",
+            "description": " 带单员ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3225,7 +3205,7 @@
           },
           {
             "name": "status",
-            "description": " 状态 1:跟单中 2:已取消\r",
+            "description": " 状态 1:跟单中 2:已取消",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3233,7 +3213,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3277,21 +3257,21 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 文本框，筛选 UID 或姓名\r",
+            "description": " 文本框，筛选 UID 或姓名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "nickname",
-            "description": " 文本框，筛选昵称\r",
+            "description": " 文本框，筛选昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_level",
-            "description": " 下拉框筛选用户等级\r",
+            "description": " 下拉框筛选用户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3299,39 +3279,35 @@
           },
           {
             "name": "sp_uid",
-            "description": " 文本框，筛选跟随交易员UID\r",
+            "description": " 文本框，筛选跟随交易员UID",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "follow_status",
-            "description": " 下拉框筛选跟随状态\r",
+            "description": " 下拉框筛选跟随状态",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "follow_type",
-            "description": " 下拉框筛选跟随类型\r",
+            "description": " 下拉框筛选跟随类型",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "follow_mode",
-            "description": " 下拉框筛选跟随模式\r",
+            "description": " 下拉框筛选跟随模式",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "follow_time_range",
-            "description": " 时间控件筛选跟随时间范围\r",
+            "description": " 时间控件筛选跟随时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -3375,7 +3351,7 @@
         "parameters": [
           {
             "name": "order_no",
-            "description": " 原始订单号\r",
+            "description": " 原始订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3397,7 +3373,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3427,7 +3403,7 @@
         "parameters": [
           {
             "name": "order_no",
-            "description": " 原始订单号\r",
+            "description": " 原始订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3449,7 +3425,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3479,7 +3455,7 @@
         "parameters": [
           {
             "name": "order_no",
-            "description": " 原始订单号\r",
+            "description": " 原始订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3501,7 +3477,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3729,14 +3705,14 @@
         "parameters": [
           {
             "name": "alias",
-            "description": " 活动名\r",
+            "description": " 活动名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态 0 启用 1 停用\r",
+            "description": " 状态 0 启用 1 停用",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3744,7 +3720,7 @@
           },
           {
             "name": "user_group",
-            "description": " 用户组别\r",
+            "description": " 用户组别",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3752,7 +3728,7 @@
           },
           {
             "name": "copy_trading_type",
-            "description": " 跟单类型 0不限 1 私域 2 公域\r",
+            "description": " 跟单类型 0不限 1 私域 2 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3760,7 +3736,7 @@
           },
           {
             "name": "symbol_type",
-            "description": " 交易品种组\r",
+            "description": " 交易品种组",
             "in": "query",
             "required": false,
             "type": "string"
@@ -4057,21 +4033,21 @@
         "parameters": [
           {
             "name": "uid_or_name",
-            "description": " UID/姓名，模糊匹配\r",
+            "description": " UID/姓名，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "nickname",
-            "description": " 昵称，模糊匹配\r",
+            "description": " 昵称，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_level",
-            "description": " 用户等级\r",
+            "description": " 用户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4079,14 +4055,14 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台，如 MT5\r",
+            "description": " 交易平台，如 MT5",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account_id",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4094,21 +4070,21 @@
           },
           {
             "name": "symbol",
-            "description": " 交易品种，如 EURUSD\r",
+            "description": " 交易品种，如 EURUSD",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "side",
-            "description": " 交易类型：Buy / Sell\r",
+            "description": " 交易类型：Buy / Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "time_range",
-            "description": " 交易时间范围\r",
+            "description": " 交易时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -4116,7 +4092,7 @@
           },
           {
             "name": "position_id",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4124,7 +4100,7 @@
           },
           {
             "name": "offset",
-            "description": " 分页偏移量\r",
+            "description": " 分页偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4132,7 +4108,7 @@
           },
           {
             "name": "limit",
-            "description": " 分页限制\r",
+            "description": " 分页限制",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4252,21 +4228,21 @@
         "parameters": [
           {
             "name": "uid_or_name",
-            "description": " UID/姓名，模糊匹配\r",
+            "description": " UID/姓名，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "nickname",
-            "description": " 昵称，模糊匹配\r",
+            "description": " 昵称，模糊匹配",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_level",
-            "description": " 用户等级\r",
+            "description": " 用户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4274,7 +4250,7 @@
           },
           {
             "name": "provider_level",
-            "description": " 交易员等级\r",
+            "description": " 交易员等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4282,7 +4258,7 @@
           },
           {
             "name": "profit_share_ratio",
-            "description": " 分润比例\r",
+            "description": " 分润比例",
             "in": "query",
             "required": false,
             "type": "number",
@@ -4290,14 +4266,14 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台，如 MT5\r",
+            "description": " 交易平台，如 MT5",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account_id",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4305,21 +4281,21 @@
           },
           {
             "name": "symbol",
-            "description": " 交易品种，如 EURUSD\r",
+            "description": " 交易品种，如 EURUSD",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "side",
-            "description": " 交易类型：Buy / Sell\r",
+            "description": " 交易类型：Buy / Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "open_time_range",
-            "description": " 开仓时间范围\r",
+            "description": " 开仓时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -4327,7 +4303,7 @@
           },
           {
             "name": "close_time_range",
-            "description": " 平仓时间范围\r",
+            "description": " 平仓时间范围",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -4335,7 +4311,7 @@
           },
           {
             "name": "position_id",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4343,7 +4319,7 @@
           },
           {
             "name": "order_id",
-            "description": " 交易单号\r",
+            "description": " 交易单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4351,7 +4327,7 @@
           },
           {
             "name": "offset",
-            "description": " 分页偏移量\r",
+            "description": " 分页偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4359,7 +4335,7 @@
           },
           {
             "name": "limit",
-            "description": " 分页限制\r",
+            "description": " 分页限制",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4395,14 +4371,14 @@
           },
           {
             "name": "transaction_platform",
-            "description": " 交易平台 (e.g. MT4/MT5)\r",
+            "description": " 交易平台 (e.g. MT4/MT5)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_account_id",
-            "description": " 交易账户ID\r",
+            "description": " 交易账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4410,28 +4386,28 @@
           },
           {
             "name": "transaction_group",
-            "description": " 交易组别/分类\r",
+            "description": " 交易组别/分类",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "action",
-            "description": " 交易类型 Buy Sell\r",
+            "description": " 交易类型 Buy Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4439,7 +4415,7 @@
           },
           {
             "name": "order_no",
-            "description": " 订单号\r",
+            "description": " 订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4447,7 +4423,7 @@
           },
           {
             "name": "position_id",
-            "description": " 仓位ID\r",
+            "description": " 仓位ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4455,7 +4431,7 @@
           },
           {
             "name": "deal_no",
-            "description": " 成交ID\r",
+            "description": " 成交ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4505,7 +4481,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4541,14 +4517,14 @@
           },
           {
             "name": "transaction_platform",
-            "description": " 交易平台 (e.g. MT4/MT5)\r",
+            "description": " 交易平台 (e.g. MT4/MT5)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_account_id",
-            "description": " 交易账户ID\r",
+            "description": " 交易账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4556,28 +4532,28 @@
           },
           {
             "name": "transaction_group",
-            "description": " 交易组别/分类\r",
+            "description": " 交易组别/分类",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "action",
-            "description": " 交易类型 Buy Sell\r",
+            "description": " 交易类型 Buy Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4585,7 +4561,7 @@
           },
           {
             "name": "order_no",
-            "description": " 订单号\r",
+            "description": " 订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4593,7 +4569,7 @@
           },
           {
             "name": "position_id",
-            "description": " 仓位ID\r",
+            "description": " 仓位ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4601,7 +4577,7 @@
           },
           {
             "name": "deal_no",
-            "description": " 成交ID\r",
+            "description": " 成交ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4651,7 +4627,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4687,14 +4663,14 @@
           },
           {
             "name": "transaction_platform",
-            "description": " 交易平台 (e.g. MT4/MT5)\r",
+            "description": " 交易平台 (e.g. MT4/MT5)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_account_id",
-            "description": " 交易账户ID\r",
+            "description": " 交易账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4702,28 +4678,28 @@
           },
           {
             "name": "transaction_group",
-            "description": " 交易组别/分类\r",
+            "description": " 交易组别/分类",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "action",
-            "description": " 交易类型 Buy Sell\r",
+            "description": " 交易类型 Buy Sell",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_group_id",
-            "description": " 用户组ID\r",
+            "description": " 用户组ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4731,7 +4707,7 @@
           },
           {
             "name": "order_no",
-            "description": " 订单号\r",
+            "description": " 订单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4739,7 +4715,7 @@
           },
           {
             "name": "position_id",
-            "description": " 仓位ID\r",
+            "description": " 仓位ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4747,7 +4723,7 @@
           },
           {
             "name": "deal_no",
-            "description": " 成交ID\r",
+            "description": " 成交ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4797,7 +4773,7 @@
           },
           {
             "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域\r",
+            "description": " 跟单类型 0: 私域 1: 公域",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4827,7 +4803,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "description": " 关联用户ID\r",
+            "description": " 关联用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4929,7 +4905,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -4937,14 +4913,14 @@
           },
           {
             "name": "user_name",
-            "description": " 用户姓名\r",
+            "description": " 用户姓名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "audit_status",
-            "description": " 审核状态 0:待审核 1:审核通过 2:审核拒绝\r",
+            "description": " 审核状态 0:待审核 1:审核通过 2:审核拒绝",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -5002,14 +4978,14 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键字\r",
+            "description": " 关键字",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_public",
-            "description": " 是否公开 0: 私域 1: 公开 2: 混合\r",
+            "description": " 是否公开 0: 私域 1: 公开 2: 混合",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -5053,21 +5029,21 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 文本框，筛选 UID 或姓名\r",
+            "description": " 文本框，筛选 UID 或姓名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "nickname",
-            "description": " 文本框，筛选昵称\r",
+            "description": " 文本框，筛选昵称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_level",
-            "description": " 下拉框筛选用户等级\r",
+            "description": " 下拉框筛选用户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -5075,7 +5051,7 @@
           },
           {
             "name": "sp_level",
-            "description": " 下拉框筛选交易员等级\r",
+            "description": " 下拉框筛选交易员等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -5083,7 +5059,7 @@
           },
           {
             "name": "is_enabled",
-            "description": " 下拉框筛选启用带单状态\r",
+            "description": " 下拉框筛选启用带单状态",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -5091,7 +5067,7 @@
           },
           {
             "name": "created_time_range",
-            "description": " 时间区间筛选（成为交易员时间）\r",
+            "description": " 时间区间筛选（成为交易员时间）",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -5099,7 +5075,7 @@
           },
           {
             "name": "source",
-            "description": " 下拉框筛选交易员来源\r",
+            "description": " 下拉框筛选交易员来源",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -6060,13 +6036,6 @@
             "required": false,
             "type": "boolean",
             "format": "boolean"
-          },
-          {
-            "name": "uid",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
           }
         ],
         "tags": [
@@ -7945,6 +7914,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/finance/retry/account_adjustment/stask": {
+      "post": {
+        "summary": "重新生成额度调整stask任务",
+        "operationId": "RetryAccountAdjustmentStask",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RetryAccountAdjustmentStaskRequest"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/finance/save_currency_amount": {
       "post": {
         "summary": "保存出入金币种",
@@ -8977,7 +8976,7 @@
         "parameters": [
           {
             "name": "domain_id",
-            "description": " 站点 ID\r",
+            "description": " 站点 ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -8985,7 +8984,7 @@
           },
           {
             "name": "account_type",
-            "description": " 账户类型。0-真实，1-模拟，3-交易员\r",
+            "description": " 账户类型。0-真实，1-模拟，3-交易员",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -8993,7 +8992,7 @@
           },
           {
             "name": "trans_platform",
-            "description": " MT5 MT4\r",
+            "description": " MT5 MT4",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9102,7 +9101,7 @@
           },
           {
             "name": "order_id",
-            "description": " 对账记录的唯一标识，用于URI路径参数\r",
+            "description": " 对账记录的唯一标识，用于URI路径参数",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9131,21 +9130,21 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键字（用户UID或用户姓名模糊查询）\r",
+            "description": " 关键字（用户UID或用户姓名模糊查询）",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_name",
-            "description": " 交易平台（例如 mt4, mt5）\r",
+            "description": " 交易平台（例如 mt4, mt5）",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_account_id",
-            "description": " 平台交易账号\r",
+            "description": " 平台交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9153,7 +9152,7 @@
           },
           {
             "name": "match_status",
-            "description": " 匹配状态\r",
+            "description": " 匹配状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9161,7 +9160,7 @@
           },
           {
             "name": "process_status",
-            "description": " 处理状态\r",
+            "description": " 处理状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9169,21 +9168,21 @@
           },
           {
             "name": "platform_order_no",
-            "description": " 平台订单号\r",
+            "description": " 平台订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "merchant_order_no",
-            "description": " 商户订单号\r",
+            "description": " 商户订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "reconciliation_no",
-            "description": " 对账订单号\r",
+            "description": " 对账订单号",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9260,7 +9259,7 @@
           },
           {
             "name": "order_id",
-            "description": " 对账记录的唯一标识，用于URI路径参数\r",
+            "description": " 对账记录的唯一标识，用于URI路径参数",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9289,21 +9288,21 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键字（用户UID或用户姓名模糊查询）\r",
+            "description": " 关键字（用户UID或用户姓名模糊查询）",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_name",
-            "description": " 交易平台（例如 mt4, mt5）\r",
+            "description": " 交易平台（例如 mt4, mt5）",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_account_id",
-            "description": " 平台交易账号\r",
+            "description": " 平台交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9311,7 +9310,7 @@
           },
           {
             "name": "match_status",
-            "description": " 匹配状态\r",
+            "description": " 匹配状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9319,7 +9318,7 @@
           },
           {
             "name": "process_status",
-            "description": " 处理状态\r",
+            "description": " 处理状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9327,21 +9326,21 @@
           },
           {
             "name": "platform_order_no",
-            "description": " 平台订单号\r",
+            "description": " 平台订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "merchant_order_no",
-            "description": " 商户订单号\r",
+            "description": " 商户订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "reconciliation_no",
-            "description": " 对账订单号\r",
+            "description": " 对账订单号",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9508,7 +9507,7 @@
           },
           {
             "name": "id",
-            "description": " 商户ID\r",
+            "description": " 商户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9572,7 +9571,7 @@
         "parameters": [
           {
             "name": "merchant_id",
-            "description": " 商户ID\r",
+            "description": " 商户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9580,28 +9579,28 @@
           },
           {
             "name": "keyword",
-            "description": " 商户名称 或者 商户ID\r",
+            "description": " 商户名称 或者 商户ID",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "change_type",
-            "description": " 变更类型\r",
+            "description": " 变更类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "change_mode",
-            "description": " 变更模式\r",
+            "description": " 变更模式",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "credit_id",
-            "description": " 授信账户ID\r",
+            "description": " 授信账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9609,7 +9608,7 @@
           },
           {
             "name": "check_status",
-            "description": " 审核状态\r",
+            "description": " 审核状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9617,7 +9616,7 @@
           },
           {
             "name": "order_id",
-            "description": " 订单ID\r",
+            "description": " 订单ID",
             "in": "query",
             "required": false,
             "type": "string"
@@ -9688,7 +9687,7 @@
         "parameters": [
           {
             "name": "credit_account_id",
-            "description": " 授信账户ID\r",
+            "description": " 授信账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9696,21 +9695,21 @@
           },
           {
             "name": "keyword",
-            "description": " 关键字 商户UID/商户名称\r",
+            "description": " 关键字 商户UID/商户名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "currency",
-            "description": " 币种\r",
+            "description": " 币种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "merchant_id",
-            "description": " 商户ID\r",
+            "description": " 商户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9904,7 +9903,7 @@
           },
           {
             "name": "order_id",
-            "description": "唯一性订单号\r",
+            "description": "唯一性订单号",
             "in": "query",
             "required": false,
             "type": "string"
@@ -10035,7 +10034,7 @@
           },
           {
             "name": "id",
-            "description": " 商户id\r",
+            "description": " 商户id",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10071,7 +10070,7 @@
           },
           {
             "name": "parent",
-            "description": " 商户parentId\r",
+            "description": " 商户parentId",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10115,21 +10114,21 @@
           },
           {
             "name": "keywords",
-            "description": " 用户名/UID\r",
+            "description": " 用户名/UID",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "email",
-            "description": " 邮箱\r",
+            "description": " 邮箱",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "tel",
-            "description": " 手机号\r",
+            "description": " 手机号",
             "in": "query",
             "required": false,
             "type": "string"
@@ -10150,7 +10149,7 @@
           },
           {
             "name": "status",
-            "description": " 账号状态 0 正常 1 禁用 2 注销 3 黑名单\r",
+            "description": " 账号状态 0 正常 1 禁用 2 注销 3 黑名单",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10158,7 +10157,7 @@
           },
           {
             "name": "active",
-            "description": " 激活状态\r",
+            "description": " 激活状态",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -10180,7 +10179,7 @@
           },
           {
             "name": "credit",
-            "description": " 授信账户\r",
+            "description": " 授信账户",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10188,7 +10187,7 @@
           },
           {
             "name": "level",
-            "description": " 商户等级\r",
+            "description": " 商户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10196,7 +10195,7 @@
           },
           {
             "name": "parent",
-            "description": " 上级商户\r",
+            "description": " 上级商户",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10232,7 +10231,7 @@
           },
           {
             "name": "profit_distribution_id",
-            "description": " 分账信息ID\r",
+            "description": " 分账信息ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10262,14 +10261,14 @@
         "parameters": [
           {
             "name": "transaction_no",
-            "description": " 交易订单号\r",
+            "description": " 交易订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "profit_distribution_no",
-            "description": "分账订单号\r",
+            "description": "分账订单号",
             "in": "query",
             "required": false,
             "type": "string"
@@ -10326,14 +10325,14 @@
         "parameters": [
           {
             "name": "merchant_keyword",
-            "description": " 商户ID/商户名称\r",
+            "description": " 商户ID/商户名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "share_status",
-            "description": " 分账是否成功\r",
+            "description": " 分账是否成功",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10649,14 +10648,14 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键词\r",
+            "description": " 关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "change_type",
-            "description": " 变动类型 0:入金,1:出金\r",
+            "description": " 变动类型 0:入金,1:出金",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10664,7 +10663,7 @@
           },
           {
             "name": "change_method",
-            "description": " 变动方式   // 0:系统入金,1:系统出金,2:入金,3:出金,4:出金回退,5:内部转账,6:赠金入金,7:赠金出金\r",
+            "description": " 变动方式   // 0:系统入金,1:系统出金,2:入金,3:出金,4:出金回退,5:内部转账,6:赠金入金,7:赠金出金",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10672,7 +10671,7 @@
           },
           {
             "name": "account",
-            "description": " 钱包账号\r",
+            "description": " 钱包账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10680,14 +10679,14 @@
           },
           {
             "name": "account_platform",
-            "description": " 钱包平台\r",
+            "description": " 钱包平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "audit_status",
-            "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消\r",
+            "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10695,14 +10694,14 @@
           },
           {
             "name": "order_id",
-            "description": " 订单号\r",
+            "description": " 订单号",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "remark",
-            "description": "审核备注查询\r",
+            "description": "审核备注查询",
             "in": "query",
             "required": false,
             "type": "string"
@@ -10819,7 +10818,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 通知ID\r",
+            "description": " 通知ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10849,7 +10848,7 @@
         "parameters": [
           {
             "name": "limit",
-            "description": " 每页数量\r",
+            "description": " 每页数量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10857,7 +10856,7 @@
           },
           {
             "name": "offset",
-            "description": " 偏移量\r",
+            "description": " 偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10865,14 +10864,14 @@
           },
           {
             "name": "title_keyword",
-            "description": " 标题关键词搜索\r",
+            "description": " 标题关键词搜索",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_enabled",
-            "description": " 状态筛选\r",
+            "description": " 状态筛选",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -10880,7 +10879,7 @@
           },
           {
             "name": "created_start",
-            "description": " 创建时间开始\r",
+            "description": " 创建时间开始",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10888,7 +10887,7 @@
           },
           {
             "name": "created_end",
-            "description": " 创建时间结束\r",
+            "description": " 创建时间结束",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10896,7 +10895,7 @@
           },
           {
             "name": "updated_start",
-            "description": " 操作时间开始\r",
+            "description": " 操作时间开始",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -10904,7 +10903,7 @@
           },
           {
             "name": "updated_end",
-            "description": " 操作时间结束\r",
+            "description": " 操作时间结束",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11024,7 +11023,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 消息ID\r",
+            "description": " 消息ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11074,7 +11073,7 @@
         "parameters": [
           {
             "name": "limit",
-            "description": " 每页数量\r",
+            "description": " 每页数量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11082,7 +11081,7 @@
           },
           {
             "name": "offset",
-            "description": " 偏移量\r",
+            "description": " 偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11090,14 +11089,14 @@
           },
           {
             "name": "title_keyword",
-            "description": " 标题关键词搜索\r",
+            "description": " 标题关键词搜索",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "message_type",
-            "description": " 消息类型筛选  1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知\r",
+            "description": " 消息类型筛选  1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11105,7 +11104,7 @@
           },
           {
             "name": "push_status",
-            "description": " 推送状态筛选   1 关闭推送,2 待推送,3 正在推送,4 已推送\r",
+            "description": " 推送状态筛选   1 关闭推送,2 待推送,3 正在推送,4 已推送",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11113,7 +11112,7 @@
           },
           {
             "name": "created_start",
-            "description": " 创建时间开始\r",
+            "description": " 创建时间开始",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11121,7 +11120,7 @@
           },
           {
             "name": "created_end",
-            "description": " 创建时间结束\r",
+            "description": " 创建时间结束",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11129,7 +11128,7 @@
           },
           {
             "name": "updated_start",
-            "description": " 更新时间开始\r",
+            "description": " 更新时间开始",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11137,7 +11136,7 @@
           },
           {
             "name": "updated_end",
-            "description": " 更新时间结束\r",
+            "description": " 更新时间结束",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11145,7 +11144,7 @@
           },
           {
             "name": "push_start",
-            "description": " 推送时间开始\r",
+            "description": " 推送时间开始",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11153,7 +11152,7 @@
           },
           {
             "name": "push_end",
-            "description": " 推送时间结束\r",
+            "description": " 推送时间结束",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11161,7 +11160,7 @@
           },
           {
             "name": "audience_type",
-            "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签\r",
+            "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11347,7 +11346,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 提供商ID\r",
+            "description": " 提供商ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11377,7 +11376,7 @@
         "parameters": [
           {
             "name": "limit",
-            "description": " 每页数量\r",
+            "description": " 每页数量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11385,7 +11384,7 @@
           },
           {
             "name": "offset",
-            "description": " 偏移量\r",
+            "description": " 偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11393,21 +11392,21 @@
           },
           {
             "name": "name_keyword",
-            "description": " 名称关键词搜索\r",
+            "description": " 名称关键词搜索",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "system",
-            "description": " 系统平台筛选\r",
+            "description": " 系统平台筛选",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pkg_name",
-            "description": " 包名筛选\r",
+            "description": " 包名筛选",
             "in": "query",
             "required": false,
             "type": "string"
@@ -11526,7 +11525,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 配置ID(必填)\r",
+            "description": " 配置ID(必填)",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -11556,28 +11555,28 @@
         "parameters": [
           {
             "name": "app_name",
-            "description": " 应用名称(可选)\r",
+            "description": " 应用名称(可选)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "system",
-            "description": " 系统类型(可选)\r",
+            "description": " 系统类型(可选)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态(可选)\r",
+            "description": " 状态(可选)",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "setting",
-            "description": " 配置内容(可选) A或者B\r",
+            "description": " 配置内容(可选) A或者B",
             "in": "query",
             "required": false,
             "type": "string"
@@ -12271,7 +12270,7 @@
         "parameters": [
           {
             "name": "pkg_id",
-            "description": " 包ID（必填）\r",
+            "description": " 包ID（必填）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -12331,14 +12330,14 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 包名/版本号 模糊搜索（可选）\r",
+            "description": " 包名/版本号 模糊搜索（可选）",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "start_time",
-            "description": " 开始时间（秒级时间戳）\r",
+            "description": " 开始时间（秒级时间戳）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -12346,7 +12345,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间（秒级时间戳）\r",
+            "description": " 结束时间（秒级时间戳）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -12441,27 +12440,7 @@
         ]
       }
     },
-    "/poplar/violet/backend/promotion/dict": {
-      "get": {
-        "summary": "获取任务字典",
-        "operationId": "GetPromotionDictHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/PromotionDictResponse"
-            }
-          }
-        },
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/task/create": {
+    "/poplar/violet/backend/promotion/promotion/task/create": {
       "post": {
         "summary": "创建任务",
         "operationId": "CreatePromoTaskHandler",
@@ -12491,37 +12470,7 @@
         ]
       }
     },
-    "/poplar/violet/backend/promotion/task/status": {
-      "post": {
-        "summary": "更新任务状态",
-        "operationId": "UpdatePromoTaskStatusHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdatePromoTaskStatusRequest"
-            }
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/task/update": {
+    "/poplar/violet/backend/promotion/promotion/task/update": {
       "post": {
         "summary": "更新任务内容",
         "operationId": "UpdatePromoTaskHandler",
@@ -12551,7 +12500,7 @@
         ]
       }
     },
-    "/poplar/violet/backend/promotion/task_content/{task_id}": {
+    "/poplar/violet/backend/promotion/promotion/task_content/{task_id}": {
       "get": {
         "summary": "获取任务内容",
         "operationId": "GetTaskContentHandler",
@@ -12572,7 +12521,7 @@
           },
           {
             "name": "task_id",
-            "description": " 任务ID",
+            "description": " 跟单等级ID",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -12584,6 +12533,311 @@
         ],
         "consumes": [
           "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/tasks/list": {
+      "get": {
+        "summary": "获取任务列表",
+        "operationId": "GetPromoTaskListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPromoTaskListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "task_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "task_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "create_time_range",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "update_time_range",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/user_point_history/create": {
+      "post": {
+        "summary": "创建积分明细",
+        "operationId": "CreateUserPointHistoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserPointHistoryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/user_point_history_audit/audit": {
+      "post": {
+        "summary": "积分明细审核",
+        "operationId": "AuditUserPointHistoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserPointHistoryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/user_point_history_list": {
+      "get": {
+        "summary": "获取用户积分明细",
+        "operationId": "GetUserPointHistoryListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserPointHistoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "task_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "task_item",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "audit_status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "income_or_expense",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "create_time_range",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "update_time_range",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/user_point_statistics": {
+      "get": {
+        "summary": "获取用户积分统计",
+        "operationId": "GetUserPointStatisticsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTaskUserListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "first_point_time",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "user_task_status",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "uid_or_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/promotion/promotion/user_point_status/update": {
+      "post": {
+        "summary": "更新用户积分状态",
+        "operationId": "UpdateUserPointStatusHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "promotion"
+        ],
+        "consumes": [
+          "application/json"
         ]
       }
     },
@@ -12634,429 +12888,6 @@
         ],
         "consumes": [
           "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/task_user_status/update": {
-      "post": {
-        "summary": "更新用户积分状态",
-        "operationId": "UpdateTaskUserStatusHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateTaskUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/tasks/list": {
-      "get": {
-        "summary": "获取任务列表",
-        "operationId": "GetPromoTaskListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPromoTaskListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "task_type",
-            "description": " 任务类型",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "task_name",
-            "description": " 任务名称",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "task_id",
-            "description": " 任务ID",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "status",
-            "description": " 状态",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
-            "name": "create_time_range",
-            "description": " 创建时间 create_time_start，create_time_end",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "update_time_range",
-            "description": " 更新时间 update_time_start，update_time_end",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point/{user_id}": {
-      "get": {
-        "summary": "获取指定用户积分",
-        "operationId": "GetUserPointHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetUserPointResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "user_id",
-            "description": " 用户ID",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_audit/{uph_id}": {
-      "get": {
-        "summary": "获取积分明细审核记录",
-        "operationId": "GetUserPointAuditHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetUserPointAuditResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "uph_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "uph_id",
-            "description": " 用户积分明细ID",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_history/create": {
-      "post": {
-        "summary": "创建积分明细",
-        "operationId": "CreateUserPointHistoryHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateUserPointHistoryRequest"
-            }
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_history_audit/audit": {
-      "post": {
-        "summary": "积分明细审核",
-        "operationId": "AuditUserPointHistoryHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateUserPointHistoryRequest"
-            }
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_history_audit/batch_audit": {
-      "post": {
-        "summary": "批量审核积分明细",
-        "operationId": "BatchAuditUserPointHistoryHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/BatchUpdateUserPointHistoryRequest"
-            }
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_history_list": {
-      "get": {
-        "summary": "获取用户积分明细",
-        "operationId": "GetUserPointHistoryListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetUserPointHistoryResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "uId",
-            "description": " 用户ID",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "task_type",
-            "description": " 任务类型",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "task_item",
-            "description": " 任务项目",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "audit_status",
-            "description": " 审核状态",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "income_or_expense",
-            "description": " 收入或支出",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
-            "name": "create_time_range",
-            "description": " 创建时间 create_time_start，create_time_end",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "update_time_range",
-            "description": " 更新时间 update_time_start，update_time_end",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/promotion/user_point_statistics": {
-      "get": {
-        "summary": "获取用户积分统计",
-        "operationId": "GetUserPointStatisticsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetTaskUserListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "first_point_time",
-            "description": " 首次积分时间",
-            "in": "query",
-            "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
-          },
-          {
-            "name": "user_task_status",
-            "description": " 任务状态",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
-            "name": "uid_or_name",
-            "description": " 用户ID或用户名",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "promotion"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -13594,7 +13425,7 @@
           },
           {
             "name": "churn_day",
-            "description": " 流失天数\r",
+            "description": " 流失天数",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -13602,7 +13433,7 @@
           },
           {
             "name": "volume",
-            "description": " 手数\r",
+            "description": " 手数",
             "in": "query",
             "required": false,
             "type": "number",
@@ -13610,7 +13441,7 @@
           },
           {
             "name": "net_deposit",
-            "description": " 净入金\r",
+            "description": " 净入金",
             "in": "query",
             "required": false,
             "type": "number",
@@ -13618,7 +13449,7 @@
           },
           {
             "name": "trading_platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
@@ -13838,7 +13669,7 @@
           },
           {
             "name": "is_active",
-            "description": " 是否激活\r",
+            "description": " 是否激活",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -13896,7 +13727,7 @@
           },
           {
             "name": "is_active",
-            "description": " 是否激活\r",
+            "description": " 是否激活",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -14995,21 +14826,21 @@
         "parameters": [
           {
             "name": "monitor_type",
-            "description": " 监控类型，same_ip 同ip，same_device 同设备号，same_wallet 同钱包地址，same_bank 同银行卡\r",
+            "description": " 监控类型，same_ip 同ip，same_device 同设备号，same_wallet 同钱包地址，same_bank 同银行卡",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "correlate_info",
-            "description": " 关联信息，ip, device_id, ewallet_addr, bank_card\r",
+            "description": " 关联信息，ip, device_id, ewallet_addr, bank_card",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "start_time",
-            "description": " 毫秒时间戳\r",
+            "description": " 毫秒时间戳",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15017,7 +14848,7 @@
           },
           {
             "name": "end_time",
-            "description": " 毫秒时间戳\r",
+            "description": " 毫秒时间戳",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15284,7 +15115,7 @@
           },
           {
             "name": "time_start",
-            "description": " 开始时间（可选）\r",
+            "description": " 开始时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15292,7 +15123,7 @@
           },
           {
             "name": "time_end",
-            "description": " 结束时间（可选）\r",
+            "description": " 结束时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15300,7 +15131,7 @@
           },
           {
             "name": "status",
-            "description": " 状态\r",
+            "description": " 状态",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -15360,7 +15191,7 @@
         "parameters": [
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15368,7 +15199,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15398,7 +15229,7 @@
         "parameters": [
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15406,7 +15237,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15507,14 +15338,14 @@
           },
           {
             "name": "task_type",
-            "description": " 任务类型\r",
+            "description": " 任务类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 任务状态\r",
+            "description": " 任务状态",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -15522,7 +15353,7 @@
           },
           {
             "name": "time_start",
-            "description": " 开始时间（可选）\r",
+            "description": " 开始时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15530,7 +15361,7 @@
           },
           {
             "name": "time_end",
-            "description": " 结束时间（可选）\r",
+            "description": " 结束时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15640,14 +15471,14 @@
         "parameters": [
           {
             "name": "task_type",
-            "description": " 任务类型\r",
+            "description": " 任务类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态\r",
+            "description": " 状态",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -15669,7 +15500,7 @@
           },
           {
             "name": "time_start",
-            "description": " 开始时间（可选）\r",
+            "description": " 开始时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15677,7 +15508,7 @@
           },
           {
             "name": "time_end",
-            "description": " 结束时间（可选）\r",
+            "description": " 结束时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15707,7 +15538,7 @@
         "parameters": [
           {
             "name": "uid",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15715,7 +15546,7 @@
           },
           {
             "name": "task_type",
-            "description": " 任务类型\r",
+            "description": " 任务类型",
             "in": "query",
             "required": false,
             "type": "string"
@@ -15818,7 +15649,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "description": " 用户ID\r",
+            "description": " 用户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15826,7 +15657,7 @@
           },
           {
             "name": "review_status",
-            "description": " 审核状态，可选过滤\r",
+            "description": " 审核状态，可选过滤",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15848,7 +15679,7 @@
           },
           {
             "name": "time_start",
-            "description": " 开始时间（可选）\r",
+            "description": " 开始时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15856,7 +15687,7 @@
           },
           {
             "name": "time_end",
-            "description": " 结束时间（可选）\r",
+            "description": " 结束时间（可选）",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15952,7 +15783,7 @@
           },
           {
             "name": "id",
-            "description": " 考试ID\r",
+            "description": " 考试ID",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -16003,7 +15834,7 @@
           },
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16011,7 +15842,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16026,7 +15857,7 @@
           },
           {
             "name": "status",
-            "description": " 报名状态 1 报名成功 2 报名失败\r",
+            "description": " 报名状态 1 报名成功 2 报名失败",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16062,7 +15893,7 @@
           },
           {
             "name": "id",
-            "description": " 考试记录ID\r",
+            "description": " 考试记录ID",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -16113,7 +15944,7 @@
           },
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16121,7 +15952,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16129,7 +15960,7 @@
           },
           {
             "name": "status",
-            "description": " Status 考试状态(0:未开始 1:进行中 2:已通过 3:未通过)\r",
+            "description": " Status 考试状态(0:未开始 1:进行中 2:已通过 3:未通过)",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16159,7 +15990,7 @@
         "parameters": [
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16167,7 +15998,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16175,7 +16006,7 @@
           },
           {
             "name": "stat_type",
-            "description": " 0 新增 1 累计\r",
+            "description": " 0 新增 1 累计",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16225,7 +16056,7 @@
           },
           {
             "name": "exam_status",
-            "description": " 考试状态 0 不可用 1 可用\r",
+            "description": " 考试状态 0 不可用 1 可用",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16233,7 +16064,7 @@
           },
           {
             "name": "start_time",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16241,7 +16072,7 @@
           },
           {
             "name": "end_time",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16351,28 +16182,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键词\r",
+            "description": " 关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组别\r",
+            "description": " 交易组别",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单\r",
+            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16380,7 +16211,7 @@
           },
           {
             "name": "account",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16388,7 +16219,7 @@
           },
           {
             "name": "level",
-            "description": " 账户级别\r",
+            "description": " 账户级别",
             "in": "query",
             "required": false,
             "type": "string"
@@ -16409,7 +16240,7 @@
           },
           {
             "name": "user_ids",
-            "description": " 用户ID列表\r",
+            "description": " 用户ID列表",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16483,14 +16314,14 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台，可选\r",
+            "description": " 交易平台，可选",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_real",
-            "description": " 是否真实账户，可选\r",
+            "description": " 是否真实账户，可选",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -16526,7 +16357,7 @@
           },
           {
             "name": "id",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16586,7 +16417,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16594,7 +16425,7 @@
           },
           {
             "name": "status",
-            "description": " 账户状态\r",
+            "description": " 账户状态",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16602,7 +16433,7 @@
           },
           {
             "name": "user_ids",
-            "description": " 用户ID列表\r",
+            "description": " 用户ID列表",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16748,28 +16579,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键词\r",
+            "description": " 关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组别\r",
+            "description": " 交易组别",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单\r",
+            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16777,7 +16608,7 @@
           },
           {
             "name": "account",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16785,7 +16616,7 @@
           },
           {
             "name": "level",
-            "description": " 账户级别\r",
+            "description": " 账户级别",
             "in": "query",
             "required": false,
             "type": "string"
@@ -16806,7 +16637,7 @@
           },
           {
             "name": "user_ids",
-            "description": " 用户ID列表\r",
+            "description": " 用户ID列表",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16886,7 +16717,7 @@
           },
           {
             "name": "id",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -16976,21 +16807,21 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 平台\r",
+            "description": " 平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "level_id",
-            "description": " 等级\r",
+            "description": " 等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17083,42 +16914,42 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " uid/姓名\r",
+            "description": " uid/姓名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组别\r",
+            "description": " 交易组别",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_type",
-            "description": " 交易类型\r",
+            "description": " 交易类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17126,7 +16957,7 @@
           },
           {
             "name": "user_group_id",
-            "description": " 客户组别\r",
+            "description": " 客户组别",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17134,7 +16965,7 @@
           },
           {
             "name": "order_no",
-            "description": " 订单单号\r",
+            "description": " 订单单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17142,7 +16973,7 @@
           },
           {
             "name": "transaction_no",
-            "description": " 交易单号\r",
+            "description": " 交易单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17150,7 +16981,7 @@
           },
           {
             "name": "position_no",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17158,7 +16989,7 @@
           },
           {
             "name": "open_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17166,7 +16997,7 @@
           },
           {
             "name": "open_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17174,7 +17005,7 @@
           },
           {
             "name": "close_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17182,7 +17013,7 @@
           },
           {
             "name": "close_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17319,7 +17150,7 @@
           },
           {
             "name": "pending_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17327,7 +17158,7 @@
           },
           {
             "name": "pending_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17457,7 +17288,7 @@
           },
           {
             "name": "open_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17465,7 +17296,7 @@
           },
           {
             "name": "open_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17612,14 +17443,14 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_type",
-            "description": " 平台类型 0 真实 1 模拟 2 交易员\r",
+            "description": " 平台类型 0 真实 1 模拟 2 交易员",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17709,21 +17540,21 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 平台\r",
+            "description": " 平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "level_id",
-            "description": " 等级\r",
+            "description": " 等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17816,7 +17647,7 @@
         "parameters": [
           {
             "name": "transactin_symbol_model_reflush",
-            "description": " 刷新交易品种模型\r",
+            "description": " 刷新交易品种模型",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -17824,7 +17655,7 @@
           },
           {
             "name": "init_trader_account",
-            "description": " 初始化交易账户\r",
+            "description": " 初始化交易账户",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -17854,7 +17685,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": " 添加交易假期请求\r",
+            "description": " 添加交易假期请求",
             "in": "body",
             "required": true,
             "schema": {
@@ -17885,21 +17716,21 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "description",
-            "description": " 假期描述\r",
+            "description": " 假期描述",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "offset",
-            "description": " 偏移量\r",
+            "description": " 偏移量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17907,7 +17738,7 @@
           },
           {
             "name": "limit",
-            "description": " 限制数量\r",
+            "description": " 限制数量",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -17937,7 +17768,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": " 设置假期状态请求\r",
+            "description": " 设置假期状态请求",
             "in": "body",
             "required": true,
             "schema": {
@@ -17967,14 +17798,14 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18003,7 +17834,7 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易组名称\r",
+            "description": " 交易组名称",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18268,28 +18099,28 @@
         "parameters": [
           {
             "name": "symbol_group",
-            "description": " 交易品种组\r",
+            "description": " 交易品种组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol_name",
-            "description": " 交易品种名称\r",
+            "description": " 交易品种名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "digits",
-            "description": " 小数点\r",
+            "description": " 小数点",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_watch_list",
-            "description": " 是否自选 1 为是 2 为否\r",
+            "description": " 是否自选 1 为是 2 为否",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18297,7 +18128,7 @@
           },
           {
             "name": "is_hot",
-            "description": " 是否热门 1 为是 2 为否\r",
+            "description": " 是否热门 1 为是 2 为否",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18305,7 +18136,7 @@
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18468,21 +18299,21 @@
         "parameters": [
           {
             "name": "group",
-            "description": " 交易组名\r",
+            "description": " 交易组名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_type",
-            "description": " 平台类型 0 真实 1 模拟 2 交易员\r",
+            "description": " 平台类型 0 真实 1 模拟 2 交易员",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18512,14 +18343,14 @@
         "parameters": [
           {
             "name": "group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_type",
-            "description": " 平台类型 0 真实 1 模拟 2 交易员\r",
+            "description": " 平台类型 0 真实 1 模拟 2 交易员",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18579,14 +18410,14 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 平台名\r",
+            "description": " 平台名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform_type",
-            "description": "  0 真实  1 模拟  2 交易员\r",
+            "description": "  0 真实  1 模拟  2 交易员",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18594,28 +18425,28 @@
           },
           {
             "name": "name",
-            "description": " 交易组名\r",
+            "description": " 交易组名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 分组名称\r",
+            "description": " 分组名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "margin_mode",
-            "description": " 保证金类型\r",
+            "description": " 保证金类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "user_level",
-            "description": " 用户等级\r",
+            "description": " 用户等级",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18623,7 +18454,7 @@
           },
           {
             "name": "margin_free_mode",
-            "description": " 可用保证金类型\r",
+            "description": " 可用保证金类型",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18680,14 +18511,14 @@
         "parameters": [
           {
             "name": "group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "domain_id",
-            "description": " 站点\r",
+            "description": " 站点",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18695,21 +18526,21 @@
           },
           {
             "name": "symbol_name",
-            "description": " 交易品种名称\r",
+            "description": " 交易品种名称",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 平台\r",
+            "description": " 平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "symbol_group",
-            "description": " 交易品种组\r",
+            "description": " 交易品种组",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18738,14 +18569,14 @@
         "parameters": [
           {
             "name": "group",
-            "description": " 交易组\r",
+            "description": " 交易组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "domain_id",
-            "description": " 站点\r",
+            "description": " 站点",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18753,14 +18584,14 @@
           },
           {
             "name": "platform",
-            "description": " 平台\r",
+            "description": " 平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "is_real",
-            "description": " 是否真实组\r",
+            "description": " 是否真实组",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -18768,14 +18599,14 @@
           },
           {
             "name": "symbol_group",
-            "description": " 交易品种组\r",
+            "description": " 交易品种组",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "keyword",
-            "description": " 关键词搜索，按照品种symbol搜索\r",
+            "description": " 关键词搜索，按照品种symbol搜索",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18878,42 +18709,42 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " uid/姓名\r",
+            "description": " uid/姓名",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组别\r",
+            "description": " 交易组别",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_symbol",
-            "description": " 交易品种\r",
+            "description": " 交易品种",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "transaction_type",
-            "description": " 交易类型\r",
+            "description": " 交易类型",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "account",
-            "description": " 交易账号\r",
+            "description": " 交易账号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18921,7 +18752,7 @@
           },
           {
             "name": "user_group_id",
-            "description": " 客户组别\r",
+            "description": " 客户组别",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18929,7 +18760,7 @@
           },
           {
             "name": "order_no",
-            "description": " 订单单号\r",
+            "description": " 订单单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18937,7 +18768,7 @@
           },
           {
             "name": "transaction_no",
-            "description": " 交易单号\r",
+            "description": " 交易单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18945,7 +18776,7 @@
           },
           {
             "name": "position_no",
-            "description": " 持仓单号\r",
+            "description": " 持仓单号",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18953,7 +18784,7 @@
           },
           {
             "name": "open_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18961,7 +18792,7 @@
           },
           {
             "name": "open_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18969,7 +18800,7 @@
           },
           {
             "name": "close_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18977,7 +18808,7 @@
           },
           {
             "name": "close_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19114,7 +18945,7 @@
           },
           {
             "name": "pending_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19122,7 +18953,7 @@
           },
           {
             "name": "pending_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19252,7 +19083,7 @@
           },
           {
             "name": "open_start",
-            "description": " 开始时间\r",
+            "description": " 开始时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19260,7 +19091,7 @@
           },
           {
             "name": "open_end",
-            "description": " 结束时间\r",
+            "description": " 结束时间",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19447,7 +19278,7 @@
         "parameters": [
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
@@ -19476,28 +19307,28 @@
         "parameters": [
           {
             "name": "keyword",
-            "description": " 关键词\r",
+            "description": " 关键词",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "platform",
-            "description": " 交易平台\r",
+            "description": " 交易平台",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "group",
-            "description": " 交易组别\r",
+            "description": " 交易组别",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单\r",
+            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19505,7 +19336,7 @@
           },
           {
             "name": "account",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19513,7 +19344,7 @@
           },
           {
             "name": "level",
-            "description": " 账户级别\r",
+            "description": " 账户级别",
             "in": "query",
             "required": false,
             "type": "string"
@@ -19534,7 +19365,7 @@
           },
           {
             "name": "user_ids",
-            "description": " 用户ID列表\r",
+            "description": " 用户ID列表",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19614,7 +19445,7 @@
           },
           {
             "name": "id",
-            "description": " 账户ID\r",
+            "description": " 账户ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -21221,35 +21052,6 @@
         ],
         "consumes": [
           "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/user/search": {
-      "get": {
-        "summary": "搜索用户",
-        "operationId": "SearchUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/SearchUserResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "keyword",
-            "description": " 搜索关键字",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "crmuser"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -23178,6 +22980,26 @@
         ],
         "tags": [
           "user_trade_unlock_activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/export/activity/batch_sign_up_template": {
+      "get": {
+        "summary": "获取批量报名模板",
+        "operationId": "GetBatchSignUpTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBatchSignUpTemplateResponse"
+            }
+          }
+        },
+        "tags": [
+          "activity"
         ],
         "consumes": [
           "application/x-www-form-urlencoded"
@@ -26832,26 +26654,6 @@
       },
       "title": "BatchUpdateOutboundReconciliationRequest"
     },
-    "BatchUpdateUserPointHistoryRequest": {
-      "type": "object",
-      "properties": {
-        "ids_with_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IdsWithType"
-          }
-        },
-        "action": {
-          "type": "string",
-          "description": " 动作"
-        },
-        "remark": {
-          "type": "string",
-          "description": " 备注"
-        }
-      },
-      "title": "BatchUpdateUserPointHistoryRequest"
-    },
     "Benefit": {
       "type": "object",
       "properties": {
@@ -29376,6 +29178,9 @@
     "CreatePromoTaskRequest": {
       "type": "object",
       "properties": {
+        "create_by": {
+          "type": "string"
+        },
         "promo_task": {
           "$ref": "#/definitions/PromoTask"
         },
@@ -29385,11 +29190,8 @@
             "$ref": "#/definitions/TaskContent"
           }
         },
-        "task_details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TaskDetail"
-          }
+        "task_detail": {
+          "$ref": "#/definitions/TaskDetail"
         }
       },
       "title": "CreatePromoTaskRequest"
@@ -31665,18 +31467,6 @@
       },
       "title": "DeviceBlackListResp"
     },
-    "Dictionary": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "code": {
-          "type": "string"
-        }
-      },
-      "title": "Dictionary"
-    },
     "EWallet": {
       "type": "object",
       "properties": {
@@ -32938,8 +32728,7 @@
       "type": "object",
       "properties": {
         "uid": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " UID"
         },
         "name": {
@@ -32960,8 +32749,7 @@
           "description": " 带单员ID"
         },
         "sp_uid": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " 跟随交易员UID"
         },
         "follow_status": {
@@ -32982,23 +32770,23 @@
         },
         "stop_loss_ratio": {
           "type": "string",
-          "description": " 止损比例（止盈/止损比例）"
+          "description": " 止损比例"
         },
         "take_profit_ratio": {
           "type": "string",
-          "description": " 止盈比例（止盈/止损比例）"
+          "description": " 止盈比例"
         },
-        "compensated_fund": {
+        "follow_fund": {
           "type": "string",
-          "description": " 赔付基金"
+          "description": " 随付基金"
         },
-        "total_compensated": {
+        "used_fund": {
           "type": "string",
-          "description": " 已赔付金额"
+          "description": " 已用付金额"
         },
         "accumulated_profit": {
           "type": "string",
-          "description": " 已贡献分润"
+          "description": " 已累计分润"
         },
         "follow_time": {
           "type": "integer",
@@ -34786,23 +34574,19 @@
           "description": " 下拉框筛选用户等级"
         },
         "sp_uid": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " 文本框，筛选跟随交易员UID"
         },
         "follow_status": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " 下拉框筛选跟随状态"
         },
         "follow_type": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " 下拉框筛选跟随类型"
         },
         "follow_mode": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": " 下拉框筛选跟随模式"
         },
         "follow_time_range": {
@@ -36090,30 +35874,24 @@
       "type": "object",
       "properties": {
         "task_type": {
-          "type": "string",
-          "description": " 任务类型"
+          "type": "string"
         },
         "task_name": {
-          "type": "string",
-          "description": " 任务名称"
+          "type": "string"
         },
         "task_id": {
           "type": "integer",
-          "format": "int64",
-          "description": " 任务ID"
+          "format": "int64"
         },
         "status": {
           "type": "boolean",
-          "format": "boolean",
-          "description": " 状态"
+          "format": "boolean"
         },
         "create_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
-          "description": " 创建时间 create_time_start，create_time_end"
+          "$ref": "#/definitions/CreateTimeRangeForm"
         },
         "update_time_range": {
-          "$ref": "#/definitions/UpdateTimeRangeForm",
-          "description": " 更新时间 update_time_start，update_time_end"
+          "$ref": "#/definitions/UpdateTimeRangeForm"
         },
         "offset": {
           "type": "integer",
@@ -37081,7 +36859,7 @@
         "TaskID": {
           "type": "integer",
           "format": "int64",
-          "description": " 任务ID"
+          "description": " 跟单等级ID"
         }
       },
       "title": "GetTaskContentRequest",
@@ -37293,17 +37071,14 @@
       "type": "object",
       "properties": {
         "first_point_time": {
-          "$ref": "#/definitions/RangeTimeForm",
-          "description": " 首次积分时间"
+          "$ref": "#/definitions/RangeTimeForm"
         },
         "user_task_status": {
           "type": "boolean",
-          "format": "boolean",
-          "description": " 任务状态"
+          "format": "boolean"
         },
         "uid_or_name": {
-          "type": "string",
-          "description": " 用户ID或用户名"
+          "type": "string"
         },
         "offset": {
           "type": "integer",
@@ -38244,65 +38019,32 @@
       },
       "title": "GetUserPointAuditListResponse"
     },
-    "GetUserPointAuditRequest": {
-      "type": "object",
-      "properties": {
-        "UPHID": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 用户积分明细ID"
-        }
-      },
-      "title": "GetUserPointAuditRequest",
-      "required": [
-        "uph_id"
-      ]
-    },
-    "GetUserPointAuditResponse": {
-      "type": "object",
-      "properties": {
-        "user_point_audits": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PointAuditHistory"
-          }
-        }
-      },
-      "title": "GetUserPointAuditResponse"
-    },
     "GetUserPointHistoryRequest": {
       "type": "object",
       "properties": {
         "uId": {
           "type": "integer",
-          "format": "int64",
-          "description": " 用户ID"
+          "format": "int64"
         },
         "task_type": {
-          "type": "string",
-          "description": " 任务类型"
+          "type": "string"
         },
         "task_item": {
-          "type": "string",
-          "description": " 任务项目"
+          "type": "string"
         },
         "audit_status": {
           "type": "integer",
-          "format": "int64",
-          "description": " 审核状态"
+          "format": "int64"
         },
         "income_or_expense": {
           "type": "boolean",
-          "format": "boolean",
-          "description": " 收入或支出"
+          "format": "boolean"
         },
         "create_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
-          "description": " 创建时间 create_time_start，create_time_end"
+          "$ref": "#/definitions/CreateTimeRangeForm"
         },
         "update_time_range": {
-          "$ref": "#/definitions/UpdateTimeRangeForm",
-          "description": " 更新时间 update_time_start，update_time_end"
+          "$ref": "#/definitions/UpdateTimeRangeForm"
         },
         "offset": {
           "type": "integer",
@@ -38330,32 +38072,6 @@
         }
       },
       "title": "GetUserPointHistoryResponse"
-    },
-    "GetUserPointRequest": {
-      "type": "object",
-      "properties": {
-        "UID": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 用户ID"
-        }
-      },
-      "title": "GetUserPointRequest",
-      "required": [
-        "user_id"
-      ]
-    },
-    "GetUserPointResponse": {
-      "type": "object",
-      "properties": {
-        "user_points": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserInfoWithPoint"
-          }
-        }
-      },
-      "title": "GetUserPointResponse"
     },
     "GetUserSettlementRecordListRequest": {
       "type": "object",
@@ -39220,19 +38936,6 @@
         }
       },
       "title": "IdentityDocumentList"
-    },
-    "IdsWithType": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "task_type": {
-          "type": "string"
-        }
-      },
-      "title": "IdsWithType"
     },
     "ImportBankSettingReq": {
       "type": "object",
@@ -43567,38 +43270,6 @@
       },
       "title": "PlatformTransactionTime"
     },
-    "PointAuditHistory": {
-      "type": "object",
-      "properties": {
-        "uph_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "audit_user": {
-          "type": "string"
-        },
-        "remark": {
-          "type": "string"
-        },
-        "action": {
-          "type": "string"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        }
-      },
-      "title": "PointAuditHistory"
-    },
     "PositionOrderDetailResponse": {
       "type": "object",
       "properties": {
@@ -44212,7 +43883,7 @@
         "link_type": {
           "type": "integer",
           "format": "int64",
-          "description": " 链接类型 0:内部链接 1:外部链接"
+          "description": " 链接类型"
         },
         "link_url": {
           "type": "string",
@@ -44241,23 +43912,6 @@
           "type": "integer",
           "format": "int64",
           "description": " 周期结束时间"
-        },
-        "task_item": {
-          "type": "string",
-          "description": " 任务项目代码"
-        },
-        "task_target": {
-          "type": "string",
-          "description": " 任务目标"
-        },
-        "task_point": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 任务积分"
-        },
-        "symbols": {
-          "type": "string",
-          "description": " 品种"
         }
       },
       "title": "PromoTask"
@@ -44285,7 +43939,7 @@
         "link_type": {
           "type": "integer",
           "format": "int64",
-          "description": " 链接类型 0:内部链接 1:外部链接"
+          "description": " 链接类型"
         },
         "link_url": {
           "type": "string",
@@ -44315,9 +43969,18 @@
           "format": "int64",
           "description": " 周期结束时间"
         },
+        "detail_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "task_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 任务ID"
+        },
         "task_item": {
           "type": "string",
-          "description": " 任务项目代码"
+          "description": " 任务项目"
         },
         "task_target": {
           "type": "string",
@@ -44332,98 +43995,14 @@
           "type": "string",
           "description": " 品种"
         },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "created_by": {
-          "type": "string",
-          "description": " 创建人"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "update_by": {
-          "type": "string",
-          "description": " 更新人"
-        },
-        "task_item_name": {
-          "type": "string",
-          "description": " 任务项目中文名"
-        },
-        "task_name": {
-          "type": "string",
-          "description": " 任务名称-通用语言的名称"
-        },
-        "total_points_obtained": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总积分"
-        },
-        "participant_counts": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 参与者数量"
-        },
-        "task_details": {
+        "task_detail_attached": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TaskDetail"
+            "$ref": "#/definitions/TaskDetailAttached"
           }
         }
       },
       "title": "PromoTaskWithDetail"
-    },
-    "PromotionDictResponse": {
-      "type": "object",
-      "properties": {
-        "task_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 任务类型"
-        },
-        "sign_item_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 签到项目"
-        },
-        "invite_item_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 邀请项目"
-        },
-        "beginner_item_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 新手项目"
-        },
-        "daily_item_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 日常项目"
-        },
-        "period_type": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Dictionary"
-          },
-          "description": " 周期类型"
-        }
-      },
-      "title": "PromotionDictResponse"
     },
     "PushMessageInfo": {
       "type": "object",
@@ -45493,6 +45072,16 @@
       },
       "title": "Request"
     },
+    "RetryAccountAdjustmentStaskRequest": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "description": " 订单号"
+        }
+      },
+      "title": "RetryAccountAdjustmentStaskRequest"
+    },
     "ReviewTimeRangeForm": {
       "type": "object",
       "properties": {
@@ -45666,29 +45255,6 @@
         }
       },
       "title": "RuleListResponse"
-    },
-    "SearchUserRequest": {
-      "type": "object",
-      "properties": {
-        "keyword": {
-          "type": "string",
-          "description": " 搜索关键字"
-        }
-      },
-      "title": "SearchUserRequest"
-    },
-    "SearchUserResponse": {
-      "type": "object",
-      "properties": {
-        "users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SimpleUserInfo"
-          },
-          "description": " 用户列表"
-        }
-      },
-      "title": "SearchUserResponse"
     },
     "SendPushMessageReq": {
       "type": "object",
@@ -46941,30 +46507,12 @@
           "description": " 成为交易员时间"
         },
         "source": {
-          "type": "string",
+          "type": "integer",
+          "format": "int32",
           "description": " 交易员来源"
         }
       },
       "title": "SignalProviderV2Info"
-    },
-    "SimpleUserInfo": {
-      "type": "object",
-      "properties": {
-        "uid": {
-          "type": "integer",
-          "format": "int64",
-          "description": " UID"
-        },
-        "name": {
-          "type": "string",
-          "description": " 姓名"
-        },
-        "nickname": {
-          "type": "string",
-          "description": " 昵称"
-        }
-      },
-      "title": "SimpleUserInfo"
     },
     "StartSettlementRequest": {
       "type": "object",
@@ -47764,6 +47312,44 @@
     "TaskDetail": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "task_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 任务ID"
+        },
+        "task_item": {
+          "type": "string",
+          "description": " 任务项目"
+        },
+        "task_target": {
+          "type": "string",
+          "description": " 任务目标"
+        },
+        "task_point": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 任务积分"
+        },
+        "symbols": {
+          "type": "string",
+          "description": " 品种"
+        },
+        "task_detail_attached": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskDetailAttached"
+          }
+        }
+      },
+      "title": "TaskDetail"
+    },
+    "TaskDetailAttached": {
+      "type": "object",
+      "properties": {
         "name": {
           "type": "string",
           "description": " 任务项目名称"
@@ -47778,7 +47364,7 @@
           "description": " 任务积分"
         }
       },
-      "title": "TaskDetail"
+      "title": "TaskDetailAttached"
     },
     "TaskI18N": {
       "type": "object",
@@ -52083,6 +51669,9 @@
     "UpdatePromoTaskRequest": {
       "type": "object",
       "properties": {
+        "update_by": {
+          "type": "string"
+        },
         "promo_task": {
           "$ref": "#/definitions/PromoTask"
         },
@@ -52092,30 +51681,11 @@
             "$ref": "#/definitions/TaskContent"
           }
         },
-        "task_details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TaskDetail"
-          }
+        "task_detail": {
+          "$ref": "#/definitions/TaskDetail"
         }
       },
       "title": "UpdatePromoTaskRequest"
-    },
-    "UpdatePromoTaskStatusRequest": {
-      "type": "object",
-      "properties": {
-        "task_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 任务ID"
-        },
-        "status": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 状态 0: 禁用 1: 启用"
-        }
-      },
-      "title": "UpdatePromoTaskStatusRequest"
     },
     "UpdatePushMessageReq": {
       "type": "object",
@@ -53250,10 +52820,6 @@
         "remark": {
           "type": "string",
           "description": " 备注"
-        },
-        "task_type": {
-          "type": "string",
-          "description": " 任务类型"
         }
       },
       "title": "UpdateUserPointHistoryRequest"
@@ -53527,10 +53093,6 @@
         "is_real": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "uid": {
-          "type": "integer",
-          "format": "int64"
         }
       },
       "title": "UserAccountByPlatformRequest"
@@ -54363,23 +53925,6 @@
         }
       },
       "title": "UserInfo"
-    },
-    "UserInfoWithPoint": {
-      "type": "object",
-      "properties": {
-        "user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_name": {
-          "type": "string"
-        },
-        "points_balance": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UserInfoWithPoint"
     },
     "UserLabel": {
       "type": "object",
@@ -55304,19 +54849,6 @@
         "appendix": {
           "type": "string",
           "description": " 附件"
-        },
-        "created_by": {
-          "type": "string",
-          "description": " 创建人"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "task_name": {
-          "type": "string",
-          "description": " 任务名称"
         }
       },
       "title": "UserPointHistory"

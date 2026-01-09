@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"go-admin/common/constant"
+
 	log "github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"gorm.io/gorm"
@@ -14,7 +16,7 @@ type Login struct {
 }
 
 func (u *Login) GetUser(tx *gorm.DB) (user SysUser, err error) {
-	err = tx.Table("sys_user").Where("username = ?  and status = '2'", u.Username).First(&user).Error
+	err = tx.Table("sys_user").Where("username = ?  and status = ?", u.Username, constant.UserStatusNormal).First(&user).Error
 	if err != nil {
 		log.Errorf("get user error, %s", err.Error())
 		return
