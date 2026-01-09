@@ -12,11 +12,11 @@ import (
 )
 
 func TestGoModelTemplate(t *testing.T) {
-	hash, err := bcrypt.GenerateFromPassword([]byte("R9&s7Bj3@y4w"), bcrypt.DefaultCost)
+	hash, err := bcrypt.GenerateFromPassword([]byte("adminqwer123"), bcrypt.DefaultCost)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Println(string(hash))
+	fmt.Printf("\n%s\n", string(hash))
 	t.Log(string(hash))
 }
 
