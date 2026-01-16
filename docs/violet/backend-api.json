@@ -935,6 +935,487 @@
         ]
       }
     },
+    "/poplar/violet/backend/appconfiguration/ad-component/create": {
+      "post": {
+        "summary": "创建广告组件",
+        "operationId": "CreateAdComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateAdComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAdComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/ad-component/delete": {
+      "post": {
+        "summary": "删除广告组件",
+        "operationId": "DeleteAdComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteAdComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAdComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/ad-component/get": {
+      "get": {
+        "summary": "获取广告组件详情",
+        "operationId": "GetAdComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAdComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/ad-component/list": {
+      "get": {
+        "summary": "获取广告组件列表",
+        "operationId": "GetAdComponentListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAdComponentListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/ad-component/update": {
+      "post": {
+        "summary": "更新广告组件",
+        "operationId": "UpdateAdComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateAdComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAdComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/banner/create": {
+      "post": {
+        "summary": "创建轮播图",
+        "operationId": "CreateBannerHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateBannerResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBannerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/banner/delete": {
+      "post": {
+        "summary": "删除轮播图",
+        "operationId": "DeleteBannerHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteBannerResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBannerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/banner/get": {
+      "get": {
+        "summary": "获取轮播图详情",
+        "operationId": "GetBannerHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBannerResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/banner/list": {
+      "get": {
+        "summary": "获取轮播图列表",
+        "operationId": "GetBannerListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBannerListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/banner/update": {
+      "post": {
+        "summary": "更新轮播图",
+        "operationId": "UpdateBannerHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateBannerResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBannerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/common-component/create": {
+      "post": {
+        "summary": "创建通用组件",
+        "operationId": "CreateCommonComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateCommonComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateCommonComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/common-component/delete": {
+      "post": {
+        "summary": "删除通用组件",
+        "operationId": "DeleteCommonComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteCommonComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCommonComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/common-component/get": {
+      "get": {
+        "summary": "获取通用组件详情",
+        "operationId": "GetCommonComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCommonComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/common-component/list": {
+      "get": {
+        "summary": "获取通用组件列表",
+        "operationId": "GetCommonComponentListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCommonComponentListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "type",
+            "description": " 组件类型（可选，用于筛选）",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/common-component/update": {
+      "post": {
+        "summary": "更新通用组件",
+        "operationId": "UpdateCommonComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateCommonComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCommonComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/appconfiguration/create": {
       "post": {
         "summary": "创建 AppConfiguration",
@@ -995,6 +1476,518 @@
         ]
       }
     },
+    "/poplar/violet/backend/appconfiguration/grid/create": {
+      "post": {
+        "summary": "创建金刚区",
+        "operationId": "CreateGridHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateGridResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateGridRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/grid/delete": {
+      "post": {
+        "summary": "删除金刚区",
+        "operationId": "DeleteGridHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteGridResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteGridRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/grid/get": {
+      "get": {
+        "summary": "获取金刚区详情",
+        "operationId": "GetGridHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGridResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/grid/list": {
+      "get": {
+        "summary": "获取金刚区列表",
+        "operationId": "GetGridListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGridListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/grid/update": {
+      "post": {
+        "summary": "更新金刚区",
+        "operationId": "UpdateGridHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateGridResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateGridRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/horse/create": {
+      "post": {
+        "summary": "创建跑马灯",
+        "operationId": "CreateHorseHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateHorseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateHorseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/horse/delete": {
+      "post": {
+        "summary": "删除跑马灯",
+        "operationId": "DeleteHorseHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteHorseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteHorseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/horse/get": {
+      "get": {
+        "summary": "获取跑马灯详情",
+        "operationId": "GetHorseHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetHorseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/horse/list": {
+      "get": {
+        "summary": "获取跑马灯列表",
+        "operationId": "GetHorseListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetHorseListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/horse/update": {
+      "post": {
+        "summary": "更新跑马灯",
+        "operationId": "UpdateHorseHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateHorseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateHorseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list": {
+      "get": {
+        "summary": "获取 AppConfiguration 列表",
+        "operationId": "GetAppConfigurationListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppconfigurationListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list-component/create": {
+      "post": {
+        "summary": "创建列表组件",
+        "operationId": "CreateListComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateListComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateListComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list-component/delete": {
+      "post": {
+        "summary": "删除列表组件",
+        "operationId": "DeleteListComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteListComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteListComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list-component/get": {
+      "get": {
+        "summary": "获取列表组件详情",
+        "operationId": "GetListComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetListComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list-component/list": {
+      "get": {
+        "summary": "获取列表组件列表",
+        "operationId": "GetListComponentListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetListComponentListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/list-component/update": {
+      "post": {
+        "summary": "更新列表组件",
+        "operationId": "UpdateListComponentHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateListComponentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateListComponentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/appconfiguration/publish": {
       "post": {
         "summary": "发布 AppConfiguration（将草稿应用到正式配置）",
@@ -1014,6 +2007,164 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/PublishAppConfigurationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/slip/create": {
+      "post": {
+        "summary": "创建横滑区",
+        "operationId": "CreateSlipHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateSlipResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSlipRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/slip/delete": {
+      "post": {
+        "summary": "删除横滑区",
+        "operationId": "DeleteSlipHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteSlipResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteSlipRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/slip/get": {
+      "get": {
+        "summary": "获取横滑区详情",
+        "operationId": "GetSlipHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSlipResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/slip/list": {
+      "get": {
+        "summary": "获取横滑区列表",
+        "operationId": "GetSlipListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSlipListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": " 偏移量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": " 每页数量",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/slip/update": {
+      "post": {
+        "summary": "更新横滑区",
+        "operationId": "UpdateSlipHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateSlipResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateSlipRequest"
             }
           }
         ],
@@ -1052,6 +2203,82 @@
         ],
         "consumes": [
           "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/version/detail": {
+      "get": {
+        "summary": "获取单个配置版本",
+        "operationId": "GetConfigurationVersionHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetConfigurationVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "config_id",
+            "description": " 配置ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "version",
+            "description": " 版本号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/version/list": {
+      "get": {
+        "summary": "获取配置版本列表",
+        "operationId": "GetConfigurationVersionListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetConfigurationVersionListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "config_id",
+            "description": " 配置ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "description": " 分页信息（可选）",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -7937,7 +9164,7 @@
             "type": "string"
           },
           {
-            "name": "platformId",
+            "name": "platform_id",
             "description": " 支付平台id",
             "in": "query",
             "required": false,
@@ -20143,7 +21370,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UserLabel"
+              "$ref": "#/definitions/CreateUserLabelReq"
             }
           }
         ],
@@ -20473,6 +21700,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/user/crmuser/detail": {
+      "get": {
+        "summary": "获取用户详情(new)",
+        "operationId": "GetCrmUserDetailNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " 用户id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "crmuser"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/backend/user/crmuser/merchant/{merchant_id}": {
       "get": {
         "summary": "获取商户下的用户列表",
@@ -20784,7 +22041,7 @@
             "type": "string"
           },
           {
-            "name": "trade_account",
+            "name": "trade_accounts",
             "description": " 交易账号",
             "in": "query",
             "required": false,
@@ -20841,6 +22098,42 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "ids",
+            "description": " 用户id列表",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "emails",
+            "description": " 邮箱列表",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "name_list",
+            "description": " 用户名列表",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tel_list",
+            "description": " 手机号列表",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "identity_status_value",
+            "description": " 身份认证状态值 0 未提交 1待审核 2已认证 3认证失败 10用户删除",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -20929,7 +22222,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UserLabel"
+              "$ref": "#/definitions/DeleteUserLabelReq"
             }
           }
         ],
@@ -21125,7 +22418,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UserLabelList"
+              "$ref": "#/definitions/UserLabelListResp"
             }
           }
         },
@@ -21181,6 +22474,87 @@
             "format": "int32"
           }
         ],
+        "tags": [
+          "crmlabel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/user/get/crmlabel/static": {
+      "get": {
+        "summary": "用户标签统计",
+        "operationId": "GetCrmUserLabelStaticHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserLabelStaticResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "label_id",
+            "description": " 标签id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keywords",
+            "description": " 搜索关键字(支持模糊匹配)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "relation_type",
+            "description": " 关联类型 1:活动",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "relation_id",
+            "description": " 关联id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_get_all_child",
+            "description": " 是否获取所有子标签",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "crmlabel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/user/get/crmlabel/tree": {
+      "get": {
+        "summary": "获取树形标签",
+        "operationId": "GetCrmLabelTreeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserLabelTreeResp"
+            }
+          }
+        },
         "tags": [
           "crmlabel"
         ],
@@ -21861,7 +23235,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UserLabel"
+              "$ref": "#/definitions/UpdateUserLabelReq"
             }
           }
         ],
@@ -23551,6 +24925,54 @@
           "application/x-www-form-urlencoded"
         ]
       }
+    },
+    "/poplar/violet/export/activity/bonus/statistics/export": {
+      "get": {
+        "summary": "导出赠金活动列表",
+        "operationId": "ExportBonusActivityListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportBonusActivityListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "activity_code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "bonus_activity"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
     }
   },
   "definitions": {
@@ -24876,6 +26298,95 @@
       },
       "title": "ActivityUserCondition"
     },
+    "AdComponentInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "picture": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "picture_dark": {
+          "type": "string",
+          "description": " 深色模式图片"
+        },
+        "picture_info": {
+          "$ref": "#/definitions/PictureInfo",
+          "description": " 图片信息"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "AdComponentInfo"
+    },
     "AddBankReq": {
       "type": "object",
       "properties": {
@@ -25086,7 +26597,7 @@
           "type": "array",
           "items": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "description": " 用户id"
         },
@@ -25094,7 +26605,7 @@
           "type": "array",
           "items": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "description": " 标签id"
         }
@@ -26274,6 +27785,99 @@
         "id"
       ]
     },
+    "AppconfigurationListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 包名"
+        },
+        "is_b_test": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否是B面"
+        },
+        "is_h5_app": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否用于H5App"
+        },
+        "cover_image": {
+          "type": "string",
+          "description": " 封面图"
+        },
+        "tab_bar_style": {
+          "type": "string",
+          "description": " 底部导航样式"
+        },
+        "tab_bar_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 底部导航个数"
+        },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
+        }
+      },
+      "title": "AppconfigurationListItem"
+    },
+    "AppconfigurationListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "AppconfigurationListRequest"
+    },
+    "AppconfigurationListResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppconfigurationListItem"
+          },
+          "description": " 应用配置列表项"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总记录数"
+        }
+      },
+      "title": "AppconfigurationListResponse"
+    },
     "ArrivalTimeRangeForm": {
       "type": "object",
       "properties": {
@@ -27006,12 +28610,38 @@
           "type": "string",
           "description": " 样式,轮播滑动效果"
         },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
         "items": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/BannerItem"
           },
           "description": " 轮播图项"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
         }
       },
       "title": "Banner"
@@ -27024,6 +28654,11 @@
           "format": "int64",
           "description": " ID"
         },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
         "picture": {
           "type": "string",
           "description": " 图片"
@@ -27032,19 +28667,9 @@
           "type": "string",
           "description": " 深色模式图片"
         },
-        "picture_text_block": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TextBlock"
-          },
-          "description": " 图片文本块"
-        },
-        "picture_cta_block": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CTABlock"
-          },
-          "description": " 图片按钮块"
+        "picture_info": {
+          "$ref": "#/definitions/PictureInfo",
+          "description": " 图片信息"
         },
         "router": {
           "type": "string",
@@ -27058,14 +28683,13 @@
           "type": "string",
           "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
         },
-        "is_show": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否显示，1显示，0不显示"
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
         },
         "payload": {
           "type": "string",
-          "description": " 卡片内容，跟随卡片类型不同，payload 内容不同"
+          "description": " 卡片内容 (JSON字符串)"
         }
       },
       "title": "BannerItem"
@@ -28086,52 +29710,6 @@
       },
       "title": "BonusUserParticipationList"
     },
-    "Botton": {
-      "type": "object",
-      "properties": {
-        "style": {
-          "type": "integer",
-          "format": "int32",
-          "description": " item样式，0图标样式，1文字样式"
-        },
-        "icon": {
-          "type": "string",
-          "description": " 图标"
-        },
-        "icon_dark": {
-          "type": "string",
-          "description": " 深色模式图标，空显示普通模式"
-        },
-        "title": {
-          "type": "string",
-          "description": " 标题"
-        },
-        "title_i18n": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/I18n"
-          },
-          "description": " 标题多语言"
-        },
-        "router": {
-          "type": "string",
-          "description": " 对应页面路由，点击跳转，如有参数拼路由后面"
-        },
-        "link": {
-          "type": "string",
-          "description": " 链接参数，路由为/web时需要"
-        },
-        "show_permission": {
-          "type": "string",
-          "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
-        },
-        "router_permission": {
-          "type": "string",
-          "description": " 路由权限"
-        }
-      },
-      "title": "Botton"
-    },
     "BusinessData": {
       "type": "object",
       "properties": {
@@ -28163,53 +29741,150 @@
       },
       "title": "BusinessData"
     },
-    "CTABlock": {
+    "Button": {
       "type": "object",
       "properties": {
+        "style": {
+          "type": "integer",
+          "format": "int32",
+          "description": " item样式，0图标样式，1文字样式"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标，空显示普通模式"
+        },
         "title": {
-          "type": "string"
+          "type": "string",
+          "description": " 标题"
         },
         "title_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18n"
-          }
+          },
+          "description": " 标题多语言"
         },
         "title_color": {
-          "type": "string"
+          "type": "string",
+          "description": " 标题颜色"
+        },
+        "title_font": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体"
+        },
+        "title_weight": {
+          "type": "string",
+          "description": " 标题字体粗细"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由，点击跳转，如有参数拼路由后面"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数，路由为/web时需要"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        }
+      },
+      "title": "Button"
+    },
+    "CTABlock": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 按钮文字"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 按钮文字多语言"
+        },
+        "title_color": {
+          "type": "string",
+          "description": " 文字颜色"
         },
         "title_font_size": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": " 文字字体大小"
         },
         "title_font_weight": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "title_font_family": {
-          "type": "string"
+          "type": "string",
+          "description": " 文字字重"
         },
         "border_color": {
-          "type": "string"
+          "type": "string",
+          "description": " 边框颜色"
+        },
+        "border_color_dark": {
+          "type": "string",
+          "description": " 深色模式边框颜色"
         },
         "border_width": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": " 边框宽度"
         },
-        "background_color": {
-          "type": "string"
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
         },
-        "top_left_point": {
-          "type": "string"
+        "bg_color_dark": {
+          "type": "string",
+          "description": " 深色模式背景颜色"
         },
-        "bottom_right_point": {
-          "type": "string"
+        "corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 圆角"
+        },
+        "top": {
+          "type": "string",
+          "description": " 顶部位置"
+        },
+        "left": {
+          "type": "string",
+          "description": " 左侧位置"
+        },
+        "width": {
+          "type": "string",
+          "description": " 宽度"
+        },
+        "height": {
+          "type": "string",
+          "description": " 高度"
         },
         "router": {
-          "type": "string"
+          "type": "string",
+          "description": " 按钮路由,如果没有则集成父级路由(图片)"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
         },
         "link": {
-          "type": "string"
+          "type": "string",
+          "description": " 链接参数"
         }
       },
       "title": "CTABlock"
@@ -28796,6 +30471,74 @@
       },
       "title": "CommissionVolumeHistoryAuditRecord"
     },
+    "CommonComponentInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "type": {
+          "type": "string",
+          "description": " 组件类型"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "CommonComponentInfo"
+    },
     "CompletionTimeDistribution": {
       "type": "object",
       "properties": {
@@ -28883,6 +30626,26 @@
           "format": "int32",
           "description": " 底部导航个数"
         },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
+        },
         "tab_bar": {
           "type": "array",
           "items": {
@@ -28957,6 +30720,26 @@
           "format": "int32",
           "description": " 底部导航个数"
         },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
+        },
         "tab_bar": {
           "type": "array",
           "items": {
@@ -28983,6 +30766,150 @@
         }
       },
       "title": "ConfigurationDraft"
+    },
+    "ConfigurationVersionInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 版本ID"
+        },
+        "config_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 配置ID"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 版本号"
+        },
+        "version_tag": {
+          "type": "string",
+          "description": " 版本标识，格式：YYYY.MM.DD.HH.mm.ss"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 包名"
+        },
+        "is_b_test": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否是B面"
+        },
+        "is_h5_app": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否用于H5App"
+        },
+        "cover_image": {
+          "type": "string",
+          "description": " 封面图"
+        },
+        "tab_bar_style": {
+          "type": "string",
+          "description": " 底部导航样式"
+        },
+        "tab_bar_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 底部导航个数"
+        },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
+        },
+        "tab_bar": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TabBar"
+          },
+          "description": " 底部导航元素"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Page"
+          },
+          "description": " 页面信息"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        },
+        "operator": {
+          "type": "string",
+          "description": " 操作人"
+        },
+        "operator_alias": {
+          "type": "string",
+          "description": " 操作人别名"
+        }
+      },
+      "title": "ConfigurationVersionInfo"
+    },
+    "ConfigurationVersionListItem": {
+      "type": "object",
+      "properties": {
+        "version_tag": {
+          "type": "string",
+          "description": " 版本标识，格式：YYYY.MM.DD.HH.mm.ss"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 版本号"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "operator": {
+          "type": "string",
+          "description": " 操作人"
+        },
+        "operator_alias": {
+          "type": "string",
+          "description": " 操作人别名"
+        }
+      },
+      "title": "ConfigurationVersionListItem"
     },
     "ContentItem": {
       "type": "object",
@@ -29472,6 +31399,91 @@
       },
       "title": "CreateActivitySymbolRequest"
     },
+    "CreateAdComponentRequest": {
+      "type": "object",
+      "properties": {
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "picture": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "picture_dark": {
+          "type": "string",
+          "description": " 深色模式图片"
+        },
+        "picture_info": {
+          "$ref": "#/definitions/PictureInfo",
+          "description": " 图片信息"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        }
+      },
+      "title": "CreateAdComponentRequest"
+    },
+    "CreateAdComponentResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 AdComponent ID"
+        }
+      },
+      "title": "CreateAdComponentResponse"
+    },
     "CreateAppConfigurationRequest": {
       "type": "object",
       "properties": {
@@ -29509,6 +31521,26 @@
           "format": "int32",
           "description": " 底部导航个数"
         },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
+        },
         "tab_bar": {
           "type": "array",
           "items": {
@@ -29535,6 +31567,73 @@
         }
       },
       "title": "CreateAppConfigurationResponse"
+    },
+    "CreateBannerRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BannerItem"
+          },
+          "description": " 轮播图项"
+        }
+      },
+      "title": "CreateBannerRequest"
+    },
+    "CreateBannerResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 Banner ID"
+        }
+      },
+      "title": "CreateBannerResponse"
     },
     "CreateBonusActivityRequest": {
       "type": "object",
@@ -29579,6 +31678,70 @@
         }
       },
       "title": "CreateBonusActivityResponse"
+    },
+    "CreateCommonComponentRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": " 组件类型"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        }
+      },
+      "title": "CreateCommonComponentRequest"
+    },
+    "CreateCommonComponentResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 CommonComponent ID"
+        }
+      },
+      "title": "CreateCommonComponentResponse"
     },
     "CreateCurrencyResqust": {
       "type": "object",
@@ -29843,6 +32006,109 @@
       },
       "title": "CreateExamStageResponse"
     },
+    "CreateGridRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GridItem"
+          },
+          "description": " 英雄区项"
+        }
+      },
+      "title": "CreateGridRequest"
+    },
+    "CreateGridResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 Grid ID"
+        }
+      },
+      "title": "CreateGridResponse"
+    },
+    "CreateHorseRequest": {
+      "type": "object",
+      "properties": {
+        "left_button": {
+          "$ref": "#/definitions/HorseButton",
+          "description": " 左侧按钮"
+        },
+        "right_button": {
+          "$ref": "#/definitions/HorseButton",
+          "description": " 右侧按钮"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HorseItem"
+          },
+          "description": " 跑马灯项"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展内容 (JSON字符串)"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        }
+      },
+      "title": "CreateHorseRequest"
+    },
+    "CreateHorseResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 Horse ID"
+        }
+      },
+      "title": "CreateHorseResponse"
+    },
     "CreateInAppNotificationReq": {
       "type": "object",
       "properties": {
@@ -29869,6 +32135,54 @@
         }
       },
       "title": "CreateInAppNotificationReq"
+    },
+    "CreateListComponentRequest": {
+      "type": "object",
+      "properties": {
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式,轮播滑动效果"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListItem"
+          },
+          "description": " 列表项"
+        }
+      },
+      "title": "CreateListComponentRequest"
+    },
+    "CreateListComponentResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 ListComponent ID"
+        }
+      },
+      "title": "CreateListComponentResponse"
     },
     "CreatePayChannelRequest": {
       "type": "object",
@@ -30314,6 +32628,65 @@
       },
       "title": "CreateSettlementBatchResponse"
     },
+    "CreateSlipRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SlipItem"
+          },
+          "description": " 横向滚动项"
+        }
+      },
+      "title": "CreateSlipRequest"
+    },
+    "CreateSlipResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 Slip ID"
+        }
+      },
+      "title": "CreateSlipResponse"
+    },
     "CreateSymbolConfigRequest": {
       "type": "object",
       "properties": {
@@ -30661,6 +33034,59 @@
         }
       },
       "title": "CreateTrialActivityResponse"
+    },
+    "CreateUserLabelReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 标签名"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签排序"
+        },
+        "category_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签类型 0:其他 1:活动 2:存款标签 3:取款标签"
+        },
+        "label_desc": {
+          "type": "string",
+          "description": " 标签描述"
+        },
+        "label_code": {
+          "type": "string",
+          "description": " 标签编码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0-禁用、1-启用"
+        },
+        "level_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签层级类型 0-扁平/分类标签 1-层级标签"
+        },
+        "parent_label_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 父级标签id"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
+        }
+      },
+      "title": "CreateUserLabelReq"
     },
     "CreateUserPointHistoryRequest": {
       "type": "object",
@@ -31638,12 +34064,12 @@
       "properties": {
         "user_id": {
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "description": " 用户id"
         },
         "label_id": {
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "description": " 标签id"
         }
       },
@@ -31675,6 +34101,21 @@
       },
       "title": "DeleteActivitySymbolRequest"
     },
+    "DeleteAdComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteAdComponentRequest"
+    },
+    "DeleteAdComponentResponse": {
+      "type": "object",
+      "title": "DeleteAdComponentResponse"
+    },
     "DeleteBankReq": {
       "type": "object",
       "properties": {
@@ -31684,6 +34125,21 @@
         }
       },
       "title": "DeleteBankReq"
+    },
+    "DeleteBannerRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteBannerRequest"
+    },
+    "DeleteBannerResponse": {
+      "type": "object",
+      "title": "DeleteBannerResponse"
     },
     "DeleteBenefitReq": {
       "type": "object",
@@ -31707,6 +34163,21 @@
         }
       },
       "title": "DeleteBlack"
+    },
+    "DeleteCommonComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteCommonComponentRequest"
+    },
+    "DeleteCommonComponentResponse": {
+      "type": "object",
+      "title": "DeleteCommonComponentResponse"
     },
     "DeleteContentRequest": {
       "type": "object",
@@ -31756,6 +34227,36 @@
       },
       "title": "DeleteCustomerServiceConfigRequest"
     },
+    "DeleteGridRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteGridRequest"
+    },
+    "DeleteGridResponse": {
+      "type": "object",
+      "title": "DeleteGridResponse"
+    },
+    "DeleteHorseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteHorseRequest"
+    },
+    "DeleteHorseResponse": {
+      "type": "object",
+      "title": "DeleteHorseResponse"
+    },
     "DeleteInAppNotificationReq": {
       "type": "object",
       "properties": {
@@ -31780,6 +34281,21 @@
       "required": [
         "id"
       ]
+    },
+    "DeleteListComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteListComponentRequest"
+    },
+    "DeleteListComponentResponse": {
+      "type": "object",
+      "title": "DeleteListComponentResponse"
     },
     "DeleteMonitorConfig": {
       "type": "object",
@@ -31876,6 +34392,21 @@
         }
       },
       "title": "DeletePushProviderReq"
+    },
+    "DeleteSlipRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteSlipRequest"
+    },
+    "DeleteSlipResponse": {
+      "type": "object",
+      "title": "DeleteSlipResponse"
     },
     "DeleteSymbolToTransactionGroupRequest": {
       "type": "object",
@@ -32005,6 +34536,17 @@
         }
       },
       "title": "DeleteTransactionGroupRequest"
+    },
+    "DeleteUserLabelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 标签id"
+        }
+      },
+      "title": "DeleteUserLabelReq"
     },
     "Deposit": {
       "type": "object",
@@ -32528,6 +35070,11 @@
           "type": "string",
           "description": " 卡片样式"
         },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
         "aspect_ratio": {
           "type": "string",
           "description": " 宽高比"
@@ -32535,6 +35082,10 @@
         "show_permission": {
           "type": "string",
           "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 区块背景色，默认FFFFFF"
         },
         "payload": {
           "type": "string",
@@ -33214,6 +35765,23 @@
         }
       },
       "title": "ExportBankSettingTemplateResp"
+    },
+    "ExportBonusActivityListResponse": {
+      "type": "object",
+      "properties": {
+        "fileData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/byte"
+          },
+          "description": " Excel 文件字节数据，不序列化到 JSON"
+        },
+        "file_name": {
+          "type": "string",
+          "description": " 文件名"
+        }
+      },
+      "title": "ExportBonusActivityListResponse"
     },
     "ExportCountrySettingTemplateResp": {
       "type": "object",
@@ -34271,6 +36839,55 @@
       },
       "title": "GetActivitySymbolListResponse"
     },
+    "GetAdComponentListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetAdComponentListRequest"
+    },
+    "GetAdComponentListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdComponentInfo"
+          },
+          "description": " AdComponent 列表"
+        }
+      },
+      "title": "GetAdComponentListResponse"
+    },
+    "GetAdComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetAdComponentRequest"
+    },
+    "GetAdComponentResponse": {
+      "type": "object",
+      "properties": {
+        "ad_component": {
+          "$ref": "#/definitions/AdComponentInfo",
+          "description": " AdComponent 信息"
+        }
+      },
+      "title": "GetAdComponentResponse"
+    },
     "GetAllCountryNameResp": {
       "type": "object",
       "properties": {
@@ -34325,6 +36942,31 @@
         }
       },
       "title": "GetApiKeyResponse"
+    },
+    "GetAppConfigurationByPackageRequest": {
+      "type": "object",
+      "properties": {
+        "package": {
+          "type": "string",
+          "description": " 包名"
+        },
+        "is_h5_app": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否是H5App"
+        }
+      },
+      "title": "GetAppConfigurationByPackageRequest"
+    },
+    "GetAppConfigurationByPackageResponse": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "$ref": "#/definitions/Configuration",
+          "description": " 配置信息"
+        }
+      },
+      "title": "GetAppConfigurationByPackageResponse"
     },
     "GetAppConfigurationRequest": {
       "type": "object",
@@ -34480,6 +37122,55 @@
         }
       },
       "title": "GetBankOptionResp"
+    },
+    "GetBannerListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetBannerListRequest"
+    },
+    "GetBannerListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Banner"
+          },
+          "description": " Banner 列表"
+        }
+      },
+      "title": "GetBannerListResponse"
+    },
+    "GetBannerRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetBannerRequest"
+    },
+    "GetBannerResponse": {
+      "type": "object",
+      "properties": {
+        "banner": {
+          "$ref": "#/definitions/Banner",
+          "description": " Banner 信息"
+        }
+      },
+      "title": "GetBannerResponse"
     },
     "GetBatchSignUpTemplateResponse": {
       "type": "object",
@@ -34731,6 +37422,118 @@
         }
       },
       "title": "GetCommissionVolumeHistoryAuditRecordByHistoryidResponse"
+    },
+    "GetCommonComponentListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        },
+        "type": {
+          "type": "string",
+          "description": " 组件类型（可选，用于筛选）"
+        }
+      },
+      "title": "GetCommonComponentListRequest"
+    },
+    "GetCommonComponentListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommonComponentInfo"
+          },
+          "description": " CommonComponent 列表"
+        }
+      },
+      "title": "GetCommonComponentListResponse"
+    },
+    "GetCommonComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetCommonComponentRequest"
+    },
+    "GetCommonComponentResponse": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "$ref": "#/definitions/CommonComponentInfo",
+          "description": " CommonComponent 信息"
+        }
+      },
+      "title": "GetCommonComponentResponse"
+    },
+    "GetConfigurationVersionListRequest": {
+      "type": "object",
+      "properties": {
+        "config_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 配置ID"
+        },
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息（可选）"
+        }
+      },
+      "title": "GetConfigurationVersionListRequest"
+    },
+    "GetConfigurationVersionListResponse": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConfigurationVersionListItem"
+          },
+          "description": " 版本列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总记录数"
+        }
+      },
+      "title": "GetConfigurationVersionListResponse"
+    },
+    "GetConfigurationVersionRequest": {
+      "type": "object",
+      "properties": {
+        "config_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 配置ID"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 版本号"
+        }
+      },
+      "title": "GetConfigurationVersionRequest"
+    },
+    "GetConfigurationVersionResponse": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "$ref": "#/definitions/ConfigurationVersionInfo",
+          "description": " 版本信息"
+        }
+      },
+      "title": "GetConfigurationVersionResponse"
     },
     "GetCopyTradingActivityListRequest": {
       "type": "object",
@@ -36124,6 +38927,55 @@
       },
       "title": "GetFundTransferOutListResponse"
     },
+    "GetGridListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetGridListRequest"
+    },
+    "GetGridListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grid"
+          },
+          "description": " Grid 列表"
+        }
+      },
+      "title": "GetGridListResponse"
+    },
+    "GetGridRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetGridRequest"
+    },
+    "GetGridResponse": {
+      "type": "object",
+      "properties": {
+        "grid": {
+          "$ref": "#/definitions/Grid",
+          "description": " Grid 信息"
+        }
+      },
+      "title": "GetGridResponse"
+    },
     "GetHolidayTimeRequest": {
       "type": "object",
       "properties": {
@@ -36165,6 +39017,55 @@
         }
       },
       "title": "GetHolidayTimeResponse"
+    },
+    "GetHorseListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetHorseListRequest"
+    },
+    "GetHorseListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Horse"
+          },
+          "description": " Horse 列表"
+        }
+      },
+      "title": "GetHorseListResponse"
+    },
+    "GetHorseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetHorseRequest"
+    },
+    "GetHorseResponse": {
+      "type": "object",
+      "properties": {
+        "horse": {
+          "$ref": "#/definitions/Horse",
+          "description": " Horse 信息"
+        }
+      },
+      "title": "GetHorseResponse"
     },
     "GetInAppNotificationDetailReq": {
       "type": "object",
@@ -36602,6 +39503,55 @@
       },
       "title": "GetLevelListResponse"
     },
+    "GetListComponentListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetListComponentListRequest"
+    },
+    "GetListComponentListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListComponentInfo"
+          },
+          "description": " ListComponent 列表"
+        }
+      },
+      "title": "GetListComponentListResponse"
+    },
+    "GetListComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetListComponentRequest"
+    },
+    "GetListComponentResponse": {
+      "type": "object",
+      "properties": {
+        "list_component": {
+          "$ref": "#/definitions/ListComponentInfo",
+          "description": " ListComponent 信息"
+        }
+      },
+      "title": "GetListComponentResponse"
+    },
     "GetNewsDetailRequest": {
       "type": "object",
       "title": "GetNewsDetailRequest"
@@ -36672,6 +39622,27 @@
         }
       },
       "title": "GetOperationSummaryResponse"
+    },
+    "GetPageRequest": {
+      "type": "object",
+      "properties": {
+        "page_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页面ID"
+        }
+      },
+      "title": "GetPageRequest"
+    },
+    "GetPageResponse": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Page",
+          "description": " 页面信息"
+        }
+      },
+      "title": "GetPageResponse"
     },
     "GetPartnerListRequest": {
       "type": "object",
@@ -37788,6 +40759,55 @@
         }
       },
       "title": "GetSignalProviderV2ListResponse"
+    },
+    "GetSlipListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "$ref": "#/definitions/Pagination",
+          "description": " 分页信息"
+        }
+      },
+      "title": "GetSlipListRequest"
+    },
+    "GetSlipListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Slip"
+          },
+          "description": " Slip 列表"
+        }
+      },
+      "title": "GetSlipListResponse"
+    },
+    "GetSlipRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetSlipRequest"
+    },
+    "GetSlipResponse": {
+      "type": "object",
+      "properties": {
+        "slip": {
+          "$ref": "#/definitions/Slip",
+          "description": " Slip 信息"
+        }
+      },
+      "title": "GetSlipResponse"
     },
     "GetSymbolConfigListRequest": {
       "type": "object",
@@ -39102,6 +42122,52 @@
       },
       "title": "GetUserGroupAndTagsResp"
     },
+    "GetUserLabelStaticReq": {
+      "type": "object",
+      "properties": {
+        "label_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 标签id"
+        },
+        "keywords": {
+          "type": "string",
+          "description": " 搜索关键字(支持模糊匹配)"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
+        },
+        "is_get_all_child": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否获取所有子标签"
+        }
+      },
+      "title": "GetUserLabelStaticReq"
+    },
+    "GetUserLabelStaticResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabelStatic"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserLabelStaticResp"
+    },
     "GetUserLevelListReq": {
       "type": "object",
       "properties": {
@@ -39890,13 +42956,21 @@
           },
           "description": " 标题多语言"
         },
-        "background_color": {
+        "bg_color": {
           "type": "string",
           "description": " 背景颜色"
         },
-        "background_color_dark": {
+        "name": {
           "type": "string",
-          "description": " 背景颜色深色模式"
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
         },
         "items": {
           "type": "array",
@@ -39904,6 +42978,16 @@
             "$ref": "#/definitions/GridItem"
           },
           "description": " 网格项"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
         }
       },
       "title": "Grid"
@@ -39935,10 +43019,6 @@
           "type": "string",
           "description": " 深色模式图标"
         },
-        "type": {
-          "type": "string",
-          "description": " 类型"
-        },
         "router": {
           "type": "string",
           "description": " 对应页面路由"
@@ -39951,14 +43031,18 @@
           "type": "string",
           "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
         },
-        "is_show": {
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "hidden": {
           "type": "boolean",
           "format": "boolean",
-          "description": " 是否显示，1显示，0不显示"
+          "description": " 是否隐藏"
         },
         "payload": {
           "type": "string",
-          "description": " 卡片内容，跟随卡片类型不同，payload 内容不同"
+          "description": " 卡片内容 (JSON字符串)"
         }
       },
       "title": "GridItem"
@@ -40283,7 +43367,7 @@
           "$ref": "#/definitions/HorseButton",
           "description": " 左侧按钮"
         },
-        "light_button": {
+        "right_button": {
           "$ref": "#/definitions/HorseButton",
           "description": " 右侧按钮"
         },
@@ -40296,7 +43380,33 @@
         },
         "payload": {
           "type": "string",
-          "description": " 卡片内容，跟随卡片类型不同，payload 内容不同"
+          "description": " 扩展内容 (JSON字符串)"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
         }
       },
       "title": "Horse"
@@ -40319,6 +43429,14 @@
         "link": {
           "type": "string",
           "description": " 链接参数"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
         }
       },
       "title": "HorseButton"
@@ -40342,6 +43460,11 @@
           },
           "description": " 标题多语言"
         },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
         "router": {
           "type": "string",
           "description": " 对应页面路由"
@@ -40349,6 +43472,14 @@
         "link": {
           "type": "string",
           "description": " 链接参数"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
         }
       },
       "title": "HorseItem"
@@ -41847,6 +44978,113 @@
       },
       "title": "LiquidatedAccountListResp"
     },
+    "ListComponentInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式,轮播滑动效果"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListItem"
+          },
+          "description": " 列表项"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "ListComponentInfo"
+    },
+    "ListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        }
+      },
+      "title": "ListItem"
+    },
     "LoginRes": {
       "type": "object",
       "properties": {
@@ -42634,10 +45872,6 @@
     "Nav": {
       "type": "object",
       "properties": {
-        "page_code": {
-          "type": "string",
-          "description": " 页面唯一标识"
-        },
         "nav_style": {
           "type": "string",
           "description": " 导航栏样式"
@@ -42653,6 +45887,19 @@
           },
           "description": " 标题多语言"
         },
+        "title_color": {
+          "type": "string",
+          "description": " 标题颜色"
+        },
+        "title_font": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体"
+        },
+        "title_weight": {
+          "type": "string",
+          "description": " 标题字体粗细"
+        },
         "icon": {
           "type": "string",
           "description": " 图标"
@@ -42665,10 +45912,10 @@
           "type": "string",
           "description": " 导航背景颜色，默认FFFFFF"
         },
-        "bottons": {
+        "Buttons": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/NavBotton"
+            "$ref": "#/definitions/NavButton"
           },
           "description": " 底部导航元素"
         },
@@ -42682,13 +45929,18 @@
       },
       "title": "Nav"
     },
-    "NavBotton": {
+    "NavButton": {
       "type": "object",
       "properties": {
         "style": {
           "type": "integer",
           "format": "int32",
           "description": " item样式，0图标样式，1文字样式"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
         },
         "icon": {
           "type": "string",
@@ -42708,6 +45960,19 @@
             "$ref": "#/definitions/I18n"
           },
           "description": " 标题多语言"
+        },
+        "title_color": {
+          "type": "string",
+          "description": " 标题颜色"
+        },
+        "title_font": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体"
+        },
+        "title_weight": {
+          "type": "string",
+          "description": " 标题字体粗细"
         },
         "router": {
           "type": "string",
@@ -42725,15 +45990,15 @@
           "type": "string",
           "description": " 路由权限"
         },
-        "bottons": {
+        "Buttons": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Botton"
+            "$ref": "#/definitions/Button"
           },
           "description": " 顶部导航右侧按钮,下拉按钮"
         }
       },
-      "title": "NavBotton"
+      "title": "NavButton"
     },
     "NavTab": {
       "type": "object",
@@ -42741,6 +46006,11 @@
         "page_code": {
           "type": "string",
           "description": " 页面唯一标识"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
         },
         "title": {
           "type": "string",
@@ -42752,6 +46022,32 @@
             "$ref": "#/definitions/I18n"
           },
           "description": " 标题多语言"
+        },
+        "title_color": {
+          "type": "string",
+          "description": " 标题颜色"
+        },
+        "title_font": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体"
+        },
+        "title_weight": {
+          "type": "string",
+          "description": " 标题字体粗细"
+        },
+        "title_sel_color": {
+          "type": "string",
+          "description": " 选中标题颜色"
+        },
+        "title_sel_font": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 选中标题字体"
+        },
+        "title_sel_weight": {
+          "type": "string",
+          "description": " 选中标题字体粗细"
         },
         "bg_icon": {
           "type": "string",
@@ -42765,18 +46061,10 @@
           "type": "string",
           "description": " 页面背景颜色，默认F7F7F7"
         },
-        "router": {
-          "type": "string",
-          "description": " 对应页面路由，切换展示，如有参数拼路由后面"
-        },
-        "link": {
-          "type": "string",
-          "description": " 链接参数，路由为/web时需要，切换暂不支持小程序"
-        },
-        "bottons": {
+        "Buttons": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/NavBotton"
+            "$ref": "#/definitions/NavButton"
           },
           "description": " 顶部导航右侧按钮"
         }
@@ -43544,6 +46832,11 @@
           "format": "int64",
           "description": " 页面唯一标识"
         },
+        "app_configuration_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 应用配置ID"
+        },
         "code": {
           "type": "string",
           "description": " 页面唯一标识"
@@ -43560,23 +46853,6 @@
           "type": "string",
           "description": " 链接参数"
         },
-        "divs": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Div"
-          },
-          "description": " 布局容器元素，可以放banner、金刚区、横滑区等"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
         "bg_icon": {
           "type": "string",
           "description": " tab对应页面背景图"
@@ -43588,6 +46864,23 @@
         "bg_color": {
           "type": "string",
           "description": " 页面背景颜色，默认F7F7F7"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Div"
+          },
+          "description": " 卡片元素"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
         }
       },
       "title": "Page"
@@ -43663,6 +46956,22 @@
         }
       },
       "title": "PageRequest"
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 偏移量"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "Pagination"
     },
     "PartOrderInfo": {
       "type": "object",
@@ -44113,7 +47422,7 @@
           "type": "string",
           "description": " 币种"
         },
-        "platformId": {
+        "platform_id": {
           "type": "integer",
           "format": "int64",
           "description": " 支付平台id"
@@ -44747,6 +48056,26 @@
         }
       },
       "title": "PhoneBlackListResp"
+    },
+    "PictureInfo": {
+      "type": "object",
+      "properties": {
+        "picture_text_block": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextBlock"
+          },
+          "description": " 图片文本块"
+        },
+        "picture_cta_block": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CTABlock"
+          },
+          "description": " 图片按钮块"
+        }
+      },
+      "title": "PictureInfo"
     },
     "PkgListItem": {
       "type": "object",
@@ -45881,6 +49210,26 @@
           "type": "integer",
           "format": "int32",
           "description": " 底部导航个数"
+        },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
         },
         "tab_bar": {
           "type": "array",
@@ -48487,12 +51836,38 @@
           "type": "string",
           "description": " 深色模式图标"
         },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
         "items": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/SlipItem"
           },
           "description": " 横向滚动项"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
         }
       },
       "title": "Slip"
@@ -48513,23 +51888,17 @@
           "type": "string",
           "description": " 深色模式图片"
         },
-        "picture_text_block": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TextBlock"
-          },
-          "description": " 图片文本块"
-        },
-        "picture_cta_block": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CTABlock"
-          },
-          "description": " 图片按钮块"
+        "picture_info": {
+          "$ref": "#/definitions/PictureInfo",
+          "description": " 图片信息"
         },
         "router": {
           "type": "string",
           "description": " 对应页面路由"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限，0 所有用户可访问，1 仅登录用户可访问"
         },
         "link": {
           "type": "string",
@@ -48539,14 +51908,14 @@
           "type": "string",
           "description": " 显示权限，login 登录显示 unlogin 非登录显示 其他都显示"
         },
-        "is_show": {
+        "hidden": {
           "type": "boolean",
           "format": "boolean",
-          "description": " 是否显示，1显示，0不显示"
+          "description": " 是否隐藏，1隐藏，0显示"
         },
         "payload": {
           "type": "string",
-          "description": " 卡片内容，跟随卡片类型不同，payload 内容不同"
+          "description": " 卡片内容 (JSON字符串)"
         }
       },
       "title": "SlipItem"
@@ -49132,10 +52501,14 @@
     "TabBar": {
       "type": "object",
       "properties": {
-        "is_show": {
+        "page_code": {
+          "type": "string",
+          "description": " 页面唯一标识"
+        },
+        "hidden": {
           "type": "boolean",
           "format": "boolean",
-          "description": " 是否显示"
+          "description": " 是否隐藏"
         },
         "is_home": {
           "type": "boolean",
@@ -49161,6 +52534,13 @@
         "title": {
           "type": "string",
           "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
         },
         "title_color": {
           "type": "string",
@@ -49194,7 +52574,7 @@
         },
         "extend": {
           "type": "string",
-          "description": " 扩展字段"
+          "description": " 扩展字段 (JSON字符串)"
         }
       },
       "title": "TabBar"
@@ -49771,39 +53151,55 @@
       "type": "object",
       "properties": {
         "text": {
-          "type": "string"
+          "type": "string",
+          "description": " 文本"
         },
         "text_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18n"
-          }
+          },
+          "description": " 文本多语言"
         },
         "color": {
-          "type": "string"
+          "type": "string",
+          "description": " 颜色"
+        },
+        "color_dark": {
+          "type": "string",
+          "description": " 深色模式颜色"
         },
         "font_size": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": " 字体大小"
         },
         "font_weight": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "description": " 字重"
         },
-        "font_family": {
-          "type": "string"
+        "top": {
+          "type": "string",
+          "description": " 顶部位置"
         },
-        "top_left_point": {
-          "type": "string"
+        "left": {
+          "type": "string",
+          "description": " 左侧位置"
         },
-        "bottom_right_point": {
-          "type": "string"
+        "width": {
+          "type": "string",
+          "description": " 宽度"
+        },
+        "height": {
+          "type": "string",
+          "description": " 高度"
         },
         "accent": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TextFragment"
-          }
+          },
+          "description": " 文本片段"
         }
       },
       "title": "TextBlock"
@@ -49812,27 +53208,32 @@
       "type": "object",
       "properties": {
         "text": {
-          "type": "string"
+          "type": "string",
+          "description": " 文本"
         },
         "text_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18n"
-          }
+          },
+          "description": " 文本多语言"
         },
         "color": {
-          "type": "string"
+          "type": "string",
+          "description": " 颜色"
+        },
+        "color_dark": {
+          "type": "string",
+          "description": " 深色模式颜色"
         },
         "font_size": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": " 字体大小"
         },
         "font_weight": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "font_family": {
-          "type": "string"
+          "type": "string",
+          "description": " 字重"
         }
       },
       "title": "TextFragment"
@@ -52874,6 +56275,89 @@
       },
       "title": "UpdateActivitySymbolRequest"
     },
+    "UpdateAdComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "picture": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "picture_dark": {
+          "type": "string",
+          "description": " 深色模式图片"
+        },
+        "picture_info": {
+          "$ref": "#/definitions/PictureInfo",
+          "description": " 图片信息"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "show_permission": {
+          "type": "string",
+          "description": " 显示权限"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        }
+      },
+      "title": "UpdateAdComponentRequest"
+    },
+    "UpdateAdComponentResponse": {
+      "type": "object",
+      "title": "UpdateAdComponentResponse"
+    },
     "UpdateAppConfigurationRequest": {
       "type": "object",
       "properties": {
@@ -52915,6 +56399,26 @@
           "type": "integer",
           "format": "int32",
           "description": " 底部导航个数"
+        },
+        "card_corner": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片圆角"
+        },
+        "card_border": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片边框"
+        },
+        "card_hor_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片水平间距"
+        },
+        "card_ver_gap": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 卡片垂直间距"
         },
         "tab_bar": {
           "type": "array",
@@ -52986,6 +56490,71 @@
         }
       },
       "title": "UpdateBankReq"
+    },
+    "UpdateBannerRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BannerItem"
+          },
+          "description": " 轮播图项"
+        }
+      },
+      "title": "UpdateBannerRequest"
+    },
+    "UpdateBannerResponse": {
+      "type": "object",
+      "title": "UpdateBannerResponse"
     },
     "UpdateBenefitReq": {
       "type": "object",
@@ -53065,6 +56634,64 @@
         }
       },
       "title": "UpdateBonusActivityRequest"
+    },
+    "UpdateCommonComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "type": {
+          "type": "string",
+          "description": " 组件类型"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展字段 (JSON字符串)"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        }
+      },
+      "title": "UpdateCommonComponentRequest"
+    },
+    "UpdateCommonComponentResponse": {
+      "type": "object",
+      "title": "UpdateCommonComponentResponse"
     },
     "UpdateCountrySettingReq": {
       "type": "object",
@@ -53496,6 +57123,105 @@
       },
       "title": "UpdateExamStageResponse"
     },
+    "UpdateGridRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GridItem"
+          },
+          "description": " 英雄区项"
+        }
+      },
+      "title": "UpdateGridRequest"
+    },
+    "UpdateGridResponse": {
+      "type": "object",
+      "title": "UpdateGridResponse"
+    },
+    "UpdateHorseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "left_button": {
+          "$ref": "#/definitions/HorseButton",
+          "description": " 左侧按钮"
+        },
+        "right_button": {
+          "$ref": "#/definitions/HorseButton",
+          "description": " 右侧按钮"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HorseItem"
+          },
+          "description": " 跑马灯项"
+        },
+        "payload": {
+          "type": "string",
+          "description": " 扩展内容 (JSON字符串)"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        }
+      },
+      "title": "UpdateHorseRequest"
+    },
+    "UpdateHorseResponse": {
+      "type": "object",
+      "title": "UpdateHorseResponse"
+    },
     "UpdateInAppNotificationReq": {
       "type": "object",
       "properties": {
@@ -53605,6 +57331,52 @@
       "required": [
         "id"
       ]
+    },
+    "UpdateListComponentRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": " 宽高比"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式,轮播滑动效果"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ListItem"
+          },
+          "description": " 列表项"
+        }
+      },
+      "title": "UpdateListComponentRequest"
+    },
+    "UpdateListComponentResponse": {
+      "type": "object",
+      "title": "UpdateListComponentResponse"
     },
     "UpdateMerchantRiskStatusRequest": {
       "type": "object",
@@ -54452,6 +58224,63 @@
         }
       },
       "title": "UpdateSignalProviderRequest"
+    },
+    "UpdateSlipRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "icon_dark": {
+          "type": "string",
+          "description": " 深色模式图标"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SlipItem"
+          },
+          "description": " 横向滚动项"
+        }
+      },
+      "title": "UpdateSlipRequest"
+    },
+    "UpdateSlipResponse": {
+      "type": "object",
+      "title": "UpdateSlipResponse"
     },
     "UpdateSymbolConfigRequest": {
       "type": "object",
@@ -55334,6 +59163,64 @@
         }
       },
       "title": "UpdateTrialActivityRequest"
+    },
+    "UpdateUserLabelReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 标签id"
+        },
+        "name": {
+          "type": "string",
+          "description": " 标签名"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签排序"
+        },
+        "category_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签类型 0:其他 1:活动 2:存款标签 3:取款标签"
+        },
+        "label_desc": {
+          "type": "string",
+          "description": " 标签描述"
+        },
+        "label_code": {
+          "type": "string",
+          "description": " 标签编码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0-禁用、1-启用"
+        },
+        "level_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签层级类型 0-扁平/分类标签 1-层级标签"
+        },
+        "parent_label_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 父级标签id"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
+        }
+      },
+      "title": "UpdateUserLabelReq"
     },
     "UpdateUserLevelReq": {
       "type": "object",
@@ -56318,6 +60205,17 @@
       },
       "title": "UserGroupReq"
     },
+    "UserIdDetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户id"
+        }
+      },
+      "title": "UserIdDetailRequest"
+    },
     "UserIdRequest": {
       "type": "object",
       "properties": {
@@ -56462,6 +60360,11 @@
           "type": "string",
           "description": " 证件号码"
         },
+        "identity_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 认证状态"
+        },
         "labels": {
           "type": "array",
           "items": {
@@ -56526,7 +60429,7 @@
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "description": " 标签id"
         },
         "name": {
@@ -56537,6 +60440,39 @@
           "type": "integer",
           "format": "int32",
           "description": " 标签排序"
+        },
+        "category_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签类型 0:其他 1:活动 2:存款标签 3:取款标签"
+        },
+        "level_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签层级类型 0-扁平/分类标签 1-层级标签"
+        },
+        "label_desc": {
+          "type": "string",
+          "description": " 标签描述"
+        },
+        "label_code": {
+          "type": "string",
+          "description": " 标签编码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0-禁用、1-启用"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
         }
       },
       "title": "UserLabel"
@@ -56546,7 +60482,7 @@
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int32",
+          "format": "int64",
           "description": " 标签id"
         },
         "name": {
@@ -56557,6 +60493,39 @@
           "type": "integer",
           "format": "int32",
           "description": " 标签排序"
+        },
+        "category_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签类型 0:其他 1:活动 2:存款标签 3:取款标签"
+        },
+        "level_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签层级类型 0-扁平/分类标签 1-层级标签"
+        },
+        "label_desc": {
+          "type": "string",
+          "description": " 标签描述"
+        },
+        "label_code": {
+          "type": "string",
+          "description": " 标签编码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0-禁用、1-启用"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
         },
         "user_count": {
           "type": "integer",
@@ -56568,22 +60537,6 @@
         }
       },
       "title": "UserLabelDetail"
-    },
-    "UserLabelList": {
-      "type": "object",
-      "properties": {
-        "labels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserLabelDetail"
-          }
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UserLabelList"
     },
     "UserLabelListReq": {
       "type": "object",
@@ -56619,6 +60572,114 @@
         }
       },
       "title": "UserLabelListReq"
+    },
+    "UserLabelListResp": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabelDetail"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserLabelListResp"
+    },
+    "UserLabelStatic": {
+      "type": "object",
+      "properties": {
+        "label_info": {
+          "$ref": "#/definitions/UserLabel"
+        },
+        "user_info": {
+          "$ref": "#/definitions/UserInfo"
+        }
+      },
+      "title": "UserLabelStatic"
+    },
+    "UserLabelTree": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 标签id"
+        },
+        "name": {
+          "type": "string",
+          "description": " 标签名"
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签排序"
+        },
+        "category_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签类型 0:其他 1:活动 2:存款标签 3:取款标签"
+        },
+        "level_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标签层级类型 0-扁平/分类标签 1-层级标签"
+        },
+        "label_desc": {
+          "type": "string",
+          "description": " 标签描述"
+        },
+        "label_code": {
+          "type": "string",
+          "description": " 标签编码"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0-禁用、1-启用"
+        },
+        "relation_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 关联类型 1:活动"
+        },
+        "relation_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联id"
+        },
+        "user_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "child_labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabelTree"
+          },
+          "description": " 子标签"
+        }
+      },
+      "title": "UserLabelTree"
+    },
+    "UserLabelTreeResp": {
+      "type": "object",
+      "properties": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabelTree"
+          }
+        }
+      },
+      "title": "UserLabelTreeResp"
     },
     "UserLevel": {
       "type": "object",
@@ -56841,6 +60902,10 @@
     "UserLevelCondition": {
       "type": "object",
       "properties": {
+        "logic": {
+          "type": "string",
+          "description": " 逻辑运算符 AND: 与 OR: 或"
+        },
         "events": {
           "type": "array",
           "items": {
@@ -56848,12 +60913,12 @@
           },
           "description": " 事件"
         },
-        "or": {
+        "sub_conditions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/UserLevelEvent"
+            "$ref": "#/definitions/UserLevelCondition"
           },
-          "description": " 比较运算符"
+          "description": " 子条件"
         }
       },
       "title": "UserLevelCondition"
@@ -56980,9 +61045,217 @@
           "type": "integer",
           "format": "int64",
           "description": " 用户数量"
+        },
+        "condition_str": {
+          "type": "string",
+          "description": " 等级条件结合字符串"
         }
       },
       "title": "UserLevelListElem"
+    },
+    "UserList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户id"
+        },
+        "name": {
+          "type": "string",
+          "description": " 全名"
+        },
+        "first_name": {
+          "type": "string",
+          "description": " 名字"
+        },
+        "last_name": {
+          "type": "string",
+          "description": " 姓氏"
+        },
+        "email": {
+          "type": "string",
+          "description": " 邮箱"
+        },
+        "tel_area_code": {
+          "type": "string",
+          "description": " 国家码"
+        },
+        "tel": {
+          "type": "string",
+          "description": " 手机号"
+        },
+        "avatar": {
+          "type": "string",
+          "description": " 头像"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号状态 0 正常 1 禁用 2 注销 3 黑名单"
+        },
+        "group_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 组id"
+        },
+        "group_name": {
+          "type": "string",
+          "description": " 组名"
+        },
+        "active_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 激活时间"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "register_source": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 注册来源 0 admin 1 pc 2 android 3 ios 4 h5"
+        },
+        "register_device_info": {
+          "type": "string",
+          "description": " 注册设备信息"
+        },
+        "risk_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 风控状态 0 正常 1 异常 2 拒绝"
+        },
+        "country": {
+          "type": "string",
+          "description": " 国家"
+        },
+        "language": {
+          "type": "string",
+          "description": " 语言"
+        },
+        "last_login_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 最后登录时间"
+        },
+        "last_login_ip": {
+          "type": "string",
+          "description": " 最后登录ip"
+        },
+        "last_login_ip_count": {
+          "type": "string",
+          "description": " 最后登录同 ip 人数"
+        },
+        "last_login_device": {
+          "type": "string",
+          "description": " 最后登录设备"
+        },
+        "register_ip": {
+          "type": "string",
+          "description": " 注册ip"
+        },
+        "register_ip_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 注册同 ip 人数"
+        },
+        "register_device": {
+          "type": "string",
+          "description": " 注册设备"
+        },
+        "register_audit_uid": {
+          "type": "string",
+          "description": " 注册审核人 UID"
+        },
+        "register_audit_name": {
+          "type": "string",
+          "description": " 注册审核人名称"
+        },
+        "register_audit_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 注册审核时间"
+        },
+        "identity_document_type": {
+          "type": "string",
+          "description": " 证件类型 \"ID_CARD\" 身份证  \"PASSPORT\"  护照 \"DRIVER_LICENSE\" 驾驶证"
+        },
+        "identity_document_number": {
+          "type": "string",
+          "description": " 证件号码"
+        },
+        "identity_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 认证状态"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabel"
+          },
+          "description": " 用户标签"
+        },
+        "gender": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 性别 0: 未知 1: 男 2: 女"
+        },
+        "birthday": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 生日"
+        },
+        "active": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 激活状态"
+        },
+        "account_type": {
+          "type": "string",
+          "description": " 账户类型"
+        },
+        "merchant_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 商户id"
+        },
+        "merchant_name": {
+          "type": "string",
+          "description": " 商户名称"
+        },
+        "level": {
+          "$ref": "#/definitions/UserLevelIdName",
+          "description": " 等级"
+        },
+        "bank_card_total_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 银行卡总数"
+        },
+        "bank_card_verified_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 已验证银行卡总数"
+        },
+        "bank_card_rejected_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 拒绝的银行卡总数"
+        },
+        "bank_card_append_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 待审核银行卡总数"
+        },
+        "user_asset": {
+          "type": "string",
+          "description": " 用户资产"
+        }
+      },
+      "title": "UserList"
     },
     "UserListRequest": {
       "type": "object",
@@ -57034,8 +61307,11 @@
           "type": "string",
           "description": " 证件号码"
         },
-        "trade_account": {
-          "type": "string",
+        "trade_accounts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "description": " 交易账号"
         },
         "identity_document_status": {
@@ -57068,6 +61344,27 @@
         "vip_level": {
           "type": "string",
           "description": " 用户等级过滤"
+        },
+        "ids": {
+          "type": "string",
+          "description": " 用户id列表"
+        },
+        "emails": {
+          "type": "string",
+          "description": " 邮箱列表"
+        },
+        "name_list": {
+          "type": "string",
+          "description": " 用户名列表"
+        },
+        "tel_list": {
+          "type": "string",
+          "description": " 手机号列表"
+        },
+        "identity_status_value": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 身份认证状态值 0 未提交 1待审核 2已认证 3认证失败 10用户删除"
         }
       },
       "title": "UserListRequest"
@@ -57083,7 +61380,7 @@
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/UserInfo"
+            "$ref": "#/definitions/UserList"
           },
           "description": " 用户列表"
         }
@@ -57704,6 +62001,54 @@
           "type": "integer",
           "format": "int64",
           "description": " 总交易账号人数"
+        },
+        "last_total_register_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 上期注册人数"
+        },
+        "new_register_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新增注册人数"
+        },
+        "last_new_register_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 上期新增注册人数"
+        },
+        "new_active_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新增激活人数"
+        },
+        "last_new_active_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 上期新增激活人数"
+        },
+        "identify_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 认证人数"
+        },
+        "pendding_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 待审核数"
+        },
+        "total_verification_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总认证数"
+        },
+        "total_asset": {
+          "type": "string",
+          "description": " 总资产"
+        },
+        "last_total_asset": {
+          "type": "string",
+          "description": " 上期总资产"
         }
       },
       "title": "UserStatOverviewResponse"
