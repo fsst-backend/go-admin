@@ -246,7 +246,7 @@ func (e *SysUser) Get(d *dto.SysUserById, p *actions.DataPermission, model *mode
 }
 
 // Insert 创建SysUser对象
-func (e *SysUser) Insert(c *dto.SysUserInsertReq) error {
+func (e *SysUser) Insert(c *dto.SysUserInsertReq, cb *casbin.SyncedEnforcer) error {
 	var err error
 	var data models.SysUser
 	var i int64
@@ -261,11 +261,79 @@ func (e *SysUser) Insert(c *dto.SysUserInsertReq) error {
 		return err
 	}
 	c.Generate(&data)
-	err = e.Orm.Create(&data).Error
+
+	// 使用事务确保数据一致性
+	tx := e.Orm.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+			panic(r)
+		}
+		if err != nil {
+			tx.Rollback()
+		} else {
+			tx.Commit()
+		}
+	}()
+
+	// 创建用户
+	err = tx.Create(&data).Error
 	if err != nil {
 		e.Log.Errorf("db error: %s", err)
 		return err
 	}
+
+	// 如果有角色ID，创建用户角色关联
+	if len(c.RoleIds) > 0 {
+		var roles []models.SysRole
+		// 验证角色是否存在
+		err = tx.Where("role_id in ?", c.RoleIds).Find(&roles).Error
+		if err != nil {
+			e.Log.Errorf("Query roles error: %s", err)
+			return err
+		}
+
+		if len(roles) != len(c.RoleIds) {
+			err = errors.New("部分角色不存在")
+			e.Log.Errorf("Some roles not found")
+			return err
+		}
+
+		// 创建用户角色关系
+		userRoles := make([]models.SysUserRole, 0, len(c.RoleIds))
+		for _, roleId := range c.RoleIds {
+			ur := models.SysUserRole{
+				UserId: data.UserId,
+				RoleId: roleId,
+			}
+			ur.SetCreateBy(c.CreateBy)
+			ur.SetUpdateBy(c.UpdateBy)
+			userRoles = append(userRoles, ur)
+		}
+
+		err = tx.Create(&userRoles).Error
+		if err != nil {
+			e.Log.Errorf("Create user-role relations error: %s", err)
+			return err
+		}
+
+		// 数据库操作成功后，同步到Casbin
+		if cb != nil {
+			userSubject := fmt.Sprintf("user_%d", data.UserId)
+
+			// 添加Casbin用户角色关联
+			if len(roles) > 0 {
+				for _, role := range roles {
+					_, err = cb.AddGroupingPolicy(userSubject, role.RoleKey)
+					if err != nil {
+						e.Log.Errorf("Add casbin user-role relation error: %s", err)
+						return err
+					}
+				}
+			}
+		}
+	}
+
 	return nil
 }
 

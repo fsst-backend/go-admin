@@ -138,7 +138,10 @@ func (e SysUser) Insert(c *gin.Context) {
 		req.Password = string(hash)
 	}
 
-	err = s.Insert(&req)
+	// 获取Casbin enforcer
+	cb := sdk.Runtime.GetCasbinKey(c.Request.Host)
+
+	err = s.Insert(&req, cb)
 	if err != nil {
 		e.Logger.Error(err)
 		e.Error(500, err, err.Error())
