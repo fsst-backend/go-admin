@@ -338,9 +338,14 @@ func (e *SysUser) UpdateStatus(c *dto.UpdateSysUserStatusReq, p *actions.DataPer
 	}
 	if db.RowsAffected == 0 {
 		return errors.New("无权更新该数据")
-
 	}
-	err = e.Orm.Table(model.TableName()).Where("user_id =? ", c.UserId).Updates(c).Error
+	updateData := map[string]interface{}{
+		"status": c.Status,
+	}
+	if c.UpdateBy > 0 {
+		updateData["update_by"] = c.UpdateBy
+	}
+	err = e.Orm.Table(model.TableName()).Where("user_id =? ", c.UserId).Updates(updateData).Error
 	if err != nil {
 		e.Log.Errorf("Service UpdateSysUser error: %s", err)
 		return err

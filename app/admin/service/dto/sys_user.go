@@ -135,7 +135,6 @@ type SysUserUpdateReq struct {
 	DeptId   int    `json:"deptId" comment:"部门" vd:"$>0"`
 	PostId   int    `json:"postId" comment:"岗位"`
 	Remark   string `json:"remark" comment:"备注"`
-	Status   int    `json:"status" comment:"状态" default:"1"`
 	common.ControlBy
 }
 
@@ -152,7 +151,6 @@ func (s *SysUserUpdateReq) Generate(model *models.SysUser) {
 	model.DeptId = s.DeptId
 	model.PostId = s.PostId
 	model.Remark = s.Remark
-	model.Status = s.Status
 }
 
 func (s *SysUserUpdateReq) GetId() interface{} {
