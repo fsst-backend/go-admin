@@ -72,6 +72,30 @@ func (e *SysApi) Get(d *dto.SysApiGetReq, p *actions.DataPermission, model *mode
 	return e
 }
 
+// Insert 创建SysApi对象
+func (e *SysApi) Insert(c *dto.SysApiInsertReq) error {
+	var err error
+	var model models.SysApi
+	var count int64
+	// 检查 path + action 是否已存在，避免重复
+	err = e.Orm.Model(&model).Where("path = ? AND action = ?", c.Path, c.Action).Count(&count).Error
+	if err != nil {
+		e.Log.Errorf("Service InsertSysApi check duplicate error: %s", err)
+		return err
+	}
+	if count > 0 {
+		return errors.New("该接口已存在（相同 path 与 action）")
+	}
+	c.Generate(&model)
+	err = e.Orm.Create(&model).Error
+	if err != nil {
+		e.Log.Errorf("Service InsertSysApi error: %s", err)
+		return err
+	}
+	c.Id = model.Id
+	return nil
+}
+
 // Update 修改SysApi对象
 func (e *SysApi) Update(c *dto.SysApiUpdateReq, p *actions.DataPermission) error {
 	var model = models.SysApi{}

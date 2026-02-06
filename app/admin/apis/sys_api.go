@@ -91,6 +91,38 @@ func (e SysApi) Get(c *gin.Context) {
 	e.OK(object, "查询成功")
 }
 
+// Insert 新增接口管理
+// @Summary 新增接口管理
+// @Description 新增接口管理
+// @Tags 接口管理
+// @Accept application/json
+// @Product application/json
+// @Param data body dto.SysApiInsertReq true "body"
+// @Success 200 {object} response.Response{message=string} "{"code": 0, "message": "创建成功"}"
+// @Router /lotus/api/v1/sys-api [post]
+// @Security Bearer
+func (e SysApi) Insert(c *gin.Context) {
+	req := dto.SysApiInsertReq{}
+	s := service.SysApi{}
+	err := e.MakeContext(c).
+		MakeOrm().
+		Bind(&req, binding.JSON).
+		MakeService(&s.Service).
+		Errors
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, err.Error())
+		return
+	}
+	req.SetCreateBy(user.GetUserId(c))
+	err = s.Insert(&req)
+	if err != nil {
+		e.Error(500, err, "创建失败")
+		return
+	}
+	e.OK(req.GetId(), "创建成功")
+}
+
 // Update 修改接口管理
 // @Summary 修改接口管理
 // @Description 修改接口管理
