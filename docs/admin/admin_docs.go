@@ -1171,7 +1171,19 @@ const docTemplateadmin = `{
                     "200": {
                         "description": "{\"code\": 0, \"message\": [...]}",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "$ref": "#/definitions/dto.SysUserInfoResp"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -2587,6 +2599,52 @@ const docTemplateadmin = `{
                 "responses": {
                     "200": {
                         "description": "{\"code\": 0, \"message\": \"修改成功\"}",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "新增接口管理",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "接口管理"
+                ],
+                "summary": "新增接口管理",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SysApiInsertReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 0, \"message\": \"创建成功\"}",
                         "schema": {
                             "allOf": [
                                 {
@@ -4745,6 +4803,32 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "dto.SysApiInsertReq": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string"
+                },
+                "createBy": {
+                    "type": "integer"
+                },
+                "handle": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updateBy": {
+                    "type": "integer"
+                }
+            }
+        },
         "dto.SysApiUpdateReq": {
             "type": "object",
             "properties": {
@@ -5646,6 +5730,56 @@ const docTemplateadmin = `{
                 }
             }
         },
+        "dto.SysUserInfoResp": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "buttons": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "deptId": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "introduction": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
         "dto.SysUserInsertReq": {
             "type": "object",
             "properties": {
@@ -5754,10 +5888,6 @@ const docTemplateadmin = `{
                 },
                 "sex": {
                     "type": "string"
-                },
-                "status": {
-                    "type": "integer",
-                    "default": 1
                 },
                 "updateBy": {
                     "type": "integer"
@@ -5922,7 +6052,7 @@ const docTemplateadmin = `{
                     "type": "string"
                 },
                 "deptCatalog": {
-                    "description": "部门类型 finance 财务  hr 人力资源 customer_service 客服",
+                    "description": "部门类型 finance 财务  hr 人力资源 customer_service 客服  rnd 研发  sales 销售  market 市场  operation 运营 ops 运维",
                     "type": "string"
                 },
                 "deptId": {

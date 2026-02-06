@@ -51,6 +51,8 @@ settings:
     violet:
       targetURL: ${VIOLET_TARGET_URL}  # Violet 服务地址
       domainID: ${DOMAIN_ID}          # 域ID
+    telemarketing:
+      targetURL: ${TELEMARKETING_TARGET_URL}  # Telemarketing 服务地址（默认端口 9999）
     upload:
       appKey: ${UPLOAD_APP_KEY}                    # 应用标识
       secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥

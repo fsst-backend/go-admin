@@ -299,6 +299,23 @@ definitions:
           type: integer
         type: array
     type: object
+  dto.SysApiInsertReq:
+    properties:
+      action:
+        type: string
+      createBy:
+        type: integer
+      handle:
+        type: string
+      path:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+      updateBy:
+        type: integer
+    type: object
   dto.SysApiUpdateReq:
     properties:
       action:
@@ -920,6 +937,39 @@ definitions:
       updateBy:
         type: integer
     type: object
+  dto.SysUserInfoResp:
+    properties:
+      avatar:
+        type: string
+      buttons:
+        items:
+          type: string
+        type: array
+      deptId:
+        type: integer
+      email:
+        type: string
+      introduction:
+        type: string
+      name:
+        type: string
+      permissions:
+        items:
+          type: string
+        type: array
+      phone:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      userId:
+        type: integer
+      userName:
+        type: string
+      uuid:
+        type: string
+    type: object
   dto.SysUserInsertReq:
     properties:
       avatar:
@@ -993,9 +1043,6 @@ definitions:
         type: string
       sex:
         type: string
-      status:
-        default: 1
-        type: integer
       updateBy:
         type: integer
       userId:
@@ -1105,7 +1152,8 @@ definitions:
       dataScope:
         type: string
       deptCatalog:
-        description: 部门类型 finance 财务  hr 人力资源 customer_service 客服
+        description: 部门类型 finance 财务  hr 人力资源 customer_service 客服  rnd 研发  sales 销售  market
+          市场  operation 运营 ops 运维
         type: string
       deptId:
         description: 部门编码
@@ -2386,7 +2434,12 @@ paths:
         "200":
           description: '{"code": 0, "message": [...]}'
           schema:
-            $ref: '#/definitions/response.Response'
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  $ref: '#/definitions/dto.SysUserInfoResp'
+              type: object
       security:
       - Bearer: []
       summary: 获取个人信息
@@ -3205,6 +3258,32 @@ paths:
       security:
       - Bearer: []
       summary: 获取接口管理列表
+      tags:
+      - 接口管理
+    post:
+      consumes:
+      - application/json
+      description: 新增接口管理
+      parameters:
+      - description: body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SysApiInsertReq'
+      responses:
+        "200":
+          description: '{"code": 0, "message": "创建成功"}'
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                message:
+                  type: string
+              type: object
+      security:
+      - Bearer: []
+      summary: 新增接口管理
       tags:
       - 接口管理
     put:

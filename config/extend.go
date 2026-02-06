@@ -18,16 +18,19 @@ const (
 //	  violet:
 //	    targetURL: http://localhost:8080
 //	    domainID: default-domain
+//	  telemarketing:
+//	    targetURL: http://localhost:9999
 //	  upload:
 //	    appKey: admin
 //	    secret: your-secret-key
 //
 // 使用方法: config.ExtConfig......即可!!
 type Extend struct {
-	AMap     AMap           // 这里配置对应配置文件的结构即可
-	Violet   Violet         // Violet 反向代理配置
-	Upload   Upload         // Upload 上传服务配置
-	Frontend FrontendConfig // 前端配置
+	AMap          AMap           // 这里配置对应配置文件的结构即可
+	Violet        Violet         // Violet 反向代理配置
+	Telemarketing Telemarketing  // Telemarketing 反向代理配置
+	Upload        Upload         // Upload 上传服务配置
+	Frontend      FrontendConfig // 前端配置
 }
 
 type AMap struct {
@@ -45,6 +48,11 @@ type FrontendConfig struct {
 type Violet struct {
 	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址
 	DomainID  int64  `yaml:"domainID" json:"domainID"`   // 域ID
+}
+
+// Telemarketing 反向代理配置（端口 9999）
+type Telemarketing struct {
+	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址，默认 http://localhost:9999
 }
 
 // Upload 上传服务配置
