@@ -20,4 +20,9 @@ func registerSmsProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddl
 	{
 		r.Any("/*path", proxyAPI.Proxy)
 	}
+
+	export := v1.Group("/poplar/sms/noauth/v1")
+	{
+		export.Any("/*path", proxyAPI.Proxy)
+	}
 }
