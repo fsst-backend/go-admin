@@ -53,6 +53,8 @@ settings:
       domainID: ${DOMAIN_ID}          # 域ID
     telemarketing:
       targetURL: ${TELEMARKETING_TARGET_URL}  # Telemarketing 服务地址（默认端口 9999）
+    sms:
+      targetURL: ${SMS_TARGET_URL}  # SMS 服务地址（/poplar/sms/v1 转发目标）
     upload:
       appKey: ${UPLOAD_APP_KEY}                    # 应用标识
       secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥

@@ -20,6 +20,8 @@ const (
 //	    domainID: default-domain
 //	  telemarketing:
 //	    targetURL: http://localhost:9999
+//	  sms:
+//	    targetURL: http://localhost:xxxx
 //	  upload:
 //	    appKey: admin
 //	    secret: your-secret-key
@@ -29,6 +31,7 @@ type Extend struct {
 	AMap          AMap           // 这里配置对应配置文件的结构即可
 	Violet        Violet         // Violet 反向代理配置
 	Telemarketing Telemarketing  // Telemarketing 反向代理配置
+	SMS           SMS            // SMS 反向代理配置（/poplar/sms/v1）
 	Upload        Upload         // Upload 上传服务配置
 	Frontend      FrontendConfig // 前端配置
 }
@@ -53,6 +56,11 @@ type Violet struct {
 // Telemarketing 反向代理配置（端口 9999）
 type Telemarketing struct {
 	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址，默认 http://localhost:9999
+}
+
+// SMS 反向代理配置（/poplar/sms/v1）
+type SMS struct {
+	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址
 }
 
 // Upload 上传服务配置

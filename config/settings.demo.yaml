@@ -37,6 +37,8 @@ settings:
       domainID: default-domain          # 域ID
     telemarketing:
       targetURL: http://localhost:9999 # Telemarketing 服务地址（端口 9999）
+    sms:
+      targetURL: http://localhost:8080 # SMS 服务地址（/poplar/sms/v1 转发目标）
     upload:
       appKey: admin                    # 应用标识
       secret: your-secret-key-here     # 与上传服务约定的密钥

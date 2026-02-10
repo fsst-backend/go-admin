@@ -1,0 +1,2879 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "中控短信模块 API",
+    "description": "根据《中控_短信模块》文档生成的 OpenAPI 规范。\n包含短信模块、邮件模块、通知配置、验证码等接口。\n后台 API 需在 Header 中传递 X-Poplar-Domain-Id（公司站点）。\n",
+    "version": "1.0.0",
+    "contact": {
+      "name": "如意小郎君"
+    }
+  },
+  "tags": [
+    {
+      "name": "短信模块-平台"
+    },
+    {
+      "name": "短信模块-模板"
+    },
+    {
+      "name": "邮件模块-样式"
+    },
+    {
+      "name": "邮件模块-模板"
+    },
+    {
+      "name": "邮件模块-平台"
+    },
+    {
+      "name": "其他/通知"
+    },
+    {
+      "name": "验证码"
+    }
+  ],
+  "paths": {
+    "/poplar/sms/v1/SMSTemplate/AddPlatform": {
+      "post": {
+        "summary": "增加平台",
+        "deprecated": false,
+        "description": "平台 先客国际(海外) 账号栏目改名成为 SPID；平台 微网通(海外)、微网通(国内) 自定义1字段名称修改为产品ID。接口状态：开发中",
+        "tags": [
+          "短信模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "平台类型",
+                    "example": "3"
+                  },
+                  "keys": {
+                    "type": "string",
+                    "description": "授权key",
+                    "example": "722955"
+                  },
+                  "secret": {
+                    "type": "string",
+                    "description": "授权密钥",
+                    "example": "12940b47"
+                  },
+                  "sort": {
+                    "type": "string",
+                    "description": "排序",
+                    "example": "1"
+                  },
+                  "key_1": {
+                    "type": "string",
+                    "description": "自定义1",
+                    "example": "-"
+                  },
+                  "key_2": {
+                    "type": "string",
+                    "description": "自定义2",
+                    "example": "-"
+                  },
+                  "types": {
+                    "type": "string",
+                    "description": "台支持短信类型 1任意备案内容 2验证码",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "54": null,
+                    "78": null,
+                    "type": "string",
+                    "description": "支持的国区号，如 85",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "istype",
+                  "keys",
+                  "secret",
+                  "sort",
+                  "key_1",
+                  "key_2",
+                  "types",
+                  "area_code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/EditingPlatform": {
+      "post": {
+        "summary": "编辑平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "平台类型",
+                    "example": ""
+                  },
+                  "keys": {
+                    "type": "string",
+                    "description": "授权key",
+                    "example": ""
+                  },
+                  "secret": {
+                    "type": "string",
+                    "description": "授权密钥",
+                    "example": ""
+                  },
+                  "sort": {
+                    "type": "string",
+                    "description": "排序",
+                    "example": ""
+                  },
+                  "key_1": {
+                    "type": "string",
+                    "description": "自定义1",
+                    "example": ""
+                  },
+                  "key_2": {
+                    "type": "string",
+                    "description": "自定义2",
+                    "example": ""
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "平台ID",
+                    "example": ""
+                  },
+                  "types": {
+                    "type": "string",
+                    "description": "台支持短信类型 1任意备案内容 2验证码",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "description": "支持的国区号",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "istype",
+                  "keys",
+                  "secret",
+                  "sort",
+                  "key_1",
+                  "key_2",
+                  "id",
+                  "types",
+                  "area_code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/DeletePlatform": {
+      "post": {
+        "summary": "删除平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "平台ID",
+                    "example": "1"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/EditingStatus": {
+      "post": {
+        "summary": "编辑平台状态",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": "2"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "平台id",
+                    "example": "1"
+                  }
+                },
+                "required": [
+                  "states",
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/GetSmsPlatform": {
+      "get": {
+        "summary": "获取平台列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每页条数",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "istype",
+            "in": "query",
+            "description": "搜索平台类型",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "states",
+            "in": "query",
+            "description": "搜索状态 1开启 -1关闭",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/SMSTemplate": {
+      "post": {
+        "summary": "增加短信模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "批量增加数据 json（含 lan",
+                    "content": null,
+                    "state": null,
+                    "codestirng）": null,
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "content",
+                  "states"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/DeleteSMS": {
+      "post": {
+        "summary": "删除指定类型模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codestring": {
+                    "type": "string",
+                    "description": "模板类型",
+                    "example": "ACCOUNT_OPENED_SUCCESSFULLY"
+                  }
+                },
+                "required": [
+                  "codestring"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/UpdateSmsTemplate": {
+      "post": {
+        "summary": "更新短信模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "批量增加数据 json",
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "content",
+                  "states"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/GetSmsTemplate": {
+      "get": {
+        "summary": "获取短信模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_lan",
+            "in": "query",
+            "description": "搜索语言",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_code",
+            "in": "query",
+            "description": "搜索 codestirng 模板标识",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_status",
+            "in": "query",
+            "description": "搜索状态 1开启 -1关闭",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_content",
+            "in": "query",
+            "description": "搜索内容",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/RetrieveTheSpecifiedCodeContent": {
+      "get": {
+        "summary": "获取指定标识内容",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "codestring",
+            "in": "query",
+            "description": "模板类型",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/DeleteSpecifiedLanguage": {
+      "post": {
+        "summary": "删除指定类型模板（指定语言）",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codestring": {
+                    "type": "string",
+                    "description": "模板类型",
+                    "example": ""
+                  },
+                  "lan": {
+                    "type": "string",
+                    "description": "语言类型",
+                    "example": "zh-cn"
+                  }
+                },
+                "required": [
+                  "codestring",
+                  "lan"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/SMSTemplate/ModifyTemplateStatus": {
+      "post": {
+        "summary": "修改模板状态",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "短信模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codestring": {
+                    "type": "string",
+                    "description": "模板类型",
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "codestring",
+                  "states"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/SetDefaultStyle": {
+      "post": {
+        "summary": "设置为默认样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "样式唯一标识",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/AddStyle": {
+      "post": {
+        "summary": "增加样式",
+        "deprecated": false,
+        "description": "样式内容里面必须包含 ${template} 标签，作为内容替换位置",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "批量增加数据 json（含 content, lan），content 需包含 ${template}",
+                    "example": ""
+                  },
+                  "style_title": {
+                    "type": "string",
+                    "description": "样式标题",
+                    "example": ""
+                  },
+                  "cover": {
+                    "type": "string",
+                    "description": "样式封面",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "content",
+                  "style_title",
+                  "cover"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/EditStyle": {
+      "post": {
+        "summary": "编辑样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "批量增加数据 json",
+                    "example": ""
+                  },
+                  "style_title": {
+                    "type": "string",
+                    "description": "样式标题",
+                    "example": ""
+                  },
+                  "cover": {
+                    "type": "string",
+                    "description": "样式封面",
+                    "example": ""
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "样式唯一标识",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "content",
+                  "style_title",
+                  "cover",
+                  "code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/GetAllStyles": {
+      "get": {
+        "summary": "获取所有样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_title",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/DeleteStyle": {
+      "post": {
+        "summary": "删除样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "样式唯一标识",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/GetAll": {
+      "get": {
+        "summary": "获取所有样式（不分页）",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/SpecifyStyle": {
+      "get": {
+        "summary": "获取指定样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "style_code",
+            "in": "query",
+            "description": "样式唯一标识",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/OutputStyleSpecifiedLanguage": {
+      "post": {
+        "summary": "删除样式（指定语言）",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-样式"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "样式唯一标识",
+                    "example": ""
+                  },
+                  "lan": {
+                    "type": "string",
+                    "description": "语言",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/AddTemplate": {
+      "post": {
+        "summary": "增加模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "批量增加数据 json",
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/EditTemplate": {
+      "post": {
+        "summary": "编辑模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/DeleteTemplate": {
+      "post": {
+        "summary": "删除模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codestring": {
+                    "type": "string",
+                    "description": "模板类型",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "codestring"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/GetAllTemplates": {
+      "get": {
+        "summary": "获取所有模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_code",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_lan",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_status",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/ObtainTheSpecifiedIdentificationTemplate": {
+      "get": {
+        "summary": "获取指定 code 模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "codestirng",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/DeleteSpecifiedLanguageTemplate": {
+      "post": {
+        "summary": "删除指定类型指定语言模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-模板"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "codestring": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "lan": {
+                    "type": "string",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "codestring",
+                  "lan"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/AddPlatform": {
+      "post": {
+        "summary": "增加平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "平台类型",
+                    "example": ""
+                  },
+                  "keys": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "secret": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "sort": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "key_1": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "key_2": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "types": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/EditingPlatform": {
+      "post": {
+        "summary": "编辑平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "keys": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "secret": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "sort": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "key_1": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "key_2": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "id": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "types": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/DeletePlatform": {
+      "post": {
+        "summary": "删除平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/PlatformList": {
+      "get": {
+        "summary": "获取所有平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_platform_date",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/MailTemplate/SetStatus": {
+      "post": {
+        "summary": "设置状态",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "邮件模块-平台"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "states": {
+                    "type": "string",
+                    "description": "状态 1开启 2关闭",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "id",
+                  "states"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/DefaultEmailStyle": {
+      "get": {
+        "summary": "获取系统默认邮件样式",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/ExportSMSTemplate": {
+      "get": {
+        "summary": "导出短信模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/NotificationType": {
+      "get": {
+        "summary": "获取通知类型/邮件平台/短信平台",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/NotificationConfiguration": {
+      "post": {
+        "summary": "通知全局设置",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ip_upper_limit": {
+                    "type": "string",
+                    "description": "验证码上限(次)",
+                    "example": ""
+                  },
+                  "ip_interval": {
+                    "type": "string",
+                    "description": "ip间隔(秒)",
+                    "example": ""
+                  },
+                  "validity_period_of_verification_code": {
+                    "type": "string",
+                    "description": "验证码有效期时间(分)",
+                    "example": ""
+                  },
+                  "email_resend_switch": {
+                    "type": "string",
+                    "description": "邮件失败重发开关 1开启",
+                    "example": ""
+                  },
+                  "number_of_email_failures": {
+                    "type": "string",
+                    "description": "邮件失败重发次数",
+                    "example": ""
+                  },
+                  "forwarding_switch": {
+                    "type": "string",
+                    "description": "转发开关 1开启",
+                    "example": ""
+                  },
+                  "forwarding_address": {
+                    "type": "string",
+                    "description": "转发地址",
+                    "example": ""
+                  },
+                  "reuse_verification_code_switch": {
+                    "type": "string",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "ip_upper_limit",
+                  "ip_interval",
+                  "validity_period_of_verification_code",
+                  "email_resend_switch",
+                  "number_of_email_failures",
+                  "forwarding_switch",
+                  "forwarding_address",
+                  "reuse_verification_code_switch"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/GetGlobalNotificationSettings": {
+      "get": {
+        "summary": "获取通知全局设置",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/ExportEmailTemplate": {
+      "get": {
+        "summary": "导出邮件模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/ImportEmailTemplate": {
+      "post": {
+        "summary": "导入邮件模板(异步)",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "导入文件",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/ImportSmsTemplate": {
+      "post": {
+        "summary": "导入短信模板(异步)",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "导入文件",
+                    "example": ""
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/ViewImportProgress": {
+      "get": {
+        "summary": "查看导入进度",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "导入任务 key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/DownloadTemplate": {
+      "get": {
+        "summary": "下载模板",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/GooglePhone": {
+      "get": {
+        "summary": "识别走谷歌验证码",
+        "deprecated": false,
+        "description": "返回需走谷歌验证的区号/平台配置，为空则走自己的验证码发送通道",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/CheckTheUsageStatusOfTheVerificationCode": {
+      "get": {
+        "summary": "检测短信使用状态",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "其他/通知"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "query",
+            "description": "短信唯一ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/VerificationCode/VerificationCodeList": {
+      "get": {
+        "summary": "获取全部验证码",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "验证码"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_for_verification_code",
+            "in": "query",
+            "description": "搜索验证码",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_status",
+            "in": "query",
+            "description": "搜索使用状态 -1未使用 1已使用",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_type",
+            "in": "query",
+            "description": "搜索类型 1手机 2邮件",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_keywords",
+            "in": "query",
+            "description": "搜索关键字(号码/邮箱)，search_type 必择",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/VerificationCode/ManuallyAddVerificationCode": {
+      "post": {
+        "summary": "手动增加验证码",
+        "deprecated": false,
+        "description": "只能发送验证码类型",
+        "tags": [
+          "验证码"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "类型 1手机 2邮件",
+                    "example": ""
+                  },
+                  "codestring": {
+                    "type": "string",
+                    "description": "验证码类型",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "description": "区号",
+                    "example": ""
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "手机号",
+                    "example": ""
+                  },
+                  "mail": {
+                    "type": "string",
+                    "description": "邮箱",
+                    "example": ""
+                  },
+                  "send_not": {
+                    "type": "string",
+                    "description": "是否发送 1发送",
+                    "example": ""
+                  },
+                  "lan": {
+                    "type": "string",
+                    "description": "客户端语言",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "istype",
+                  "codestring",
+                  "area_code",
+                  "number",
+                  "mail",
+                  "send_not",
+                  "lan"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "headers": {}
+          },
+          "404": {
+            "description": "失败",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/SendVerificationCode": {
+      "post": {
+        "summary": "发送通知消息手机/邮件",
+        "deprecated": false,
+        "description": "codestring 为验证码类型/模板标识。fill_data 为变量填充数据 json，值建议为 string 避免精度丢失。",
+        "tags": [
+          "验证码"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "description": "登录态 cookie",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "类型 1手机 2邮件",
+                    "example": ""
+                  },
+                  "codestring": {
+                    "type": "string",
+                    "description": "验证码类型/模板标识",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "description": "区号",
+                    "example": ""
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "手机号",
+                    "example": ""
+                  },
+                  "mail": {
+                    "type": "string",
+                    "description": "邮箱",
+                    "example": ""
+                  },
+                  "fill_data": {
+                    "type": "string",
+                    "description": "变量填充数据 json，验证码类型可为空",
+                    "example": ""
+                  },
+                  "lan": {
+                    "type": "string",
+                    "description": "客户语言",
+                    "example": ""
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "客户端 ip",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "istype",
+                  "codestring",
+                  "area_code",
+                  "number",
+                  "mail",
+                  "fill_data",
+                  "lan",
+                  "ip"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/poplar/sms/v1/OtherNews/VerificationCode": {
+      "post": {
+        "summary": "检测验证码是否通过",
+        "deprecated": false,
+        "description": "istype=3 时传递谷歌 JWT 验证信息。支持万能验证码。",
+        "tags": [
+          "验证码"
+        ],
+        "parameters": [
+          {
+            "name": "X-Poplar-Domain-Id",
+            "in": "header",
+            "description": "公司站点",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "istype": {
+                    "type": "string",
+                    "description": "类型 1手机 2邮件 3谷歌验证",
+                    "example": ""
+                  },
+                  "codestring": {
+                    "type": "string",
+                    "description": "验证码类型",
+                    "example": ""
+                  },
+                  "area_code": {
+                    "type": "string",
+                    "description": "区号",
+                    "example": ""
+                  },
+                  "number": {
+                    "type": "string",
+                    "description": "手机号",
+                    "example": ""
+                  },
+                  "mail": {
+                    "type": "string",
+                    "description": "邮箱",
+                    "example": ""
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "验证码；istype=3 时传谷歌 JWT",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "istype",
+                  "codestring",
+                  "area_code",
+                  "number",
+                  "mail",
+                  "code"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "状态码",
+            "example": 200
+          },
+          "code_as": {
+            "type": "string",
+            "description": "状态标识"
+          },
+          "count": {
+            "type": "integer",
+            "description": "总数（列表接口）"
+          },
+          "data": {
+            "description": "返回数据"
+          },
+          "msg": {
+            "type": "string",
+            "description": "返回文字描述",
+            "example": "操作成功"
+          }
+        }
+      }
+    },
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
