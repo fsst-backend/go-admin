@@ -23,3 +23,5 @@ go.sum
 config/settings.deva.yml
 
 go-admin-test
+
+.build

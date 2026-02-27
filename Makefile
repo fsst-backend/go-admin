@@ -24,6 +24,10 @@ build-linux:
 		-o ./build/linux/go-admin .
 	@echo "build successful"
 
+.PHONY: print-tag
+print-tag:
+	@echo $(IMAGE_TAG)
+
 push: build-linux
 	docker build -t ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG} .
 	docker push ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG}
