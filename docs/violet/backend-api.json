@@ -4016,6 +4016,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/content/calendar/detail": {
+      "get": {
+        "summary": "获取日历详情",
+        "operationId": "GetCalendarDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CalendarEventItem"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " 日历事件ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "content"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/backend/content/calendar/list": {
       "get": {
         "summary": "获取日历列表",
@@ -4088,34 +4118,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/content/calendar/{id}": {
-      "get": {
-        "summary": "获取日历详情",
-        "operationId": "GetCalendarDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CalendarEventItem"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "content"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
     "/poplar/violet/backend/content/flash/add_or_update": {
       "post": {
         "summary": "新增/编辑快讯",
@@ -4176,6 +4178,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/content/flash/detail": {
+      "get": {
+        "summary": "获取快讯详情",
+        "operationId": "GetFlashDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FlashItem"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " 快讯ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "content"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/backend/content/flash/list": {
       "get": {
         "summary": "获取快讯列表",
@@ -4217,34 +4249,6 @@
             "required": false,
             "type": "integer",
             "format": "int32"
-          }
-        ],
-        "tags": [
-          "content"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/content/flash/{id}": {
-      "get": {
-        "summary": "获取快讯详情",
-        "operationId": "GetFlashDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/FlashItem"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
           }
         ],
         "tags": [
@@ -4344,6 +4348,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/content/news/detail": {
+      "get": {
+        "summary": "获取News详情",
+        "operationId": "GetNewsDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NewsItem"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " 新闻ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "content"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/backend/content/news/list": {
       "get": {
         "summary": "获取News列表",
@@ -4385,34 +4419,6 @@
             "required": false,
             "type": "integer",
             "format": "int32"
-          }
-        ],
-        "tags": [
-          "content"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/content/news/{id}": {
-      "get": {
-        "summary": "获取News详情",
-        "operationId": "GetNewsDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/NewsItem"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
           }
         ],
         "tags": [
@@ -44391,7 +44397,7 @@
       "properties": {
         "category": {
           "type": "string",
-          "description": " trading / association / funds，空表示全部"
+          "description": " trading / association / funds，空或 \"all\" 表示全部"
         }
       },
       "title": "DisableMonitoringRulesByCategoryReq"
@@ -44689,7 +44695,7 @@
       "properties": {
         "category": {
           "type": "string",
-          "description": " trading / association / funds，空表示全部"
+          "description": " trading / association / funds，空或 \"all\" 表示全部"
         }
       },
       "title": "EnableMonitoringRulesByCategoryReq"
@@ -47363,6 +47369,13 @@
     },
     "GetCalendarDetailRequest": {
       "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 日历事件ID"
+        }
+      },
       "title": "GetCalendarDetailRequest"
     },
     "GetCalendarListRequest": {
@@ -48716,6 +48729,13 @@
     },
     "GetFlashDetailRequest": {
       "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 快讯ID"
+        }
+      },
       "title": "GetFlashDetailRequest"
     },
     "GetFlashListRequest": {
@@ -50366,6 +50386,13 @@
     },
     "GetNewsDetailRequest": {
       "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新闻ID"
+        }
+      },
       "title": "GetNewsDetailRequest"
     },
     "GetNewsListRequest": {
@@ -59542,6 +59569,12 @@
     },
     "MonitoringRuleStatsReq": {
       "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": " 筛选项：trading / association / funds，空或 \"all\" 表示全部"
+        }
+      },
       "title": "MonitoringRuleStatsReq"
     },
     "MonitoringRuleStatsResp": {

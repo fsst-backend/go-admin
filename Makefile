@@ -46,3 +46,10 @@ proto:
 		--go-grpc_opt=paths=source_relative \
 		$(PROTO_FILES)
 	@echo "==> Done."
+
+# 将 violet 的 backend-api.json 复制到 docs/violet/
+.PHONY: copy-violet-api
+copy-violet-api:
+	@mkdir -p docs/violet
+	@cp ../violet/doc/backend-api.json docs/violet/backend-api.json
+	@echo "==> copied ../violet/doc/backend-api.json -> docs/violet/backend-api.json"
