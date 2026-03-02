@@ -21,6 +21,9 @@ func _1739000000000TokenVersion(db *gorm.DB, version string) error {
 		if err := tx.Migrator().AutoMigrate(&models.SysUser{}); err != nil {
 			return err
 		}
+		if err := tx.Migrator().AutoMigrate(&models.SysLoginLog{}); err != nil {
+			return err
+		}
 		return tx.Create(&common.Migration{Version: version}).Error
 	})
 }
