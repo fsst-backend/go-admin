@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"go-admin/app/admin/models"
 	"go-admin/common"
 	"net/http"
 
@@ -17,6 +16,7 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/response"
 	"github.com/mssola/user_agent"
+	"gorm.io/gorm"
 )
 
 func PayloadFunc(data interface{}) jwt.MapClaims {
@@ -26,6 +26,7 @@ func PayloadFunc(data interface{}) jwt.MapClaims {
 			"uuid":          u.UUID,
 			jwt.IdentityKey: u.UserId,
 			jwt.NiceKey:     u.Username,
+			"token_version": u.TokenVersion,
 		}
 	}
 	return jwt.MapClaims{}
@@ -90,7 +91,12 @@ func Authenticator(c *gin.Context) (interface{}, error) {
 	sysUser, e := loginVals.GetUser(db)
 	if e == nil {
 		username = loginVals.Username
-
+		// 单设备登录：递增 token_version，使其他设备上的旧 token 失效
+		if err := db.Table("sys_user").Where("user_id = ?", sysUser.UserId).Update("token_version", gorm.Expr("COALESCE(token_version,0) + 1")).Error; err != nil {
+			log.Warnf("increment token_version error: %s", err.Error())
+		} else if err := db.Table("sys_user").Where("user_id = ?", sysUser.UserId).Select("token_version").Scan(&sysUser.TokenVersion).Error; err == nil {
+			// 刷新 sysUser.TokenVersion 供 PayloadFunc 写入 JWT
+		}
 		return map[string]interface{}{"user": sysUser}, nil
 	} else {
 		msg = "登录失败"
@@ -154,14 +160,55 @@ func LogOut(c *gin.Context) {
 }
 
 func Authorizator(data interface{}, c *gin.Context) bool {
-	if v, ok := data.(map[string]interface{}); ok {
-		u, _ := v["user"].(models.SysUser)
-		c.Set("userId", u.UserId)
-		c.Set("uuid", u.UUID)
-		c.Set("userName", u.Username)
-		return true
+	claims := jwt.ExtractClaims(c)
+	userId := getIntFromClaims(claims, jwt.IdentityKey)
+	if userId == 0 {
+		return false
 	}
-	return false
+
+	// 单设备登录：校验 token_version 精确匹配，若用户在其他设备新登录则当前 token 失效
+	// 使用 == 判断而非 <，可正确处理 INT 有符号溢出回绕（2.1e9 → -2.1e9）的情况
+	tokenVer := getIntFromClaims(claims, "token_version")
+	db, err := pkg.GetOrm(c)
+	if err == nil {
+		var dbVer int
+		if db.Table("sys_user").Where("user_id = ?", userId).Select("token_version").Scan(&dbVer).Error == nil {
+			if tokenVer != dbVer {
+				return false
+			}
+		}
+	}
+
+	// 设置用户信息到上下文
+	c.Set("userId", userId)
+	if uuid, ok := claims["uuid"].(string); ok {
+		c.Set("uuid", uuid)
+	}
+	if nice, ok := claims["nice"].(string); ok {
+		c.Set("userName", nice)
+	}
+	return true
+}
+
+func getIntFromClaims(claims jwt.MapClaims, key string) int {
+	if v, ok := claims[key]; !ok || v == nil {
+		return 0
+	} else if n, ok := toInt(v); ok {
+		return n
+	}
+	return 0
+}
+
+func toInt(v interface{}) (int, bool) {
+	switch x := v.(type) {
+	case float64:
+		return int(x), true
+	case int:
+		return x, true
+	case int64:
+		return int(x), true
+	}
+	return 0, false
 }
 
 func Unauthorized(c *gin.Context, code int, message string) {

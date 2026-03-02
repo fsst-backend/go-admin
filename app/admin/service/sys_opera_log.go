@@ -22,6 +22,7 @@ func (e *SysOperaLog) GetPage(c *dto.SysOperaLogGetPageReq, list *[]models.SysOp
 
 	err = e.Orm.Model(&data).
 		Scopes(
+			cDto.OrderDest("created_at", true), // 默认按创建时间倒序，最新在前
 			cDto.MakeCondition(c.GetNeedSearch()),
 			cDto.PaginateOffsetLimit(c.GetLimit(), c.GetOffset()),
 		).

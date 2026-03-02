@@ -22,8 +22,9 @@ type SysUser struct {
 	Email    string `json:"email" gorm:"column:email;type:varchar(128);comment:邮箱"`
 	DeptId   int    `json:"deptId" gorm:"column:dept_id;type:int;comment:部门"`
 	PostId   int    `json:"postId" gorm:"column:post_id;type:int;comment:岗位"`
-	Remark   string `json:"remark" gorm:"column:remark;type:varchar(255);comment:备注"`
-	Status   int    `json:"status" gorm:"column:status;type:tinyint;comment:状态"`
+	Remark       string `json:"remark" gorm:"column:remark;type:varchar(255);comment:备注"`
+	Status       int    `json:"status" gorm:"column:status;type:tinyint;comment:状态"`
+	TokenVersion int    `json:"-" gorm:"column:token_version;type:int;default:0;comment:登录令牌版本，新登录递增后旧token失效"`
 	models.ControlBy
 	models.ModelTime
 }
