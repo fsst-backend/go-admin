@@ -118,6 +118,8 @@ ALTER TABLE sys_role_permission MODIFY COLUMN role_id INT COMMENT '角色ID';
 ALTER TABLE sys_role_permission MODIFY COLUMN permission_id INT COMMENT '权限ID';
 
 -- 修改 sys_user 表字段类型
+-- 单设备登录字段（由 migration 1739000000000 自动添加，或手动执行）:
+-- ALTER TABLE sys_user ADD COLUMN token_version INT DEFAULT 0 COMMENT '登录令牌版本';
 ALTER TABLE sys_user MODIFY COLUMN uuid VARCHAR(255) COMMENT 'UUID';
 ALTER TABLE sys_user MODIFY COLUMN username VARCHAR(64) COMMENT '用户名';
 ALTER TABLE sys_user MODIFY COLUMN password VARCHAR(128) COMMENT '密码';
