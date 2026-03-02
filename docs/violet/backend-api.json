@@ -2616,6 +2616,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/commission/commission/config/copy_by_group": {
+      "post": {
+        "summary": "复制分佣配置（按交易组）：将源交易组下所有品种的 VIP1~VIP9 配置复制到目标交易组",
+        "operationId": "CopyCommissionConfigByGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyCommissionConfigByGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyCommissionConfigByGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "commission"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/commission/commission/config/set": {
       "post": {
         "summary": "设置交易组某品种某 VIP 等级的返佣值",
@@ -39459,6 +39489,46 @@
       },
       "title": "ConversionFunnelResponse"
     },
+    "CopyCommissionConfigByGroupRequest": {
+      "type": "object",
+      "properties": {
+        "source_transaction_group": {
+          "type": "string",
+          "description": " 源交易组"
+        },
+        "target_transaction_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 目标交易组列表"
+        }
+      },
+      "title": "CopyCommissionConfigByGroupRequest"
+    },
+    "CopyCommissionConfigByGroupResponse": {
+      "type": "object",
+      "properties": {
+        "copied_group_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成功复制的目标交易组数"
+        },
+        "failed_group_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 失败的目标交易组数"
+        },
+        "failed_target_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 失败的目标交易组列表"
+        }
+      },
+      "title": "CopyCommissionConfigByGroupResponse"
+    },
     "CopyCommissionConfigRequest": {
       "type": "object",
       "properties": {
@@ -54006,6 +54076,11 @@
           "type": "integer",
           "format": "int32",
           "description": " 申请状态 0:申请中 1:待审核 2:已通过 3:已拒绝"
+        },
+        "is_oauth": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否第三方(OAuth)注册"
         },
         "materials": {
           "type": "array",
