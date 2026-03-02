@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"encoding/json"
+	"fmt"
 	"go-admin/common"
 	"net/http"
 
@@ -166,9 +168,11 @@ func LogOut(c *gin.Context) {
 }
 
 func Authorizator(data interface{}, c *gin.Context) bool {
+	log := api.GetRequestLogger(c)
 	claims := jwt.ExtractClaims(c)
 	userId := getIntFromClaims(claims, jwt.IdentityKey)
 	if userId == 0 {
+		log.Warnf("[Authorizator] userId=0, reject")
 		return false
 	}
 
@@ -180,10 +184,15 @@ func Authorizator(data interface{}, c *gin.Context) bool {
 		var dbVer int
 		if db.Table("sys_user").Where("user_id = ?", userId).Select("token_version").Scan(&dbVer).Error == nil {
 			if tokenVer != dbVer {
+				log.Infof("[Authorizator] token_version mismatch: userId=%d, tokenVer=%d, dbVer=%d, set token_version_mismatch", userId, tokenVer, dbVer)
 				c.Set("token_version_mismatch", true) // 供 Unauthorized 返回区分提示
 				return false
 			}
+		} else {
+			log.Warnf("[Authorizator] db scan token_version failed for userId=%d", userId)
 		}
+	} else {
+		log.Warnf("[Authorizator] GetOrm error for userId=%d: %v", userId, err)
 	}
 
 	// 设置用户信息到上下文
@@ -214,25 +223,43 @@ func toInt(v interface{}) (int, bool) {
 		return x, true
 	case int64:
 		return int(x), true
+	case json.Number:
+		n, err := x.Int64()
+		if err != nil {
+			return 0, false
+		}
+		return int(n), true
+	case string:
+		var n int
+		if _, err := fmt.Sscanf(x, "%d", &n); err == nil {
+			return n, true
+		}
 	}
 	return 0, false
 }
 
 func Unauthorized(c *gin.Context, code int, message string) {
+	log := api.GetRequestLogger(c)
 	msg := message
 	// 仅当 Authorizator 明确设置了 token_version_mismatch 时，才返回“其他设备登录”提示（SDK 中同一 c 贯穿 Authorizator → Unauthorized，key 会保留）
 	needRelogin := false
+	tvmExists, tvmValue := false, false
 	if v, exists := c.Get("token_version_mismatch"); exists {
+		tvmExists = true
 		if b, ok := v.(bool); ok && b {
+			tvmValue = true
 			needRelogin = true
 		}
 	}
+	log.Infof("[Unauthorized] code=%d msg=%q token_version_mismatch exists=%v value=%v needRelogin=%v", code, message, tvmExists, tvmValue, needRelogin)
 	if needRelogin {
 		code = 401
 		msg = "账号已在其他设备登录，请重新登录"
+		log.Infof("[Unauthorized] needRelogin -> HTTP 401, body code=401")
 		c.JSON(http.StatusUnauthorized, gin.H{"code": code, "msg": msg})
 		return
 	}
+	log.Infof("[Unauthorized] normal -> HTTP 200, body code=%d", code)
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  msg,
