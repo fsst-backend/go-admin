@@ -220,11 +220,18 @@ func toInt(v interface{}) (int, bool) {
 
 func Unauthorized(c *gin.Context, code int, message string) {
 	msg := message
+	// 仅当 Authorizator 明确设置了 token_version_mismatch 时，才返回“其他设备登录”提示（SDK 中同一 c 贯穿 Authorizator → Unauthorized，key 会保留）
+	needRelogin := false
 	if v, exists := c.Get("token_version_mismatch"); exists {
 		if b, ok := v.(bool); ok && b {
-			code = 401
-			msg = "账号已在其他设备登录，请重新登录"
+			needRelogin = true
 		}
+	}
+	if needRelogin {
+		code = 401
+		msg = "账号已在其他设备登录，请重新登录"
+		c.JSON(http.StatusUnauthorized, gin.H{"code": code, "msg": msg})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
