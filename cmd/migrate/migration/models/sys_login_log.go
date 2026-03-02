@@ -16,9 +16,10 @@ type SysLoginLog struct {
 	Os            string    `json:"os" gorm:"column:os;type:varchar(255);comment:系统"`
 	Platform      string    `json:"platform" gorm:"column:platform;type:varchar(255);comment:固件"`
 	LoginTime     time.Time `json:"loginTime" gorm:"column:login_time;type:datetime;comment:登录时间"`
-	Remark        string    `json:"remark" gorm:"column:remark;type:varchar(255);comment:备注"`
-	Msg           string    `json:"msg" gorm:"column:msg;type:varchar(255);comment:信息"`
-	CreatedAt     time.Time `json:"createdAt" gorm:"column:created_at;type:datetime;comment:创建时间"`
+	Remark       string    `json:"remark" gorm:"column:remark;type:varchar(255);comment:备注"`
+	Msg          string    `json:"msg" gorm:"column:msg;type:varchar(255);comment:信息"`
+	TokenVersion int       `json:"tokenVersion" gorm:"column:token_version;type:int;default:0;comment:登录令牌版本"`
+	CreatedAt    time.Time `json:"createdAt" gorm:"column:created_at;type:datetime;comment:创建时间"`
 	UpdatedAt     time.Time `json:"updatedAt" gorm:"column:updated_at;type:datetime;comment:最后更新时间"`
 	models.ControlBy
 }

@@ -96,6 +96,7 @@ func Authenticator(c *gin.Context) (interface{}, error) {
 			log.Warnf("increment token_version error: %s", err.Error())
 		} else if err := db.Table("sys_user").Where("user_id = ?", sysUser.UserId).Select("token_version").Scan(&sysUser.TokenVersion).Error; err == nil {
 			// 刷新 sysUser.TokenVersion 供 PayloadFunc 写入 JWT
+			c.Set("login_token_version", sysUser.TokenVersion) // 供 LoginLogToDB 写入登录日志
 		}
 		return map[string]interface{}{"user": sysUser}, nil
 	} else {
@@ -126,6 +127,11 @@ func LoginLogToDB(c *gin.Context, status string, msg string, username string) {
 	l["platform"] = ua.Platform()
 	l["username"] = username
 	l["msg"] = msg
+	if tv, exists := c.Get("login_token_version"); exists {
+		if v, ok := tv.(int); ok {
+			l["tokenVersion"] = v
+		}
+	}
 
 	q := sdk.Runtime.GetMemoryQueue(c.Request.Host)
 	message, err := sdk.Runtime.GetStreamMessage("", global.LoginLog, l)
