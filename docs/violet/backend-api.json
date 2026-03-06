@@ -1077,14 +1077,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1233,14 +1233,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1389,14 +1389,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "type",
@@ -1642,14 +1642,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1798,14 +1798,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1864,14 +1864,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -1990,14 +1990,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -2196,14 +2196,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -2368,14 +2368,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -2996,14 +2996,172 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "commission"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/commission/partner/commission_record/list": {
+      "get": {
+        "summary": "合伙人返佣明细（报名费返佣/交易分佣/返佣回赠记录）",
+        "operationId": "GetPartnerCommissionRecordList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPartnerCommissionRecordListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": " 合伙人用户 ID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "create_time_start",
+            "description": " 筛选开始时间（秒）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "create_time_end",
+            "description": " 筛选结束时间（秒）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "commission"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/commission/partner/copy_profit_record/list": {
+      "get": {
+        "summary": "合伙人分润明细（跟单分润记录）",
+        "operationId": "GetPartnerCopyProfitRecordList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPartnerCopyProfitRecordListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": " 合伙人用户 ID（带单员）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "create_time_start",
+            "description": " 平仓时间筛选开始（秒）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "create_time_end",
+            "description": " 平仓时间筛选结束（秒）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follow_type",
+            "description": " 0 私域 1 公域，不传查全部\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "commission"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/commission/partner/detail": {
+      "get": {
+        "summary": "合伙人详情",
+        "operationId": "GetPartnerDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPartnerDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": " 合伙人用户ID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -3200,14 +3358,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -3336,10 +3494,56 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "commission"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/commission/partner/relation_tree": {
+      "get": {
+        "summary": "合伙人关系树（指定合伙人为根，节点含 uid/姓名/vip 等级，子节点递归）",
+        "operationId": "GetPartnerRelationTree",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPartnerRelationTreeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": " 根节点合伙人 UID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "max_depth",
+            "description": " 最大层级深度，默认 5\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "max_children_per_node",
+            "description": " 每节点最多子节点数，默认 100\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3619,14 +3823,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -4094,14 +4298,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "time_start",
@@ -4256,14 +4460,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "keyword",
@@ -4426,14 +4630,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "keyword",
@@ -7332,14 +7536,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -7752,14 +7956,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -8065,14 +8269,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -8408,14 +8612,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -8792,14 +8996,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -9175,14 +9379,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -9391,14 +9595,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "create_time_start",
@@ -9533,14 +9737,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "name",
@@ -9632,14 +9836,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -9783,14 +9987,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -9982,14 +10186,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -10084,14 +10288,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -10315,14 +10519,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -10388,14 +10592,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -10570,14 +10774,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -11160,14 +11364,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -11351,14 +11555,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "user_ids",
@@ -11555,14 +11759,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -11685,14 +11889,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -11824,14 +12028,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -12014,14 +12218,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "platform_transaction_start",
@@ -12172,14 +12376,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "platform_transaction_start",
@@ -12448,14 +12652,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "create_time_start",
@@ -12542,14 +12746,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "create_time_start",
@@ -12672,14 +12876,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "time_start",
@@ -12803,14 +13007,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "time_start",
@@ -12925,14 +13129,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "keywords",
@@ -13114,14 +13318,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -13193,14 +13397,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -13547,14 +13751,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -14585,7 +14789,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " App包ID，必填",
+            "description": " App包ID，必填\r",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -14615,35 +14819,35 @@
         "parameters": [
           {
             "name": "system",
-            "description": " 系统类型筛选，可选",
+            "description": " 系统类型筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "channel",
-            "description": " 渠道筛选，可选",
+            "description": " 渠道筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "app_name",
-            "description": " App名称筛选，可选",
+            "description": " App名称筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "package_name",
-            "description": " 包名筛选，可选",
+            "description": " 包名筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态筛选，可选",
+            "description": " 状态筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -14791,7 +14995,7 @@
         "parameters": [
           {
             "name": "id",
-            "description": " 版本ID，必填",
+            "description": " 版本ID，必填\r",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -14821,7 +15025,7 @@
         "parameters": [
           {
             "name": "app_id",
-            "description": " App ID筛选，可选",
+            "description": " App ID筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -14829,35 +15033,35 @@
           },
           {
             "name": "system",
-            "description": " 系统类型筛选，可选",
+            "description": " 系统类型筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "channel",
-            "description": " 渠道筛选，可选",
+            "description": " 渠道筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "version_number",
-            "description": " 版本号筛选，可选",
+            "description": " 版本号筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "update_cycle",
-            "description": " 更新周期筛选，可选",
+            "description": " 更新周期筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
-            "description": " 状态筛选，可选",
+            "description": " 状态筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "boolean",
@@ -14915,7 +15119,7 @@
         "parameters": [
           {
             "name": "app_id",
-            "description": " App ID，必填",
+            "description": " App ID，必填\r",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -14923,7 +15127,7 @@
           },
           {
             "name": "version_number",
-            "description": " 版本号，必填",
+            "description": " 版本号，必填\r",
             "in": "query",
             "required": false,
             "type": "string"
@@ -16381,11 +16585,43 @@
           },
           {
             "name": "label_id",
-            "description": " 标签ID",
+            "description": " 标签ID（风控标签）",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "inviter_id",
+            "description": " 推荐人ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "register_source",
+            "description": " 注册方式/注册来源",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "ocr_status",
+            "description": " OCR状态 0 未识别 1 识别成功 2 识别失败",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": " 申请状态 0:申请中 1:待审核 2:已通过 3:已拒绝",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "create_time_start",
@@ -17197,6 +17433,170 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/UpdateReportingConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/cost/add": {
+      "post": {
+        "summary": "添加成本数据",
+        "operationId": "AddCostData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCostDataReq"
+            }
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/cost/chart": {
+      "get": {
+        "summary": "成本报表图表",
+        "operationId": "GetCostChart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCostChartResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "cost_type_id",
+            "description": " 成本类型ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "cost_line_id",
+            "description": " 成本线ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/cost/statistics": {
+      "get": {
+        "summary": "成本报表统计",
+        "operationId": "GetCostStatistic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCostStatisticResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/cost/update": {
+      "post": {
+        "summary": "更新成本数据",
+        "operationId": "UpdateCostData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCostDataReq"
             }
           }
         ],
@@ -19264,6 +19664,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/risk/blacklist/email/import": {
+      "post": {
+        "summary": "邮箱黑名单批量导入",
+        "operationId": "ImportEmailBlacklistHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/risk/blacklist/email/list": {
       "post": {
         "summary": "邮箱黑名单列表",
@@ -19343,6 +19773,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/AddIdNoBlackReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/risk/blacklist/id_no/import": {
+      "post": {
+        "summary": "身份证黑名单批量导入",
+        "operationId": "ImportIdNoBlacklistHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistReq"
             }
           }
         ],
@@ -19444,6 +19904,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/risk/blacklist/ip/import": {
+      "post": {
+        "summary": "IP黑名单批量导入",
+        "operationId": "ImportIpBlacklistHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/risk/blacklist/ip/list": {
       "post": {
         "summary": "IP黑名单列表",
@@ -19523,6 +20013,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/AddPhoneBlackReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/risk/blacklist/phone/import": {
+      "post": {
+        "summary": "电话号码黑名单批量导入",
+        "operationId": "ImportPhoneBlacklistHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportBlacklistReq"
             }
           }
         ],
@@ -21260,6 +21780,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/risk_trade_monitor/ab_position_trigger/confirm_manual_identify": {
+      "post": {
+        "summary": "确认人工识别结果为AB仓并入库：用户查看 manual_identify 结果后，确认某条为 AB 仓时调用此接口落库",
+        "operationId": "ConfirmManualIdentifyAbPositionHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ConfirmManualIdentifyAbPositionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConfirmManualIdentifyAbPositionReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk_trade_monitor"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/risk_trade_monitor/ab_position_trigger/get": {
       "get": {
         "summary": "AB仓触发记录详情",
@@ -21308,6 +21858,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ListAbPositionTriggerRecordsReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk_trade_monitor"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/risk_trade_monitor/ab_position_trigger/manual_identify": {
+      "post": {
+        "summary": "人工识别AB仓：按品种、时间范围查订单，补全关联信息后通过 AB 仓判断算法算出 A/B 仓",
+        "operationId": "ManualIdentifyAbPositionHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ManualIdentifyAbPositionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManualIdentifyAbPositionReq"
             }
           }
         ],
@@ -21456,6 +22036,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ListRoutineTradeTriggerRecordsReq"
+            }
+          }
+        ],
+        "tags": [
+          "risk_trade_monitor"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/risk_trade_monitor/routine_trade_trigger/process": {
+      "post": {
+        "summary": "标记触发记录已处理",
+        "operationId": "ProcessRoutineTradeTriggerRecordHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProcessRoutineTradeTriggerRecordReq"
             }
           }
         ],
@@ -23997,14 +24607,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -27710,14 +28320,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -28033,14 +28643,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -28443,14 +29053,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "keyword",
@@ -28877,14 +29487,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -28949,14 +29559,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -29066,14 +29676,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -29226,14 +29836,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -29371,14 +29981,14 @@
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           {
             "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           }
         ],
         "tags": [
@@ -31299,6 +31909,86 @@
         ]
       }
     },
+    "/poplar/violet/export/blacklist/email/template": {
+      "get": {
+        "summary": "导出邮箱黑名单导入模版",
+        "operationId": "ExportEmailBlacklistTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportBlacklistTemplateResp"
+            }
+          }
+        },
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/export/blacklist/id_no/template": {
+      "get": {
+        "summary": "导出身份证黑名单导入模版",
+        "operationId": "ExportIdNoBlacklistTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportBlacklistTemplateResp"
+            }
+          }
+        },
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/export/blacklist/ip/template": {
+      "get": {
+        "summary": "导出IP黑名单导入模版",
+        "operationId": "ExportIpBlacklistTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportBlacklistTemplateResp"
+            }
+          }
+        },
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/export/blacklist/phone/template": {
+      "get": {
+        "summary": "导出电话号码黑名单导入模版",
+        "operationId": "ExportPhoneBlacklistTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportBlacklistTemplateResp"
+            }
+          }
+        },
+        "tags": [
+          "risk"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/export/copytrading/followers/ranking/list/export": {
       "get": {
         "summary": "导出跟单员排名列表",
@@ -31885,6 +32575,11 @@
         },
         "position_id": {
           "type": "string"
+        },
+        "profit": {
+          "type": "number",
+          "format": "double",
+          "description": " 盈亏：已平仓为 (平仓价-开仓价)*手数；未平仓从 computecenter 查询"
         }
       },
       "title": "AbPositionTradeRecord"
@@ -31954,6 +32649,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "record_no": {
+          "type": "string",
+          "description": " 唯一编号，AB 开头（如 AB000001）"
+        },
         "symbol": {
           "type": "string"
         },
@@ -31983,19 +32682,37 @@
           "type": "integer",
           "format": "int32"
         },
+        "account_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号数（涉及账户数）"
+        },
+        "order_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 订单数（涉及仓位/订单数）"
+        },
         "abnormal_profit": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 异常盈亏：各仓位盈亏之和"
+        },
+        "balance_ratio": {
+          "type": "number",
+          "format": "double",
+          "description": " 净仓平衡比例 min(多仓量,空仓量)/max(多仓量,空仓量)，0～1"
         },
         "trigger_probability": {
           "type": "number",
           "format": "double"
         },
         "security_level": {
-          "type": "string"
+          "type": "string",
+          "description": " 字典：high=高关联强度 / medium=中 / low=低"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 字典：pending=待处理 / record_only=仅记录 / confirmed_ab=确认为AB仓"
         },
         "created_at": {
           "type": "integer",
@@ -32004,6 +32721,11 @@
         "updated_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "time_window": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 检测时使用的时间窗口时长(秒)，创建时写入"
         },
         "trade_records": {
           "type": "array",
@@ -32050,7 +32772,8 @@
           "format": "double"
         },
         "security_level": {
-          "type": "string"
+          "type": "string",
+          "description": " 字典：high / medium / low"
         }
       },
       "title": "AbPositionTriggerRecordStats"
@@ -32395,11 +33118,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "AccountAdjustmentListRequest"
@@ -33198,7 +33921,7 @@
       },
       "title": "ActiveModelUserList"
     },
-    "ActiveTimeRangeForm": {
+    "ActiveTimeRange": {
       "type": "object",
       "properties": {
         "active_time_start": {
@@ -33210,7 +33933,7 @@
           "format": "int64"
         }
       },
-      "title": "ActiveTimeRangeForm"
+      "title": "ActiveTimeRange"
     },
     "ActivityBase": {
       "type": "object",
@@ -33700,6 +34423,31 @@
       },
       "title": "AddCopyTradingActivityRequest"
     },
+    "AddCostDataReq": {
+      "type": "object",
+      "properties": {
+        "cost_month": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本月份"
+        },
+        "cost_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 成本类型"
+        },
+        "cost_line": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 成本线"
+        },
+        "cost_amount": {
+          "type": "string",
+          "description": " 成本金额"
+        }
+      },
+      "title": "AddCostDataReq"
+    },
     "AddCountrySettingReq": {
       "type": "object",
       "properties": {
@@ -34018,7 +34766,7 @@
         },
         "country": {
           "type": "string",
-          "description": " 国家"
+          "description": " 国家 美国 德国 之类的"
         },
         "name": {
           "type": "string",
@@ -34070,11 +34818,20 @@
         "is_important": {
           "type": "integer",
           "format": "int64",
-          "description": " 是否重要: 1-是, 0-否"
+          "description": " 是否重要: 状态: 0-关闭,1-启用,2-定时"
         },
         "friendly_link": {
           "type": "string",
           "description": " 友情链接"
+        },
+        "on_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 定时时间戳"
+        },
+        "language_code": {
+          "type": "string",
+          "description": " 语言代码: 根据 i18 定义来，传非中文需要翻译的，然后以逗号隔开"
         }
       },
       "title": "AddOrUpdateCalendarRequest"
@@ -34089,11 +34846,11 @@
         },
         "catalog": {
           "type": "string",
-          "description": " 类型：market-市场"
+          "description": " 类型：market-市场 tech-技术"
         },
         "language_code": {
           "type": "string",
-          "description": " 语言代码: zh-中文, en-英文, ja-日文"
+          "description": " 语言代码: 根据 i18 定义来,传非中文需要翻译的，然后以逗号隔开"
         },
         "title": {
           "type": "string",
@@ -34119,7 +34876,7 @@
         "status": {
           "type": "integer",
           "format": "int32",
-          "description": " 状态: 1-启用, 0-关闭"
+          "description": " 状态: 1-启用, 0-关闭 2-定时"
         },
         "is_important": {
           "type": "integer",
@@ -34130,6 +34887,11 @@
           "type": "integer",
           "format": "int64",
           "description": " 浏览量"
+        },
+        "on_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 定时时间戳"
         }
       },
       "title": "AddOrUpdateFlashRequest"
@@ -34673,11 +35435,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "AdjustmentListRequest"
@@ -34841,6 +35603,75 @@
         }
       },
       "title": "ApiConfigItem"
+    },
+    "AppConfigPage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页面唯一标识"
+        },
+        "app_configuration_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 应用配置ID"
+        },
+        "code": {
+          "type": "string",
+          "description": " 页面唯一标识"
+        },
+        "type": {
+          "type": "string",
+          "description": " 区块类型"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "bg_image": {
+          "type": "string",
+          "description": " tab对应页面背景图"
+        },
+        "bg_image_dark": {
+          "type": "string",
+          "description": " tab对应页面深色模式背景图"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 页面背景颜色，默认F7F7F7"
+        },
+        "cover_image": {
+          "type": "string",
+          "description": " 页面封面图"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Div"
+          },
+          "description": " 卡片元素"
+        },
+        "nav": {
+          "$ref": "#/definitions/Nav",
+          "description": " 顶部导航元素"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "AppConfigPage"
     },
     "AppPackageConfigResponse": {
       "type": "object",
@@ -35549,11 +36380,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "AppconfigurationListRequest"
@@ -35576,7 +36407,7 @@
       },
       "title": "AppconfigurationListResponse"
     },
-    "ArrivalTimeRangeForm": {
+    "ArrivalTimeRange": {
       "type": "object",
       "properties": {
         "arrival_time_start": {
@@ -35588,21 +36419,7 @@
           "format": "int64"
         }
       },
-      "title": "ArrivalTimeRangeForm"
-    },
-    "ArrivalTimeRangeJson": {
-      "type": "object",
-      "properties": {
-        "arrival_time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "arrival_time_end": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ArrivalTimeRangeJson"
+      "title": "ArrivalTimeRange"
     },
     "AuditExamSignupCommissionHistoryRequest": {
       "type": "object",
@@ -37386,11 +38203,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "BinaryOptionAccountListReq"
@@ -38353,7 +39170,7 @@
         "importance": {
           "type": "integer",
           "format": "int32",
-          "description": " 重要度: 1-低, 2-中, 3-高"
+          "description": " 重要性"
         },
         "previous": {
           "type": "string",
@@ -38420,6 +39237,13 @@
         "friendly_link": {
           "type": "string",
           "description": " 友情链接"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentItem"
+          },
+          "description": " 内容"
         }
       },
       "title": "CalendarEventItem"
@@ -38558,7 +39382,7 @@
       },
       "title": "ChannelPayType"
     },
-    "ChannelTradeTimeForm": {
+    "ChannelTradeTime": {
       "type": "object",
       "properties": {
         "channel_trade_time_start": {
@@ -38570,7 +39394,7 @@
           "format": "int64"
         }
       },
-      "title": "ChannelTradeTimeForm"
+      "title": "ChannelTradeTime"
     },
     "CheckPackageRequest": {
       "type": "object",
@@ -38978,6 +39802,10 @@
           "type": "string",
           "description": " 组件类型"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式，如 market_3"
+        },
         "title": {
           "type": "string",
           "description": " 标题"
@@ -39164,7 +39992,7 @@
         "pages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Page"
+            "$ref": "#/definitions/AppConfigPage"
           },
           "description": " 页面信息"
         }
@@ -39247,7 +40075,7 @@
         "pages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Page"
+            "$ref": "#/definitions/AppConfigPage"
           },
           "description": " 页面信息（平铺在 appconfiguration 中）"
         },
@@ -39349,7 +40177,7 @@
         "pages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Page"
+            "$ref": "#/definitions/AppConfigPage"
           },
           "description": " 页面信息"
         },
@@ -39406,6 +40234,31 @@
         }
       },
       "title": "ConfigurationVersionListItem"
+    },
+    "ConfirmManualIdentifyAbPositionReq": {
+      "type": "object",
+      "properties": {
+        "record": {
+          "$ref": "#/definitions/AbPositionTriggerRecord",
+          "description": " 人工识别结果中的一条记录（与 manual_identify 返回的 list 项结构一致）"
+        }
+      },
+      "title": "ConfirmManualIdentifyAbPositionReq"
+    },
+    "ConfirmManualIdentifyAbPositionResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新创建的触发记录 ID（若 RPC 未返回则为 0）"
+        },
+        "record_no": {
+          "type": "string",
+          "description": " 记录编号（后端生成）"
+        }
+      },
+      "title": "ConfirmManualIdentifyAbPositionResp"
     },
     "ContentItem": {
       "type": "object",
@@ -39711,6 +40564,45 @@
       },
       "title": "CopyTradingUserCondition"
     },
+    "CostInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本记录ID"
+        },
+        "cost_month": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本月份"
+        },
+        "const_amount": {
+          "type": "string",
+          "description": " 成本金额"
+        },
+        "return_ratio": {
+          "type": "string",
+          "description": " 回批比例"
+        },
+        "total_cost": {
+          "type": "string",
+          "description": " 总成本"
+        },
+        "total_net_deposit": {
+          "type": "string",
+          "description": " 总净入金"
+        },
+        "return_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReturnAmount"
+          },
+          "description": " 回批列表"
+        }
+      },
+      "title": "CostInfo"
+    },
     "CountriesReq": {
       "type": "object",
       "properties": {
@@ -39925,7 +40817,8 @@
           "type": "string"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 初始状态，通常为 pending"
         },
         "trade_records": {
           "type": "array",
@@ -40285,7 +41178,7 @@
         "pages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Page"
+            "$ref": "#/definitions/AppConfigPage"
           },
           "description": " 页面信息"
         },
@@ -40427,6 +41320,10 @@
         "type": {
           "type": "string",
           "description": " 组件类型"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式，如 market_3"
         },
         "title": {
           "type": "string",
@@ -40945,6 +41842,10 @@
           "type": "string",
           "description": " 背景颜色"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -41008,6 +41909,10 @@
         "payload": {
           "type": "string",
           "description": " 扩展内容 (JSON字符串)"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
         },
         "name": {
           "type": "string",
@@ -41620,7 +42525,8 @@
           "format": "int64"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 初始状态，通常为 pending"
         },
         "monitor_type": {
           "type": "string"
@@ -41737,6 +42643,10 @@
           "type": "string",
           "description": " 深色模式图标"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -41810,7 +42720,7 @@
       },
       "title": "CreateSymbolConfigResponse"
     },
-    "CreateTimeRangeForm": {
+    "CreateTimeRange": {
       "type": "object",
       "properties": {
         "create_time_start": {
@@ -41822,21 +42732,7 @@
           "format": "int64"
         }
       },
-      "title": "CreateTimeRangeForm"
-    },
-    "CreateTimeRangeJson": {
-      "type": "object",
-      "properties": {
-        "create_time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "create_time_end": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "CreateTimeRangeJson"
+      "title": "CreateTimeRange"
     },
     "CreateTraderExamRebateRuleRequest": {
       "type": "object",
@@ -42437,11 +43333,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "create_time_start": {
           "type": "integer",
@@ -42583,11 +43479,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "create_time_start": {
           "type": "integer",
@@ -43039,11 +43935,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "CustometBalanceListReq"
@@ -44206,11 +45102,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "DepositApplyListRequest"
@@ -45398,11 +46294,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "create_time_start": {
           "type": "integer",
@@ -45449,6 +46345,23 @@
         }
       },
       "title": "ExportBankSettingTemplateResp"
+    },
+    "ExportBlacklistTemplateResp": {
+      "type": "object",
+      "properties": {
+        "fileData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/byte"
+          },
+          "description": " Excel 文件字节数据，不序列化到 JSON"
+        },
+        "file_name": {
+          "type": "string",
+          "description": " 文件名"
+        }
+      },
+      "title": "ExportBlacklistTemplateResp"
     },
     "ExportBonusActivityListResponse": {
       "type": "object",
@@ -45572,7 +46485,7 @@
       },
       "title": "FinanceDictList"
     },
-    "FinishTimeRangeForm": {
+    "FinishTimeRange": {
       "type": "object",
       "properties": {
         "finish_time_start": {
@@ -45584,7 +46497,7 @@
           "format": "int64"
         }
       },
-      "title": "FinishTimeRangeForm"
+      "title": "FinishTimeRange"
     },
     "FlashItem": {
       "type": "object",
@@ -45656,6 +46569,13 @@
           "type": "integer",
           "format": "int32",
           "description": " 来源: 1-金十, 2-原创"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentItem"
+          },
+          "description": " 内容"
         }
       },
       "title": "FlashItem"
@@ -46558,6 +47478,11 @@
           "format": "int64",
           "description": " 实名用户数"
         },
+        "activity_users": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 激活用户数"
+        },
         "deposit_users": {
           "type": "integer",
           "format": "int64",
@@ -46582,6 +47507,11 @@
           "type": "integer",
           "format": "int64",
           "description": " 首次交易用户数"
+        },
+        "vitality": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活跃度"
         },
         "sample_time": {
           "type": "integer",
@@ -46882,11 +47812,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetAdComponentListRequest"
@@ -47237,11 +48167,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetBankListReq"
@@ -47279,11 +48209,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetBannerListRequest"
@@ -47453,11 +48383,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "time_start": {
           "type": "integer",
@@ -47754,11 +48684,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "type": {
           "type": "string",
@@ -47816,11 +48746,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetConfigurationVersionListRequest"
@@ -47997,6 +48927,74 @@
       },
       "title": "GetCopyTradingThresholdResponse"
     },
+    "GetCostChartReq": {
+      "type": "object",
+      "properties": {
+        "time_start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_end": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_all_data": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否返回全部数据，不进行时间分组"
+        },
+        "cost_type_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本类型ID"
+        },
+        "cost_line_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本线ID"
+        }
+      },
+      "title": "GetCostChartReq"
+    },
+    "GetCostChartResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostInfo"
+          },
+          "description": " 成本图表数据"
+        }
+      },
+      "title": "GetCostChartResp"
+    },
+    "GetCostStatisticResp": {
+      "type": "object",
+      "properties": {
+        "total_cost": {
+          "type": "string",
+          "description": " 总成本"
+        },
+        "total_net_deposit": {
+          "type": "string",
+          "description": " 总净入金"
+        },
+        "returned_batch_ratio": {
+          "type": "string",
+          "description": " 已回批占比"
+        },
+        "rate_returned_batch": {
+          "type": "string",
+          "description": " 回批率"
+        },
+        "unreturned_amount": {
+          "type": "string",
+          "description": " 未回批金额"
+        }
+      },
+      "title": "GetCostStatisticResp"
+    },
     "GetCountryCurrencyList": {
       "type": "object",
       "properties": {
@@ -48118,11 +49116,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetCountrySettingListReq"
@@ -48813,11 +49811,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "keyword": {
           "type": "string",
@@ -48906,11 +49904,11 @@
           "description": " 交易方向"
         },
         "open_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 开仓时间范围"
         },
         "close_time_range": {
-          "$ref": "#/definitions/FinishTimeRangeForm",
+          "$ref": "#/definitions/FinishTimeRange",
           "description": " 平仓时间范围"
         },
         "position_id": {
@@ -49019,7 +50017,7 @@
           "description": " 交易方向 Buy/Sell"
         },
         "open_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 开仓时间范围"
         },
         "position_id": {
@@ -49187,7 +50185,7 @@
           "description": " 下拉框筛选跟随模式"
         },
         "follow_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 时间控件筛选跟随时间范围"
         },
         "offset": {
@@ -49541,11 +50539,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "time_start": {
           "type": "integer",
@@ -49718,11 +50716,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "time_start": {
           "type": "integer",
@@ -49768,11 +50766,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetGridListRequest"
@@ -49863,11 +50861,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetHorseListRequest"
@@ -50084,11 +51082,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetInviteeMemberListRequest"
@@ -50219,11 +51217,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetLanguageListRequest"
@@ -50324,11 +51322,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetLevelBenefitListReq"
@@ -50384,11 +51382,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetListComponentListRequest"
@@ -50470,11 +51468,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "keyword": {
           "type": "string",
@@ -50589,11 +51587,224 @@
       "type": "object",
       "properties": {
         "page": {
-          "$ref": "#/definitions/Page",
+          "$ref": "#/definitions/AppConfigPage",
           "description": " 页面信息"
         }
       },
       "title": "GetPageResponse"
+    },
+    "GetPartnerCommissionRecordListRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 合伙人用户 ID"
+        },
+        "create_time_start": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 筛选开始时间（秒）"
+        },
+        "create_time_end": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 筛选结束时间（秒）"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetPartnerCommissionRecordListRequest"
+    },
+    "GetPartnerCommissionRecordListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnerCommissionRecordItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总条数（报名+回赠合计，含时间筛选时由 RPC 按条件统计）"
+        }
+      },
+      "title": "GetPartnerCommissionRecordListResponse"
+    },
+    "GetPartnerCopyProfitRecordListRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 合伙人用户 ID（带单员）"
+        },
+        "create_time_start": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平仓时间筛选开始（秒）"
+        },
+        "create_time_end": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平仓时间筛选结束（秒）"
+        },
+        "follow_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 0 私域 1 公域，不传查全部"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetPartnerCopyProfitRecordListRequest"
+    },
+    "GetPartnerCopyProfitRecordListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnerCopyProfitRecordItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetPartnerCopyProfitRecordListResponse"
+    },
+    "GetPartnerDetailRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 合伙人用户ID"
+        }
+      },
+      "title": "GetPartnerDetailRequest"
+    },
+    "GetPartnerDetailResponse": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 用户昵称"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0:正常 1:禁用"
+        },
+        "is_trader": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否交易员"
+        },
+        "register_source": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 注册来源"
+        },
+        "register_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 注册时间"
+        },
+        "become_trader_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成为交易员时间"
+        },
+        "invitation_code": {
+          "type": "string",
+          "description": " 默认邀请码"
+        },
+        "direct_sub_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 直属下级数量"
+        },
+        "total_sub_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总团队规模（所有层级）"
+        },
+        "total_commission_amount": {
+          "type": "string",
+          "description": " 累计总佣金"
+        },
+        "withdraw_commission_amount": {
+          "type": "string",
+          "description": " 已提现佣金"
+        },
+        "available_commission_amount": {
+          "type": "string",
+          "description": " 可用佣金"
+        },
+        "pending_commission_amount": {
+          "type": "string",
+          "description": " 待分配佣金"
+        },
+        "exam_signup_commission_amount": {
+          "type": "string",
+          "description": " 考试报名佣金"
+        },
+        "copy_trading_profit_amount": {
+          "type": "string",
+          "description": " 跟单分润"
+        },
+        "copy_trading_compensation_amount": {
+          "type": "string",
+          "description": " 跟单赔付"
+        },
+        "contribution_commission_amount": {
+          "type": "string",
+          "description": " 贡献佣金"
+        },
+        "copy_trading_profit_amount_public": {
+          "type": "string",
+          "description": " 公域跟单分润"
+        },
+        "copy_trading_profit_amount_private": {
+          "type": "string",
+          "description": " 私域跟单分润"
+        },
+        "trader_commission_amount": {
+          "type": "string",
+          "description": " 交易返佣"
+        },
+        "rebate_return_amount": {
+          "type": "string",
+          "description": " 返佣回赠"
+        }
+      },
+      "title": "GetPartnerDetailResponse"
     },
     "GetPartnerFissionEfficiencyRequest": {
       "type": "object",
@@ -50721,11 +51932,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetPartnerListRequest"
@@ -50836,11 +52047,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetPartnerRelationListRequest"
@@ -50860,6 +52071,37 @@
         }
       },
       "title": "GetPartnerRelationListResponse"
+    },
+    "GetPartnerRelationTreeRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 根节点合伙人 UID"
+        },
+        "max_depth": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 最大层级深度，默认 5"
+        },
+        "max_children_per_node": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每节点最多子节点数，默认 100"
+        }
+      },
+      "title": "GetPartnerRelationTreeRequest"
+    },
+    "GetPartnerRelationTreeResponse": {
+      "type": "object",
+      "properties": {
+        "root": {
+          "$ref": "#/definitions/PartnerRelationTreeNode",
+          "description": " 关系树根节点"
+        }
+      },
+      "title": "GetPartnerRelationTreeResponse"
     },
     "GetPartnerReportRequest": {
       "type": "object",
@@ -51126,11 +52368,11 @@
           "description": " 状态"
         },
         "create_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 创建时间 create_time_start，create_time_end"
         },
         "update_time_range": {
-          "$ref": "#/definitions/UpdateTimeRangeForm",
+          "$ref": "#/definitions/UpdateTimeRange",
           "description": " 更新时间 update_time_start，update_time_end"
         },
         "offset": {
@@ -51555,6 +52797,13 @@
       "properties": {
         "record": {
           "$ref": "#/definitions/RoutineTradeTriggerRecord"
+        },
+        "handle_records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutineTradeTriggerHandleRecord"
+          },
+          "description": " 处理记录列表"
         }
       },
       "title": "GetRoutineTradeTriggerRecordResp"
@@ -51581,15 +52830,18 @@
       "properties": {
         "pending_count": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " handle_status=pending 数量"
         },
         "processed_count": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " handle_status=processed 数量"
         },
         "confirmed_count": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " handle_status=confirmed 数量"
         },
         "total_count": {
           "type": "integer",
@@ -51808,7 +53060,7 @@
           "description": " 交易类型：Buy / Sell"
         },
         "time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 交易时间范围"
         },
         "position_id": {
@@ -51941,11 +53193,11 @@
           "description": " 交易类型：Buy / Sell"
         },
         "open_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 开仓时间范围"
         },
         "close_time_range": {
-          "$ref": "#/definitions/FinishTimeRangeForm",
+          "$ref": "#/definitions/FinishTimeRange",
           "description": " 平仓时间范围"
         },
         "position_id": {
@@ -52123,7 +53375,7 @@
           "description": " 持仓单号"
         },
         "open_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 交易时间范围"
         },
         "offset": {
@@ -52396,7 +53648,7 @@
           "description": " 下拉框筛选启用带单状态"
         },
         "created_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 时间区间筛选（成为交易员时间）"
         },
         "source": {
@@ -52441,11 +53693,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetSlipListRequest"
@@ -52884,7 +54136,7 @@
       "type": "object",
       "properties": {
         "first_point_time": {
-          "$ref": "#/definitions/RangeTimeForm",
+          "$ref": "#/definitions/RangeTime",
           "description": " 首次积分时间"
         },
         "user_task_status": {
@@ -52957,11 +54209,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetTelesalesUserListRequest",
@@ -53144,11 +54396,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetTraderCommissionHistoryListRequest"
@@ -53884,11 +55136,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetUserLevelListReq"
@@ -53927,11 +55179,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "GetUserLogsRequest"
@@ -54044,7 +55296,7 @@
         "register_source": {
           "type": "integer",
           "format": "int32",
-          "description": " 注册来源"
+          "description": " 注册来源 0=ADMIN后台 1=PC 2=ANDROID安卓 3=IOS 4=H5"
         },
         "invite_code": {
           "type": "string",
@@ -54158,7 +55410,27 @@
         "label_id": {
           "type": "integer",
           "format": "int64",
-          "description": " 标签ID"
+          "description": " 标签ID（风控标签）"
+        },
+        "inviter_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 推荐人ID"
+        },
+        "register_source": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 注册方式/注册来源"
+        },
+        "ocr_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " OCR状态 0 未识别 1 识别成功 2 识别失败"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 申请状态 0:申请中 1:待审核 2:已通过 3:已拒绝"
         },
         "create_time_start": {
           "type": "integer",
@@ -54193,6 +55465,13 @@
             "$ref": "#/definitions/UserOpenApplyListItem"
           },
           "description": " 注册申请列表"
+        },
+        "status_stats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusCountItem"
+          },
+          "description": " 按状态统计数量（在当前筛选条件下）"
         }
       },
       "title": "GetUserOpenApplyListResponse"
@@ -54433,11 +55712,11 @@
           "description": " 收入或支出"
         },
         "create_time_range": {
-          "$ref": "#/definitions/CreateTimeRangeForm",
+          "$ref": "#/definitions/CreateTimeRange",
           "description": " 创建时间 create_time_start，create_time_end"
         },
         "update_time_range": {
-          "$ref": "#/definitions/UpdateTimeRangeForm",
+          "$ref": "#/definitions/UpdateTimeRange",
           "description": " 更新时间 update_time_start，update_time_end"
         },
         "offset": {
@@ -55177,6 +56456,10 @@
           "type": "string",
           "description": " 背景颜色"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -55739,6 +57022,10 @@
           "type": "string",
           "description": " 扩展内容 (JSON字符串)"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -56075,6 +57362,44 @@
       },
       "title": "ImportBankSettingResp"
     },
+    "ImportBlacklistReq": {
+      "type": "object",
+      "properties": {
+        "file_url": {
+          "type": "string",
+          "description": " 上传的 Excel/CSV 文件 URL"
+        }
+      },
+      "title": "ImportBlacklistReq"
+    },
+    "ImportBlacklistResp": {
+      "type": "object",
+      "properties": {
+        "total_cnt": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 总行数"
+        },
+        "success_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 导入成功数"
+        },
+        "fail_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 导入失败数"
+        },
+        "fail_messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 失败详情（如：第2行：IP格式错误）"
+        }
+      },
+      "title": "ImportBlacklistResp"
+    },
     "ImportCountrySettingReq": {
       "type": "object",
       "properties": {
@@ -56281,11 +57606,11 @@
       "properties": {
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "name": {
           "type": "string"
@@ -56533,11 +57858,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "platform_transaction_start": {
           "type": "integer",
@@ -56939,11 +58264,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "InterestUserListReq"
@@ -57101,11 +58426,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "InterestVaultListReq"
@@ -57784,10 +59109,37 @@
           "type": "string"
         },
         "security_level": {
-          "type": "string"
+          "type": "string",
+          "description": " 筛选，字典：high / medium / low"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 筛选，字典：pending / record_only / confirmed_ab"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号：按用户ID筛选（该用户参与的 AB 仓记录）"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号：按交易账户ID筛选"
+        },
+        "record_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " AB仓编号：触发记录 ID 精确匹配"
+        },
+        "create_time_start": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 时间范围：创建时间起（秒时间戳）"
+        },
+        "create_time_end": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 时间范围：创建时间止（秒时间戳）"
         },
         "offset": {
           "type": "integer",
@@ -58617,10 +59969,19 @@
           "format": "int64"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 筛选：pending / processed / confirmed / ignored"
         },
         "monitor_type": {
           "type": "string"
+        },
+        "time_start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_end": {
+          "type": "integer",
+          "format": "int64"
         },
         "offset": {
           "type": "integer",
@@ -58662,6 +60023,14 @@
         },
         "symbol": {
           "type": "string"
+        },
+        "time_start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_end": {
+          "type": "integer",
+          "format": "int64"
         },
         "offset": {
           "type": "integer",
@@ -58930,6 +60299,47 @@
       },
       "title": "ManagementDashboardResp"
     },
+    "ManualIdentifyAbPositionReq": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "description": " 品种，可为空表示全部"
+        },
+        "RangeTime": {
+          "$ref": "#/definitions/RangeTime",
+          "description": " 时间范围（按开仓时间筛选）"
+        },
+        "open_time_interval_sec": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开仓时间间隔（秒），用于 AB 仓分组"
+        },
+        "balance_ratio_threshold": {
+          "type": "number",
+          "format": "double",
+          "description": " 净仓平衡比例阈值（0～1），达到即视为 A/B 仓平衡"
+        }
+      },
+      "title": "ManualIdentifyAbPositionReq"
+    },
+    "ManualIdentifyAbPositionResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AbPositionTriggerRecord"
+          },
+          "description": " 识别出的 AB 仓触发记录"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ManualIdentifyAbPositionResp"
+    },
     "MaxCompensationAmount": {
       "type": "object",
       "properties": {
@@ -59158,7 +60568,7 @@
       "type": "object",
       "properties": {
         "page": {
-          "$ref": "#/definitions/PageFrom",
+          "$ref": "#/definitions/Page",
           "description": " 分页信息"
         },
         "keywords": {
@@ -60659,11 +62069,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "platform_transaction_start": {
           "type": "integer",
@@ -60765,127 +62175,16 @@
     "Page": {
       "type": "object",
       "properties": {
-        "id": {
+        "offset": {
           "type": "integer",
-          "format": "int64",
-          "description": " 页面唯一标识"
+          "format": "int64"
         },
-        "app_configuration_id": {
+        "limit": {
           "type": "integer",
-          "format": "int64",
-          "description": " 应用配置ID"
-        },
-        "code": {
-          "type": "string",
-          "description": " 页面唯一标识"
-        },
-        "type": {
-          "type": "string",
-          "description": " 区块类型"
-        },
-        "router": {
-          "type": "string",
-          "description": " 对应页面路由"
-        },
-        "link": {
-          "type": "string",
-          "description": " 链接参数"
-        },
-        "bg_image": {
-          "type": "string",
-          "description": " tab对应页面背景图"
-        },
-        "bg_image_dark": {
-          "type": "string",
-          "description": " tab对应页面深色模式背景图"
-        },
-        "bg_color": {
-          "type": "string",
-          "description": " 页面背景颜色，默认F7F7F7"
-        },
-        "cover_image": {
-          "type": "string",
-          "description": " 页面封面图"
-        },
-        "cards": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Div"
-          },
-          "description": " 卡片元素"
-        },
-        "nav": {
-          "$ref": "#/definitions/Nav",
-          "description": " 顶部导航元素"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
+          "format": "int64"
         }
       },
       "title": "Page"
-    },
-    "PageFrom": {
-      "type": "object",
-      "properties": {
-        "offset": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "PageFrom"
-    },
-    "PageFrom64": {
-      "type": "object",
-      "properties": {
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "PageFrom64"
-    },
-    "PageJson": {
-      "type": "object",
-      "properties": {
-        "offset": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "PageJson"
-    },
-    "PageJson64": {
-      "type": "object",
-      "properties": {
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "PageJson64"
     },
     "PageRequest": {
       "type": "object",
@@ -61098,6 +62397,120 @@
       },
       "title": "Partner"
     },
+    "PartnerCommissionRecordItem": {
+      "type": "object",
+      "properties": {
+        "record_type": {
+          "type": "string",
+          "description": " exam_signup | trader_rebate | rebate_return"
+        },
+        "order_no": {
+          "type": "string",
+          "description": " 单号，如 CM174141"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "sub_uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 报名费/交易分佣：下级 UID"
+        },
+        "sub_name": {
+          "type": "string",
+          "description": " 报名费/交易分佣：下级姓名（脱敏）"
+        },
+        "exam_fee": {
+          "type": "string",
+          "description": " 报名费返佣：报名费金额"
+        },
+        "commission_amount": {
+          "type": "string",
+          "description": " 报名费返佣/交易分佣：佣金金额"
+        },
+        "symbol": {
+          "type": "string",
+          "description": " 交易分佣：产品"
+        },
+        "volume": {
+          "type": "string",
+          "description": " 交易分佣：手数"
+        },
+        "profit": {
+          "type": "string",
+          "description": " 交易分佣：利润（可选）"
+        },
+        "sub_user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 返佣回赠：下级 UID"
+        },
+        "sub_user_name": {
+          "type": "string",
+          "description": " 返佣回赠：下级姓名（脱敏）"
+        },
+        "original_commission": {
+          "type": "string",
+          "description": " 返佣回赠：原佣金"
+        },
+        "return_ratio": {
+          "type": "string",
+          "description": " 返佣回赠：回赠比例"
+        },
+        "return_amount": {
+          "type": "string",
+          "description": " 返佣回赠：回赠金额"
+        }
+      },
+      "title": "PartnerCommissionRecordItem"
+    },
+    "PartnerCopyProfitRecordItem": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string",
+          "description": " 带单订单号，如 CM872423"
+        },
+        "follow_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 0 私域 1 公域"
+        },
+        "follow_type_str": {
+          "type": "string",
+          "description": " 私域跟单分润 / 公域跟单分润"
+        },
+        "follower_uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 跟单用户 UID"
+        },
+        "follower_name": {
+          "type": "string",
+          "description": " 跟单用户姓名（脱敏）"
+        },
+        "trader_name": {
+          "type": "string",
+          "description": " 交易员姓名（即合伙人）"
+        },
+        "profit": {
+          "type": "string",
+          "description": " 跟单盈亏（收益）"
+        },
+        "share_profit": {
+          "type": "string",
+          "description": " 分润金额"
+        },
+        "close_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平仓时间（秒）"
+        }
+      },
+      "title": "PartnerCopyProfitRecordItem"
+    },
     "PartnerFissionEfficiencyItem": {
       "type": "object",
       "properties": {
@@ -61230,10 +62643,40 @@
           "items": {
             "$ref": "#/definitions/PartnerRelationItem"
           },
-          "description": " 下级列表（同结构，当前结果集中）"
+          "description": " 直属下级列表（同结构；按 RPC 拉取，不限于本页，与筛选条件一致）"
         }
       },
       "title": "PartnerRelationItem"
+    },
+    "PartnerRelationTreeNode": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " UID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名（脱敏）"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "vip_name": {
+          "type": "string",
+          "description": " VIP 等级名称"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnerRelationTreeNode"
+          },
+          "description": " 直属下级（递归）"
+        }
+      },
+      "title": "PartnerRelationTreeNode"
     },
     "PartnerStat": {
       "type": "object",
@@ -61516,11 +62959,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "PayChannelListRquest"
@@ -61646,11 +63089,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "PayPlatformListRequest"
@@ -61685,7 +63128,7 @@
       },
       "title": "PayPlatformNamesResponse"
     },
-    "PayTimeRangeForm": {
+    "PayTimeRange": {
       "type": "object",
       "properties": {
         "pay_time_start": {
@@ -61697,7 +63140,7 @@
           "format": "int64"
         }
       },
-      "title": "PayTimeRangeForm"
+      "title": "PayTimeRange"
     },
     "PayTypeInfo": {
       "type": "object",
@@ -62377,7 +63820,7 @@
       },
       "title": "PlatformName"
     },
-    "PlatformTradeTimeForm": {
+    "PlatformTradeTime": {
       "type": "object",
       "properties": {
         "platform_trade_time_start": {
@@ -62389,7 +63832,7 @@
           "format": "int64"
         }
       },
-      "title": "PlatformTradeTimeForm"
+      "title": "PlatformTradeTime"
     },
     "PlatformTransactionTime": {
       "type": "object",
@@ -62622,7 +64065,7 @@
         },
         "handle_status": {
           "type": "string",
-          "description": " pending / record_only / confirmed_ab"
+          "description": " 交易触发处理状态：pending / record_only / confirmed_ab（见 riskmanage rpc TriggerHandleStatus*）"
         },
         "account_permissions": {
           "type": "array",
@@ -62717,7 +64160,35 @@
         "record_id"
       ]
     },
-    "ProcessingTimeForm": {
+    "ProcessRoutineTradeTriggerRecordReq": {
+      "type": "object",
+      "properties": {
+        "trigger_record_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 触发记录 ID"
+        },
+        "handle_status": {
+          "type": "string",
+          "description": " 处理结果：pending（待处理）/ processed（已处理）/ confirmed（已确认）/ ignored（忽略），见 riskmanage rpc TriggerHandleStatus*"
+        },
+        "handle_by": {
+          "type": "string",
+          "description": " 处理人"
+        },
+        "handle_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 处理时间(unix秒)，不传则用服务端当前时间"
+        },
+        "handle_result": {
+          "type": "string",
+          "description": " 处理结果描述"
+        }
+      },
+      "title": "ProcessRoutineTradeTriggerRecordReq"
+    },
+    "ProcessingTime": {
       "type": "object",
       "properties": {
         "processing_time_start": {
@@ -62729,7 +64200,7 @@
           "format": "int64"
         }
       },
-      "title": "ProcessingTimeForm"
+      "title": "ProcessingTime"
     },
     "ProfessionalModelUser": {
       "type": "object",
@@ -62821,11 +64292,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "ProfitDistributionDetailListRequest"
@@ -63019,11 +64490,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "ProfitDistributionListRequest"
@@ -63820,11 +65291,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "user_ids": {
           "type": "string",
@@ -63851,7 +65322,7 @@
       },
       "title": "RWalletListRes"
     },
-    "RangeTimeForm": {
+    "RangeTime": {
       "type": "object",
       "properties": {
         "time_start": {
@@ -63863,7 +65334,7 @@
           "format": "int64"
         }
       },
-      "title": "RangeTimeForm"
+      "title": "RangeTime"
     },
     "RangeTimeFormOptional": {
       "type": "object",
@@ -63880,20 +65351,6 @@
         }
       },
       "title": "RangeTimeFormOptional"
-    },
-    "RangeTimeJson": {
-      "type": "object",
-      "properties": {
-        "time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "time_end": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "RangeTimeJson"
     },
     "RangeTimeJsonOptional": {
       "type": "object",
@@ -64465,11 +65922,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "ReconciliationListReq"
@@ -64584,11 +66041,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "ReconciliationStatReq"
@@ -64814,6 +66271,10 @@
           "format": "int64",
           "description": " 基准用户数"
         },
+        "base_amount": {
+          "type": "string",
+          "description": " 基准金额"
+        },
         "retention_data_list": {
           "type": "array",
           "items": {
@@ -64850,6 +66311,10 @@
           "type": "integer",
           "format": "int64",
           "description": " 用户数"
+        },
+        "amount": {
+          "type": "string",
+          "description": " 金额"
         },
         "retention_rate": {
           "type": "string",
@@ -64894,21 +66359,22 @@
       },
       "title": "RetryAccountAdjustmentStaskRequest"
     },
-    "ReviewTimeRangeForm": {
+    "ReturnAmount": {
       "type": "object",
       "properties": {
-        "review_time_start": {
+        "return_month": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " 回批月份"
         },
-        "review_time_end": {
-          "type": "integer",
-          "format": "int64"
+        "return_amount": {
+          "type": "string",
+          "description": " 回批金额"
         }
       },
-      "title": "ReviewTimeRangeForm"
+      "title": "ReturnAmount"
     },
-    "ReviewTimeRangeJson": {
+    "ReviewTimeRange": {
       "type": "object",
       "properties": {
         "review_time_start": {
@@ -64920,7 +66386,7 @@
           "format": "int64"
         }
       },
-      "title": "ReviewTimeRangeJson"
+      "title": "ReviewTimeRange"
     },
     "ReviewUserRequest": {
       "type": "object",
@@ -65143,25 +66609,55 @@
           "format": "int64"
         },
         "order_no": {
-          "type": "string"
-        },
-        "deal_id": {
-          "type": "string"
+          "type": "string",
+          "description": " 订单号"
         },
         "position_id": {
-          "type": "string"
+          "type": "string",
+          "description": " 持仓单号"
+        },
+        "deal_id": {
+          "type": "string",
+          "description": " 成交单号"
+        },
+        "open_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开仓时间"
+        },
+        "direction": {
+          "type": "string",
+          "description": " 方向(多/空，如 BUY/SELL)"
+        },
+        "volume": {
+          "type": "number",
+          "format": "double",
+          "description": " 手数"
         },
         "open_price": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 开仓价"
         },
-        "close_price": {
+        "current_price": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 当前价（平仓后为平仓价）"
+        },
+        "bid_price": {
+          "type": "number",
+          "format": "double",
+          "description": " 当前买价"
+        },
+        "ask_price": {
+          "type": "number",
+          "format": "double",
+          "description": " 当前卖价"
         },
         "profit": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 盈亏"
         },
         "user_id": {
           "type": "integer",
@@ -65174,13 +66670,9 @@
         "symbol": {
           "type": "string"
         },
-        "volume": {
+        "close_price": {
           "type": "number",
           "format": "double"
-        },
-        "open_time": {
-          "type": "integer",
-          "format": "int64"
         },
         "close_time": {
           "type": "integer",
@@ -65235,9 +66727,45 @@
         "close_time": {
           "type": "integer",
           "format": "int64"
+        },
+        "direction": {
+          "type": "string",
+          "description": " 方向(多/空，如 BUY/SELL)"
         }
       },
       "title": "RoutineTradeRecordItem"
+    },
+    "RoutineTradeTriggerHandleRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "routine_trade_trigger_record_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "handle_status": {
+          "type": "string",
+          "description": " 本次操作设置的状态：pending / processed / confirmed / ignored"
+        },
+        "handle_by": {
+          "type": "string"
+        },
+        "handle_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "handle_result": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RoutineTradeTriggerHandleRecord"
     },
     "RoutineTradeTriggerRecord": {
       "type": "object",
@@ -65255,7 +66783,8 @@
           "format": "int64"
         },
         "handle_status": {
-          "type": "string"
+          "type": "string",
+          "description": " 交易触发处理状态：pending / processed / confirmed / ignored（见 riskmanage rpc TriggerHandleStatus*）"
         },
         "monitor_type": {
           "type": "string"
@@ -65278,23 +66807,12 @@
           "type": "integer",
           "format": "int64"
         },
-        "order_nos": {
+        "trade_records": {
           "type": "array",
           "items": {
-            "type": "string"
-          }
-        },
-        "deal_ids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "position_ids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+            "$ref": "#/definitions/RoutineTradeRecord"
+          },
+          "description": " 每条交易记录：订单号/持仓单号/成交单号/开仓时间/方向/手数/开仓价/当前价/盈亏"
         }
       },
       "title": "RoutineTradeTriggerRecord"
@@ -65418,11 +66936,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "RuleListRequest"
@@ -67146,6 +68664,10 @@
           "type": "string",
           "description": " 深色模式图标"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -67248,6 +68770,22 @@
       "type": "object",
       "title": "StartSettlementResponse"
     },
+    "StatusCountItem": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态 0:申请中 1:待审核 2:已通过 3:已拒绝"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 该状态下的数量"
+        }
+      },
+      "title": "StatusCountItem"
+    },
     "SubmitCreditAmountRequest": {
       "type": "object",
       "properties": {
@@ -67335,7 +68873,7 @@
       },
       "title": "SubmitCreditAmountRequest"
     },
-    "SubmitTimeRangeForm": {
+    "SubmitTimeRange": {
       "type": "object",
       "properties": {
         "submit_time_start": {
@@ -67347,21 +68885,7 @@
           "format": "int64"
         }
       },
-      "title": "SubmitTimeRangeForm"
-    },
-    "SubmitTimeRangeJson": {
-      "type": "object",
-      "properties": {
-        "submit_time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "submit_time_end": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "SubmitTimeRangeJson"
+      "title": "SubmitTimeRange"
     },
     "Symbol": {
       "type": "object",
@@ -69193,6 +70717,10 @@
         "close_method": {
           "type": "string",
           "description": " 平仓方式: manual-手动平仓 take_profit-止盈平仓 stop_loss-止损平仓"
+        },
+        "margin_rate": {
+          "type": "string",
+          "description": " 保证金比例"
         },
         "is_compensated": {
           "type": "boolean",
@@ -71393,6 +72921,9 @@
         "risk_level": {
           "type": "integer",
           "format": "int32"
+        },
+        "equity": {
+          "type": "string"
         }
       },
       "title": "TransactionHistoryStatisticInfo"
@@ -71689,6 +73220,10 @@
         "close_method": {
           "type": "string",
           "description": " 平仓方式: manual-手动平仓 take_profit-止盈平仓 stop_loss-止损平仓"
+        },
+        "margin_rate": {
+          "type": "string",
+          "description": " 保证金比例"
         }
       },
       "title": "TransactionOrderInfo"
@@ -71909,11 +73444,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "TransferApplyListRequest"
@@ -72797,7 +74332,7 @@
         "pages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Page"
+            "$ref": "#/definitions/AppConfigPage"
           },
           "description": " 页面信息（平铺在 appconfiguration 中）"
         }
@@ -73018,6 +74553,10 @@
           "type": "string",
           "description": " 组件类型"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式，如 market_3"
+        },
         "title_i18n": {
           "type": "array",
           "items": {
@@ -73067,6 +74606,21 @@
     "UpdateCommonComponentResponse": {
       "type": "object",
       "title": "UpdateCommonComponentResponse"
+    },
+    "UpdateCostDataReq": {
+      "type": "object",
+      "properties": {
+        "cost_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成本记录ID"
+        },
+        "cost_amount": {
+          "type": "string",
+          "description": " 成本金额"
+        }
+      },
+      "title": "UpdateCostDataReq"
     },
     "UpdateCountrySettingReq": {
       "type": "object",
@@ -73705,6 +75259,10 @@
           "type": "string",
           "description": " 背景颜色"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -73766,6 +75324,10 @@
         "payload": {
           "type": "string",
           "description": " 扩展内容 (JSON字符串)"
+        },
+        "style": {
+          "type": "string",
+          "description": " 样式"
         },
         "name": {
           "type": "string",
@@ -74916,6 +76478,10 @@
           "type": "string",
           "description": " 深色模式图标"
         },
+        "style": {
+          "type": "string",
+          "description": " 样式"
+        },
         "name": {
           "type": "string",
           "description": " 名称"
@@ -75344,7 +76910,7 @@
       },
       "title": "UpdateTaskUserRequest"
     },
-    "UpdateTimeRangeForm": {
+    "UpdateTimeRange": {
       "type": "object",
       "properties": {
         "update_time_start": {
@@ -75356,21 +76922,7 @@
           "format": "int64"
         }
       },
-      "title": "UpdateTimeRangeForm"
-    },
-    "UpdateTimeRangeJson": {
-      "type": "object",
-      "properties": {
-        "update_time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "update_time_end": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UpdateTimeRangeJson"
+      "title": "UpdateTimeRange"
     },
     "UpdateTraderExamRebateRuleRequest": {
       "type": "object",
@@ -76821,11 +78373,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "UserCreditAdjustListRequest"
@@ -76892,6 +78444,10 @@
         "name": {
           "type": "string",
           "description": " 全名"
+        },
+        "nickname": {
+          "type": "string",
+          "description": " 昵称"
         },
         "first_name": {
           "type": "string",
@@ -77273,11 +78829,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "UserGroupListReq"
@@ -77406,6 +78962,10 @@
         "name": {
           "type": "string",
           "description": " 全名"
+        },
+        "nickname": {
+          "type": "string",
+          "description": " 昵称"
         },
         "first_name": {
           "type": "string",
@@ -77748,11 +79308,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "UserLabelListReq"
@@ -77869,11 +79429,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "UserLabelTreeRequest"
@@ -78101,11 +79661,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "UserLevelAdjustRecordListRequest"
@@ -78385,7 +79945,7 @@
       "type": "object",
       "properties": {
         "page": {
-          "$ref": "#/definitions/PageFrom",
+          "$ref": "#/definitions/Page",
           "description": " 分页信息"
         },
         "keyword": {
@@ -78695,6 +80255,39 @@
         "vcode_session_id": {
           "type": "string",
           "description": " 验证码会话id"
+        },
+        "inviter_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 推荐人ID"
+        },
+        "inviter_name": {
+          "type": "string",
+          "description": " 推荐人姓名"
+        },
+        "register_source": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 注册方式/注册来源"
+        },
+        "ocr_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " OCR状态 0 未识别 1 识别成功 2 识别失败"
+        },
+        "risk_labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLabel"
+          },
+          "description": " 风控标签列表（命中规则关联的标签，按标签ID去重）"
+        },
+        "progress_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 注册进度步骤，如 [\"Basic\",\"Identity\"]"
         }
       },
       "title": "UserOpenApplyListItem"
@@ -78874,6 +80467,18 @@
           "type": "integer",
           "format": "int64",
           "description": " 更新时间"
+        },
+        "duplicate_rejected": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否因重复（邮箱/手机/证件号已注册且未注销）被拒绝"
+        },
+        "duplicate_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 重复的字段列表：tel/email/identity_document"
         }
       },
       "title": "UserOpenVerificationInfo"
@@ -80215,11 +81820,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "VerificationReviewListReq"
@@ -80498,11 +82103,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "WalletAdjustmentListRequest"
@@ -81003,11 +82608,11 @@
         },
         "offset": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         }
       },
       "title": "WithdrawApplyListRequest"
