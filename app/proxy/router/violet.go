@@ -5,6 +5,7 @@ import (
 	"go-admin/common/middleware"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-admin-team/go-admin-core/sdk"
 	jwt "github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth"
 )
 
@@ -19,9 +20,10 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 		// 可以在这里设置目标服务地址
 		// TargetURL: "http://target-service:8080",
 	}
+	optLogMiddleware := sdk.Runtime.GetMiddlewareKey(middleware.OperaLogToDB).(gin.HandlerFunc)
 
 	// 需要认证和权限验证的代理路由
-	r := v1.Group("/poplar/violet/backend").Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
+	r := v1.Group("/poplar/violet/backend").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware).Use(middleware.AuthCheckRole())
 	{
 		// 通配符路由,捕获所有路径
 		// 注意: /*path 只捕获 /poplar/violet 之后的部分
@@ -30,7 +32,7 @@ func registerVioletProxyRouter(v1 *gin.RouterGroup, authMiddleware *jwt.GinJWTMi
 	}
 
 	// 需要认证但无需权限验证的代理路由
-	noCheck := v1.Group("/poplar/violet/export")
+	noCheck := v1.Group("/poplar/violet/export").Use(authMiddleware.MiddlewareFunc()).Use(optLogMiddleware)
 	{
 		// 通配符路由,捕获所有路径
 		// 注意: /*path 只捕获 /poplar/violet 之后的部分
