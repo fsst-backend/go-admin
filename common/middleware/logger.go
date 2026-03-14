@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/json"
 	"go-admin/app/admin/service/dto"
@@ -20,6 +19,38 @@ import (
 	"go-admin/common/global"
 )
 
+// responseBodyWriter 包装 ResponseWriter 以捕获响应体（用于代理路由的业务错误判断）
+// 仅缓冲前 8KB 用于解析 code 字段，避免大响应占用过多内存
+const maxBodyCaptureSize = 8192
+
+type responseBodyWriter struct {
+	gin.ResponseWriter
+	body *bytes.Buffer
+}
+
+func (w responseBodyWriter) Write(b []byte) (int, error) {
+	if w.body.Len() < maxBodyCaptureSize {
+		remain := maxBodyCaptureSize - w.body.Len()
+		if len(b) <= remain {
+			w.body.Write(b)
+		} else {
+			w.body.Write(b[:remain])
+		}
+	}
+	return w.ResponseWriter.Write(b)
+}
+
+// parseProxyResponseCode 解析代理响应 JSON 中的 code 字段，code==0 为成功
+func parseProxyResponseCode(body []byte) (code int, ok bool) {
+	var m struct {
+		Code float64 `json:"code"`
+	}
+	if err := json.Unmarshal(body, &m); err != nil {
+		return 0, false
+	}
+	return int(m.Code), true
+}
+
 // LoggerToFile 日志记录到文件
 func SaveOperaLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -30,24 +61,32 @@ func SaveOperaLog() gin.HandlerFunc {
 		var body string
 		switch c.Request.Method {
 		case http.MethodPost, http.MethodPut, http.MethodGet, http.MethodDelete:
-			bf := bytes.NewBuffer(nil)
-			wt := bufio.NewWriter(bf)
-			_, err := io.Copy(wt, c.Request.Body)
+			rb, err := io.ReadAll(c.Request.Body)
 			if err != nil {
 				log.Warnf("copy body error, %s", err.Error())
-				err = nil
 			}
-			rb, _ := io.ReadAll(bf)
 			c.Request.Body = io.NopCloser(bytes.NewBuffer(rb))
 			body = string(rb)
 		}
 
-		c.Next()
+		// Violet 代理路由返回 HTTP 200 但 body 中 code!=0 表示业务错误，需捕获响应体判断
 		url := c.Request.RequestURI
+		var bodyWriter *responseBodyWriter
+		if strings.Contains(url, "/poplar/violet/") {
+			bodyWriter = &responseBodyWriter{ResponseWriter: c.Writer, body: bytes.NewBuffer(nil)}
+			c.Writer = bodyWriter
+		}
+
+		c.Next()
 		if strings.Contains(url, "logout") ||
 			strings.Contains(url, "login") {
 			return
 		}
+
+
+		
+
+
 		// 结束时间
 		endTime := time.Now()
 		if c.Request.Method == http.MethodOptions {
@@ -69,6 +108,16 @@ func SaveOperaLog() gin.HandlerFunc {
 		var statusBus = 0
 		if bl {
 			statusBus = st.(int)
+		}
+		// 当 handler 未设置 status 时（如代理路由），使用 HTTP 状态码判断成功/失败
+		if statusBus == 0 {
+			statusBus = c.Writer.Status()
+		}
+		// 代理路由：body 中 code!=0 表示业务错误（如 Violet 返回 {"code":10007,"message":"配置ID无效"}）
+		if bodyWriter != nil && statusBus == http.StatusOK {
+			if respCode, ok := parseProxyResponseCode(bodyWriter.body.Bytes()); ok && respCode != 0 {
+				statusBus = http.StatusInternalServerError
+			}
 		}
 
 		// 请求方式
@@ -118,7 +167,7 @@ func SetDBOperLog(c *gin.Context, clientIP string, statusCode int, reqUri string
 	l["userAgent"] = c.Request.UserAgent()
 	l["createBy"] = user.GetUserId(c)
 	l["updateBy"] = user.GetUserId(c)
-	if status == http.StatusOK {
+	if status == 0 || status == http.StatusOK {
 		l["status"] = dto.OperaStatusEnabel
 	} else {
 		l["status"] = dto.OperaStatusDisable
