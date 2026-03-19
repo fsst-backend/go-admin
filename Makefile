@@ -29,7 +29,7 @@ print-tag:
 	@echo $(IMAGE_TAG)
 
 push: build-linux
-	docker build -t ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG} .
+	docker build --platform linux/amd64 -t ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG} .
 	docker push ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG}
 	docker rmi ${IMAGE_REPO}/${PROJECT}:${IMAGE_TAG}
 	docker image prune -f
