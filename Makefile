@@ -6,7 +6,7 @@ build:
 
 # make build-linux
 build-linux:
-	@docker build -t go-admin:latest .
+	@docker build --platform linux/amd64 -t go-admin:latest .
 	@echo "build successful"
 
 build-sqlite:
