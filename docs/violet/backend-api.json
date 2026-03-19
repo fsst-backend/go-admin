@@ -214,7 +214,15 @@
           },
           {
             "name": "user_ids",
-            "description": " 账号ID列表",
+            "description": " 用户ID列表",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "account_id",
+            "description": " 账号ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -792,6 +800,14 @@
         },
         "parameters": [
           {
+            "name": "account_id",
+            "description": " 账号ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "title",
             "description": " 活动标题",
             "in": "query",
@@ -920,7 +936,15 @@
           },
           {
             "name": "user_ids",
-            "description": " 账号ID列表",
+            "description": " 用户ID列表",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "account_id",
+            "description": " 账号ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -18077,8 +18101,15 @@
             "format": "boolean"
           },
           {
-            "name": "name",
+            "name": "user_name",
             "description": " 姓名",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "description": " 账号ID，可以多个，用逗号分开",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18088,7 +18119,8 @@
           "reporting"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -38181,6 +38213,11 @@
           "type": "string",
           "description": " 活动标题"
         },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
+        },
         "user_id": {
           "type": "integer",
           "format": "int64",
@@ -38248,6 +38285,11 @@
         "activity_title": {
           "type": "string",
           "description": " 活动标题"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
         },
         "user_id": {
           "type": "integer",
@@ -52782,6 +52824,46 @@
         "root": {
           "$ref": "#/definitions/PartnerRelationTreeNode",
           "description": " 关系树根节点"
+        },
+        "superior_chain": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SuperiorChainItem"
+          },
+          "description": " 平铺-上级链：从当前人依次向上 [直接上级, 再上级, ..., 根]"
+        },
+        "subordinate_flat_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubordinateFlatItem"
+          },
+          "description": " 平铺-下级网络：所有下属节点平铺（含 depth）"
+        },
+        "top_superior_vip_level": {
+          "type": "string",
+          "description": " 上级链中最高 VIP 等级"
+        },
+        "total_subordinate_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总下级人数（不含根）"
+        },
+        "max_subordinate_depth": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 下属最深层级"
+        },
+        "direct_subordinate_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 根节点直属下级人数"
+        },
+        "partners_by_level": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnersAtLevelItem"
+          },
+          "description": " 每一层的合伙人"
         }
       },
       "title": "GetPartnerRelationTreeResponse"
@@ -55696,12 +55778,14 @@
           "description": " 活动代码"
         },
         "user_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 账号ID列表"
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID列表"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
         },
         "offset": {
           "type": "integer",
@@ -56815,6 +56899,11 @@
     "GetUserTrialActivityListRequest": {
       "type": "object",
       "properties": {
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
+        },
         "title": {
           "type": "string",
           "description": " 活动标题"
@@ -59808,9 +59897,13 @@
           "format": "boolean",
           "description": " 是否激活"
         },
-        "name": {
+        "user_name": {
           "type": "string",
           "description": " 姓名"
+        },
+        "account": {
+          "type": "string",
+          "description": " 账号ID，可以多个，用逗号分开"
         }
       },
       "title": "LiquidatedAccountListReq"
@@ -63572,6 +63665,24 @@
         }
       },
       "title": "PartnerTrendItem"
+    },
+    "PartnersAtLevelItem": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 层级，1=根的直接下级，2=再下一级"
+        },
+        "partners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnerRelationTreeNode"
+          },
+          "description": " 该层合伙人（不含 children，仅 uid/name/vip）"
+        }
+      },
+      "title": "PartnersAtLevelItem"
     },
     "PayChannelInfo": {
       "type": "object",
@@ -68509,6 +68620,14 @@
           },
           "description": " 账号ID列表"
         },
+        "account_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 账号ID列表"
+        },
         "init_net_deposit": {
           "type": "string",
           "description": " 初始入金"
@@ -69663,6 +69782,62 @@
         }
       },
       "title": "SubmitTimeRange"
+    },
+    "SubordinateFlatItem": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " UID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名（脱敏）"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "vip_name": {
+          "type": "string",
+          "description": " VIP 等级名称"
+        },
+        "depth": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 相对根的层级深度，1=根的直接下级"
+        }
+      },
+      "title": "SubordinateFlatItem"
+    },
+    "SuperiorChainItem": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " UID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名（脱敏）"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "vip_name": {
+          "type": "string",
+          "description": " VIP 等级名称"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 层级，1=直接上级，2=再上级，依次向上"
+        }
+      },
+      "title": "SuperiorChainItem"
     },
     "Symbol": {
       "type": "object",
@@ -75108,18 +75283,12 @@
           "description": " H5链接与配置"
         },
         "tab_bar": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TabBar"
-          },
-          "description": " 底部导航元素（如果包含 div_id，会创建对应的 Div）"
+          "$ref": "#/definitions/TabBar",
+          "description": " 底部导航元素（如果包含 div_id，会创建对应的 Div）；传空数组会触发防护校验"
         },
         "pages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppConfigPage"
-          },
-          "description": " 页面信息（平铺在 appconfiguration 中）"
+          "$ref": "#/definitions/AppConfigPage",
+          "description": " 页面信息（平铺在 appconfiguration 中）；传空数组会触发防护校验"
         }
       },
       "title": "UpdateAppConfigurationRequest"
@@ -79721,6 +79890,13 @@
             "type": "string"
           },
           "description": " 国家码"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserGroupPermission"
+          },
+          "description": " 组权限"
         }
       },
       "title": "UserGroupReq"
