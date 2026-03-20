@@ -214,7 +214,15 @@
           },
           {
             "name": "user_ids",
-            "description": " 账号ID列表",
+            "description": " 用户ID列表",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "account_id",
+            "description": " 账号ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -792,6 +800,14 @@
         },
         "parameters": [
           {
+            "name": "account_id",
+            "description": " 账号ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "title",
             "description": " 活动标题",
             "in": "query",
@@ -920,7 +936,15 @@
           },
           {
             "name": "user_ids",
-            "description": " 账号ID列表",
+            "description": " 用户ID列表",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "account_id",
+            "description": " 账号ID",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -9465,6 +9489,14 @@
             "format": "int64"
           },
           {
+            "name": "audit_status",
+            "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "submit_time_start",
             "in": "query",
             "required": false,
@@ -11871,6 +11903,14 @@
             "type": "string"
           },
           {
+            "name": "hit_rule_ids",
+            "description": " 按命中的出金审核规则ID筛选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "submit_time_start",
             "in": "query",
             "required": false,
@@ -11968,6 +12008,180 @@
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/withdrawal_audit_rule": {
+      "post": {
+        "summary": "创建出金审核规则",
+        "operationId": "CreateWithdrawalAuditRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/withdrawal_audit_rule/delete": {
+      "post": {
+        "summary": "删除出金审核规则",
+        "operationId": "DeleteWithdrawalAuditRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleDeleteReq"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/withdrawal_audit_rule/detail": {
+      "post": {
+        "summary": "获取出金审核规则详情",
+        "operationId": "GetWithdrawalAuditRuleDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleDetailRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/withdrawal_audit_rule/list": {
+      "get": {
+        "summary": "获取出金审核规则列表",
+        "operationId": "GetWithdrawalAuditRuleList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleListRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "description": " 规则名称/描述模糊搜索",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "enabled",
+            "description": " 是否启用，不传查全部",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/withdrawal_audit_rule/update": {
+      "post": {
+        "summary": "更新出金审核规则",
+        "operationId": "UpdateWithdrawalAuditRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawalAuditRuleUpdateReq"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/json"
         ]
       }
     },
@@ -14658,227 +14872,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/pkgmanager/absetting/create": {
-      "post": {
-        "summary": "创建AB测试配置",
-        "operationId": "CreateAbSettingHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateAbSettingRequest"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/absetting/delete": {
-      "post": {
-        "summary": "删除AB测试配置",
-        "operationId": "DeleteAbSettingHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AbSettingRequestById"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/absetting/detail": {
-      "get": {
-        "summary": "获取AB测试配置详情",
-        "operationId": "GetAbSettingDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/AbSettingDetailResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "description": " 配置ID(必填)\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/absetting/list": {
-      "get": {
-        "summary": "获取AB测试配置列表",
-        "operationId": "GetAbSettingListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/AbSettingListItem"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "app_name",
-            "description": " 应用名称(可选)\r",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "system",
-            "description": " 系统类型(可选)\r",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "description": " 状态(可选)\r",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "setting",
-            "description": " 配置内容(可选) A或者B\r",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "time_start",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "time_end",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/absetting/options": {
-      "get": {
-        "summary": "获取AB测试配置选项",
-        "operationId": "GetAbSettingOptionsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/PkgUpdateOption"
-            }
-          }
-        },
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/absetting/update": {
-      "post": {
-        "summary": "更新AB测试配置",
-        "operationId": "UpdateAbSettingHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EditAbSettingRequest"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
     "/poplar/violet/backend/pkgmanager/app-package/config": {
       "get": {
         "summary": "获取App包配置选项",
@@ -15214,8 +15207,16 @@
         },
         "parameters": [
           {
+            "name": "package_id",
+            "description": " 包ID筛选，可选\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "app_id",
-            "description": " App ID筛选，可选\r",
+            "description": " 平台ID筛选(关联apps.id)，可选\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15309,8 +15310,8 @@
         },
         "parameters": [
           {
-            "name": "app_id",
-            "description": " App ID，必填\r",
+            "name": "package_id",
+            "description": " 包ID，必填\r",
             "in": "query",
             "required": true,
             "type": "integer",
@@ -15363,10 +15364,40 @@
         ]
       }
     },
-    "/poplar/violet/backend/pkgmanager/delete/pkg": {
+    "/poplar/violet/backend/pkgmanager/app/create": {
       "post": {
-        "summary": "根据包名删除包记录",
-        "operationId": "DeletePkgHandler",
+        "summary": "创建App平台",
+        "operationId": "AppCreateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppCreateResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "pkgmanager"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/pkgmanager/app/delete": {
+      "post": {
+        "summary": "删除App平台",
+        "operationId": "AppDeleteHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -15381,7 +15412,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DeletePkgRequest"
+              "$ref": "#/definitions/AppDeleteRequest"
             }
           }
         ],
@@ -15389,108 +15420,29 @@
           "pkgmanager"
         ],
         "consumes": [
-          "application/json"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
-    "/poplar/violet/backend/pkgmanager/pkg/available-configs": {
+    "/poplar/violet/backend/pkgmanager/app/detail": {
       "get": {
-        "summary": "获取可用配置",
-        "operationId": "GetAvailableConfigsHandler",
+        "summary": "获取App平台详情",
+        "operationId": "AppGetHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetAvailableConfigsResponse"
-            }
-          }
-        },
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/pkg/check-package": {
-      "post": {
-        "summary": "检测安装包信息",
-        "operationId": "CheckPackageHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
+              "$ref": "#/definitions/AppGetResponse"
             }
           }
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CheckPackageRequest"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/pkg/create": {
-      "post": {
-        "summary": "创建包",
-        "operationId": "CreatePkgHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/CreatePkgResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreatePkgRequest"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/pkg/detail": {
-      "get": {
-        "summary": "获取包详情",
-        "operationId": "GetPkgDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPkgDetailResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "pkg_id",
-            "description": " 包ID（必填）\r",
+            "name": "id",
+            "description": " App平台ID，必填\r",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           }
@@ -15504,71 +15456,32 @@
         ]
       }
     },
-    "/poplar/violet/backend/pkgmanager/pkg/edit": {
-      "post": {
-        "summary": "编辑包",
-        "operationId": "EditPkgHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/EditPkgResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/EditPkgRequest"
-            }
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/pkg/list": {
+    "/poplar/violet/backend/pkgmanager/app/list": {
       "get": {
-        "summary": "获取包列表",
-        "operationId": "GetPkgListHandler",
+        "summary": "获取App平台列表",
+        "operationId": "AppListHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetPkgListResponse"
+              "$ref": "#/definitions/AppListResponse"
             }
           }
         },
         "parameters": [
           {
-            "name": "keyword",
-            "description": " 包名/版本号 模糊搜索（可选）\r",
+            "name": "name",
+            "description": " 名称筛选，可选\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "start_time",
-            "description": " 开始时间（秒级时间戳）\r",
+            "name": "package_name",
+            "description": " 包名筛选，可选\r",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "end_time",
-            "description": " 结束时间（秒级时间戳）\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "offset",
@@ -15579,6 +15492,20 @@
           },
           {
             "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15594,15 +15521,15 @@
         ]
       }
     },
-    "/poplar/violet/backend/pkgmanager/pkg/update": {
+    "/poplar/violet/backend/pkgmanager/app/update": {
       "post": {
-        "summary": "更新包",
-        "operationId": "UpdatePkgHandler",
+        "summary": "更新App平台",
+        "operationId": "AppUpdateHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/UpdatePkgResponse"
+              "$ref": "#/definitions/Empty"
             }
           }
         },
@@ -15612,7 +15539,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UpdatePkgRequest"
+              "$ref": "#/definitions/AppUpdateRequest"
             }
           }
         ],
@@ -15621,42 +15548,6 @@
         ],
         "consumes": [
           "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/pkgmanager/pkg/update-records": {
-      "get": {
-        "summary": "获取更新记录",
-        "operationId": "GetUpdateRecordsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetUpdateRecordsResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "pkgmanager"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -18195,8 +18086,15 @@
             "format": "boolean"
           },
           {
-            "name": "name",
+            "name": "user_name",
             "description": " 姓名",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "description": " 账号ID，可以多个，用逗号分开",
             "in": "query",
             "required": false,
             "type": "string"
@@ -18206,7 +18104,8 @@
           "reporting"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -18683,7 +18582,8 @@
           "reporting"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -25590,6 +25490,13 @@
             "format": "int64"
           },
           {
+            "name": "profit_type",
+            "description": " 盈亏类型\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "open_start",
             "description": " 开始时间\r",
             "in": "query",
@@ -27452,6 +27359,13 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "profit_type",
+            "description": " 盈亏类型\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "open_start",
@@ -36101,6 +36015,186 @@
       },
       "title": "AppConfigPage"
     },
+    "AppCreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 名称，必填"
+        },
+        "package_name": {
+          "type": "string",
+          "description": " 包名，必填"
+        },
+        "fcm_config": {
+          "type": "string",
+          "description": " 谷歌FCM配置(JSON)，可选"
+        },
+        "apple_login_config": {
+          "type": "string",
+          "description": " 苹果登录配置(JSON)，可选"
+        }
+      },
+      "title": "AppCreateRequest",
+      "required": [
+        "name",
+        "package_name"
+      ]
+    },
+    "AppCreateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 新创建的App平台ID"
+        }
+      },
+      "title": "AppCreateResponse"
+    },
+    "AppDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App平台ID，必填"
+        }
+      },
+      "title": "AppDeleteRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "AppGetRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App平台ID，必填"
+        }
+      },
+      "title": "AppGetRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "AppGetResponse": {
+      "type": "object",
+      "properties": {
+        "app": {
+          "$ref": "#/definitions/AppInfo",
+          "description": " App平台信息"
+        }
+      },
+      "title": "AppGetResponse"
+    },
+    "AppInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "package_name": {
+          "type": "string",
+          "description": " 包名"
+        },
+        "app_packages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppPackageInfo"
+          },
+          "description": " 所属App包列表"
+        },
+        "fcm_config": {
+          "type": "string",
+          "description": " 谷歌FCM配置(JSON)"
+        },
+        "apple_login_config": {
+          "type": "string",
+          "description": " 苹果登录配置(JSON): secret,team_id,client_id,key_id"
+        },
+        "operator": {
+          "type": "string",
+          "description": " 操作人"
+        },
+        "operator_uid": {
+          "type": "string",
+          "description": " 操作人UID"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        },
+        "app_config_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 包名对应的界面配置ID(仅查询回显，创建/更新不需填)"
+        }
+      },
+      "title": "AppInfo"
+    },
+    "AppListRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 名称筛选，可选"
+        },
+        "package_name": {
+          "type": "string",
+          "description": " 包名筛选，可选"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_end": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AppListRequest"
+    },
+    "AppListResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AppInfo"
+          },
+          "description": " App平台列表"
+        }
+      },
+      "title": "AppListResponse"
+    },
     "AppPackageConfigResponse": {
       "type": "object",
       "properties": {
@@ -36131,6 +36225,11 @@
     "AppPackageCreateRequest": {
       "type": "object",
       "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属平台ID(关联apps.id)，必填"
+        },
         "system": {
           "type": "string",
           "description": " 系统类型(iOS/Android)，必填"
@@ -36160,6 +36259,7 @@
       },
       "title": "AppPackageCreateRequest",
       "required": [
+        "app_id",
         "system",
         "channel",
         "app_name",
@@ -36370,6 +36470,36 @@
         "id"
       ]
     },
+    "AppUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App平台ID，必填"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称，可选"
+        },
+        "package_name": {
+          "type": "string",
+          "description": " 包名，可选"
+        },
+        "fcm_config": {
+          "type": "string",
+          "description": " 谷歌FCM配置(JSON)，可选"
+        },
+        "apple_login_config": {
+          "type": "string",
+          "description": " 苹果登录配置(JSON)，可选"
+        }
+      },
+      "title": "AppUpdateRequest",
+      "required": [
+        "id"
+      ]
+    },
     "AppVersionCreateRequest": {
       "type": "object",
       "properties": {
@@ -36377,10 +36507,10 @@
           "type": "string",
           "description": " 版本名称，必填"
         },
-        "app_id": {
+        "package_id": {
           "type": "integer",
           "format": "int64",
-          "description": " App ID，必填"
+          "description": " 所属包ID(关联app_packages.id)，必填"
         },
         "version_number": {
           "type": "string",
@@ -36425,7 +36555,7 @@
       "title": "AppVersionCreateRequest",
       "required": [
         "version_name",
-        "app_id",
+        "package_id",
         "version_number",
         "update_cycle",
         "update_cycle_interval",
@@ -36494,10 +36624,15 @@
           "type": "string",
           "description": " 版本名称"
         },
+        "package_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属包ID(关联app_packages.id)"
+        },
         "app_id": {
           "type": "integer",
           "format": "int64",
-          "description": " App ID"
+          "description": " 所属平台ID(关联apps.id)"
         },
         "app_name": {
           "type": "string",
@@ -36587,10 +36722,15 @@
     "AppVersionListRequest": {
       "type": "object",
       "properties": {
+        "package_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 包ID筛选，可选"
+        },
         "app_id": {
           "type": "integer",
           "format": "int64",
-          "description": " App ID筛选，可选"
+          "description": " 平台ID筛选(关联apps.id)，可选"
         },
         "system": {
           "type": "string",
@@ -36653,10 +36793,10 @@
     "AppVersionMinSupportVerionRequest": {
       "type": "object",
       "properties": {
-        "app_id": {
+        "package_id": {
           "type": "integer",
           "format": "int64",
-          "description": " App ID，必填"
+          "description": " 包ID，必填"
         },
         "version_number": {
           "type": "string",
@@ -36665,7 +36805,7 @@
       },
       "title": "AppVersionMinSupportVerionRequest",
       "required": [
-        "app_id"
+        "package_id"
       ]
     },
     "AppVersionMinSupportVerionResponse": {
@@ -36693,10 +36833,10 @@
           "type": "string",
           "description": " 版本名称"
         },
-        "app_id": {
+        "package_id": {
           "type": "integer",
           "format": "int64",
-          "description": " App ID"
+          "description": " 所属包ID(关联app_packages.id)"
         },
         "version_number": {
           "type": "string",
@@ -37459,6 +37599,10 @@
         "withdrawal": {
           "type": "string",
           "description": " 出金（按完成时间）"
+        },
+        "net_deposit": {
+          "type": "string",
+          "description": " 净入金"
         }
       },
       "title": "BalanceFinanceFlow"
@@ -38058,6 +38202,11 @@
           "type": "string",
           "description": " 活动标题"
         },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
+        },
         "user_id": {
           "type": "integer",
           "format": "int64",
@@ -38125,6 +38274,11 @@
         "activity_title": {
           "type": "string",
           "description": " 活动标题"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
         },
         "user_id": {
           "type": "integer",
@@ -40338,6 +40492,61 @@
         }
       },
       "title": "CompletionTimeDistribution"
+    },
+    "ConditionRefLabel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 标签ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 标签名称"
+        }
+      },
+      "title": "ConditionRefLabel"
+    },
+    "ConditionRefUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 用户名称/昵称"
+        },
+        "wallet_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 钱包ID（取首个）"
+        },
+        "real_account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 真实交易账号ID（取首个）"
+        }
+      },
+      "title": "ConditionRefUser"
+    },
+    "ConditionRefUserGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户组ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 用户组名称"
+        }
+      },
+      "title": "ConditionRefUserGroup"
     },
     "Configuration": {
       "type": "object",
@@ -45248,7 +45457,7 @@
         },
         "group_name": {
           "type": "string",
-          "description": "用户组别"
+          "description": " 用户组别"
         },
         "order_id": {
           "type": "string",
@@ -45256,7 +45465,7 @@
         },
         "order_source": {
           "type": "string",
-          "description": " 订单号"
+          "description": " 订单来源"
         },
         "pay_channel": {
           "type": "string",
@@ -45269,11 +45478,11 @@
         "pay_plat_form_id": {
           "type": "integer",
           "format": "int64",
-          "description": "支付平台id"
+          "description": " 支付平台 ID"
         },
         "pay_plat_form": {
           "type": "string",
-          "description": "支付平台"
+          "description": " 支付平台"
         },
         "account_platform": {
           "type": "string",
@@ -45304,6 +45513,10 @@
           "type": "string",
           "description": " 到账金额"
         },
+        "receipt_amount_account_cur": {
+          "type": "string",
+          "description": " 到账金额折算成账号币种，用于统计"
+        },
         "exchange_rate": {
           "type": "string",
           "description": " 汇率"
@@ -45319,7 +45532,7 @@
         "order_status": {
           "type": "integer",
           "format": "int8",
-          "description": " 0待支付，1已完成，2已取消，3已超时"
+          "description": " 订单状态：0 待支付，1 已完成，2 失败，3 超时，4 取消，5 部分支付(待审)，6 部分支付成功，7 部分支付拒绝，8 未支付审核通过"
         },
         "cash_register_url": {
           "type": "string",
@@ -45332,7 +45545,7 @@
         "audit_status": {
           "type": "integer",
           "format": "int8",
-          "description": " 审核状态"
+          "description": " 审核状态：0 待确认，1 待审核，2 已通过，3 已拒绝，4 已取消"
         },
         "audit_user": {
           "type": "string",
@@ -45368,6 +45581,11 @@
         "pay_account": {
           "type": "string",
           "description": " 支付账户"
+        },
+        "is_credited": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否已加额到账户：仅 TCC 加款成功为 true，表示钱已打进账号"
         }
       },
       "title": "DepositApply"
@@ -45425,7 +45643,7 @@
         },
         "action": {
           "type": "string",
-          "description": " 操作类型 提交：SUBMIT 确认：CONFIRM 通过：PASS 拒绝：REJECT 取消：CANCEL"
+          "description": " 操作类型：用户/管理员 — SUBMIT 提交、CONFIRM 确认、PASS 通过、REJECT 拒绝、CANCEL 取消；系统/订单状态 — PENDING 待支付、COMPLETED 已完成、FAILED 支付失败、TIMEOUT 已超时、CANCELLED 支付取消、PARTIAL 部分支付"
         },
         "remark": {
           "type": "string",
@@ -45443,7 +45661,7 @@
         "audit_status": {
           "type": "integer",
           "format": "int8",
-          "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消"
+          "description": " 审核状态：0 待确认，1 待审核，2 已通过，3 已拒绝，4 已取消"
         }
       },
       "title": "DepositApplyAuditRecord"
@@ -45503,6 +45721,11 @@
           "type": "integer",
           "format": "int64",
           "description": " 用户群组  xxxxxxxxxxxxxxxxxx 待赋值"
+        },
+        "audit_status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消"
         },
         "submit_time_start": {
           "type": "integer",
@@ -51388,7 +51611,14 @@
           "items": {
             "$ref": "#/definitions/I18nFieldItem"
           },
-          "description": " 国际化字段列表，app.xx 正式在前，app_draft.xx 草稿在后"
+          "description": " 国际化字段列表（扁平，兼容），app.xx 正式在前，app_draft.xx 草稿在后"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18nPageGroup"
+          },
+          "description": " 按页面+Div 分层的国际化字段，第一层为页面（名称=tabbar），第二层为 Div（名称=div title）"
         }
       },
       "title": "GetI18nFieldListResponse"
@@ -52583,6 +52813,46 @@
         "root": {
           "$ref": "#/definitions/PartnerRelationTreeNode",
           "description": " 关系树根节点"
+        },
+        "superior_chain": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SuperiorChainItem"
+          },
+          "description": " 平铺-上级链：从当前人依次向上 [直接上级, 再上级, ..., 根]"
+        },
+        "subordinate_flat_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubordinateFlatItem"
+          },
+          "description": " 平铺-下级网络：所有下属节点平铺（含 depth）"
+        },
+        "top_superior_vip_level": {
+          "type": "string",
+          "description": " 上级链中最高 VIP 等级"
+        },
+        "total_subordinate_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总下级人数（不含根）"
+        },
+        "max_subordinate_depth": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 下属最深层级"
+        },
+        "direct_subordinate_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 根节点直属下级人数"
+        },
+        "partners_by_level": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnersAtLevelItem"
+          },
+          "description": " 每一层的合伙人"
         }
       },
       "title": "GetPartnerRelationTreeResponse"
@@ -55497,12 +55767,14 @@
           "description": " 活动代码"
         },
         "user_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 账号ID列表"
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID列表"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
         },
         "offset": {
           "type": "integer",
@@ -56616,6 +56888,11 @@
     "GetUserTrialActivityListRequest": {
       "type": "object",
       "properties": {
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账号ID"
+        },
         "title": {
           "type": "string",
           "description": " 活动标题"
@@ -57645,6 +57922,23 @@
       },
       "title": "I18n"
     },
+    "I18nDivGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " Div 名称（取 div 的 title）"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18nFieldItem"
+          },
+          "description": " 该 Div 下的国际化字段列表"
+        }
+      },
+      "title": "I18nDivGroup"
+    },
     "I18nExamContent": {
       "type": "object",
       "properties": {
@@ -57724,6 +58018,23 @@
         }
       },
       "title": "I18nLevelContent"
+    },
+    "I18nPageGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 页面名称（取对应 tabbar 的 title）"
+        },
+        "divs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18nDivGroup"
+          },
+          "description": " 该页面下的 Div 分组列表"
+        }
+      },
+      "title": "I18nPageGroup"
     },
     "IPRiskRuleContent": {
       "type": "object",
@@ -58471,6 +58782,11 @@
           "type": "string",
           "description": " 成交量/交易量"
         },
+        "trade_user": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 交易人数"
+        },
         "last_register_count": {
           "type": "integer",
           "format": "int64",
@@ -58500,6 +58816,11 @@
         "last_volume": {
           "type": "string",
           "description": " 上期成交量/交易量"
+        },
+        "last_trade_user": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 上期交易人数"
         }
       },
       "title": "IntegratedOperationsResp"
@@ -59575,9 +59896,13 @@
           "format": "boolean",
           "description": " 是否激活"
         },
-        "name": {
+        "user_name": {
           "type": "string",
           "description": " 姓名"
+        },
+        "account": {
+          "type": "string",
+          "description": " 账号ID，可以多个，用逗号分开"
         }
       },
       "title": "LiquidatedAccountListReq"
@@ -60716,15 +61041,6 @@
         "jpush_id": {
           "type": "string",
           "description": " 极光id"
-        },
-        "mp_user_id": {
-          "type": "string",
-          "description": " 公众号uid"
-        },
-        "mp_status": {
-          "type": "integer",
-          "format": "uint8",
-          "description": " 公众号状态"
         },
         "refresh_token": {
           "type": "string",
@@ -63348,6 +63664,24 @@
         }
       },
       "title": "PartnerTrendItem"
+    },
+    "PartnersAtLevelItem": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 层级，1=根的直接下级，2=再下一级"
+        },
+        "partners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartnerRelationTreeNode"
+          },
+          "description": " 该层合伙人（不含 children，仅 uid/name/vip）"
+        }
+      },
+      "title": "PartnersAtLevelItem"
     },
     "PayChannelInfo": {
       "type": "object",
@@ -68285,6 +68619,14 @@
           },
           "description": " 账号ID列表"
         },
+        "account_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 账号ID列表"
+        },
         "init_net_deposit": {
           "type": "string",
           "description": " 初始入金"
@@ -69439,6 +69781,62 @@
         }
       },
       "title": "SubmitTimeRange"
+    },
+    "SubordinateFlatItem": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " UID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名（脱敏）"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "vip_name": {
+          "type": "string",
+          "description": " VIP 等级名称"
+        },
+        "depth": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 相对根的层级深度，1=根的直接下级"
+        }
+      },
+      "title": "SubordinateFlatItem"
+    },
+    "SuperiorChainItem": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " UID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名（脱敏）"
+        },
+        "vip_level": {
+          "type": "string",
+          "description": " VIP 等级"
+        },
+        "vip_name": {
+          "type": "string",
+          "description": " VIP 等级名称"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 层级，1=直接上级，2=再上级，依次向上"
+        }
+      },
+      "title": "SuperiorChainItem"
     },
     "Symbol": {
       "type": "object",
@@ -73362,6 +73760,10 @@
           "format": "int64",
           "description": " 持仓单号"
         },
+        "profit_type": {
+          "type": "string",
+          "description": " 盈亏类型"
+        },
         "open_start": {
           "type": "integer",
           "format": "int64",
@@ -74880,18 +75282,12 @@
           "description": " H5链接与配置"
         },
         "tab_bar": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TabBar"
-          },
-          "description": " 底部导航元素（如果包含 div_id，会创建对应的 Div）"
+          "$ref": "#/definitions/TabBar",
+          "description": " 底部导航元素（如果包含 div_id，会创建对应的 Div）；传空数组会触发防护校验"
         },
         "pages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AppConfigPage"
-          },
-          "description": " 页面信息（平铺在 appconfiguration 中）"
+          "$ref": "#/definitions/AppConfigPage",
+          "description": " 页面信息（平铺在 appconfiguration 中）；传空数组会触发防护校验"
         }
       },
       "title": "UpdateAppConfigurationRequest"
@@ -75346,7 +75742,7 @@
         "audit_status": {
           "type": "integer",
           "format": "int32",
-          "description": " 0待支付，1已完成，2已取消，3已超时"
+          "description": " 审核状态：0待确认 1待审核 2已通过 3已拒绝 4已取消。流程：先传 1 确认（0→1），再传 2/3/4 审核（1→通过/拒绝/取消）"
         },
         "remark": {
           "type": "string",
@@ -79493,6 +79889,13 @@
             "type": "string"
           },
           "description": " 国家码"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserGroupPermission"
+          },
+          "description": " 组权限"
         }
       },
       "title": "UserGroupReq"
@@ -83165,6 +83568,14 @@
           "type": "string",
           "description": " 到账币种"
         },
+        "hit_rule_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 按命中的出金审核规则ID筛选"
+        },
         "submit_time_start": {
           "type": "integer",
           "format": "int64"
@@ -83221,12 +83632,12 @@
         "id": {
           "type": "integer",
           "format": "int64",
-          "description": " 主键ID"
+          "description": " 主键 ID"
         },
         "user_id": {
           "type": "integer",
           "format": "int64",
-          "description": " 用户ID"
+          "description": " 用户 ID"
         },
         "user_name": {
           "type": "string",
@@ -83236,9 +83647,13 @@
           "type": "string",
           "description": " 用户组名称"
         },
+        "user_level": {
+          "$ref": "#/definitions/UserLevelIdName",
+          "description": " 用户等级（可选，用于回显）"
+        },
         "order_id": {
           "type": "string",
-          "description": " 订单ID"
+          "description": " 订单 ID"
         },
         "order_source": {
           "type": "string",
@@ -83246,7 +83661,7 @@
         },
         "withdrawal_type": {
           "type": "string",
-          "description": " 提现类型 BANK_TRANSFER:银行汇款 CRYPTO_CURRENCY:加密货币"
+          "description": " 提现类型：BANK_TRANSFER 银行汇款、CRYPTO_CURRENCY 加密货币"
         },
         "account_platform": {
           "type": "string",
@@ -83260,32 +83675,40 @@
         "account_status": {
           "type": "integer",
           "format": "int32",
-          "description": " 账号状态 (0: 正常, 1: 异常)"
+          "description": " 账号状态：0 正常，1 异常"
         },
         "priority": {
           "type": "integer",
           "format": "int32",
-          "description": " 优先级 (2: 高, 1: 中, 0: 低)"
+          "description": " 优先级：2 高，1 中，0 低"
         },
         "balance": {
           "type": "string",
-          "description": " 余额 (decimal -\u003e string)"
+          "description": " 余额（申请出金时账户可用余额快照，USD）"
         },
         "withdrawal_amount": {
           "type": "string",
-          "description": " 提现金额 (decimal -\u003e string)"
+          "description": " 提现金额（USD）"
         },
         "handling_fee": {
           "type": "string",
-          "description": " 手续费 (decimal -\u003e string)"
+          "description": " 手续费（USD）"
+        },
+        "remittance_amount": {
+          "type": "string",
+          "description": " 汇款金额（扣手续费后待汇出，USD）"
         },
         "receipt_amount": {
           "type": "string",
-          "description": " 到账金额 (decimal -\u003e string)"
+          "description": " 到账金额（收款方实际到账，到账币种）"
+        },
+        "receipt_amount_account_cur": {
+          "type": "string",
+          "description": " 到账金额折算成账号币种(USD)，用于统计"
         },
         "exchange_rate": {
           "type": "string",
-          "description": " 汇率 (decimal -\u003e string)"
+          "description": " 汇率（如 1 USD = x 到账币种）"
         },
         "bank_name": {
           "type": "string",
@@ -83295,17 +83718,29 @@
           "type": "string",
           "description": " IFSC 代码"
         },
+        "bank_branch_name": {
+          "type": "string",
+          "description": " 银行支行名称"
+        },
+        "channel_bank_code": {
+          "type": "string",
+          "description": " 银行简码（如 ICBC）"
+        },
         "payment_order_id": {
           "type": "string",
           "description": " 支付订单号"
         },
         "payment_currency": {
           "type": "string",
-          "description": " 支付币种"
+          "description": " 支付币种（出金仅支持 USD）"
         },
         "receipt_currency": {
           "type": "string",
           "description": " 到账币种"
+        },
+        "target_currency_amount": {
+          "type": "string",
+          "description": " 目标币种金额（收款方将收到的金额，到账币种）"
         },
         "payee_name": {
           "type": "string",
@@ -83314,6 +83749,22 @@
         "payee_account": {
           "type": "string",
           "description": " 收款账号"
+        },
+        "user_country": {
+          "type": "string",
+          "description": " 用户国家"
+        },
+        "user_phone": {
+          "type": "string",
+          "description": " 用户手机号"
+        },
+        "request_type": {
+          "type": "string",
+          "description": " 提现请求类型"
+        },
+        "client_ip": {
+          "type": "string",
+          "description": " 客户端 IP"
         },
         "audit_time": {
           "type": "integer",
@@ -83337,7 +83788,7 @@
         "is_paid": {
           "type": "boolean",
           "format": "boolean",
-          "description": " 是否已扣款 (false: 未扣款, true: 已扣款)"
+          "description": " 是否已扣款：false 未扣款，true 已扣款"
         },
         "audit_user": {
           "type": "string",
@@ -83346,16 +83797,21 @@
         "audit_status": {
           "type": "integer",
           "format": "int32",
-          "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消"
+          "description": " 审核状态：0 待确认，1 待审核，2 已通过，3 已拒绝，4 已取消"
         },
         "pay_status": {
           "type": "integer",
           "format": "int32",
-          "description": " 支付状态 0待付款，1已付款，2已取消，3部分取消"
+          "description": " 支付状态：0 待付款，1 已付款，2 失败，3 超时，4 已取消，5 部分付款"
         },
         "redemption_amount": {
           "type": "string",
-          "description": " 回退金额"
+          "description": " 回退金额（USD 或到账币种，视回退去向而定）"
+        },
+        "is_redemption_credited": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 回退金额是否已加额到账号：出金回退额度调整成功后在 TCC 内置 true"
         },
         "merchant_id": {
           "type": "string",
@@ -83364,7 +83820,7 @@
         "pay_platform_id": {
           "type": "integer",
           "format": "int64",
-          "description": " 支付平台id"
+          "description": " 支付平台 ID"
         },
         "pay_platform": {
           "type": "string",
@@ -83373,6 +83829,22 @@
         "pay_type": {
           "type": "string",
           "description": " 支付方式"
+        },
+        "cashier_order_no": {
+          "type": "string",
+          "description": " 收银台订单号"
+        },
+        "hit_rule_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 命中的出金审核规则 ID 列表"
+        },
+        "audit_execution_result": {
+          "type": "string",
+          "description": " 规则执行结果：auto_pass 自动通过、manual_audit 人工审核、auto_reject 自动拒绝"
         }
       },
       "title": "WithdrawalApply"
@@ -83451,7 +83923,7 @@
         },
         "action": {
           "type": "string",
-          "description": " 操作类型 提交：SUBMIT 确认：CONFIRM 通过：PASS 拒绝：REJECT 取消：CANCEL"
+          "description": " 操作类型：用户/管理员 — SUBMIT 提交、CONFIRM 确认、PASS 通过、REJECT 拒绝、CANCEL 取消；系统/订单状态 — PENDING 待支付、COMPLETED 已完成、FAILED 支付失败、TIMEOUT 已超时、CANCELLED 支付取消、PARTIAL 部分支付"
         },
         "remark": {
           "type": "string",
@@ -83469,7 +83941,7 @@
         "audit_status": {
           "type": "integer",
           "format": "int8",
-          "description": " 审核状态 0待确认,1待审核,2已通过,3已拒绝,4已取消"
+          "description": " 审核状态：0 待确认，1 待审核，2 已通过，3 已拒绝，4 已取消"
         }
       },
       "title": "WithdrawalApplyAuditRecord"
@@ -83521,6 +83993,248 @@
         }
       },
       "title": "WithdrawalApplyListResponse"
+    },
+    "WithdrawalAuditCondition": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WithdrawalAuditEvent"
+          },
+          "description": " 基础条件"
+        },
+        "logic": {
+          "type": "string",
+          "description": " 逻辑：AND / OR"
+        },
+        "sub_conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WithdrawalAuditCondition"
+          },
+          "description": " 子条件（嵌套）"
+        }
+      },
+      "title": "WithdrawalAuditCondition"
+    },
+    "WithdrawalAuditEvent": {
+      "type": "object",
+      "properties": {
+        "metric": {
+          "type": "string",
+          "description": " 条件指标：见 rpc ConditionMetric 常量（如 withdrawal_amount、customer_group）"
+        },
+        "operator": {
+          "type": "string",
+          "description": " 操作符：EQ/NEQ/GT/GTE/LT/LTE/BETWEEN/IN/NOTIN（是/否用 EQ \"1\"/\"0\"）"
+        },
+        "value": {
+          "type": "string",
+          "description": " 比较值；BETWEEN 时为 \"min,max\""
+        }
+      },
+      "title": "WithdrawalAuditEvent"
+    },
+    "WithdrawalAuditRuleCreateReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": " 规则名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 规则描述"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否启用"
+        },
+        "conditions": {
+          "$ref": "#/definitions/WithdrawalAuditCondition",
+          "description": " 条件组合树"
+        },
+        "execution_result": {
+          "type": "string",
+          "description": " 执行结果：auto_reject / manual_audit / auto_pass"
+        }
+      },
+      "title": "WithdrawalAuditRuleCreateReq"
+    },
+    "WithdrawalAuditRuleDeleteReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 规则ID"
+        }
+      },
+      "title": "WithdrawalAuditRuleDeleteReq"
+    },
+    "WithdrawalAuditRuleDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 规则ID"
+        }
+      },
+      "title": "WithdrawalAuditRuleDetailReq"
+    },
+    "WithdrawalAuditRuleDetailRes": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/WithdrawalAuditRuleInfo",
+          "description": " 规则详情"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionRefUser"
+          },
+          "description": " 条件中引用的用户列表（顶层便于前段回显）"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionRefLabel"
+          },
+          "description": " 条件中引用的标签列表"
+        },
+        "user_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionRefUserGroup"
+          },
+          "description": " 条件中引用的用户组列表"
+        }
+      },
+      "title": "WithdrawalAuditRuleDetailRes"
+    },
+    "WithdrawalAuditRuleInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 规则ID"
+        },
+        "name": {
+          "type": "string",
+          "description": " 规则名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 规则描述"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否启用"
+        },
+        "conditions": {
+          "$ref": "#/definitions/WithdrawalAuditCondition",
+          "description": " 条件组合树"
+        },
+        "execution_result": {
+          "type": "string",
+          "description": " 执行结果：auto_reject 自动拒绝 / manual_audit 人工审核 / auto_pass 自动通过"
+        },
+        "hit_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 命中数"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "WithdrawalAuditRuleInfo"
+    },
+    "WithdrawalAuditRuleListReq": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": " 规则名称/描述模糊搜索"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否启用，不传查全部"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "WithdrawalAuditRuleListReq"
+    },
+    "WithdrawalAuditRuleListRes": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总条数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WithdrawalAuditRuleInfo"
+          },
+          "description": " 规则列表"
+        }
+      },
+      "title": "WithdrawalAuditRuleListRes"
+    },
+    "WithdrawalAuditRuleUpdateReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 规则ID（必填）"
+        },
+        "name": {
+          "type": "string",
+          "description": " 规则名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 规则描述"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否启用"
+        },
+        "conditions": {
+          "$ref": "#/definitions/WithdrawalAuditCondition",
+          "description": " 条件组合树"
+        },
+        "execution_result": {
+          "type": "string",
+          "description": " 执行结果"
+        }
+      },
+      "title": "WithdrawalAuditRuleUpdateReq"
     },
     "WithdrawalRiskInfo": {
       "type": "object",
