@@ -1,0 +1,2258 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "仅管理端 `/linkforty/api/v1/admin`，供后台、Apifox、网关等导入 OpenAPI；不含 SDK、短链、预览等公开接口。",
+        "title": "Linkforty Console API",
+        "contact": {},
+        "license": {
+            "name": "Proprietary"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {
+        "/linkforty/api/v1/admin/analytics/links": {
+            "get": {
+                "description": "成功时 `message` 为单链聚合（含按日/国家/设备/平台等，见 dto.AnalyticsLinkMessage）。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "单链分析",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "days",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "linkId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为单链分析对象",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminAnalyticsLink"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/analytics/overview": {
+            "get": {
+                "description": "成功时 `message` 为全局指标与各维度序列（见 dto.AnalyticsOverviewMessage）。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "分析概览",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "days",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为概览对象",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminAnalyticsOverview"
+                        }
+                    },
+                    "500": {
+                        "description": "code 非 0，message 多为错误文案",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/links": {
+            "get": {
+                "description": "无 `id`：成功时 `message` 为 **链接对象数组**（见 EnvelopeAdminLinkList）。有 `id`：成功时 `message` 为 **单条链接对象**（见 EnvelopeAdminLinkOne，字段同 dto.AdminLinkMessage）。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "链接列表或详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "无 id：message 为数组。若带 id，语义同 EnvelopeAdminLinkOne（message 为单对象）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminLinkList"
+                        }
+                    },
+                    "404": {
+                        "description": "code 非 0，message 为错误文案",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "更新链接",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "更新体（仅传需改字段）",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateLinkBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为更新后的链接，字段见 dto.AdminLinkMessage",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminLinkOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "body 字段见 dto.CreateLinkBody；`utm_parameters`、`deep_link_parameters`、`targeting_rules` 为 JSON 对象，详见 docs/features/03-link-management.md",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "创建链接",
+                "parameters": [
+                    {
+                        "description": "创建体",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateLinkBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为新建链接，字段见 dto.AdminLinkMessage",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminLinkOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "删除链接",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 { success: true }",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeLinkDeleteOK"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/links/duplicate": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "复制链接",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为复制后的新链接，字段见 dto.AdminLinkMessage",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminLinkOne"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/templates": {
+            "get": {
+                "description": "无 `id`：成功时 `message` 为 **模版数组**（见 EnvelopeAdminTemplateList）。有 `id`：成功时 `message` 为 **单条模版**（见 EnvelopeAdminTemplateOne，字段同 dto.LinkTemplateMessage）。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "模版列表或详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "无 id：message 为数组。若带 id，语义同 EnvelopeAdminTemplateOne（message 为单对象）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminTemplateList"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "更新模版",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "更新字段",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateTemplateBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为更新后的模版",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminTemplateOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "创建模版",
+                "parameters": [
+                    {
+                        "description": "创建体",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateTemplateBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为新建模版（含 settings JSON）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminTemplateOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "删除模版",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 { success: true }",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminBoolOK"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/templates/set-default": {
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "设为默认模版",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为设为默认后的模版",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminTemplateOne"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/webhooks": {
+            "get": {
+                "description": "无 `id`：成功时 `message` 为 **Webhook 数组**（见 EnvelopeAdminWebhookList）。有 `id`：成功时 `message` 为 **单条 Webhook**（见 EnvelopeAdminWebhookOne，含 secret；events/headers 形状见 dto.WebhookMessage）。",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Webhook 列表或详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "无 id：message 为数组。若带 id，语义同 EnvelopeAdminWebhookOne（message 为单对象）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWebhookList"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "更新 Webhook",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "更新字段",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateWebhookBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为更新后的 Webhook",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWebhookOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "创建 Webhook",
+                "parameters": [
+                    {
+                        "description": "创建体",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateWebhookBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为新建 Webhook（含 secret）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWebhookOne"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "删除 Webhook",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 { success: true }",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminBoolOK"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/webhooks/test": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Webhook 测试投递",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为模拟投递结果（statusCode、responseBody、error 等）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWebhookTest"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/well-known/android": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Android Well-Known 配置",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 Android 配置摘要（sha256CertFingerprints 等）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownAndroid"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "更新 Android Well-Known",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PutWellKnownAndroidBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 upsert 后的 Android 配置摘要",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownAndroid"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "新建 Android Well-Known",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PutWellKnownAndroidBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为新建后的 Android 配置摘要",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownAndroid"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "删除 Android Well-Known",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为字符串 deleted",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminDeletedStr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        },
+        "/linkforty/api/v1/admin/well-known/ios": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "iOS Well-Known 配置",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 iOS 配置摘要（pathSlug、iosTeamId 等）",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownIOS"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "更新 iOS Well-Known",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PutWellKnownIOSBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为 upsert 后的 iOS 配置摘要",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownIOS"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "新建 iOS Well-Known",
+                "parameters": [
+                    {
+                        "description": "body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PutWellKnownIOSBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "message 为新建后的 iOS 配置摘要",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminWellKnownIOS"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "删除 iOS Well-Known",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "appId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "message 为字符串 deleted",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeAdminDeletedStr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "console.EnvelopeAdminAnalyticsLink": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.AnalyticsLinkMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminAnalyticsOverview": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.AnalyticsOverviewMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminBoolOK": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.BoolOKMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminDeletedStr": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "type": "string",
+                    "example": "deleted"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminLinkList": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AdminLinkMessage"
+                    }
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminLinkOne": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.AdminLinkMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminTemplateList": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.LinkTemplateMessage"
+                    }
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminTemplateOne": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.LinkTemplateMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminWebhookList": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.WebhookMessage"
+                    }
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminWebhookOne": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.WebhookMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminWebhookTest": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.WebhookTestResponse"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminWellKnownAndroid": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.WellKnownAndroidAdminMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeAdminWellKnownIOS": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.WellKnownIOSAdminMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeJSON": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {},
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "console.EnvelopeLinkDeleteOK": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "message": {
+                    "$ref": "#/definitions/dto.LinkDeleteOKMessage"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1700000000
+                }
+            }
+        },
+        "dto.AdminLinkMessage": {
+            "type": "object",
+            "properties": {
+                "android_app_link": {
+                    "type": "string"
+                },
+                "android_app_store_url": {
+                    "type": "string"
+                },
+                "appId": {
+                    "type": "string"
+                },
+                "app_scheme": {
+                    "type": "string"
+                },
+                "attribution_window_hours": {
+                    "type": "integer",
+                    "example": 168
+                },
+                "click_count": {
+                    "type": "integer",
+                    "example": 42
+                },
+                "created_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "deep_link_parameters": {
+                    "$ref": "#/definitions/dto.LinkDeepLinkParameters"
+                },
+                "deep_link_path": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "expires_at": {
+                    "type": "integer",
+                    "example": 1735689600000
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "ios_app_store_url": {
+                    "type": "string"
+                },
+                "ios_universal_link": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "og_description": {
+                    "type": "string"
+                },
+                "og_image_url": {
+                    "type": "string"
+                },
+                "og_title": {
+                    "type": "string"
+                },
+                "og_type": {
+                    "type": "string"
+                },
+                "original_url": {
+                    "type": "string",
+                    "example": "https://example.com"
+                },
+                "short_code": {
+                    "type": "string",
+                    "example": "a1b2c3d4"
+                },
+                "targeting_rules": {
+                    "$ref": "#/definitions/dto.LinkTargetingRules"
+                },
+                "template_id": {
+                    "type": "string"
+                },
+                "template_slug": {
+                    "type": "string",
+                    "example": "tpl01ab"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "utm_parameters": {
+                    "$ref": "#/definitions/dto.LinkUtmParameters"
+                },
+                "web_fallback_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.AnalyticsCountryRow": {
+            "type": "object",
+            "properties": {
+                "clicks": {
+                    "type": "integer"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "countryCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.AnalyticsDateBucket": {
+            "type": "object",
+            "properties": {
+                "clicks": {
+                    "type": "integer"
+                },
+                "dateMillis": {
+                    "type": "integer",
+                    "example": 1704067200000
+                }
+            }
+        },
+        "dto.AnalyticsLinkMessage": {
+            "type": "object",
+            "properties": {
+                "clicksByCountry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsCountryRow"
+                    }
+                },
+                "clicksByDate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsDateBucket"
+                    }
+                },
+                "clicksByDevice": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsNamedClicks"
+                    }
+                },
+                "clicksByPlatform": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsNamedClicks"
+                    }
+                },
+                "totalClicks": {
+                    "type": "integer"
+                },
+                "uniqueClicks": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.AnalyticsNamedClicks": {
+            "type": "object",
+            "properties": {
+                "clicks": {
+                    "type": "integer"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.AnalyticsOverviewMessage": {
+            "type": "object",
+            "properties": {
+                "clicksByCountry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsCountryRow"
+                    }
+                },
+                "clicksByDate": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsDateBucket"
+                    }
+                },
+                "clicksByDevice": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsNamedClicks"
+                    }
+                },
+                "clicksByPlatform": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsNamedClicks"
+                    }
+                },
+                "topLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.AnalyticsTopLinkRow"
+                    }
+                },
+                "totalClicks": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "uniqueClicks": {
+                    "type": "integer",
+                    "example": 80
+                }
+            }
+        },
+        "dto.AnalyticsTopLinkRow": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "originalUrl": {
+                    "type": "string",
+                    "example": "https://example.com/p"
+                },
+                "shortCode": {
+                    "type": "string",
+                    "example": "a1b2c3d4"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "totalClicks": {
+                    "type": "integer"
+                },
+                "uniqueClicks": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.BoolOKMessage": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "dto.CreateLinkBody": {
+            "type": "object",
+            "properties": {
+                "android_app_link": {
+                    "type": "string"
+                },
+                "android_app_store_url": {
+                    "type": "string"
+                },
+                "app_id": {
+                    "type": "string"
+                },
+                "app_scheme": {
+                    "type": "string"
+                },
+                "attribution_window_hours": {
+                    "type": "integer"
+                },
+                "custom_code": {
+                    "type": "string"
+                },
+                "deep_link_parameters": {
+                    "$ref": "#/definitions/dto.LinkDeepLinkParameters"
+                },
+                "deep_link_path": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "expires_at": {
+                    "description": "ExpiresAt 链接过期时刻，Unix 毫秒（UTC）；省略表示不过期。",
+                    "type": "integer",
+                    "example": 1735689600000
+                },
+                "ios_app_store_url": {
+                    "type": "string"
+                },
+                "ios_universal_link": {
+                    "type": "string"
+                },
+                "og_description": {
+                    "type": "string"
+                },
+                "og_image_url": {
+                    "type": "string"
+                },
+                "og_title": {
+                    "type": "string"
+                },
+                "og_type": {
+                    "type": "string"
+                },
+                "original_url": {
+                    "type": "string"
+                },
+                "targeting_rules": {
+                    "$ref": "#/definitions/dto.LinkTargetingRules"
+                },
+                "template_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "utm_parameters": {
+                    "$ref": "#/definitions/dto.LinkUtmParameters"
+                },
+                "web_fallback_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CreateTemplateBody": {
+            "type": "object",
+            "properties": {
+                "app_id": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_default": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "settings": {
+                    "$ref": "#/definitions/dto.LinkTemplateSettings"
+                }
+            }
+        },
+        "dto.CreateWebhookBody": {
+            "type": "object",
+            "properties": {
+                "app_id": {
+                    "type": "string"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "click_event",
+                            "install_event",
+                            "conversion_event",
+                            "sdk_event"
+                        ]
+                    },
+                    "example": [
+                        "click_event"
+                    ]
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "retry_count": {
+                    "type": "integer"
+                },
+                "timeout_ms": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.LinkDeepLinkParameters": {
+            "type": "object",
+            "additionalProperties": true
+        },
+        "dto.LinkDeleteOKMessage": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "dto.LinkTargetingRules": {
+            "type": "object",
+            "properties": {
+                "countries": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "US",
+                        "JP"
+                    ]
+                },
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "ios",
+                        "android",
+                        "web"
+                    ]
+                },
+                "languages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "en",
+                        "ja"
+                    ]
+                }
+            }
+        },
+        "dto.LinkTemplateMessage": {
+            "type": "object",
+            "properties": {
+                "appId": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "is_default": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Summer Promo"
+                },
+                "settings": {
+                    "$ref": "#/definitions/dto.LinkTemplateSettings"
+                },
+                "slug": {
+                    "type": "string",
+                    "example": "summer"
+                },
+                "updated_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                }
+            }
+        },
+        "dto.LinkTemplateSettings": {
+            "type": "object",
+            "properties": {
+                "defaultAndroidUrl": {
+                    "type": "string",
+                    "example": "https://play.google.com/store/apps/details?id=com.example"
+                },
+                "defaultAttributionWindowHours": {
+                    "type": "integer",
+                    "example": 168
+                },
+                "defaultIosUrl": {
+                    "type": "string",
+                    "example": "https://apps.apple.com/app/id000000000"
+                },
+                "defaultWebFallbackUrl": {
+                    "type": "string",
+                    "example": "https://example.com/fallback"
+                },
+                "expiresAfterDays": {
+                    "type": "integer",
+                    "example": 90
+                },
+                "targetingRules": {
+                    "$ref": "#/definitions/dto.TemplateSettingsTargeting"
+                },
+                "utmParameters": {
+                    "$ref": "#/definitions/dto.TemplateSettingsUTM"
+                }
+            }
+        },
+        "dto.LinkUtmParameters": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "dto.PutWellKnownAndroidBody": {
+            "type": "object",
+            "properties": {
+                "android_package_name": {
+                    "type": "string"
+                },
+                "app_id": {
+                    "type": "string"
+                },
+                "deep_link_slug": {
+                    "description": "optional",
+                    "type": "string"
+                },
+                "sha256_fingerprints": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "dto.PutWellKnownIOSBody": {
+            "type": "object",
+            "properties": {
+                "app_id": {
+                    "type": "string"
+                },
+                "deep_link_slug": {
+                    "description": "optional; public URL segment under /ios/",
+                    "type": "string"
+                },
+                "ios_bundle_id": {
+                    "type": "string"
+                },
+                "ios_team_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.TemplateSettingsTargeting": {
+            "type": "object",
+            "properties": {
+                "countries": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "US",
+                        "GB",
+                        "DE"
+                    ]
+                },
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "ios",
+                        "android",
+                        "web"
+                    ]
+                },
+                "languages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "en",
+                        "zh"
+                    ]
+                }
+            }
+        },
+        "dto.TemplateSettingsUTM": {
+            "type": "object",
+            "properties": {
+                "campaign": {
+                    "type": "string",
+                    "example": "summer"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "medium": {
+                    "type": "string",
+                    "example": "email"
+                },
+                "source": {
+                    "type": "string",
+                    "example": "newsletter"
+                },
+                "term": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateLinkBody": {
+            "type": "object",
+            "properties": {
+                "android_app_link": {
+                    "type": "string"
+                },
+                "android_app_store_url": {
+                    "type": "string"
+                },
+                "app_scheme": {
+                    "type": "string"
+                },
+                "attribution_window_hours": {
+                    "type": "integer"
+                },
+                "deep_link_parameters": {
+                    "$ref": "#/definitions/dto.LinkDeepLinkParameters"
+                },
+                "deep_link_path": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "expires_at": {
+                    "type": "integer",
+                    "example": 1735689600000
+                },
+                "ios_app_store_url": {
+                    "type": "string"
+                },
+                "ios_universal_link": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "og_description": {
+                    "type": "string"
+                },
+                "og_image_url": {
+                    "type": "string"
+                },
+                "og_title": {
+                    "type": "string"
+                },
+                "og_type": {
+                    "type": "string"
+                },
+                "original_url": {
+                    "type": "string"
+                },
+                "targeting_rules": {
+                    "$ref": "#/definitions/dto.LinkTargetingRules"
+                },
+                "template_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "utm_parameters": {
+                    "$ref": "#/definitions/dto.LinkUtmParameters"
+                },
+                "web_fallback_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateTemplateBody": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "is_default": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "settings": {
+                    "$ref": "#/definitions/dto.LinkTemplateSettings"
+                }
+            }
+        },
+        "dto.UpdateWebhookBody": {
+            "type": "object",
+            "properties": {
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "click_event",
+                            "install_event",
+                            "conversion_event",
+                            "sdk_event"
+                        ]
+                    }
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "retry_count": {
+                    "type": "integer"
+                },
+                "timeout_ms": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.WebhookMessage": {
+            "type": "object",
+            "properties": {
+                "appId": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "click_event",
+                            "install_event",
+                            "conversion_event",
+                            "sdk_event"
+                        ]
+                    },
+                    "example": [
+                        "click_event"
+                    ]
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "retry_count": {
+                    "type": "integer"
+                },
+                "secret": {
+                    "type": "string"
+                },
+                "timeout_ms": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.WebhookTestResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "response_body": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "dto.WellKnownAndroidAdminMessage": {
+            "type": "object",
+            "properties": {
+                "androidPackageName": {
+                    "type": "string"
+                },
+                "appId": {
+                    "type": "string"
+                },
+                "deepLinkSlug": {
+                    "type": "string"
+                },
+                "pathSlug": {
+                    "type": "string"
+                },
+                "sha256CertFingerprints": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "updatedAt": {
+                    "type": "integer",
+                    "example": 1704067200000
+                }
+            }
+        },
+        "dto.WellKnownIOSAdminMessage": {
+            "type": "object",
+            "properties": {
+                "appId": {
+                    "type": "string"
+                },
+                "deepLinkSlug": {
+                    "type": "string"
+                },
+                "iosBundleId": {
+                    "type": "string"
+                },
+                "iosTeamId": {
+                    "type": "string"
+                },
+                "pathSlug": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "integer",
+                    "example": 1704067200000
+                }
+            }
+        }
+    }
+}

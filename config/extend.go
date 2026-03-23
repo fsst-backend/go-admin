@@ -17,7 +17,9 @@ const (
 //	    name: demo-name
 //	  violet:
 //	    targetURL: http://localhost:8080
-//	    domainID: default-domain
+//	    domainID: 1  # Violet / LinkForty 代理共用，透传 X-Poplar-Domain-Id
+//	  linkforty:
+//	    targetURL: http://localhost:8081
 //	  telemarketing:
 //	    targetURL: http://localhost:9999
 //	  sms:
@@ -30,6 +32,7 @@ const (
 type Extend struct {
 	AMap          AMap           // 这里配置对应配置文件的结构即可
 	Violet        Violet         // Violet 反向代理配置
+	LinkForty     LinkForty      // LinkForty 反向代理配置（/linkforty/api/v1/admin）
 	Telemarketing Telemarketing  // Telemarketing 反向代理配置
 	SMS           SMS            // SMS 反向代理配置（/poplar/sms/v1）
 	Upload        Upload         // Upload 上传服务配置
@@ -47,10 +50,15 @@ type FrontendConfig struct {
 	BaseUploadURL string `yaml:"baseUploadURL" json:"baseUploadURL"` // 上传基础URL
 }
 
-// Violet 反向代理配置
+// Violet 反向代理配置（domainID 与 LinkForty 代理共用）
 type Violet struct {
 	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址
-	DomainID  int64  `yaml:"domainID" json:"domainID"`   // 域ID
+	DomainID  int64  `yaml:"domainID" json:"domainID"`   // 域ID，LinkForty 代理同样透传此值
+}
+
+// LinkForty 反向代理配置（/linkforty/api/v1/admin）
+type LinkForty struct {
+	TargetURL string `yaml:"targetURL" json:"targetURL"` // LinkForty 远程服务根地址
 }
 
 // Telemarketing 反向代理配置（端口 9999）

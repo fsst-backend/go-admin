@@ -34,7 +34,9 @@ settings:
       key: de7a062c984bf828d5d1b3a631a517e4
     violet:
       targetURL: http://localhost:8080  # Violet 服务地址
-      domainID: default-domain          # 域ID
+      domainID: default-domain          # 域ID（与 LinkForty 代理共用）
+    linkforty:
+      targetURL: http://localhost:8081  # LinkForty 服务地址
     telemarketing:
       targetURL: http://localhost:9999 # Telemarketing 服务地址（端口 9999）
     sms:

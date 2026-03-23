@@ -50,7 +50,9 @@ settings:
       key: de7a062c984bf828d5d1b3a631a517e4
     violet:
       targetURL: ${VIOLET_TARGET_URL}  # Violet 服务地址
-      domainID: ${DOMAIN_ID}          # 域ID
+      domainID: ${DOMAIN_ID}          # 域ID（与 LinkForty 代理共用）
+    linkforty:
+      targetURL: ${LINKFORTY_TARGET_URL}  # LinkForty 服务地址
     telemarketing:
       targetURL: ${TELEMARKETING_TARGET_URL}  # Telemarketing 服务地址（默认端口 9999）
     sms:
