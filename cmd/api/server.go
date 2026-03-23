@@ -87,6 +87,7 @@ func setup() {
 	log.Infof("ExtConfig - AMap.Key: %s", ext.ExtConfig.AMap.Key)
 	log.Infof("ExtConfig - Violet.TargetURL: %s", ext.ExtConfig.Violet.TargetURL)
 	log.Infof("ExtConfig - Violet.DomainID: %d", ext.ExtConfig.Violet.DomainID)
+	log.Infof("ExtConfig - LinkForty.TargetURL: %s", ext.ExtConfig.LinkForty.TargetURL)
 	log.Infof("ExtConfig - Telemarketing.TargetURL: %s", ext.ExtConfig.Telemarketing.TargetURL)
 	log.Infof("ExtConfig - SMS.TargetURL: %s", ext.ExtConfig.SMS.TargetURL)
 	log.Infof("ExtConfig - Upload.AppKey: %s", ext.ExtConfig.Upload.AppKey)
