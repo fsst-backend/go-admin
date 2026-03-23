@@ -72,7 +72,7 @@ func SaveOperaLog() gin.HandlerFunc {
 		// Violet 代理路由返回 HTTP 200 但 body 中 code!=0 表示业务错误，需捕获响应体判断
 		url := c.Request.RequestURI
 		var bodyWriter *responseBodyWriter
-		if strings.Contains(url, "/poplar/violet/") {
+		if strings.Contains(url, "/poplar/violet/") || strings.Contains(url, "/linkforty/") {
 			bodyWriter = &responseBodyWriter{ResponseWriter: c.Writer, body: bytes.NewBuffer(nil)}
 			c.Writer = bodyWriter
 		}

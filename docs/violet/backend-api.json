@@ -12132,21 +12132,6 @@
             "format": "boolean"
           },
           {
-            "name": "execution_result",
-            "description": " 执行结果筛选 auto_reject/manual_audit/auto_pass",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "hit_count_min",
-            "description": " 命中数\u003e= (筛选有命中的规则)",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -25895,6 +25880,13 @@
             "format": "int64"
           },
           {
+            "name": "with_compute_center",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -27857,6 +27849,13 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "with_compute_center",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           },
           {
             "name": "offset",
@@ -37614,6 +37613,10 @@
         "withdrawal": {
           "type": "string",
           "description": " 出金（按完成时间）"
+        },
+        "net_deposit": {
+          "type": "string",
+          "description": " 净入金"
         }
       },
       "title": "BalanceFinanceFlow"
@@ -46544,6 +46547,10 @@
         "title": {
           "type": "string",
           "description": " 试卷名称（默认语言）"
+        },
+        "description": {
+          "type": "string",
+          "description": " 试卷描述"
         },
         "pass_score": {
           "type": "integer",
@@ -56076,6 +56083,15 @@
           "type": "string",
           "description": " 包名"
         },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平台ID（关联 pkgmanager apps）"
+        },
+        "app_name": {
+          "type": "string",
+          "description": " 平台名称（来自 pkgmanager apps）"
+        },
         "device_id": {
           "type": "string",
           "description": " 设备号"
@@ -58793,6 +58809,11 @@
           "type": "string",
           "description": " 成交量/交易量"
         },
+        "trade_user": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 交易人数"
+        },
         "last_register_count": {
           "type": "integer",
           "format": "int64",
@@ -58822,6 +58843,11 @@
         "last_volume": {
           "type": "string",
           "description": " 上期成交量/交易量"
+        },
+        "last_trade_user": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 上期交易人数"
         }
       },
       "title": "IntegratedOperationsResp"
@@ -64806,6 +64832,10 @@
           "type": "integer",
           "format": "int64",
           "description": " 结束时间"
+        },
+        "with_compute_center": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "offset": {
           "type": "integer",
@@ -79584,6 +79614,19 @@
           "type": "string",
           "description": " 开户申请编号"
         },
+        "register_app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 注册平台ID（关联 pkgmanager apps）"
+        },
+        "register_pkg_name": {
+          "type": "string",
+          "description": " 注册包名"
+        },
+        "register_app_name": {
+          "type": "string",
+          "description": " 注册平台名称（来自 pkgmanager apps）"
+        },
         "permission_login": {
           "type": "boolean",
           "format": "boolean",
@@ -80108,6 +80151,19 @@
         "apply_no": {
           "type": "string",
           "description": " 开户申请编号"
+        },
+        "register_app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 注册平台ID（关联 pkgmanager apps）"
+        },
+        "register_pkg_name": {
+          "type": "string",
+          "description": " 注册包名"
+        },
+        "register_app_name": {
+          "type": "string",
+          "description": " 注册平台名称（来自 pkgmanager apps）"
         }
       },
       "title": "UserInfo"
@@ -81254,6 +81310,19 @@
             "type": "string"
           },
           "description": " 注册进度步骤，如 [\"Basic\",\"Identity\"]"
+        },
+        "pkg_name": {
+          "type": "string",
+          "description": " 包名"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平台ID（关联 pkgmanager apps）"
+        },
+        "app_name": {
+          "type": "string",
+          "description": " 平台名称（来自 pkgmanager apps）"
         }
       },
       "title": "UserOpenApplyListItem"
@@ -84175,15 +84244,6 @@
           "type": "boolean",
           "format": "boolean",
           "description": " 是否启用，不传查全部"
-        },
-        "execution_result": {
-          "type": "string",
-          "description": " 执行结果筛选 auto_reject/manual_audit/auto_pass"
-        },
-        "hit_count_min": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 命中数\u003e= (筛选有命中的规则)"
         },
         "offset": {
           "type": "integer",
