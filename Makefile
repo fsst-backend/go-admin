@@ -2,7 +2,7 @@ PROJECT:=lotus-go-admin
 SHELL = /bin/bash
 
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
-VERSION=git-$(subst /,-,$(BRANCH))-$(shell git describe --tag --dirty)
+VERSION=git-$(subst /,-,$(BRANCH))-$(shell git describe --tags --always --dirty)
 IMAGE_TAG=$(VERSION)
 IMAGE_REPO=docker.fastdocker.com:5000
 PKG=lotus/go-admin
