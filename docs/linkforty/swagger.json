@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "仅管理端 `/linkforty/api/v1/admin`，供后台、Apifox、网关等导入 OpenAPI；不含 SDK、短链、预览等公开接口。",
-        "title": "Linkforty Console API",
+        "description": "短链与归因：管理端 `/linkforty/api/v1/admin`；公开侧含 `/api/sdk/v1`（App SDK）、短链 `/l` `/t`、预览 `/preview`、二维码等。管理端成功响应多为信封 JSON：`code`（0 成功）、`message`、`timestamp`。",
+        "title": "Linkforty API",
         "contact": {},
         "license": {
             "name": "Proprietary"
@@ -16,6 +16,538 @@
     "host": "localhost:8000",
     "basePath": "/",
     "paths": {
+        "/.well-known/apple-app-site-association": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "h5"
+                ],
+                "summary": "Universal Links（apple-app-site-association）",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/.well-known/assetlinks.json": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "h5"
+                ],
+                "summary": "App Links（assetlinks.json）",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/android/{slug}/t/{templateSlug}/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "Android 深度链接（模板短码）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "应用深度链接路径段（与 well-known 配置一致，小写）",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板 slug",
+                        "name": "templateSlug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至 Android 应用商店或目标 URL"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/android/{slug}/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "Android 深度链接（普通短码）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "应用深度链接路径段（与 well-known 配置一致，小写）",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至 Android 应用商店或目标 URL"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/links/{id}/qr": {
+            "get": {
+                "produces": [
+                    "image/png"
+                ],
+                "tags": [
+                    "h5"
+                ],
+                "summary": "短链二维码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "链接 ID（UUID）",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "image/png",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/attribution/{fingerprint}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "查询归因（按指纹）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "设备指纹",
+                        "name": "fingerprint",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "fingerprint, attributed, installEvent, clickEvent, linkData",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/event": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "上报 SDK 事件",
+                "parameters": [
+                    {
+                        "description": "事件负载",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/public.EventBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.EventSDKResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/health": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "SDK 健康检查",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.SDKHealthResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/install": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "上报安装（归因）",
+                "parameters": [
+                    {
+                        "description": "安装上下文",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/public.InstallBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.InstallSDKResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/resolve/t/{templateSlug}/{shortCode}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "解析模板短链（SDK）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "模板 slug",
+                        "name": "templateSlug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.ResolveLinkResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sdk/v1/resolve/{shortCode}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sdk"
+                ],
+                "summary": "解析短链（SDK）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.ResolveLinkResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ios/{slug}/t/{templateSlug}/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "iOS 深度链接（模板短码）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "应用深度链接路径段（与 well-known 配置一致，小写）",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板 slug",
+                        "name": "templateSlug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至 iOS App Store 或目标 URL"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/ios/{slug}/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "iOS 深度链接（普通短码）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "应用深度链接路径段（与 well-known 配置一致，小写）",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至 iOS App Store 或目标 URL"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/l/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "短链跳转",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至目标 URL"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/linkforty/api/v1/admin/analytics/links": {
             "get": {
                 "description": "成功时 `message` 为单链聚合（含按日/国家/设备/平台等，见 dto.AnalyticsLinkMessage）。",
@@ -106,7 +638,7 @@
         },
         "/linkforty/api/v1/admin/links": {
             "get": {
-                "description": "无 `id`：成功时 `message` 为 **链接对象数组**（见 EnvelopeAdminLinkList）。有 `id`：成功时 `message` 为 **单条链接对象**（见 EnvelopeAdminLinkOne，字段同 dto.AdminLinkMessage）。",
+                "description": "无 `id`：成功时 `message` 为 **链接对象数组**（见 EnvelopeAdminLinkList）。有 `id`：成功时 `message` 为 **单条链接对象**（见 EnvelopeAdminLinkOne，字段同 dto.AdminLinkMessage）。列表可选：`createdAtFrom`/`createdAtTo`（Unix 毫秒 UTC，含边界）、`name`（模糊匹配 `title` 或 `og_title`）。",
                 "produces": [
                     "application/json"
                 ],
@@ -121,8 +653,25 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "example": 1704067200000,
+                        "name": "createdAtFrom",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1735689600000,
+                        "name": "createdAtTo",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
                         "in": "query"
                     }
                 ],
@@ -131,6 +680,12 @@
                         "description": "无 id：message 为数组。若带 id，语义同 EnvelopeAdminLinkOne（message 为单对象）",
                         "schema": {
                             "$ref": "#/definitions/console.EnvelopeAdminLinkList"
+                        }
+                    },
+                    "400": {
+                        "description": "例如 createdAtFrom \u003e createdAtTo",
+                        "schema": {
+                            "$ref": "#/definitions/console.EnvelopeJSON"
                         }
                     },
                     "404": {
@@ -208,7 +763,7 @@
                 }
             },
             "post": {
-                "description": "body 字段见 dto.CreateLinkBody；`utm_parameters`、`deep_link_parameters`、`targeting_rules` 为 JSON 对象，详见 docs/features/03-link-management.md",
+                "description": "body 字段见 dto.CreateLinkBody；`original_url` 可选，但与其它落地字段至少填一类（如仅配 `ios_universal_link`）。`utm_parameters`、`deep_link_parameters`、`targeting_rules` 为 JSON 对象，详见 docs/features/03-link-management.md",
                 "consumes": [
                     "application/json"
                 ],
@@ -355,8 +910,25 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "example": 1704067200000,
+                        "name": "createdAtFrom",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1735689600000,
+                        "name": "createdAtTo",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
                         "in": "query"
                     }
                 ],
@@ -594,8 +1166,25 @@
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "example": 1704067200000,
+                        "name": "createdAtFrom",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 1735689600000,
+                        "name": "createdAtTo",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
                         "in": "query"
                     }
                 ],
@@ -997,7 +1586,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "message 为 iOS 配置摘要（pathSlug、iosTeamId 等）",
+                        "description": "message 为 iOS 配置摘要（deepLinkSlug、iosTeamId、deepLink*Pattern* 等）",
                         "schema": {
                             "$ref": "#/definitions/console.EnvelopeAdminWellKnownIOS"
                         }
@@ -1142,6 +1731,78 @@
                         "schema": {
                             "$ref": "#/definitions/console.EnvelopeJSON"
                         }
+                    }
+                }
+            }
+        },
+        "/preview/{shortCode}": {
+            "get": {
+                "produces": [
+                    "text/html"
+                ],
+                "tags": [
+                    "h5"
+                ],
+                "summary": "短链预览页（OG HTML）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "text/html",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Link not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/t/{templateSlug}/{shortCode}": {
+            "get": {
+                "tags": [
+                    "h5"
+                ],
+                "summary": "模板短链跳转",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "模板 slug",
+                        "name": "templateSlug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "短码",
+                        "name": "shortCode",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "302": {
+                        "description": "重定向至目标 URL"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
@@ -1701,6 +2362,7 @@
                     "type": "string"
                 },
                 "original_url": {
+                    "description": "OriginalURL 默认落地页 URL，可省略；至少需配置 original_url、web_fallback_url、各端商店/Universal/App Link 或 app_scheme+deep_link_path 之一。",
                     "type": "string"
                 },
                 "targeting_rules": {
@@ -2212,10 +2874,21 @@
                 "appId": {
                     "type": "string"
                 },
+                "deepLinkPathPatternPlain": {
+                    "type": "string",
+                    "example": "/android/myapp/{shortCode}"
+                },
+                "deepLinkPathPatternTemplate": {
+                    "type": "string",
+                    "example": "/android/myapp/t/{templateSlug}/{shortCode}"
+                },
                 "deepLinkSlug": {
                     "type": "string"
                 },
-                "pathSlug": {
+                "deepLinkUrlPatternPlain": {
+                    "type": "string"
+                },
+                "deepLinkUrlPatternTemplate": {
                     "type": "string"
                 },
                 "sha256CertFingerprints": {
@@ -2236,7 +2909,21 @@
                 "appId": {
                     "type": "string"
                 },
+                "deepLinkPathPatternPlain": {
+                    "type": "string",
+                    "example": "/ios/myapp/{shortCode}"
+                },
+                "deepLinkPathPatternTemplate": {
+                    "type": "string",
+                    "example": "/ios/myapp/t/{templateSlug}/{shortCode}"
+                },
                 "deepLinkSlug": {
+                    "type": "string"
+                },
+                "deepLinkUrlPatternPlain": {
+                    "type": "string"
+                },
+                "deepLinkUrlPatternTemplate": {
                     "type": "string"
                 },
                 "iosBundleId": {
@@ -2245,12 +2932,138 @@
                 "iosTeamId": {
                     "type": "string"
                 },
-                "pathSlug": {
-                    "type": "string"
-                },
                 "updatedAt": {
                     "type": "integer",
                     "example": 1704067200000
+                }
+            }
+        },
+        "public.EventBody": {
+            "type": "object",
+            "properties": {
+                "eventData": {
+                    "type": "object"
+                },
+                "eventName": {
+                    "type": "string"
+                },
+                "installId": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "public.EventSDKResponse": {
+            "type": "object",
+            "properties": {
+                "acknowledged": {
+                    "type": "boolean"
+                },
+                "eventId": {
+                    "type": "string"
+                }
+            }
+        },
+        "public.InstallBody": {
+            "type": "object",
+            "properties": {
+                "attributionWindowHours": {
+                    "type": "integer"
+                },
+                "deviceId": {
+                    "type": "string"
+                },
+                "ipAddress": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                },
+                "platformVersion": {
+                    "type": "string"
+                },
+                "screenHeight": {
+                    "type": "number"
+                },
+                "screenWidth": {
+                    "type": "number"
+                },
+                "timezone": {
+                    "type": "string"
+                },
+                "userAgent": {
+                    "type": "string"
+                }
+            }
+        },
+        "public.InstallSDKResponse": {
+            "type": "object",
+            "properties": {
+                "attributed": {
+                    "type": "boolean"
+                },
+                "confidenceScore": {
+                    "type": "number"
+                },
+                "deepLinkData": {
+                    "type": "object"
+                },
+                "installId": {
+                    "type": "string"
+                },
+                "matchedFactors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "public.ResolveLinkResponse": {
+            "type": "object",
+            "properties": {
+                "androidUrl": {},
+                "appScheme": {},
+                "clickedAt": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "customParameters": {
+                    "type": "object"
+                },
+                "deepLinkPath": {},
+                "iosUrl": {},
+                "linkId": {
+                    "type": "string"
+                },
+                "shortCode": {
+                    "type": "string"
+                },
+                "utmParameters": {
+                    "type": "object"
+                },
+                "webUrl": {}
+            }
+        },
+        "public.SDKHealthResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "example": "healthy"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1704067200000
+                },
+                "version": {
+                    "type": "string",
+                    "example": "v1"
                 }
             }
         }
