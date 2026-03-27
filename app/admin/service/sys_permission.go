@@ -250,21 +250,21 @@ func (e *SysPermission) Remove(d *dto.SysPermissionDeleteReq, cb *casbin.SyncedE
 			roleIds = append(roleIds, id)
 		}
 
-		// 4. 删除权限与 API 的关联
-		if err := tx.Where("permission_id in ?", permIds).Delete(&models.SysPermissionApi{}).Error; err != nil {
+		// 4. 硬删除权限与 API 的关联（表含 DeletedAt，软删会残留数据）
+		if err := tx.Unscoped().Where("permission_id in ?", permIds).Delete(&models.SysPermissionApi{}).Error; err != nil {
 			e.Log.Errorf("Delete permission api relations error:%s", err)
 			return err
 		}
 
-		// 5. 删除角色与权限的关联
-		if err := tx.Where("permission_id in ?", permIds).Delete(&models.SysRolePermission{}).Error; err != nil {
+		// 5. 硬删除角色与权限的关联
+		if err := tx.Unscoped().Where("permission_id in ?", permIds).Delete(&models.SysRolePermission{}).Error; err != nil {
 			e.Log.Errorf("Delete role permission relations error:%s", err)
 			return err
 		}
 
-		// 6. 删除权限记录
+		// 6. 硬删除权限记录（软删时 code 仍占唯一索引 uk_permission_code，无法复用同一 code）
 		var data models.SysPermission
-		db := tx.Delete(&data, permIds)
+		db := tx.Unscoped().Delete(&data, permIds)
 		if err := db.Error; err != nil {
 			e.Log.Errorf("Service RemoveSysPermission error:%s", err)
 			return err
