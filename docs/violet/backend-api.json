@@ -1320,6 +1320,164 @@
         ]
       }
     },
+    "/poplar/violet/backend/appconfiguration/btn/create": {
+      "post": {
+        "summary": "创建按钮区",
+        "operationId": "CreateBtnHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateBtnResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBtnRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/btn/delete": {
+      "post": {
+        "summary": "删除按钮区",
+        "operationId": "DeleteBtnHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteBtnResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteBtnRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/btn/get": {
+      "get": {
+        "summary": "获取按钮区详情",
+        "operationId": "GetBtnHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBtnResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/btn/list": {
+      "get": {
+        "summary": "获取按钮区列表",
+        "operationId": "GetBtnListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBtnListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/appconfiguration/btn/update": {
+      "post": {
+        "summary": "更新按钮区",
+        "operationId": "UpdateBtnHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateBtnResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBtnRequest"
+            }
+          }
+        ],
+        "tags": [
+          "appconfiguration"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/appconfiguration/common-component/create": {
       "post": {
         "summary": "创建通用组件",
@@ -17501,7 +17659,7 @@
         "parameters": [
           {
             "name": "config_type",
-            "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置",
+            "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置， 4: 工作台功能入口配置项",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -19397,6 +19555,91 @@
         ]
       }
     },
+    "/poplar/violet/backend/reporting/user/activity/records": {
+      "get": {
+        "summary": "获取用户活动明细列表",
+        "operationId": "GetUserActivityRecordList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserActivityRecordListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "start",
+            "description": " 开始时间（毫秒）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "end",
+            "description": " 结束时间（毫秒）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_id",
+            "description": " 用户ID（可选）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "account_id",
+            "description": " 账户ID（可选）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "activity_type",
+            "description": " 活动类型（可选）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": " 状态（可选）",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
     "/poplar/violet/backend/reporting/user/behavior": {
       "get": {
         "summary": "获取业务行为统计",
@@ -19541,6 +19784,321 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/FunnelListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/finance/overview": {
+      "get": {
+        "summary": "财务概况",
+        "operationId": "GetFinanceOverview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FinanceOverviewResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/profit_and_lost/analysis": {
+      "get": {
+        "summary": "盈亏分析",
+        "operationId": "GetProfitAndLossAnalysis",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProfitAndLossAnalysisResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/recent_activities/list": {
+      "get": {
+        "summary": "最近活动列表",
+        "operationId": "GetRecentActivitiesList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RecentActivitiesList"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/symbols_pnl_stat/list": {
+      "get": {
+        "summary": "产品盈亏统计数据",
+        "operationId": "GetSymbolPnlStatList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SymbolPnlStatListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/trade/overview": {
+      "get": {
+        "summary": "交易概况",
+        "operationId": "GetTradeOverview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TradeOverviewResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/user_growth/trend": {
+      "get": {
+        "summary": "用户增长趋势",
+        "operationId": "GetUserGrowthTrend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserGrowthTrendResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_all_data",
+            "description": " 是否返回全部数据，不进行时间分组",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "reporting"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/reporting/workbench/user_profit_stat/list": {
+      "get": {
+        "summary": "客户盈利统计数据",
+        "operationId": "GetUserProfitStatList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserProfitStatListResp"
             }
           }
         },
@@ -23087,6 +23645,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/telesales/internal_customer/probe": {
+      "post": {
+        "summary": "内部客户RPC探针",
+        "operationId": "GetInternalCustomerProbeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InternalCustomerProbeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InternalCustomerProbeReq"
+            }
+          }
+        ],
+        "tags": [
+          "telesales"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/telesales/users": {
       "post": {
         "summary": "获取用户列表",
@@ -24391,6 +24979,13 @@
             "format": "int32"
           },
           {
+            "name": "sub_filter",
+            "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -25110,6 +25705,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "sub_filter",
+            "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "offset",
@@ -28241,6 +28843,13 @@
             "format": "int32"
           },
           {
+            "name": "sub_filter",
+            "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -29543,6 +30152,14 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "register_app_id",
+            "description": " 应用id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -32571,7 +33188,7 @@
     },
     "/poplar/violet/export/user_trade_unlock_activity/task/record/list/export": {
       "get": {
-        "summary": "获取任务记录列表",
+        "summary": "导出任务完成记录列表",
         "operationId": "ExportTradingUnlockActivityTaskRecordListHandler",
         "responses": {
           "200": {
@@ -33105,11 +33722,13 @@
         },
         "volume_a": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 多仓合计手数（与 balance_ratio 分子分母同源）"
         },
         "volume_b": {
           "type": "number",
-          "format": "double"
+          "format": "double",
+          "description": " 空仓合计手数"
         },
         "time_diff_sec": {
           "type": "integer",
@@ -37056,29 +37675,29 @@
     "AuditSignalProviderRequest": {
       "type": "object",
       "properties": {
-        "user_id": {
+        "id": {
           "type": "integer",
           "format": "int64",
-          "description": " 被审核用户ID（按待审核记录查找后审核）"
+          "description": " 审核记录ID（signal_provider_audits 主键，与待审核列表项 id 一致；copytrading RPC audit_id）"
         },
         "audit_status": {
           "type": "integer",
           "format": "int8",
-          "description": " 审核状态 0:待审核 1:审核通过 2:审核拒绝"
+          "description": " 审核状态 1:审核通过 2:审核拒绝"
         },
         "level_id": {
           "type": "integer",
           "format": "int32",
-          "description": " 等级"
+          "description": " 等级（扩展字段，当前 RPC 未消费）"
         },
         "profit_share_ratio": {
           "type": "string",
-          "description": " 新的收益分成"
+          "description": " 新的收益分成（扩展字段）"
         },
         "is_compensated": {
           "type": "boolean",
           "format": "boolean",
-          "description": " 是否包赔"
+          "description": " 是否包赔（扩展字段）"
         }
       },
       "title": "AuditSignalProviderRequest"
@@ -39585,6 +40204,166 @@
       },
       "title": "BonusUserParticipationList"
     },
+    "Btn": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "num_per_line": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每行数量"
+        },
+        "display_config": {
+          "$ref": "#/definitions/DisplayConfig",
+          "description": " 显示配置"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BtnItem"
+          },
+          "description": " 按钮项"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间"
+        }
+      },
+      "title": "Btn"
+    },
+    "BtnItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "title_color": {
+          "type": "string",
+          "description": " 标题颜色"
+        },
+        "title_font_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体大小"
+        },
+        "title_font_weight": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 标题字体粗细"
+        },
+        "coner_radius": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 圆角大小"
+        },
+        "border_width": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 边框宽度"
+        },
+        "border_color": {
+          "type": "string",
+          "description": " 边框颜色"
+        },
+        "picture": {
+          "type": "string",
+          "description": " 图片"
+        },
+        "picture_dark": {
+          "type": "string",
+          "description": " 深色模式图片"
+        },
+        "background_image": {
+          "type": "string",
+          "description": " 背景图片"
+        },
+        "background_image_dark": {
+          "type": "string",
+          "description": " 深色模式背景图片"
+        },
+        "background_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 高度"
+        },
+        "router": {
+          "type": "string",
+          "description": " 对应页面路由"
+        },
+        "link": {
+          "type": "string",
+          "description": " 链接参数"
+        },
+        "display_config": {
+          "$ref": "#/definitions/DisplayConfig",
+          "description": " 显示配置"
+        },
+        "router_permission": {
+          "type": "string",
+          "description": " 路由权限"
+        },
+        "hidden": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否隐藏"
+        }
+      },
+      "title": "BtnItem"
+    },
     "BusinessData": {
       "type": "object",
       "properties": {
@@ -40537,6 +41316,43 @@
       },
       "title": "CompletionTimeDistribution"
     },
+    "ConditionRefAccount": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " MT5 login / account_id"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属用户"
+        },
+        "platform": {
+          "type": "string",
+          "description": " 交易平台"
+        },
+        "group": {
+          "type": "string",
+          "description": " 交易组"
+        },
+        "currency": {
+          "type": "string",
+          "description": " 账户币种"
+        },
+        "user_name": {
+          "type": "string",
+          "description": " 账户关联用户名"
+        },
+        "account_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " transaction.UserAccountType：0真实 1模拟 3交易员 4体验金"
+        }
+      },
+      "title": "ConditionRefAccount"
+    },
     "ConditionRefLabel": {
       "type": "object",
       "properties": {
@@ -40564,15 +41380,39 @@
           "type": "string",
           "description": " 用户名称/昵称"
         },
+        "user_name": {
+          "type": "string",
+          "description": " 用户姓名（与 name 一致，便于与 wallets/accounts 字段对齐）"
+        },
         "wallet_id": {
           "type": "integer",
           "format": "int64",
-          "description": " 钱包ID（取首个）"
+          "description": " 钱包ID（取该用户首个钱包）"
+        },
+        "wallet_name": {
+          "type": "string",
+          "description": " 钱包名称（首个）"
+        },
+        "wallet_currency": {
+          "type": "string",
+          "description": " 钱包币种（首个）"
         },
         "real_account_id": {
           "type": "integer",
           "format": "int64",
-          "description": " 真实交易账号ID（取首个）"
+          "description": " 真实交易账号 login（取首个）"
+        },
+        "account_platform": {
+          "type": "string",
+          "description": " 真实账号平台（首个）"
+        },
+        "account_group": {
+          "type": "string",
+          "description": " 真实账号组别（首个）"
+        },
+        "account_user_name": {
+          "type": "string",
+          "description": " 交易账号关联展示名（首个真实账号上的用户名，空则与 user_name 一致时可由前端回退）"
         }
       },
       "title": "ConditionRefUser"
@@ -40591,6 +41431,34 @@
         }
       },
       "title": "ConditionRefUserGroup"
+    },
+    "ConditionRefWallet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 钱包ID"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属用户"
+        },
+        "user_name": {
+          "type": "string",
+          "description": " 钱包所属用户姓名（脱敏）"
+        },
+        "name": {
+          "type": "string",
+          "description": " 钱包名称"
+        },
+        "currency": {
+          "type": "string",
+          "description": " 币种"
+        }
+      },
+      "title": "ConditionRefWallet"
     },
     "Configuration": {
       "type": "object",
@@ -41994,6 +42862,66 @@
         }
       },
       "title": "CreateBonusActivityResponse"
+    },
+    "CreateBtnRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "display_config": {
+          "$ref": "#/definitions/DisplayConfig",
+          "description": " 显示配置"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BtnItem"
+          },
+          "description": " 按钮项"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "num_per_line": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每行数量"
+        }
+      },
+      "title": "CreateBtnRequest"
+    },
+    "CreateBtnResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建的 Btn ID"
+        }
+      },
+      "title": "CreateBtnResponse"
     },
     "CreateCommonComponentRequest": {
       "type": "object",
@@ -45033,6 +45961,21 @@
         "ids"
       ]
     },
+    "DeleteBtnRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "DeleteBtnRequest"
+    },
+    "DeleteBtnResponse": {
+      "type": "object",
+      "title": "DeleteBtnResponse"
+    },
     "DeleteCommonComponentRequest": {
       "type": "object",
       "properties": {
@@ -47184,6 +48127,32 @@
       },
       "title": "FinanceDictList"
     },
+    "FinanceOverviewResp": {
+      "type": "object",
+      "properties": {
+        "deposit": {
+          "type": "string",
+          "description": " 存款"
+        },
+        "withdrawal": {
+          "type": "string",
+          "description": " 取款"
+        },
+        "net_deposit": {
+          "type": "string",
+          "description": " 净入金"
+        },
+        "balance": {
+          "type": "string",
+          "description": " 余额"
+        },
+        "floating_loss": {
+          "type": "string",
+          "description": " 浮亏"
+        }
+      },
+      "title": "FinanceOverviewResp"
+    },
     "FinishTimeRange": {
       "type": "object",
       "properties": {
@@ -48208,6 +49177,16 @@
           "format": "int64",
           "description": " 首次交易用户数"
         },
+        "open_position_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开仓次数"
+        },
+        "closed_position_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 平仓次数"
+        },
         "vitality": {
           "type": "integer",
           "format": "int64",
@@ -49066,6 +50045,59 @@
         }
       },
       "title": "GetBonusActivityStatisticsResponse"
+    },
+    "GetBtnListRequest": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetBtnListRequest"
+    },
+    "GetBtnListResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Btn"
+          },
+          "description": " Btn 列表"
+        }
+      },
+      "title": "GetBtnListResponse"
+    },
+    "GetBtnRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        }
+      },
+      "title": "GetBtnRequest"
+    },
+    "GetBtnResponse": {
+      "type": "object",
+      "properties": {
+        "btn": {
+          "$ref": "#/definitions/Btn",
+          "description": " Btn 信息"
+        }
+      },
+      "title": "GetBtnResponse"
     },
     "GetCalendarDetailRequest": {
       "type": "object",
@@ -53550,7 +54582,7 @@
         "config_type": {
           "type": "integer",
           "format": "int64",
-          "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置"
+          "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置， 4: 工作台功能入口配置项"
         },
         "config_key": {
           "type": "string",
@@ -55804,6 +56836,68 @@
       },
       "title": "GetUserActivityListResponse"
     },
+    "GetUserActivityRecordListRequest": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开始时间（毫秒）"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 结束时间（毫秒）"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID（可选）"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账户ID（可选）"
+        },
+        "activity_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 活动类型（可选）"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态（可选）"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserActivityRecordListRequest"
+    },
+    "GetUserActivityRecordListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserActivityRecordItem"
+          },
+          "description": " 活动明细列表"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetUserActivityRecordListResponse"
+    },
     "GetUserBonusActivityListRequest": {
       "type": "object",
       "properties": {
@@ -57930,6 +59024,17 @@
           },
           "description": " 标题多语言"
         },
+        "sub_title": {
+          "type": "string",
+          "description": " 副标题"
+        },
+        "sub_title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 副标题多语言"
+        },
         "hidden": {
           "type": "boolean",
           "format": "boolean",
@@ -59370,6 +60475,104 @@
         }
       },
       "title": "InterestVaultListRes"
+    },
+    "InternalCustomerProbeCount": {
+      "type": "object",
+      "properties": {
+        "lost_customer_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "failed_deposit_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "unactivated_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "important_customer_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "recent_live_customer_count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InternalCustomerProbeCount"
+    },
+    "InternalCustomerProbeData": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "register_app_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InternalCustomerProbeData"
+    },
+    "InternalCustomerProbeReq": {
+      "type": "object",
+      "properties": {
+        "data_type": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 数据类型 1: 流失客户列表 2：入金失败列表 3：未激活列表 4: 大客户列表 5: 最近活跃客户列表"
+        },
+        "register_app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 注册平台ID（第一层 App 隔离）"
+        },
+        "user_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 用户ID列表"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InternalCustomerProbeReq"
+    },
+    "InternalCustomerProbeResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "$ref": "#/definitions/InternalCustomerProbeCount"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InternalCustomerProbeData"
+          }
+        }
+      },
+      "title": "InternalCustomerProbeResp"
     },
     "InvitationCodeInfo": {
       "type": "object",
@@ -61329,7 +62532,7 @@
         },
         "RangeTime": {
           "$ref": "#/definitions/RangeTime",
-          "description": " 时间范围（按开仓时间筛选）"
+          "description": " 时间范围（按开仓时间筛选，time_start/time_end 建议秒级；误传毫秒时服务端会换算）"
         },
         "open_time_interval_sec": {
           "type": "integer",
@@ -61339,7 +62542,7 @@
         "balance_ratio_threshold": {
           "type": "number",
           "format": "double",
-          "description": " 净仓平衡比例阈值（0～1），达到即视为 A/B 仓平衡"
+          "description": " 净仓平衡比例阈值（0～1）。人工识别候选条件：仅要求 BalanceRatio 达标 + 节点数≥2，不要求 IP/设备/卡/钱包身份边（abposition.IsABManualIdentifyCandidate）；自动检测仍要求身份边（IsABComponent）"
         }
       },
       "title": "ManualIdentifyAbPositionReq"
@@ -65278,6 +66481,42 @@
       },
       "title": "ProfessionalModelUserList"
     },
+    "ProfitAndLossAnalysisItem": {
+      "type": "object",
+      "properties": {
+        "sample_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 采样时间"
+        },
+        "gross_profit": {
+          "type": "string",
+          "description": " 毛利"
+        },
+        "net_profit": {
+          "type": "string",
+          "description": " 净利润"
+        },
+        "floating_loss": {
+          "type": "string",
+          "description": " 浮亏"
+        }
+      },
+      "title": "ProfitAndLossAnalysisItem"
+    },
+    "ProfitAndLossAnalysisResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProfitAndLossAnalysisItem"
+          },
+          "description": " 盈亏分析列表"
+        }
+      },
+      "title": "ProfitAndLossAnalysisResp"
+    },
     "ProfitData": {
       "type": "object",
       "properties": {
@@ -66580,6 +67819,50 @@
       },
       "title": "RebateStatistics"
     },
+    "RecentActivitiesList": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RecentActivityItem"
+          },
+          "description": " 最近活动列表"
+        }
+      },
+      "title": "RecentActivitiesList"
+    },
+    "RecentActivityItem": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 时间"
+        },
+        "user_info": {
+          "type": "string",
+          "description": " 用户信息"
+        },
+        "activity_type": {
+          "type": "string",
+          "description": " 活动类型"
+        },
+        "content": {
+          "type": "string",
+          "description": " 内容"
+        },
+        "amount": {
+          "type": "string",
+          "description": " 金额"
+        },
+        "status": {
+          "type": "string",
+          "description": " 状态"
+        }
+      },
+      "title": "RecentActivityItem"
+    },
     "Reconciliation": {
       "type": "object",
       "properties": {
@@ -67219,7 +68502,7 @@
         "config_type": {
           "type": "integer",
           "format": "int64",
-          "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置"
+          "description": "  1: 流失客户，2: 重要客户，3: 保证金风险水位比例配置，4: 工作台功能入口配置项"
         },
         "config_key": {
           "type": "string",
@@ -70437,6 +71720,52 @@
       },
       "title": "SymbolListDataList"
     },
+    "SymbolPnlStatItem": {
+      "type": "object",
+      "properties": {
+        "currency_base_icon": {
+          "type": "string",
+          "description": " 基础货币图标"
+        },
+        "currency_profit_icon": {
+          "type": "string",
+          "description": " 收益货币图标"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标"
+        },
+        "symbol": {
+          "type": "string",
+          "description": " 产品"
+        },
+        "total": {
+          "type": "string",
+          "description": " 加总"
+        }
+      },
+      "title": "SymbolPnlStatItem"
+    },
+    "SymbolPnlStatListResp": {
+      "type": "object",
+      "properties": {
+        "top_ten_loss": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SymbolPnlStatItem"
+          },
+          "description": " 前十大亏损"
+        },
+        "top_ten_profit": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SymbolPnlStatItem"
+          },
+          "description": " 前十大盈利"
+        }
+      },
+      "title": "SymbolPnlStatListResp"
+    },
     "SymbolTradeData": {
       "type": "object",
       "properties": {
@@ -71885,6 +73214,32 @@
         }
       },
       "title": "TradeOrderRecord"
+    },
+    "TradeOverviewResp": {
+      "type": "object",
+      "properties": {
+        "gross_profit": {
+          "type": "string",
+          "description": " 毛利"
+        },
+        "pnl": {
+          "type": "string",
+          "description": " 盈亏"
+        },
+        "pnl_total": {
+          "type": "string",
+          "description": " 盈亏总体"
+        },
+        "interest": {
+          "type": "string",
+          "description": " 利息"
+        },
+        "accumulated_floating_loss": {
+          "type": "string",
+          "description": " 累积浮亏"
+        }
+      },
+      "title": "TradeOverviewResp"
     },
     "TradeReportSummaryResp": {
       "type": "object",
@@ -73775,6 +75130,10 @@
           "format": "int32",
           "description": " 活跃度: 1-活跃交易 2-有持仓 3-休眠(30天) 4-非活跃(90天)"
         },
+        "sub_filter": {
+          "type": "string",
+          "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k"
+        },
         "offset": {
           "type": "integer",
           "format": "int64"
@@ -75663,6 +77022,64 @@
         }
       },
       "title": "UpdateBonusActivityRequest"
+    },
+    "UpdateBtnRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " ID"
+        },
+        "title": {
+          "type": "string",
+          "description": " 标题"
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18n"
+          },
+          "description": " 标题多语言"
+        },
+        "bg_color": {
+          "type": "string",
+          "description": " 背景颜色"
+        },
+        "name": {
+          "type": "string",
+          "description": " 名称"
+        },
+        "description": {
+          "type": "string",
+          "description": " 描述"
+        },
+        "preview": {
+          "type": "string",
+          "description": " 预览"
+        },
+        "num_per_line": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每行数量"
+        },
+        "display_config": {
+          "$ref": "#/definitions/DisplayConfig",
+          "description": " 显示配置"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BtnItem"
+          },
+          "description": " 按钮项"
+        }
+      },
+      "title": "UpdateBtnRequest"
+    },
+    "UpdateBtnResponse": {
+      "type": "object",
+      "title": "UpdateBtnResponse"
     },
     "UpdateCommonComponentRequest": {
       "type": "object",
@@ -79206,6 +80623,63 @@
       },
       "title": "UserActivityListResponse"
     },
+    "UserActivityRecordItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 主键"
+        },
+        "activity_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活动时间（毫秒时间戳）"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "account_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 账户ID"
+        },
+        "user_name": {
+          "type": "string",
+          "description": " 用户名称"
+        },
+        "activity_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 活动类型"
+        },
+        "content": {
+          "type": "string",
+          "description": " 内容描述"
+        },
+        "amount": {
+          "type": "string",
+          "description": " 金额"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 状态"
+        },
+        "domain_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 站点ID"
+        },
+        "extra": {
+          "type": "string",
+          "description": " 扩展信息 JSON"
+        }
+      },
+      "title": "UserActivityRecordItem"
+    },
     "UserBehaviorStatisticsData": {
       "type": "object",
       "properties": {
@@ -80082,6 +81556,40 @@
         }
       },
       "title": "UserGroupReq"
+    },
+    "UserGrowthTrendItem": {
+      "type": "object",
+      "properties": {
+        "sample_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 采样时间"
+        },
+        "total_users": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总用户数"
+        },
+        "active_users": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 活跃用户"
+        }
+      },
+      "title": "UserGrowthTrendItem"
+    },
+    "UserGrowthTrendResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserGrowthTrendItem"
+          },
+          "description": " 用户增长趋势列表"
+        }
+      },
+      "title": "UserGrowthTrendResp"
     },
     "UserIdRequest": {
       "type": "object",
@@ -81210,6 +82718,11 @@
           "type": "integer",
           "format": "int32",
           "description": " 身份认证状态值 0 未提交 1待审核 2已认证 3认证失败 10用户删除"
+        },
+        "register_app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 应用id"
         }
       },
       "title": "UserListRequest"
@@ -82080,6 +83593,37 @@
         }
       },
       "title": "UserPointHistory"
+    },
+    "UserProfitStatItem": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": " 账号"
+        },
+        "name": {
+          "type": "string",
+          "description": " 姓名"
+        },
+        "pnl": {
+          "type": "string",
+          "description": " 盈亏"
+        }
+      },
+      "title": "UserProfitStatItem"
+    },
+    "UserProfitStatListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserProfitStatItem"
+          },
+          "description": " 客户盈利统计列表"
+        }
+      },
+      "title": "UserProfitStatListResp"
     },
     "UserRelation": {
       "type": "object",
@@ -84321,6 +85865,20 @@
             "$ref": "#/definitions/ConditionRefUserGroup"
           },
           "description": " 条件中引用的用户组列表"
+        },
+        "wallets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionRefWallet"
+          },
+          "description": " 条件中 metric=wallet 的钱包列表"
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionRefAccount"
+          },
+          "description": " 条件中 metric=account 的交易账号列表"
         }
       },
       "title": "WithdrawalAuditRuleDetailRes"
