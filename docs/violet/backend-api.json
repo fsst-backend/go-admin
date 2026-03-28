@@ -36269,6 +36269,10 @@
           "format": "int32",
           "default": "1",
           "description": " 状态 1:启用 0:禁用，默认1"
+        },
+        "sha256_cert_fingerprint": {
+          "type": "string",
+          "description": " Android：本渠道包签名 SHA256 指纹（单值）"
         }
       },
       "title": "AppPackageCreateRequest",
@@ -36338,6 +36342,11 @@
           "format": "int64",
           "description": " ID"
         },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属平台ID(关联 apps.id)；列表/详情由服务端填充"
+        },
         "system": {
           "type": "string",
           "description": " 系统类型(iOS/Android)"
@@ -36380,6 +36389,18 @@
           "type": "integer",
           "format": "int64",
           "description": " 更新时间"
+        },
+        "sha256_cert_fingerprint": {
+          "type": "string",
+          "description": " Android：本渠道包一个签名 SHA256 指纹"
+        },
+        "linkforty_well_known_android": {
+          "$ref": "#/definitions/LinkfortyWellKnownAndroidInfo",
+          "description": " 配置 LinkfortyUrl 且为 Android 包时列表项拉取深度链接模式等"
+        },
+        "linkforty_well_known_ios": {
+          "$ref": "#/definitions/LinkfortyWellKnownIOSInfo",
+          "description": " 配置 LinkfortyUrl 且为 iOS 包时列表项拉取深度链接模式等"
         }
       },
       "title": "AppPackageInfo"
@@ -36477,6 +36498,15 @@
           "type": "integer",
           "format": "int32",
           "description": " 状态 1:启用 0:禁用，必填"
+        },
+        "sha256_cert_fingerprint": {
+          "type": "string",
+          "description": " Android：本渠道包签名 SHA256 指纹；传入则写入（含空串可清空）"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 所属平台ID，可选"
         }
       },
       "title": "AppPackageUpdateRequest",
@@ -53534,7 +53564,8 @@
       "properties": {
         "record_id": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " 关联记录ID（对应 association_records.id）"
         }
       },
       "title": "GetRiskAssociationRecordUsersReq",
@@ -59825,6 +59856,80 @@
       },
       "title": "LevelMultyLang"
     },
+    "LinkfortyWellKnownAndroidInfo": {
+      "type": "object",
+      "properties": {
+        "android_package_name": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "deep_link_path_pattern_plain": {
+          "type": "string"
+        },
+        "deep_link_path_pattern_template": {
+          "type": "string"
+        },
+        "deep_link_slug": {
+          "type": "string"
+        },
+        "deep_link_url_pattern_plain": {
+          "type": "string"
+        },
+        "deep_link_url_pattern_template": {
+          "type": "string"
+        },
+        "sha256_cert_fingerprints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LinkfortyWellKnownAndroidInfo"
+    },
+    "LinkfortyWellKnownIOSInfo": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "deep_link_path_pattern_plain": {
+          "type": "string"
+        },
+        "deep_link_path_pattern_template": {
+          "type": "string"
+        },
+        "deep_link_slug": {
+          "type": "string"
+        },
+        "deep_link_url_pattern_plain": {
+          "type": "string"
+        },
+        "deep_link_url_pattern_template": {
+          "type": "string"
+        },
+        "ios_bundle_id": {
+          "type": "string"
+        },
+        "ios_team_id": {
+          "type": "string"
+        },
+        "path_slug": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LinkfortyWellKnownIOSInfo"
+    },
     "LiquidatedAccountListData": {
       "type": "object",
       "properties": {
@@ -60424,6 +60529,14 @@
         "user_status": {
           "type": "integer",
           "format": "int32"
+        },
+        "create_time_start": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "create_time_end": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "ListFundRiskTriggerRecordsReq"
@@ -60810,6 +60923,21 @@
         },
         "keyword": {
           "type": "string"
+        },
+        "associated_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联人数（精确匹配）"
+        },
+        "associated_count_min": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联人数下限（含）"
+        },
+        "associated_count_max": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 关联人数上限（含）"
         }
       },
       "title": "ListRiskAssociationRecordsReq"
@@ -60901,6 +61029,13 @@
         "count": {
           "type": "integer",
           "format": "int64"
+        },
+        "monitor_type_dict": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Dictionary"
+          },
+          "description": " 常规交易子类型字典项"
         }
       },
       "title": "ListRoutineTradeTriggerRecordsResp"
@@ -67670,6 +67805,10 @@
         },
         "handle_by": {
           "type": "string"
+        },
+        "handle_by_name": {
+          "type": "string",
+          "description": " 处理人名称（展示用）"
         },
         "handle_at": {
           "type": "integer",

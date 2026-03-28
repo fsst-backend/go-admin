@@ -96,6 +96,14 @@ func (lp LinkFortyProxy) Proxy(c *gin.Context) {
 
 	proxy.ModifyResponse = func(resp *http.Response) error {
 		resp.Header.Set("X-Proxy-By", "go-admin")
+		if resp.StatusCode == http.StatusNotFound && resp.Request != nil {
+			r := resp.Request
+			path := r.URL.Path
+			if r.URL.RawQuery != "" {
+				path += "?" + r.URL.RawQuery
+			}
+			lp.Logger.Warnf("LinkForty proxy upstream 404 (no route on target): %s %s", r.Method, path)
+		}
 		return nil
 	}
 
