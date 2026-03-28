@@ -2,16 +2,12 @@ PROJECT:=lotus-go-admin
 SHELL = /bin/bash
 
 BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
-<<<<<<< HEAD
 # 无 tag 时 git describe 为空，用短提交哈希兜底，避免出现 git-develop- 这种缺后缀的版本
 GIT_DESCRIBE=$(shell git describe --tag --dirty 2>/dev/null || true)
 GIT_REV=$(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 # 无 tag 时单独检测 dirty，有未提交改动则加 -dirty
 GIT_DIRTY=$(shell [ -n "$$(git status --porcelain 2>/dev/null)" ] && echo "-dirty" || true)
 VERSION=git-$(subst /,-,$(BRANCH))-$(if $(GIT_DESCRIBE),$(GIT_DESCRIBE),$(GIT_REV)$(GIT_DIRTY))
-=======
-VERSION=git-$(subst /,-,$(BRANCH))-$(shell git describe --tags --always --dirty)
->>>>>>> futren
 IMAGE_TAG=$(VERSION)
 IMAGE_REPO=docker.fastdocker.com:5000
 PKG=lotus/go-admin
