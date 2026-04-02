@@ -24,6 +24,8 @@ const (
 //	    targetURL: http://localhost:9999
 //	  sms:
 //	    targetURL: http://localhost:xxxx
+//	  chatAdminAPI:
+//	    targetURL: http://chat-admin-api:9999
 //	  upload:
 //	    appKey: admin
 //	    secret: your-secret-key
@@ -35,6 +37,7 @@ type Extend struct {
 	LinkForty     LinkForty      // LinkForty 反向代理配置（/linkforty/api/v1/admin）
 	Telemarketing Telemarketing  // Telemarketing 反向代理配置
 	SMS           SMS            // SMS 反向代理配置（/poplar/sms/v1）
+	ChatAdminAPI  ChatAdminAPI   // 聊天管理后台 API 代理（/poplar/chat_admin_api/v1 → nwachat_im_admin_go / chat-admin-api）
 	Upload        Upload         // Upload 上传服务配置
 	Frontend      FrontendConfig // 前端配置
 }
@@ -69,6 +72,11 @@ type Telemarketing struct {
 // SMS 反向代理配置（/poplar/sms/v1）
 type SMS struct {
 	TargetURL string `yaml:"targetURL" json:"targetURL"` // 目标服务地址
+}
+
+// ChatAdminAPI 反向代理（/lotus/api/v1/poplar/chat_admin_api/v1 → 上游 /chat_admin_api/v1，镜像 nwachat_im_admin_go）
+type ChatAdminAPI struct {
+	TargetURL string `yaml:"targetURL" json:"targetURL"` // 如 http://chat-admin-api:9999
 }
 
 // Upload 上传服务配置

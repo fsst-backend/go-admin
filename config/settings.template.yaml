@@ -57,6 +57,8 @@ settings:
       targetURL: ${TELEMARKETING_TARGET_URL}  # Telemarketing 服务地址（默认端口 9999）
     sms:
       targetURL: ${SMS_TARGET_URL}  # SMS 服务地址（/poplar/sms/v1 转发目标）
+    chatAdminAPI:
+      targetURL: ${CHAT_ADMIN_API_TARGET_URL}  # nwachat_im_admin_go，如 http://chat-admin-api:9999
     upload:
       appKey: ${UPLOAD_APP_KEY}                    # 应用标识
       secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥
