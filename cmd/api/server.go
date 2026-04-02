@@ -90,6 +90,7 @@ func setup() {
 	log.Infof("ExtConfig - LinkForty.TargetURL: %s", ext.ExtConfig.LinkForty.TargetURL)
 	log.Infof("ExtConfig - Telemarketing.TargetURL: %s", ext.ExtConfig.Telemarketing.TargetURL)
 	log.Infof("ExtConfig - SMS.TargetURL: %s", ext.ExtConfig.SMS.TargetURL)
+	log.Infof("ExtConfig - ChatAdminAPI.TargetURL: %s", ext.ExtConfig.ChatAdminAPI.TargetURL)
 	log.Infof("ExtConfig - Upload.AppKey: %s", ext.ExtConfig.Upload.AppKey)
 	log.Infof("ExtConfig - Upload.Secret: %s", ext.ExtConfig.Upload.Secret)
 	log.Infof("ExtConfig - Frontend.BaseSiteURL: %s", ext.ExtConfig.Frontend.BaseSiteURL)
