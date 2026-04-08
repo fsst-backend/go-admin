@@ -2,12 +2,15 @@ package version
 
 import (
 	"runtime"
+	"strconv"
 
 	"github.com/go-admin-team/go-admin-core/sdk/config"
 
 	"go-admin/cmd/migrate/migration"
-	"go-admin/cmd/migrate/migration/models"
-	common "go-admin/common/models"
+	adminmodels "go-admin/app/admin/models"
+	jobsmodels "go-admin/app/jobs/models"
+	toolsmodels "go-admin/app/other/models/tools"
+	commonmodels "go-admin/common/models"
 
 	"gorm.io/gorm"
 )
@@ -23,39 +26,68 @@ func _1599190683659Tables(db *gorm.DB, version string) error {
 			tx = tx.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 		}
 		err := tx.Migrator().AutoMigrate(
-			new(models.SysDept),
-			new(models.SysRoleDept),
-			new(models.SysConfig),
-			new(models.SysTables),
-			new(models.SysColumns),
-			new(models.SysMenu),
-			new(models.SysRoleMenu),
-			new(models.SysLoginLog),
-			new(models.SysOperaLog),
-			new(models.SysRoleDept),
-			new(models.SysUserRole),
-			new(models.SysRolePermission),
-			new(models.SysUser),
-			new(models.SysRole),
-			new(models.SysPost),
-			new(models.DictData),
-			new(models.DictType),
-			new(models.SysJob),
-			new(models.SysConfig),
-			new(models.SysApi),
-			new(models.SysPermission),
-			new(models.SysPermissionApi),
-			new(models.CasbinRule),
-			new(models.TbDemo),
+			new(adminmodels.SysDept),
+			new(adminmodels.SysRoleDept),
+			new(adminmodels.SysConfig),
+			new(toolsmodels.SysTables),
+			new(toolsmodels.SysColumns),
+			new(adminmodels.SysMenu),
+			new(adminmodels.SysRoleMenu),
+			new(adminmodels.SysLoginLog),
+			new(adminmodels.SysOperaLog),
+			new(adminmodels.SysUserRole),
+			new(adminmodels.SysRolePermission),
+			new(adminmodels.SysUser),
+			new(adminmodels.SysRole),
+			new(adminmodels.SysPost),
+			new(adminmodels.SysDictData),
+			new(adminmodels.SysDictType),
+			new(jobsmodels.SysJob),
+			new(adminmodels.SysApi),
+			new(adminmodels.SysPermission),
+			new(adminmodels.SysPermissionApi),
+			new(adminmodels.CasbinRule),
+			new(commonmodels.TbDemo),
 		)
 		if err != nil {
 			return err
 		}
-		if err := models.InitDb(tx); err != nil {
+		if err := migration.InitDb(tx); err != nil {
 			return err
 		}
-		return tx.Create(&common.Migration{
+		if err := fixSysMenuPaths(tx); err != nil {
+			return err
+		}
+		return tx.Create(&commonmodels.Migration{
 			Version: version,
 		}).Error
 	})
+}
+
+// fixSysMenuPaths 原 1653638869132_migrate：补全 sys_menu.menu_path
+func fixSysMenuPaths(tx *gorm.DB) error {
+	var list []adminmodels.SysMenu
+	if err := tx.Model(&adminmodels.SysMenu{}).Order("parent_id,menu_id").Find(&list).Error; err != nil {
+		return err
+	}
+	for _, v := range list {
+		var path string
+		if v.ParentId == 0 {
+			path = "/0/" + strconv.Itoa(v.MenuId)
+		} else {
+			var parent adminmodels.SysMenu
+			err := tx.Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.ParentId).First(&parent).Error
+			if err != nil {
+				if err == gorm.ErrRecordNotFound {
+					continue
+				}
+				return err
+			}
+			path = parent.MenuPath + "/" + strconv.Itoa(v.MenuId)
+		}
+		if err := tx.Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.MenuId).Update("menu_path", path).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }

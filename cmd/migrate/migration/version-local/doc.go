@@ -3,6 +3,5 @@ package version_local
 func init() {
 }
 
-/**
-开发者项目的迁移脚本放在这个目录里，init写法参考version目录里的migrate或者自动生成
-*/
+// 开发者项目的迁移脚本放在本目录；init 写法参考 version 目录。
+// 表结构请直接使用 app/admin/models、common/models 等，勿再使用已删除的 migration/models。
