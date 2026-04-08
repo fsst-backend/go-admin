@@ -12,6 +12,18 @@ import (
 	"gorm.io/gorm"
 )
 
+// isDuplicateKeyError 种子脚本重复执行时主键/唯一键冲突，可跳过（避免 sys_migration 缺失时整段 InitDb 失败）
+func isDuplicateKeyError(err error) bool {
+	if err == nil {
+		return false
+	}
+	msg := err.Error()
+	return strings.Contains(msg, "1062") || // MySQL / TiDB: Duplicate entry
+		strings.Contains(msg, "Duplicate entry") ||
+		strings.Contains(msg, "duplicate key value violates unique constraint") || // PostgreSQL
+		strings.Contains(msg, "UNIQUE constraint failed") // SQLite
+}
+
 // sqlBaseDir 返回存放 db.sql 等脚本的目录：环境变量 > /app（容器常见）> 仓库内 config/
 func sqlBaseDir() string {
 	if d := strings.TrimSpace(os.Getenv("GO_ADMIN_SQL_DIR")); d != "" {
@@ -65,6 +77,10 @@ func ExecSql(db *gorm.DB, filePath string) error {
 		stmt := strings.Replace(sqlList[i]+";", "\n", "", -1)
 		stmt = strings.TrimSpace(stmt)
 		if err = db.Exec(stmt).Error; err != nil {
+			if isDuplicateKeyError(err) {
+				log.Printf("initdb 跳过重复数据（已存在）: %v", err)
+				continue
+			}
 			log.Printf("error sql: %s", stmt)
 			if !strings.Contains(err.Error(), "Query was empty") {
 				return err
