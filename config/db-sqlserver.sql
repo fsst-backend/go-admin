@@ -131,14 +131,6 @@ INSERT INTO sys_config VALUES
 (4, '系统名称', 'sys_app_name', 'go-admin管理系统', 'Y', '1', '', 1, 0, '2021-03-17 08:52:06.067', '2021-05-28 10:08:25.248', NULL),
 (5, '系统logo', 'sys_app_logo', 'https://gitee.com/mydearzwj/image/raw/master/img/go-admin.png', 'Y', '1', '', 1, 0, '2021-03-17 08:53:19.462', '2021-03-17 08:53:19.462', NULL);
 
-SET IDENTITY_INSERT sys_dept ON;
-INSERT INTO sys_dept (dept_id, parent_id, dept_path, dept_name, sort, leader, phone, email, status, create_by, update_by, created_at, updated_at, deleted_at)VALUES
-(1, 0, '/0/1/', '爱拓科技', 0, 'aituo', '13782218188', 'atuo@aituo.com', '2', 1, 1, '2021-05-13 19:56:37.913', '2021-06-05 17:06:44.960', NULL),
-(7, 1, '/0/1/7/', '研发部', 1, 'aituo', '13782218188', 'atuo@aituo.com', '2', 1, 1, '2021-05-13 19:56:37.913', '2021-06-16 21:35:00.109', NULL),
-(8, 1, '/0/1/8/', '运维部', 0, 'aituo', '13782218188', 'atuo@aituo.com', '2', 1, 1, '2021-05-13 19:56:37.913', '2021-06-16 21:41:39.747', NULL),
-(9, 1, '/0/1/9/', '客服部', 0, 'aituo', '13782218188', 'atuo@aituo.com', '2', 1, 1, '2021-05-13 19:56:37.913', '2021-06-05 17:07:05.993', NULL),
-(10, 1, '/0/1/10/', '人力资源', 3, 'aituo', '13782218188', 'atuo@aituo.com', '1', 1, 1, '2021-05-13 19:56:37.913', '2021-06-05 17:07:08.503', NULL);
-SET IDENTITY_INSERT sys_dept OFF;
 
 INSERT INTO sys_dict_data (dict_code, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default,
                            status, "default", remark, create_by, update_by, created_at, updated_at, deleted_at)VALUES 
@@ -338,5 +330,5 @@ INSERT INTO sys_post (post_id, post_name, post_code, sort, status, remark, creat
 (3, '首席运营官', 'COO', 3, '2','测试工程师', 1, 1,'2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
 INSERT INTO sys_role (role_id, role_name, status, role_key, role_sort, flag, remark, admin, data_scope, create_by, update_by, created_at, updated_at, deleted_at)VALUES 
 (1, '系统管理员', '2', 'superadmin', 1, '', '', 1, '', 1, 1, '2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
-INSERT INTO sys_user VALUES (1, 'admin', '$2a$10$/Glr4g9Svr6O0kvjsRJCXu3f0W8/dsP3XZyVNi1019ratWpSPMyw.', 'zhangwj', '13818888888', 1, '', '', '1', '1@qq.com', 1, 1, '', '2', 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
+INSERT INTO sys_user VALUES (1, 'admin', '$2a$10$TzZ1dVFwOOq/7L7Y.LaTle./qbDg3R3fqZ.6zAA4F3Vv7cp1QO3uO', 'admin', '13818888888', 1, '', '', '1', 'admin@email.com', 1, 1, '', '2', 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
 -- 数据完成 ;
