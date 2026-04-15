@@ -9,9 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/go-admin-team/go-admin-core/logger"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	_ "github.com/go-admin-team/go-admin-core/sdk/pkg/response"
+	"gorm.io/gorm"
 
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/service"
@@ -201,36 +203,64 @@ func (e SysApi) GenerateFromSwagger(c *gin.Context) {
 		return
 	}
 
-	// 扫描目录
-	docDir := "/app/doc"
-	if _, err := os.Stat(docDir); os.IsNotExist(err) {
-		// 如果 /app/doc 不存在，尝试使用项目根目录下的 docs
-		docDir = "docs"
-		if _, err := os.Stat(docDir); os.IsNotExist(err) {
-			e.Error(500, fmt.Errorf("目录不存在: %s", docDir), "Swagger 目录不存在")
-			return
-		}
+	docDir, err := ResolveSwaggerDocDir()
+	if err != nil {
+		e.Error(500, err, "Swagger 目录不存在")
+		return
 	}
 
-	// 统计信息
-	var totalFiles, processed, inserted, updated, errors int
+	stats, err := syncSysApiFromSwaggerDir(e.Orm, e.Logger, docDir)
+	if err != nil {
+		e.Error(500, err, "扫描目录失败")
+		return
+	}
+
+	e.OK(stats, "Swagger 文件处理完成")
+}
+
+// ResolveSwaggerDocDir 返回 Swagger JSON 所在目录（优先 /app/doc，否则项目下 docs），与 GenerateFromSwagger 行为一致。
+func ResolveSwaggerDocDir() (string, error) {
+	docDir := "/app/doc"
+	if _, err := os.Stat(docDir); os.IsNotExist(err) {
+		docDir = "docs"
+		if _, err := os.Stat(docDir); os.IsNotExist(err) {
+			return "", fmt.Errorf("目录不存在: %s", docDir)
+		}
+	}
+	return docDir, nil
+}
+
+// SyncSysApiFromSwagger 扫描 Swagger 目录并将 path/action 写入 sys_api，供服务启动等无 HTTP 上下文的场景调用。
+// 若目录不存在则返回错误（由调用方决定是否忽略）。
+func SyncSysApiFromSwagger(db *gorm.DB, lg *logger.Helper) (map[string]interface{}, error) {
+	if db == nil {
+		return nil, fmt.Errorf("数据库连接为空")
+	}
+	if lg == nil {
+		return nil, fmt.Errorf("logger 为空")
+	}
+	docDir, err := ResolveSwaggerDocDir()
+	if err != nil {
+		return nil, err
+	}
+	return syncSysApiFromSwaggerDir(db, lg, docDir)
+}
+
+func syncSysApiFromSwaggerDir(db *gorm.DB, lg *logger.Helper, docDir string) (map[string]interface{}, error) {
+	var totalFiles, processed, inserted, updated, errCount int
 	var errorDetails []string
 
-	// 递归扫描目录下的所有 JSON 文件
-	err = filepath.Walk(docDir, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(docDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
-
-		// 只处理 JSON 文件
 		if !info.IsDir() && strings.HasSuffix(strings.ToLower(info.Name()), ".json") {
 			totalFiles++
-			fileStats, err := e.processSwaggerFile(path)
+			fileStats, err := processSwaggerFileDB(db, lg, path)
 			if err != nil {
-				errors++
-				errorMsg := fmt.Sprintf("处理文件 %s 失败: %v", path, err)
-				errorDetails = append(errorDetails, errorMsg)
-				e.Logger.Error(err)
+				errCount++
+				errorDetails = append(errorDetails, fmt.Sprintf("处理文件 %s 失败: %v", path, err))
+				lg.Error(err)
 			} else {
 				processed++
 				if insertedVal, ok := fileStats["inserted"].(int); ok {
@@ -249,59 +279,54 @@ func (e SysApi) GenerateFromSwagger(c *gin.Context) {
 		"processed":    processed,
 		"inserted":     inserted,
 		"updated":      updated,
-		"errors":       errors,
+		"errors":       errCount,
 		"errorDetails": errorDetails,
 	}
-
 	if err != nil {
-		e.Error(500, err, "扫描目录失败")
-		return
+		return stats, err
 	}
-
-	e.OK(stats, "Swagger 文件处理完成")
+	return stats, nil
 }
 
-// processSwaggerFile 处理单个 swagger 文件
+// processSwaggerFile 处理单个 swagger 文件（HTTP 请求上下文）
 func (e SysApi) processSwaggerFile(filePath string) (map[string]interface{}, error) {
+	return processSwaggerFileDB(e.Orm, e.Logger, filePath)
+}
+
+func processSwaggerFileDB(db *gorm.DB, lg *logger.Helper, filePath string) (map[string]interface{}, error) {
 	stats := map[string]interface{}{
 		"inserted": 0,
 		"updated":  0,
 	}
 
-	// 读取文件
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return stats, fmt.Errorf("读取文件失败: %w", err)
 	}
 
-	// 解析 JSON
 	var swaggerData map[string]interface{}
 	err = json.Unmarshal(data, &swaggerData)
 	if err != nil {
 		return stats, fmt.Errorf("解析 JSON 失败: %w", err)
 	}
 
-	// 提取 paths
 	paths, ok := swaggerData["paths"].(map[string]interface{})
 	if !ok {
 		return stats, fmt.Errorf("JSON 中没有找到 paths 字段")
 	}
 
-	// 遍历 paths
 	for path, methods := range paths {
 		methodsMap, ok := methods.(map[string]interface{})
 		if !ok {
 			continue
 		}
 
-		// 遍历 HTTP 方法
 		for method, operation := range methodsMap {
 			operationMap, ok := operation.(map[string]interface{})
 			if !ok {
 				continue
 			}
 
-			// 获取标题和标签
 			title := ""
 			if titleVal, exists := operationMap["summary"]; exists {
 				if titleStr, ok := titleVal.(string); ok {
@@ -309,18 +334,15 @@ func (e SysApi) processSwaggerFile(filePath string) (map[string]interface{}, err
 				}
 			}
 
-			// 获取标签
 			tag := ""
 			if tagsVal, exists := operationMap["tags"]; exists {
 				if tagsArray, ok := tagsVal.([]interface{}); ok && len(tagsArray) > 0 {
-					// 取第一个标签
 					if tagStr, ok := tagsArray[0].(string); ok {
 						tag = tagStr
 					}
 				}
 			}
 
-			// 构建 SysApi 对象
 			sysApi := models.SysApi{
 				Path:   path,
 				Action: strings.ToUpper(method),
@@ -329,24 +351,21 @@ func (e SysApi) processSwaggerFile(filePath string) (map[string]interface{}, err
 				Handle: fmt.Sprintf("%s %s", strings.ToUpper(method), path),
 			}
 
-			// 检查是否已存在相同的 path 和 action
 			var existingApi models.SysApi
-			result := e.Orm.Where("path = ? AND action = ?", path, strings.ToUpper(method)).First(&existingApi)
+			result := db.Where("path = ? AND action = ?", path, strings.ToUpper(method)).First(&existingApi)
 
 			if result.Error == nil && result.RowsAffected > 0 {
-				// 更新现有记录
 				sysApi.Id = existingApi.Id
-				err := e.Orm.Model(&existingApi).Updates(&sysApi).Error
+				err := db.Model(&existingApi).Updates(&sysApi).Error
 				if err != nil {
-					e.Logger.Errorf("更新记录失败: path=%s, action=%s, error=%s", path, method, err.Error())
+					lg.Errorf("更新记录失败: path=%s, action=%s, error=%s", path, method, err.Error())
 				} else {
 					stats["updated"] = stats["updated"].(int) + 1
 				}
 			} else {
-				// 插入新记录
-				err := e.Orm.Create(&sysApi).Error
+				err := db.Create(&sysApi).Error
 				if err != nil {
-					e.Logger.Errorf("插入记录失败: path=%s, action=%s, error=%s", path, method, err.Error())
+					lg.Errorf("插入记录失败: path=%s, action=%s, error=%s", path, method, err.Error())
 				} else {
 					stats["inserted"] = stats["inserted"].(int) + 1
 				}
