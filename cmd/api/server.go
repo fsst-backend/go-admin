@@ -25,10 +25,14 @@ import (
 	"go-admin/app/jobs"
 	jobsModels "go-admin/app/jobs/models"
 	otherModels "go-admin/app/other/models/tools"
+	"go-admin/cmd/migrate/migration"
+	_ "go-admin/cmd/migrate/migration/version"
+	_ "go-admin/cmd/migrate/migration/version-local"
 	"go-admin/common/database"
 	"go-admin/common/global"
 	common "go-admin/common/middleware"
 	"go-admin/common/middleware/handler"
+	commonmodels "go-admin/common/models"
 	"go-admin/common/storage"
 	ext "go-admin/config"
 	filewrap "go-admin/config/filewarp"
@@ -73,8 +77,8 @@ func setup() {
 		storage.Setup,
 	)
 
-	//2. 执行数据库自动迁移
-	autoMigrate()
+	//2. 数据库：先版本链（一次性脚本/种子/174410），再全量 AutoMigrate（对齐仅改模型未写迁移的情况）
+	runDatabaseMigrations()
 
 	//注册监听函数
 	queue := sdk.Runtime.GetMemoryQueue("")
@@ -102,24 +106,29 @@ func setup() {
 	log.Info(usageStr)
 }
 
-// autoMigrate 执行数据库自动迁移
-func autoMigrate() {
+// runDatabaseMigrations 与 `go-admin migrate` 同序：① sys_migration + version/ 脚本 ② 全量模型 AutoMigrate。
+// 顺序固定为「版本链在前」：InitDb、174410 回填/删列等先完成，再用当前 struct 扫一遍补列。
+func runDatabaseMigrations() {
 	db := sdk.Runtime.GetDbByKey("*")
 	if db == nil {
-		log.Warn("数据库连接不存在,跳过自动迁移")
+		log.Warn("数据库连接不存在,跳过数据库迁移")
 		return
 	}
 
-	log.Info("开始执行数据库自动迁移...")
-
-	// 设置表选项
 	if config.DatabaseConfig.Driver == "mysql" || config.DatabaseConfig.Driver == "tidb" {
 		db = db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 	}
 
-	// 执行 AutoMigrate
+	log.Info("开始执行数据库迁移（版本链 + 模型同步）...")
+
+	if err := db.AutoMigrate(&commonmodels.Migration{}); err != nil {
+		log.Fatalf("sys_migration 表初始化失败: %v", err)
+	}
+
+	migration.Migrate.SetDb(db.Debug())
+	migration.Migrate.Migrate()
+
 	err := db.AutoMigrate(
-		// admin 模块模型
 		new(models.SysDept),
 		new(models.SysRoleDept),
 		new(models.SysConfig),
@@ -138,18 +147,16 @@ func autoMigrate() {
 		new(models.SysPermission),
 		new(models.SysPermissionApi),
 		new(models.CasbinRule),
-		// jobs 模块模型
 		new(jobsModels.SysJob),
-		// other 模块模型
 		new(otherModels.SysTables),
 		new(otherModels.SysColumns),
+		new(commonmodels.SysUserLoginToken),
+		new(commonmodels.TbDemo),
 	)
-
 	if err != nil {
-		log.Errorf("数据库自动迁移失败: %v", err)
-		// 不中断程序启动,只记录错误
+		log.Errorf("模型 AutoMigrate 失败: %v", err)
 	} else {
-		log.Info("数据库自动迁移完成")
+		log.Info("数据库迁移完成")
 	}
 }
 

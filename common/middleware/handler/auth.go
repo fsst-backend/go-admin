@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-admin/common"
+	"go-admin/common/constant"
+	cmodels "go-admin/common/models"
 	"net/http"
 
 	"go-admin/common/global"
@@ -18,17 +20,25 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/jwtauth/user"
 	"github.com/go-admin-team/go-admin-core/sdk/pkg/response"
 	"github.com/mssola/user_agent"
-	"gorm.io/gorm"
 )
 
 func PayloadFunc(data interface{}) jwt.MapClaims {
 	if v, ok := data.(map[string]interface{}); ok {
 		u, _ := v["user"].(SysUser)
+		ch := NormalizeLoginChannel("")
+		if lc, ok := v["login_channel"].(string); ok {
+			ch = NormalizeLoginChannel(lc)
+		}
+		tv := 0
+		if x, ok := v["token_version"].(int); ok {
+			tv = x
+		}
 		return jwt.MapClaims{
 			"uuid":          u.UUID,
 			jwt.IdentityKey: u.UserId,
 			jwt.NiceKey:     u.Username,
-			"token_version": u.TokenVersion,
+			"token_version": tv,
+			"login_channel": ch,
 		}
 	}
 	return jwt.MapClaims{}
@@ -93,14 +103,25 @@ func Authenticator(c *gin.Context) (interface{}, error) {
 	sysUser, e := loginVals.GetUser(db)
 	if e == nil {
 		username = loginVals.Username
-		// 单设备登录：递增 token_version，使其他设备上的旧 token 失效
-		if err := db.Table("sys_user").Where("user_id = ?", sysUser.UserId).Update("token_version", gorm.Expr("COALESCE(token_version,0) + 1")).Error; err != nil {
-			log.Warnf("increment token_version error: %s", err.Error())
-		} else if err := db.Table("sys_user").Where("user_id = ?", sysUser.UserId).Select("token_version").Scan(&sysUser.TokenVersion).Error; err == nil {
-			// 刷新 sysUser.TokenVersion 供 PayloadFunc 写入 JWT
-			c.Set("login_token_version", sysUser.TokenVersion) // 供 LoginLogToDB 写入登录日志
+		loginCh := NormalizeLoginChannel(loginVals.LoginChannel)
+		if len(loginCh) > 32 {
+			msg = "登录失败"
+			status = "1"
+			return nil, jwt.ErrFailedAuthentication
 		}
-		return map[string]interface{}{"user": sysUser}, nil
+		newVer, verr := bumpLoginTokenVersion(db, sysUser.UserId, loginCh)
+		if verr != nil {
+			log.Errorf("bump login token_version error: %s", verr.Error())
+			msg = "登录失败"
+			status = "1"
+			return nil, jwt.ErrFailedAuthentication
+		}
+		c.Set("login_token_version", newVer)
+		return map[string]interface{}{
+			"user":          sysUser,
+			"login_channel": loginCh,
+			"token_version": newVer,
+		}, nil
 	} else {
 		msg = "登录失败"
 		status = "1"
@@ -176,13 +197,20 @@ func Authorizator(data interface{}, c *gin.Context) bool {
 		return false
 	}
 
-	// 单设备登录：校验 token_version 精确匹配，若用户在其他设备新登录则当前 token 失效
+	// 单设备登录：按 login_channel 校验对应版本（无该 claim 视为后台，兼容旧 token）
 	// 使用 == 判断而非 <，可正确处理 INT 有符号溢出回绕（2.1e9 → -2.1e9）的情况
 	tokenVer := getIntFromClaims(claims, "token_version")
+	channel := constant.LoginChannelAdmin
+	if lc, ok := claims["login_channel"].(string); ok {
+		channel = NormalizeLoginChannel(lc)
+	}
 	db, err := pkg.GetOrm(c)
 	if err == nil {
 		var dbVer int
-		if db.Table("sys_user").Where("user_id = ?", userId).Select("token_version").Scan(&dbVer).Error == nil {
+		if db.Model(&cmodels.SysUserLoginToken{}).
+			Where("user_id = ? AND login_channel = ?", userId, channel).
+			Select("token_version").
+			Scan(&dbVer).Error == nil {
 			if tokenVer != dbVer {
 				log.Infof("[Authorizator] token_version mismatch: userId=%d, tokenVer=%d, dbVer=%d, set token_version_mismatch", userId, tokenVer, dbVer)
 				c.Set("token_version_mismatch", true) // 供 Unauthorized 返回区分提示

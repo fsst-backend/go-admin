@@ -2050,44 +2050,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/appconfiguration/i18n/fields": {
-      "get": {
-        "summary": "获取国际化字段列表",
-        "operationId": "GetI18nFieldListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetI18nFieldListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "module",
-            "description": " 模块：appconfiguration / taskcenter / copytrading 等",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "app_configuration_id",
-            "description": " 应用配置ID（appconfiguration 模块必填）",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "appconfiguration"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
     "/poplar/violet/backend/appconfiguration/list": {
       "get": {
         "summary": "获取 AppConfiguration 列表",
@@ -2631,6 +2593,632 @@
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/email_provider/create": {
+      "post": {
+        "summary": "创建邮件服务商",
+        "operationId": "ChCreateEmailProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertEmailProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertEmailProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/email_provider/delete": {
+      "post": {
+        "summary": "删除邮件服务商",
+        "operationId": "ChDeleteEmailProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChDeleteEmailProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/email_provider/get": {
+      "get": {
+        "summary": "获取邮件服务商详情",
+        "operationId": "ChGetEmailProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChGetEmailProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/email_provider/list": {
+      "post": {
+        "summary": "分页查询邮件服务商",
+        "operationId": "ChListEmailProvidersHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListEmailProvidersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChListEmailProvidersReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/email_provider/update": {
+      "post": {
+        "summary": "更新邮件服务商",
+        "operationId": "ChUpdateEmailProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertEmailProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertEmailProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_dispatch/create": {
+      "post": {
+        "summary": "创建短信下发配置",
+        "operationId": "ChCreateSmsDispatchConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsDispatchConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsDispatchConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_dispatch/delete": {
+      "post": {
+        "summary": "删除短信下发配置",
+        "operationId": "ChDeleteSmsDispatchConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChDeleteSmsDispatchConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_dispatch/get": {
+      "get": {
+        "summary": "获取短信下发配置详情",
+        "operationId": "ChGetSmsDispatchConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChGetSmsDispatchConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_dispatch/list": {
+      "post": {
+        "summary": "分页查询短信下发配置",
+        "operationId": "ChListSmsDispatchConfigsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListSmsDispatchConfigsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChListSmsDispatchConfigsReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_dispatch/update": {
+      "post": {
+        "summary": "更新短信下发配置",
+        "operationId": "ChUpdateSmsDispatchConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsDispatchConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsDispatchConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/create": {
+      "post": {
+        "summary": "创建短信服务商",
+        "operationId": "ChCreateSmsProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/delete": {
+      "post": {
+        "summary": "删除短信服务商",
+        "operationId": "ChDeleteSmsProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChDeleteSmsProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/get": {
+      "get": {
+        "summary": "获取短信服务商详情",
+        "operationId": "ChGetSmsProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChGetSmsProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/list": {
+      "post": {
+        "summary": "分页查询短信服务商（按 app_id 分组，含 app_name；支持 offset/limit 或 page/page_size）",
+        "operationId": "ChListSmsProvidersHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListSmsProvidersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChListSmsProvidersReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/provider_kinds": {
+      "get": {
+        "summary": "短信服务商可选厂商标识(provider_kind)列表",
+        "operationId": "ChListSmsProviderKindsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListSmsProviderKindsResp"
+            }
+          }
+        },
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/sms_provider/update": {
+      "post": {
+        "summary": "更新短信服务商",
+        "operationId": "ChUpdateSmsProviderHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsProviderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChUpsertSmsProviderReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/vcode/delete": {
+      "post": {
+        "summary": "删除验证码配置",
+        "operationId": "ChDeleteVCodeConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChDeleteVCodeConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/vcode/get": {
+      "get": {
+        "summary": "按 app+channel 获取验证码配置",
+        "operationId": "ChGetVCodeConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChGetVCodeConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/vcode/list": {
+      "post": {
+        "summary": "分页查询验证码配置",
+        "operationId": "ChListVCodeConfigsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListVCodeConfigsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChListVCodeConfigsReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/vcode/records/list": {
+      "post": {
+        "summary": "分页查询验证码发送记录（短信/邮箱，脱敏）",
+        "operationId": "ChListVerificationCodeRecordsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChListVerificationCodeRecordsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChListVerificationCodeRecordsReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/vcode/save": {
+      "post": {
+        "summary": "保存验证码配置（新建或更新）",
+        "operationId": "ChSaveVCodeConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChSaveVCodeConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChSaveVCodeConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
         ]
       }
     },
@@ -3353,7 +3941,7 @@
           },
           {
             "name": "create_time_start",
-            "description": " 平仓时间筛选开始（秒）\r",
+            "description": " 跟单平仓时间筛选开始（秒）\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3361,7 +3949,7 @@
           },
           {
             "name": "create_time_end",
-            "description": " 平仓时间筛选结束（秒）\r",
+            "description": " 跟单平仓时间筛选结束（秒）\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3374,6 +3962,14 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "only_with_share_profit",
+            "description": " 为 true 时仅保留跟单本身盈利（跟单 profit_loss\u003e0）；跟单行仍须 share_profit\u003e0\r",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           },
           {
             "name": "offset",
@@ -4035,6 +4631,14 @@
           {
             "name": "user_group_id",
             "description": " 用户组ID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "uid",
+            "description": " 用户ID（crm 用户），0 表示不按用户筛选\r",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -5559,6 +6163,61 @@
             "format": "int64"
           },
           {
+            "name": "follow_type",
+            "description": " 跟单类型 0: 私域 1: 公域",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "position_no",
+            "description": " 持仓单号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_uid",
+            "description": " 跟单员UID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_account",
+            "description": " 跟单员账号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "trading_instrument",
+            "description": " 品种",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "open_time_start",
+            "description": " 开仓开始时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_time_end",
+            "description": " 开仓结束时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -5571,14 +6230,6 @@
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
           }
         ],
         "tags": [
@@ -5612,6 +6263,61 @@
             "format": "int64"
           },
           {
+            "name": "follow_type",
+            "description": " 跟单类型 0: 私域 1: 公域",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "position_no",
+            "description": " 持仓单号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_uid",
+            "description": " 跟单员UID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_account",
+            "description": " 跟单员账号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "trading_instrument",
+            "description": " 品种",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "open_time_start",
+            "description": " 开仓开始时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_time_end",
+            "description": " 开仓结束时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -5624,14 +6330,6 @@
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
           }
         ],
         "tags": [
@@ -5665,6 +6363,61 @@
             "format": "int64"
           },
           {
+            "name": "follow_type",
+            "description": " 跟单类型 0: 私域 1: 公域",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "position_no",
+            "description": " 持仓单号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_uid",
+            "description": " 跟单员UID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "follower_account",
+            "description": " 跟单员账号",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "trading_instrument",
+            "description": " 品种",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "open_time_start",
+            "description": " 开仓开始时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_time_end",
+            "description": " 开仓结束时间戳（秒），可选",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -5677,14 +6430,6 @@
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "follow_type",
-            "description": " 跟单类型 0: 私域 1: 公域",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
           }
         ],
         "tags": [
@@ -11978,7 +12723,7 @@
           },
           {
             "name": "withdraw_type",
-            "description": " 提现方式 (0: 银行汇款, 1: 加密货币)",
+            "description": " 提现方式筛选，与 finance RPC 一致：0 银行汇款 1 加密货币 2 支付宝",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -12429,13 +13174,20 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "ui_locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
           "language"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -12481,11 +13233,228 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "ui_locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "language"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/i18nadmin/sidebar/structure": {
+      "get": {
+        "summary": "获取国际化侧边栏结构",
+        "operationId": "GetI18nSidebarStructureHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetI18nSidebarStructureResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "description": " 应用 ID，用于过滤应用平台相关模块",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "i18nadmin"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/i18nadmin/unified/fields": {
+      "get": {
+        "summary": "集中化国际化字段查询（多模块可扩展）",
+        "operationId": "GetUnifiedI18nFieldsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUnifiedI18nFieldsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "modules",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_config_page_codes",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_config_div_slugs",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "-",
+            "description": " content-rpc scope_kinds",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "-",
+            "description": " taskcenter-rpc task_types",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "content_i18n_limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "content_i18n_offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "notification_bar_message_limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "notification_bar_message_offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "i18nadmin"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/i18nadmin/unified/panorama/stats": {
+      "get": {
+        "summary": "全景视图统计（应用数、总条目、已发布/已翻译/待翻译及占比）",
+        "operationId": "GetI18nPanoramaStatsHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetI18nPanoramaStatsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "modules",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_config_page_codes",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "app_config_div_slugs",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "-",
+            "description": " content-rpc scope_kinds",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "-",
+            "description": " taskcenter-rpc task_types",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "content_i18n_limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "content_i18n_offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "notification_bar_message_limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "notification_bar_message_offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "i18nadmin"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -14314,10 +15283,10 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/in_app_notifications/create": {
+    "/poplar/violet/backend/notification/bar_messages/cancel": {
       "post": {
-        "summary": "创建应用内通知配置",
-        "operationId": "CreateInAppNotificationHandler",
+        "summary": "取消消息栏",
+        "operationId": "CancelBarMessageHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -14332,7 +15301,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreateInAppNotificationReq"
+              "$ref": "#/definitions/CancelBarMessageReq"
             }
           }
         ],
@@ -14344,15 +15313,15 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/in_app_notifications/delete": {
+    "/poplar/violet/backend/notification/bar_messages/create": {
       "post": {
-        "summary": "删除应用内通知配置",
-        "operationId": "DeleteInAppNotificationHandler",
+        "summary": "创建消息栏主数据",
+        "operationId": "CreateBarMessageHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Empty"
+              "$ref": "#/definitions/CreateBarMessageResp"
             }
           }
         },
@@ -14362,7 +15331,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DeleteInAppNotificationReq"
+              "$ref": "#/definitions/CreateBarMessageReq"
             }
           }
         ],
@@ -14374,112 +15343,30 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/in_app_notifications/detail": {
+    "/poplar/violet/backend/notification/bar_messages/detail": {
       "get": {
-        "summary": "获取应用内通知详情",
-        "operationId": "GetInAppNotificationDetailHandler",
+        "summary": "消息栏详情",
+        "operationId": "GetBarMessageDetailHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetInAppNotificationDetailResp"
+              "$ref": "#/definitions/GetBarMessageDetailResp"
             }
           }
         },
         "parameters": [
           {
-            "name": "id",
-            "description": " 通知ID\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/in_app_notifications/list": {
-      "get": {
-        "summary": "获取应用内通知列表",
-        "operationId": "GetInAppNotificationsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetInAppNotificationsResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "limit",
-            "description": " 每页数量\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "description": " 偏移量\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "title_keyword",
-            "description": " 标题关键词搜索\r",
+            "name": "app_id",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "is_enabled",
-            "description": " 状态筛选\r",
+            "name": "bar_message_id",
             "in": "query",
             "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
-            "name": "created_start",
-            "description": " 创建时间开始\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "created_end",
-            "description": " 创建时间结束\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "updated_start",
-            "description": " 操作时间开始\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "updated_end",
-            "description": " 操作时间结束\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -14491,255 +15378,44 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/in_app_notifications/update": {
-      "post": {
-        "summary": "更新应用内通知配置",
-        "operationId": "UpdateInAppNotificationHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateInAppNotificationReq"
-            }
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/create": {
-      "post": {
-        "summary": "创建推送消息",
-        "operationId": "CreatePushMessageHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreatePushMessageReq"
-            }
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/delete": {
-      "post": {
-        "summary": "删除推送消息",
-        "operationId": "DeletePushMessageHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeletePushMessageReq"
-            }
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/detail": {
+    "/poplar/violet/backend/notification/bar_messages/list": {
       "get": {
-        "summary": "获取推送消息详情",
-        "operationId": "GetPushMessageDetailHandler",
+        "summary": "消息栏列表",
+        "operationId": "ListBarMessagesHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetPushMessageDetailResp"
+              "$ref": "#/definitions/ListBarMessagesResp"
             }
           }
         },
         "parameters": [
           {
-            "name": "id",
-            "description": " 消息ID\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/groups_and_tags": {
-      "get": {
-        "summary": "获取用户分组和标签",
-        "operationId": "GetUserGroupsAndTagsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetUserGroupAndTagsResp"
-            }
-          }
-        },
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/list": {
-      "get": {
-        "summary": "获取推送消息列表",
-        "operationId": "GetPushMessagesHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPushMessagesResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "limit",
-            "description": " 每页数量\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "description": " 偏移量\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "title_keyword",
-            "description": " 标题关键词搜索\r",
+            "name": "app_id",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "message_type",
-            "description": " 消息类型筛选  1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知\r",
+            "name": "status",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           },
           {
-            "name": "push_status",
-            "description": " 推送状态筛选   1 关闭推送,2 待推送,3 正在推送,4 已推送\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "created_start",
-            "description": " 创建时间开始\r",
+            "name": "page",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "created_end",
-            "description": " 创建时间结束\r",
+            "name": "page_size",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "updated_start",
-            "description": " 更新时间开始\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "updated_end",
-            "description": " 更新时间结束\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "push_start",
-            "description": " 推送时间开始\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "push_end",
-            "description": " 推送时间结束\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "audience_type",
-            "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签\r",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
           }
         ],
         "tags": [
@@ -14751,47 +15427,10 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/push_messages/pkg_options": {
-      "get": {
-        "summary": "根据系统获取应用包列表",
-        "operationId": "GetPkgOptionsBySystemHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPkgOptionsBySystemResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "is_ios",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
-            "name": "is_android",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/send": {
+    "/poplar/violet/backend/notification/bar_messages/submit_send": {
       "post": {
-        "summary": "立即推送消息",
-        "operationId": "SendPushMessageHandler",
+        "summary": "提交消息栏发送（由 notification-rpc 更新状态并写入编排 Kafka）",
+        "operationId": "SubmitBarMessageSendHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -14806,38 +15445,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SendPushMessageReq"
-            }
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_messages/update": {
-      "post": {
-        "summary": "更新推送消息",
-        "operationId": "UpdatePushMessageHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdatePushMessageReq"
+              "$ref": "#/definitions/SubmitBarMessageSendReq"
             }
           }
         ],
@@ -14849,10 +15457,10 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/push_providers/create": {
+    "/poplar/violet/backend/notification/bar_messages/update": {
       "post": {
-        "summary": "创建推送提供商",
-        "operationId": "CreatePushProviderHandler",
+        "summary": "更新消息栏主数据",
+        "operationId": "UpdateBarMessageHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -14867,7 +15475,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CreatePushProviderReq"
+              "$ref": "#/definitions/UpdateBarMessageReq"
             }
           }
         ],
@@ -14879,56 +15487,24 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/push_providers/delete": {
-      "post": {
-        "summary": "删除推送提供商",
-        "operationId": "DeletePushProviderHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeletePushProviderReq"
-            }
-          }
-        ],
-        "tags": [
-          "notification"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/notification/push_providers/detail": {
+    "/poplar/violet/backend/notification/message_categories/active_list": {
       "get": {
-        "summary": "获取推送提供商详情",
-        "operationId": "GetPushProviderDetailHandler",
+        "summary": "获取启用消息分类列表",
+        "operationId": "GetActiveMessageCategoryListHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetPushProviderDetailResp"
+              "$ref": "#/definitions/GetActiveMessageCategoryListResp"
             }
           }
         },
         "parameters": [
           {
-            "name": "id",
-            "description": " 提供商ID\r",
+            "name": "app_id",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [
@@ -14940,55 +15516,152 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/push_providers/list": {
-      "get": {
-        "summary": "获取推送提供商列表",
-        "operationId": "GetPushProvidersHandler",
+    "/poplar/violet/backend/notification/message_categories/create": {
+      "post": {
+        "summary": "创建消息分类",
+        "operationId": "CreateMessageCategoryHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetPushProvidersResp"
+              "$ref": "#/definitions/Empty"
             }
           }
         },
         "parameters": [
           {
-            "name": "limit",
-            "description": " 每页数量\r",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMessageCategoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_categories/delete": {
+      "post": {
+        "summary": "删除消息分类",
+        "operationId": "DeleteMessageCategoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMessageCategoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_categories/detail": {
+      "get": {
+        "summary": "获取消息分类详情",
+        "operationId": "GetMessageCategoryDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageCategoryDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "category_id",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "offset",
-            "description": " 偏移量\r",
+            "name": "app_id",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_categories/list": {
+      "get": {
+        "summary": "获取消息分类列表",
+        "operationId": "GetMessageCategoryListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageCategoryListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code_keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "name_keyword",
-            "description": " 名称关键词搜索\r",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "system",
-            "description": " 系统平台筛选\r",
+            "name": "status",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "pkg_name",
-            "description": " 包名筛选\r",
+            "name": "limit",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -15000,10 +15673,10 @@
         ]
       }
     },
-    "/poplar/violet/backend/notification/push_providers/update": {
+    "/poplar/violet/backend/notification/message_categories/update": {
       "post": {
-        "summary": "更新推送提供商",
-        "operationId": "UpdatePushProviderHandler",
+        "summary": "更新消息分类",
+        "operationId": "UpdateMessageCategoryHandler",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -15018,7 +15691,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UpdatePushProviderReq"
+              "$ref": "#/definitions/UpdateMessageCategoryReq"
             }
           }
         ],
@@ -15027,6 +15700,789 @@
         ],
         "consumes": [
           "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_type_categories/create": {
+      "post": {
+        "summary": "创建模版类型大分类",
+        "operationId": "CreateMessageTemplateTypeCategoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMessageTemplateTypeCategoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_type_categories/delete": {
+      "post": {
+        "summary": "删除模版类型大分类",
+        "operationId": "DeleteMessageTemplateTypeCategoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMessageTemplateTypeCategoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_type_categories/detail": {
+      "get": {
+        "summary": "模版类型大分类详情",
+        "operationId": "GetMessageTemplateTypeCategoryDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateTypeCategoryDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_type_categories/list": {
+      "get": {
+        "summary": "模版类型大分类列表",
+        "operationId": "GetMessageTemplateTypeCategoryListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateTypeCategoryListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "code_keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_type_categories/update": {
+      "post": {
+        "summary": "更新模版类型大分类",
+        "operationId": "UpdateMessageTemplateTypeCategoryHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateMessageTemplateTypeCategoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_types/create": {
+      "post": {
+        "summary": "创建模版类型（type_code 对应消息模板 message_template_type_code）",
+        "operationId": "CreateMessageTemplateTypeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMessageTemplateTypeReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_types/delete": {
+      "post": {
+        "summary": "删除模版类型",
+        "operationId": "DeleteMessageTemplateTypeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMessageTemplateTypeReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_types/detail": {
+      "get": {
+        "summary": "模版类型详情",
+        "operationId": "GetMessageTemplateTypeDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateTypeDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_types/list": {
+      "get": {
+        "summary": "模版类型列表（含全局 + 当前站点）",
+        "operationId": "GetMessageTemplateTypeListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateTypeListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "type_code_keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_template_types/update": {
+      "post": {
+        "summary": "更新模版类型（内置类型仅可改展示名、说明、排序）",
+        "operationId": "UpdateMessageTemplateTypeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateMessageTemplateTypeReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/by_code": {
+      "get": {
+        "summary": "按编码获取消息模板",
+        "operationId": "GetMessageTemplateByCodeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateByCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "template_code",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/create": {
+      "post": {
+        "summary": "创建消息模板",
+        "operationId": "CreateMessageTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMessageTemplateReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/delete": {
+      "post": {
+        "summary": "删除消息模板",
+        "operationId": "DeleteMessageTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMessageTemplateReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/detail": {
+      "get": {
+        "summary": "获取消息模板详情",
+        "operationId": "GetMessageTemplateDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "template_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/list": {
+      "get": {
+        "summary": "获取消息模板列表",
+        "operationId": "GetMessageTemplateListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageTemplateListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "template_code_keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "template_name_keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/publish": {
+      "post": {
+        "summary": "发布消息模板",
+        "operationId": "PublishMessageTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PublishMessageTemplateReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/message_templates/update": {
+      "post": {
+        "summary": "更新消息模板",
+        "operationId": "UpdateMessageTemplateHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateMessageTemplateReq"
+            }
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/push_records/list": {
+      "get": {
+        "summary": "获取推送记录列表",
+        "operationId": "GetPushSendRecordListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSendRecordListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "message_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/send_records/detail": {
+      "get": {
+        "summary": "获取发送记录详情",
+        "operationId": "GetSendRecordDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSendRecordDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "send_record_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/notification/send_records/list": {
+      "get": {
+        "summary": "获取发送记录列表",
+        "operationId": "GetSendRecordListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSendRecordListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "channel",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "message_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "notification"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
         ]
       }
     },
@@ -24986,6 +26442,14 @@
             "type": "string"
           },
           {
+            "name": "label_ids",
+            "description": " 用户标签ID列表（OR：命中任一标签的用户）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -25712,6 +27176,14 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "label_ids",
+            "description": " 用户标签ID列表（OR：命中任一标签的用户）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "offset",
@@ -28848,6 +30320,14 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "label_ids",
+            "description": " 用户标签ID列表（OR：命中任一标签的用户）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "offset",
@@ -35700,14 +37180,15 @@
           "type": "string",
           "description": " 语言代码，需唯一"
         },
-        "name": {
-          "type": "string",
-          "description": " 显示名称"
-        },
         "status": {
           "type": "integer",
           "format": "int32",
           "description": " 0=禁用 1=启用"
+        },
+        "is_benchmark": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 设为基准语言"
         }
       },
       "title": "AddLanguageRequest"
@@ -36492,15 +37973,15 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": " 显示名称（如 English (US)）"
+          "description": " 该语言在自身语境下的 CLDR 展示名（自称/endonym）"
         },
         "alias": {
           "type": "string",
-          "description": " 别名（如 英语（美国））"
+          "description": " 当前界面语言（ui_locale / Accept-Language）下的展示名"
         },
         "code": {
           "type": "string",
-          "description": " 语言代码，如 zh-Hans、en-US"
+          "description": " 规范 BCP 47 语言标签，如 zh-Hans、en-US"
         }
       },
       "title": "AllLanguageItem"
@@ -38694,6 +40175,127 @@
       },
       "title": "BannerItem"
     },
+    "BarMessageInfo": {
+      "type": "object",
+      "properties": {
+        "bar_message_id": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "content_mode": {
+          "type": "string"
+        },
+        "message_template_type_code": {
+          "type": "string"
+        },
+        "template_version_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "summary_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "body_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "body_format": {
+          "type": "string"
+        },
+        "detail_action_type": {
+          "type": "string"
+        },
+        "detail_action_value": {
+          "type": "string"
+        },
+        "extra_payload": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audience_kind": {
+          "type": "string"
+        },
+        "audience_definition_json": {
+          "type": "string"
+        },
+        "audience_summary": {
+          "type": "string"
+        },
+        "scheduled_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "started_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "completed_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "string"
+        },
+        "created_at_unix": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at_unix": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "BarMessageInfo"
+    },
     "BasicPolicy": {
       "type": "object",
       "properties": {
@@ -40297,8 +41899,7 @@
           "description": " 标题字体大小"
         },
         "title_font_weight": {
-          "type": "integer",
-          "format": "int32",
+          "type": "string",
           "description": " 标题字体粗细"
         },
         "coner_radius": {
@@ -40653,6 +42254,21 @@
       },
       "title": "CalendarEventItem"
     },
+    "CancelBarMessageReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "bar_message_id": {
+          "type": "string"
+        },
+        "operator_id": {
+          "type": "string"
+        }
+      },
+      "title": "CancelBarMessageReq"
+    },
     "CancelFollowRequest": {
       "type": "object",
       "properties": {
@@ -40770,6 +42386,942 @@
         }
       },
       "title": "CategoryRuleStats"
+    },
+    "ChDeleteEmailProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChDeleteEmailProviderReq"
+    },
+    "ChDeleteSmsDispatchConfigReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChDeleteSmsDispatchConfigReq"
+    },
+    "ChDeleteSmsProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChDeleteSmsProviderReq"
+    },
+    "ChDeleteVCodeConfigReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChDeleteVCodeConfigReq"
+    },
+    "ChEmailProviderItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provider_type": {
+          "type": "string"
+        },
+        "platform_type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "api_key": {
+          "type": "string"
+        },
+        "sender_email": {
+          "type": "string"
+        },
+        "sender_name": {
+          "type": "string"
+        },
+        "api_url": {
+          "type": "string"
+        },
+        "smtp_host": {
+          "type": "string"
+        },
+        "smtp_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "account": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 同 app_id 排序键非枚举；升序越小越靠前"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1=启用 0=停用（建议）"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChEmailProviderItem"
+    },
+    "ChGetEmailProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChGetEmailProviderReq"
+    },
+    "ChGetEmailProviderResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChEmailProviderItem"
+        }
+      },
+      "title": "ChGetEmailProviderResp"
+    },
+    "ChGetSmsDispatchConfigReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChGetSmsDispatchConfigReq"
+    },
+    "ChGetSmsDispatchConfigResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChSmsDispatchConfigItem"
+        }
+      },
+      "title": "ChGetSmsDispatchConfigResp"
+    },
+    "ChGetSmsProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChGetSmsProviderReq"
+    },
+    "ChGetSmsProviderResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChSmsProviderItem"
+        }
+      },
+      "title": "ChGetSmsProviderResp"
+    },
+    "ChGetVCodeConfigReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        }
+      },
+      "title": "ChGetVCodeConfigReq"
+    },
+    "ChGetVCodeConfigResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChVCodeConfigItem"
+        }
+      },
+      "title": "ChGetVCodeConfigResp"
+    },
+    "ChListEmailProvidersReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 0=不按应用筛选"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListEmailProvidersReq"
+    },
+    "ChListEmailProvidersResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChEmailProviderItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListEmailProvidersResp"
+    },
+    "ChListSmsDispatchConfigsReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 0=不按应用筛选"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "provider_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListSmsDispatchConfigsReq"
+    },
+    "ChListSmsDispatchConfigsResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChSmsDispatchConfigItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListSmsDispatchConfigsResp"
+    },
+    "ChListSmsProviderKindsResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChSmsProviderKindItem"
+          }
+        }
+      },
+      "title": "ChListSmsProviderKindsResp"
+    },
+    "ChListSmsProvidersReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 0=不按应用筛选"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 与 Limit 同时传时优先于 Page：page = offset/limit+1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListSmsProvidersReq"
+    },
+    "ChListSmsProvidersResp": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChSmsProvidersAppGroup"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 服务商记录总数（与 channel 分页一致，非 groups 个数）"
+        }
+      },
+      "title": "ChListSmsProvidersResp"
+    },
+    "ChListVCodeConfigsReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 0=不按应用筛选"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListVCodeConfigsReq"
+    },
+    "ChListVCodeConfigsResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChVCodeConfigItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListVCodeConfigsResp"
+    },
+    "ChListVerificationCodeRecordsReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 0=不按应用筛选"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "send_channel": {
+          "type": "string",
+          "description": " 如 sms / email，与 DB send_channel 一致"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListVerificationCodeRecordsReq"
+    },
+    "ChListVerificationCodeRecordsResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChVerificationCodeRecordItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChListVerificationCodeRecordsResp"
+    },
+    "ChSaveVCodeConfigReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "expire_seconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code_length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "send_interval_secs": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_hourly_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ip_minutely_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "max_verify_attempts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lock_seconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ChSaveVCodeConfigReq"
+    },
+    "ChSaveVCodeConfigResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChVCodeConfigItem"
+        }
+      },
+      "title": "ChSaveVCodeConfigResp"
+    },
+    "ChSmsDispatchConfigItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "provider_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "send_mode": {
+          "type": "string",
+          "description": " CONTENT | TEMPLATE_ID"
+        },
+        "content_template": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": " 多语言文案模板 key=语言"
+        },
+        "provider_template_id": {
+          "type": "string"
+        },
+        "provider_template_params": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "area_codes": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 同 app_id+tag 多条下发尝试顺序；升序越小越优先；非枚举"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1=启用 0=停用；仅 1 参与匹配"
+        },
+        "registration_status": {
+          "type": "string"
+        },
+        "reject_reason": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChSmsDispatchConfigItem"
+    },
+    "ChSmsProviderItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 应用/站点标识（与 channel RPC string 十进制互转）"
+        },
+        "name": {
+          "type": "string",
+          "description": " 供应商名称"
+        },
+        "provider_kind": {
+          "type": "string",
+          "description": " 厂商标识：maixuntong | weiwangtong | xiankeguoji | nusasms | tcastsms"
+        },
+        "provider_config": {
+          "type": "string",
+          "description": " 厂商凭证 JSON（必填，结构见类型注释）"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 同 app_id 排序键非枚举；列表 priority 升序越小越靠前，同 priority 时 id 大者靠前；可填 0/10/100 等"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1=启用（发送可用）0=停用；仅 status==1 参与发短信"
+        },
+        "entity_name": {
+          "type": "string",
+          "description": " 实体名称（报备/展示）"
+        },
+        "sign_name": {
+          "type": "string",
+          "description": " 短信签名"
+        },
+        "number_code": {
+          "type": "string",
+          "description": " 号码/通道编码"
+        },
+        "qualification": {
+          "type": "string",
+          "description": " 资质信息"
+        },
+        "supported_countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 支持的国家/地区代码，如 ISO 3166-1 alpha-2"
+        },
+        "allowed_send_modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " CONTENT | TEMPLATE_ID；空=不限制"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChSmsProviderItem"
+    },
+    "ChSmsProviderKindItem": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": " 存储用标识，如 maixuntong"
+        },
+        "title": {
+          "type": "string",
+          "description": " 前端展示名"
+        },
+        "provider_config_example": {
+          "type": "string",
+          "description": " provider_config 示例 JSON 模板（与校验一致）"
+        },
+        "provider_config_hint": {
+          "type": "string",
+          "description": " 该 kind 下必填字段说明"
+        }
+      },
+      "title": "ChSmsProviderKindItem"
+    },
+    "ChSmsProvidersAppGroup": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_name": {
+          "type": "string",
+          "description": " 平台名称（pkgmanager App.Name，无则空串）"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChSmsProviderItem"
+          }
+        }
+      },
+      "title": "ChSmsProvidersAppGroup"
+    },
+    "ChUpsertEmailProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provider_type": {
+          "type": "string"
+        },
+        "platform_type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "api_key": {
+          "type": "string"
+        },
+        "sender_email": {
+          "type": "string"
+        },
+        "sender_name": {
+          "type": "string"
+        },
+        "api_url": {
+          "type": "string"
+        },
+        "smtp_host": {
+          "type": "string"
+        },
+        "smtp_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "account": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChUpsertEmailProviderReq"
+    },
+    "ChUpsertEmailProviderResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChEmailProviderItem"
+        }
+      },
+      "title": "ChUpsertEmailProviderResp"
+    },
+    "ChUpsertSmsDispatchConfigReq": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChSmsDispatchConfigItem"
+        }
+      },
+      "title": "ChUpsertSmsDispatchConfigReq"
+    },
+    "ChUpsertSmsDispatchConfigResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChSmsDispatchConfigItem"
+        }
+      },
+      "title": "ChUpsertSmsDispatchConfigResp"
+    },
+    "ChUpsertSmsProviderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provider_kind": {
+          "type": "string"
+        },
+        "provider_config": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "entity_name": {
+          "type": "string"
+        },
+        "sign_name": {
+          "type": "string"
+        },
+        "number_code": {
+          "type": "string"
+        },
+        "qualification": {
+          "type": "string"
+        },
+        "supported_countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowed_send_modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChUpsertSmsProviderReq"
+    },
+    "ChUpsertSmsProviderResp": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/ChSmsProviderItem"
+        }
+      },
+      "title": "ChUpsertSmsProviderResp"
+    },
+    "ChVCodeConfigItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string",
+          "description": " 如 sms / email"
+        },
+        "expire_seconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code_length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "send_interval_secs": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_hourly_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ip_minutely_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "max_verify_attempts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lock_seconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChVCodeConfigItem"
+    },
+    "ChVerificationCodeRecordItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "area_code": {
+          "type": "string"
+        },
+        "phone_masked": {
+          "type": "string"
+        },
+        "email_masked": {
+          "type": "string"
+        },
+        "code_masked": {
+          "type": "string"
+        },
+        "send_channel": {
+          "type": "string"
+        },
+        "provider_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "verify_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "attempts": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "remarks": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ChVerificationCodeRecordItem"
     },
     "ChannelPayType": {
       "type": "object",
@@ -42819,6 +45371,111 @@
       },
       "title": "CreateBannerResponse"
     },
+    "CreateBarMessageReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "content_mode": {
+          "type": "string"
+        },
+        "message_template_type_code": {
+          "type": "string"
+        },
+        "template_version_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "summary_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "body_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "body_format": {
+          "type": "string"
+        },
+        "detail_action_type": {
+          "type": "string"
+        },
+        "detail_action_value": {
+          "type": "string"
+        },
+        "extra_payload": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audience_kind": {
+          "type": "string"
+        },
+        "audience_definition_json": {
+          "type": "string"
+        },
+        "audience_summary": {
+          "type": "string"
+        },
+        "scheduled_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_by": {
+          "type": "string"
+        }
+      },
+      "title": "CreateBarMessageReq"
+    },
+    "CreateBarMessageResp": {
+      "type": "object",
+      "properties": {
+        "bar_message_id": {
+          "type": "string"
+        }
+      },
+      "title": "CreateBarMessageResp"
+    },
     "CreateBonusActivityRequest": {
       "type": "object",
       "properties": {
@@ -43557,33 +46214,6 @@
       },
       "title": "CreateHorseResponse"
     },
-    "CreateInAppNotificationReq": {
-      "type": "object",
-      "properties": {
-        "is_enabled": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 开启状态"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 通知类型(未定义)"
-        }
-      },
-      "title": "CreateInAppNotificationReq"
-    },
     "CreateListComponentRequest": {
       "type": "object",
       "properties": {
@@ -43635,6 +46265,143 @@
         }
       },
       "title": "CreateListComponentResponse"
+    },
+    "CreateMessageCategoryReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "color_preset": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_system": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        }
+      },
+      "title": "CreateMessageCategoryReq"
+    },
+    "CreateMessageTemplateReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "template_code": {
+          "type": "string"
+        },
+        "template_name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateContentInfo"
+          }
+        }
+      },
+      "title": "CreateMessageTemplateReq"
+    },
+    "CreateMessageTemplateTypeCategoryReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "CreateMessageTemplateTypeCategoryReq"
+    },
+    "CreateMessageTemplateTypeReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "scene": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "CreateMessageTemplateTypeReq"
     },
     "CreateMonitoringRuleReq": {
       "type": "object",
@@ -43986,117 +46753,6 @@
       },
       "title": "CreatePromoTaskRequest"
     },
-    "CreatePushMessageReq": {
-      "type": "object",
-      "properties": {
-        "message_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 消息类型 1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知"
-        },
-        "target_platform": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "description": " 投放终端 0 全部,1 iOS,2 Android,3 Web , 4 H5"
-        },
-        "target_package": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": " 投放包"
-        },
-        "audience_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签"
-        },
-        "login_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 登录状态 0 全部,1 已登录,2 未登录"
-        },
-        "deposit_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 入金状态 0 全部,1 未入金,2 已入金"
-        },
-        "custom_audience": {
-          "$ref": "#/definitions/CustomAudienceConfig",
-          "description": " 自定义人群配置"
-        },
-        "content_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 内容类型 1 文本,2 链接"
-        },
-        "jump_url": {
-          "type": "string",
-          "description": " 跳转链接"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "scheduled_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 计划推送时间戳"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 创建人ID"
-        },
-        "push_time_strategy": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送时间策略 1 立即推送,2 定时推送"
-        },
-        "follow_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 跟单状态 0 全部,1 未跟单,2 已跟单,3 已带单,4 未带单"
-        }
-      },
-      "title": "CreatePushMessageReq"
-    },
-    "CreatePushProviderReq": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": " 名称"
-        },
-        "system": {
-          "type": "string",
-          "description": " 系统平台"
-        },
-        "pkg_name": {
-          "type": "string",
-          "description": " 包名"
-        },
-        "config": {
-          "type": "string",
-          "description": " FCM 配置（JSON字符串）"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "operator_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 操作人ID"
-        }
-      },
-      "title": "CreatePushProviderReq"
-    },
     "CreateRegisterPolicyRequest": {
       "type": "object",
       "properties": {
@@ -44353,6 +47009,10 @@
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
+        },
+        "user_group_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "create_time": {
           "type": "integer",
@@ -45249,49 +47909,6 @@
       },
       "title": "CurrencyInfo"
     },
-    "CustomAudienceConfig": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 自定义人群类型  0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签"
-        },
-        "customer_groups": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 客户组别ID列表"
-        },
-        "user_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 用户ID列表"
-        },
-        "user_tag_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 用户标签ID列表"
-        },
-        "parent_id": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "description": " 上级用户ID列表"
-        }
-      },
-      "title": "CustomAudienceConfig"
-    },
     "CustomerData": {
       "type": "object",
       "properties": {
@@ -46095,17 +48712,6 @@
       "type": "object",
       "title": "DeleteHorseResponse"
     },
-    "DeleteInAppNotificationReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 通知ID"
-        }
-      },
-      "title": "DeleteInAppNotificationReq"
-    },
     "DeleteLanguageRequest": {
       "type": "object",
       "properties": {
@@ -46145,6 +48751,58 @@
     "DeleteListComponentResponse": {
       "type": "object",
       "title": "DeleteListComponentResponse"
+    },
+    "DeleteMessageCategoryReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteMessageCategoryReq"
+    },
+    "DeleteMessageTemplateReq": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteMessageTemplateReq"
+    },
+    "DeleteMessageTemplateTypeCategoryReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteMessageTemplateTypeCategoryReq"
+    },
+    "DeleteMessageTemplateTypeReq": {
+      "type": "object",
+      "properties": {
+        "type_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteMessageTemplateTypeReq"
     },
     "DeleteMonitoringRuleReq": {
       "type": "object",
@@ -46195,28 +48853,6 @@
         }
       },
       "title": "DeletePkgRequest"
-    },
-    "DeletePushMessageReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
-        }
-      },
-      "title": "DeletePushMessageReq"
-    },
-    "DeletePushProviderReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 提供商ID"
-        }
-      },
-      "title": "DeletePushProviderReq"
     },
     "DeleteRegisterPolicyRequest": {
       "type": "object",
@@ -49314,6 +51950,27 @@
       },
       "title": "GetAccountEventLogListResp"
     },
+    "GetActiveMessageCategoryListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetActiveMessageCategoryListReq"
+    },
+    "GetActiveMessageCategoryListResp": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageCategoryInfo"
+          }
+        }
+      },
+      "title": "GetActiveMessageCategoryListResp"
+    },
     "GetActiveUserOpenReviewRulesResp": {
       "type": "object",
       "properties": {
@@ -49556,6 +52213,15 @@
         }
       },
       "title": "GetAllCountryNameResp"
+    },
+    "GetAllLanguagesRequest": {
+      "type": "object",
+      "properties": {
+        "ui_locale": {
+          "type": "string"
+        }
+      },
+      "title": "GetAllLanguagesRequest"
     },
     "GetAllLanguagesResponse": {
       "type": "object",
@@ -49935,6 +52601,27 @@
         }
       },
       "title": "GetBannerResponse"
+    },
+    "GetBarMessageDetailReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "bar_message_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetBarMessageDetailReq"
+    },
+    "GetBarMessageDetailResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BarMessageInfo"
+        }
+      },
+      "title": "GetBarMessageDetailResp"
     },
     "GetBatchSignUpTemplateResponse": {
       "type": "object",
@@ -51864,6 +54551,40 @@
           "format": "int64",
           "description": " 原始订单号"
         },
+        "follow_type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 跟单类型 0: 私域 1: 公域"
+        },
+        "position_no": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 持仓单号"
+        },
+        "follower_uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 跟单员UID"
+        },
+        "follower_account": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 跟单员账号"
+        },
+        "trading_instrument": {
+          "type": "string",
+          "description": " 品种"
+        },
+        "open_time_start": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开仓开始时间戳（秒），可选"
+        },
+        "open_time_end": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 开仓结束时间戳（秒），可选"
+        },
         "offset": {
           "type": "integer",
           "format": "int64"
@@ -51871,11 +54592,6 @@
         "limit": {
           "type": "integer",
           "format": "int64"
-        },
-        "follow_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 跟单类型 0: 私域 1: 公域"
         }
       },
       "title": "GetFollowerTradeOrderRecordsRequest"
@@ -52668,118 +55384,72 @@
       },
       "title": "GetHorseResponse"
     },
-    "GetI18nFieldListRequest": {
+    "GetI18nPanoramaStatsResponse": {
       "type": "object",
       "properties": {
-        "module": {
+        "app_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " application 层：去重后的应用数（appconfiguration 按 scope_id；notification 按 entity_id 中的 app 包名）"
+        },
+        "total_slots": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总翻译条目（语言槽位数）"
+        },
+        "published_slots": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 已发布条目（已上线文案）"
+        },
+        "published_percent": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 相对 total_slots，0–100"
+        },
+        "translated_slots": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 已翻译（含仅草稿）"
+        },
+        "translated_percent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pending_slots": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 待翻译"
+        },
+        "pending_percent": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetI18nPanoramaStatsResponse"
+    },
+    "GetI18nSidebarStructureRequest": {
+      "type": "object",
+      "properties": {
+        "app_id": {
           "type": "string",
-          "description": " 模块：appconfiguration / taskcenter / copytrading 等"
-        },
-        "app_configuration_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 应用配置ID（appconfiguration 模块必填）"
+          "description": " 应用 ID，用于过滤应用平台相关模块"
         }
       },
-      "title": "GetI18nFieldListRequest"
+      "title": "GetI18nSidebarStructureRequest"
     },
-    "GetI18nFieldListResponse": {
+    "GetI18nSidebarStructureResponse": {
       "type": "object",
       "properties": {
-        "items": {
+        "nodes": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/I18nFieldItem"
+            "$ref": "#/definitions/I18nSidebarNode"
           },
-          "description": " 国际化字段列表（扁平，兼容），app.xx 正式在前，app_draft.xx 草稿在后"
-        },
-        "pages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/I18nPageGroup"
-          },
-          "description": " 按页面+Div 分层的国际化字段，第一层为页面（名称=tabbar），第二层为 Div（名称=div title）"
+          "description": " 顶层节点列表"
         }
       },
-      "title": "GetI18nFieldListResponse"
-    },
-    "GetInAppNotificationDetailReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 通知ID"
-        }
-      },
-      "title": "GetInAppNotificationDetailReq"
-    },
-    "GetInAppNotificationDetailResp": {
-      "type": "object",
-      "properties": {
-        "notification": {
-          "$ref": "#/definitions/InAppNotificationInfo",
-          "description": " 通知详情"
-        }
-      },
-      "title": "GetInAppNotificationDetailResp"
-    },
-    "GetInAppNotificationsReq": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "$ref": "#/definitions/PageRequest",
-          "description": " 分页参数"
-        },
-        "title_keyword": {
-          "type": "string",
-          "description": " 标题关键词搜索"
-        },
-        "is_enabled": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 状态筛选"
-        },
-        "created_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间开始"
-        },
-        "created_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间结束"
-        },
-        "updated_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 操作时间开始"
-        },
-        "updated_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 操作时间结束"
-        }
-      },
-      "title": "GetInAppNotificationsReq"
-    },
-    "GetInAppNotificationsResp": {
-      "type": "object",
-      "properties": {
-        "notifications": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/InAppNotificationInfo"
-          },
-          "description": " 通知列表"
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总数"
-        }
-      },
-      "title": "GetInAppNotificationsResp"
+      "title": "GetI18nSidebarStructureResponse"
     },
     "GetIndirectRebateRecordByHistroyIdRequest": {
       "type": "object",
@@ -53016,6 +55686,9 @@
         "limit": {
           "type": "integer",
           "format": "int64"
+        },
+        "ui_locale": {
+          "type": "string"
         }
       },
       "title": "GetLanguageListRequest"
@@ -53223,6 +55896,255 @@
         }
       },
       "title": "GetListComponentResponse"
+    },
+    "GetMessageCategoryDetailReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetMessageCategoryDetailReq"
+    },
+    "GetMessageCategoryDetailResp": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "$ref": "#/definitions/MessageCategoryInfo"
+        }
+      },
+      "title": "GetMessageCategoryDetailResp"
+    },
+    "GetMessageCategoryListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "code_keyword": {
+          "type": "string"
+        },
+        "name_keyword": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/definitions/NotificationPageRequest"
+        }
+      },
+      "title": "GetMessageCategoryListReq"
+    },
+    "GetMessageCategoryListResp": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageCategoryInfo"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetMessageCategoryListResp"
+    },
+    "GetMessageTemplateByCodeReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "template_code": {
+          "type": "string"
+        }
+      },
+      "title": "GetMessageTemplateByCodeReq"
+    },
+    "GetMessageTemplateByCodeResp": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/MessageTemplateInfo"
+        }
+      },
+      "title": "GetMessageTemplateByCodeResp"
+    },
+    "GetMessageTemplateDetailReq": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetMessageTemplateDetailReq"
+    },
+    "GetMessageTemplateDetailResp": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "$ref": "#/definitions/MessageTemplateInfo"
+        }
+      },
+      "title": "GetMessageTemplateDetailResp"
+    },
+    "GetMessageTemplateListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "template_code_keyword": {
+          "type": "string"
+        },
+        "template_name_keyword": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/definitions/NotificationPageRequest"
+        }
+      },
+      "title": "GetMessageTemplateListReq"
+    },
+    "GetMessageTemplateListResp": {
+      "type": "object",
+      "properties": {
+        "templates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateInfo"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetMessageTemplateListResp"
+    },
+    "GetMessageTemplateTypeCategoryDetailReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetMessageTemplateTypeCategoryDetailReq"
+    },
+    "GetMessageTemplateTypeCategoryDetailResp": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "$ref": "#/definitions/MessageTemplateTypeCategoryInfo"
+        }
+      },
+      "title": "GetMessageTemplateTypeCategoryDetailResp"
+    },
+    "GetMessageTemplateTypeCategoryListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "code_keyword": {
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/definitions/NotificationPageRequest"
+        }
+      },
+      "title": "GetMessageTemplateTypeCategoryListReq"
+    },
+    "GetMessageTemplateTypeCategoryListResp": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateTypeCategoryInfo"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetMessageTemplateTypeCategoryListResp"
+    },
+    "GetMessageTemplateTypeDetailReq": {
+      "type": "object",
+      "properties": {
+        "type_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetMessageTemplateTypeDetailReq"
+    },
+    "GetMessageTemplateTypeDetailResp": {
+      "type": "object",
+      "properties": {
+        "tpl_type": {
+          "$ref": "#/definitions/MessageTemplateTypeRowInfo"
+        }
+      },
+      "title": "GetMessageTemplateTypeDetailResp"
+    },
+    "GetMessageTemplateTypeListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type_code_keyword": {
+          "type": "string"
+        },
+        "page": {
+          "$ref": "#/definitions/NotificationPageRequest"
+        }
+      },
+      "title": "GetMessageTemplateTypeListReq"
+    },
+    "GetMessageTemplateTypeListResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateTypeRowInfo"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetMessageTemplateTypeListResp"
     },
     "GetMonitoringRuleReq": {
       "type": "object",
@@ -53444,17 +56366,22 @@
         "create_time_start": {
           "type": "integer",
           "format": "int64",
-          "description": " 平仓时间筛选开始（秒）"
+          "description": " 跟单平仓时间筛选开始（秒）"
         },
         "create_time_end": {
           "type": "integer",
           "format": "int64",
-          "description": " 平仓时间筛选结束（秒）"
+          "description": " 跟单平仓时间筛选结束（秒）"
         },
         "follow_type": {
           "type": "integer",
           "format": "int32",
           "description": " 0 私域 1 公域，不传查全部"
+        },
+        "only_with_share_profit": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 为 true 时仅保留跟单本身盈利（跟单 profit_loss\u003e0）；跟单行仍须 share_profit\u003e0"
         },
         "offset": {
           "type": "integer",
@@ -53474,11 +56401,13 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/PartnerCopyProfitRecordItem"
-          }
+          },
+          "description": " 当前页跟单分润列表，按跟单平仓时间倒序"
         },
         "total": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": " 符合条件的跟单条数（offset/limit 按跟单分页）"
         }
       },
       "title": "GetPartnerCopyProfitRecordListResponse"
@@ -54154,32 +57083,6 @@
       },
       "title": "GetPkgListResponse"
     },
-    "GetPkgOptionsBySystemReq": {
-      "type": "object",
-      "properties": {
-        "is_ios": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "is_android": {
-          "type": "boolean",
-          "format": "boolean"
-        }
-      },
-      "title": "GetPkgOptionsBySystemReq"
-    },
-    "GetPkgOptionsBySystemResp": {
-      "type": "object",
-      "properties": {
-        "pkg_options": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PkgOptions"
-          }
-        }
-      },
-      "title": "GetPkgOptionsBySystemResp"
-    },
     "GetPromoTaskListRequest": {
       "type": "object",
       "properties": {
@@ -54235,221 +57138,6 @@
         }
       },
       "title": "GetPromoTaskListResponse"
-    },
-    "GetPushMessageDetailReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
-        }
-      },
-      "title": "GetPushMessageDetailReq"
-    },
-    "GetPushMessageDetailResp": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "$ref": "#/definitions/PushMessageInfo",
-          "description": " 消息详情"
-        }
-      },
-      "title": "GetPushMessageDetailResp"
-    },
-    "GetPushMessagesReq": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "$ref": "#/definitions/PageRequest",
-          "description": " 分页参数"
-        },
-        "title_keyword": {
-          "type": "string",
-          "description": " 标题关键词搜索"
-        },
-        "message_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 消息类型筛选  1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知"
-        },
-        "push_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送状态筛选   1 关闭推送,2 待推送,3 正在推送,4 已推送"
-        },
-        "created_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间开始"
-        },
-        "created_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间结束"
-        },
-        "updated_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间开始"
-        },
-        "updated_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间结束"
-        },
-        "push_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 推送时间开始"
-        },
-        "push_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 推送时间结束"
-        },
-        "audience_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签"
-        }
-      },
-      "title": "GetPushMessagesReq"
-    },
-    "GetPushMessagesResp": {
-      "type": "object",
-      "properties": {
-        "messages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PushMessageInfo"
-          },
-          "description": " 消息列表"
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总数"
-        }
-      },
-      "title": "GetPushMessagesResp"
-    },
-    "GetPushProviderDetailReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 提供商ID"
-        }
-      },
-      "title": "GetPushProviderDetailReq"
-    },
-    "GetPushProviderDetailResp": {
-      "type": "object",
-      "properties": {
-        "provider": {
-          "$ref": "#/definitions/PushProviderInfo",
-          "description": " 提供商详情"
-        }
-      },
-      "title": "GetPushProviderDetailResp"
-    },
-    "GetPushProvidersReq": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "$ref": "#/definitions/PageRequest",
-          "description": " 分页参数"
-        },
-        "name_keyword": {
-          "type": "string",
-          "description": " 名称关键词搜索"
-        },
-        "system": {
-          "type": "string",
-          "description": " 系统平台筛选"
-        },
-        "pkg_name": {
-          "type": "string",
-          "description": " 包名筛选"
-        }
-      },
-      "title": "GetPushProvidersReq"
-    },
-    "GetPushProvidersResp": {
-      "type": "object",
-      "properties": {
-        "providers": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PushProviderInfo"
-          },
-          "description": " 提供商列表"
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总数量"
-        }
-      },
-      "title": "GetPushProvidersResp"
-    },
-    "GetPushRecordsReq": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "$ref": "#/definitions/PageRequest",
-          "description": " 分页参数"
-        },
-        "message_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 消息ID筛选"
-        },
-        "batch_id": {
-          "type": "string",
-          "description": " 批次ID筛选"
-        },
-        "user_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 用户ID筛选"
-        },
-        "platform": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 平台筛选"
-        },
-        "status": {
-          "type": "string",
-          "description": " 状态筛选"
-        },
-        "sent_start": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 发送时间开始"
-        },
-        "sent_end": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 发送时间结束"
-        }
-      },
-      "title": "GetPushRecordsReq"
-    },
-    "GetPushRecordsResp": {
-      "type": "object",
-      "properties": {
-        "records": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PushRecordInfo"
-          },
-          "description": " 推送记录列表"
-        }
-      },
-      "title": "GetPushRecordsResp"
     },
     "GetRebateStatisticsRequest": {
       "type": "object",
@@ -54684,6 +57372,70 @@
         }
       },
       "title": "GetRoutineTradeTriggerStatsResp"
+    },
+    "GetSendRecordDetailReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "send_record_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetSendRecordDetailReq"
+    },
+    "GetSendRecordDetailResp": {
+      "type": "object",
+      "properties": {
+        "record": {
+          "$ref": "#/definitions/SendRecordInfo"
+        }
+      },
+      "title": "GetSendRecordDetailResp"
+    },
+    "GetSendRecordListReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page": {
+          "$ref": "#/definitions/NotificationPageRequest"
+        }
+      },
+      "title": "GetSendRecordListReq"
+    },
+    "GetSendRecordListResp": {
+      "type": "object",
+      "properties": {
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SendRecordInfo"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetSendRecordListResp"
     },
     "GetSettlementBatchListRequest": {
       "type": "object",
@@ -56205,6 +58957,11 @@
           "format": "int64",
           "description": " 用户组ID"
         },
+        "uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID（crm 用户），0 表示不按用户筛选"
+        },
         "account_id": {
           "type": "integer",
           "format": "int64",
@@ -56787,6 +59544,68 @@
       },
       "title": "GetUnconfiguredPackagesResponse"
     },
+    "GetUnifiedI18nFieldsRequest": {
+      "type": "object",
+      "properties": {
+        "modules": {
+          "type": "string"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "app_config_page_codes": {
+          "type": "string"
+        },
+        "app_config_div_slugs": {
+          "type": "string"
+        },
+        "contentScopeKinds": {
+          "type": "string",
+          "description": " content-rpc scope_kinds"
+        },
+        "taskScopeTypes": {
+          "type": "string",
+          "description": " taskcenter-rpc task_types"
+        },
+        "content_i18n_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content_i18n_offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notification_bar_message_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notification_bar_message_offset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUnifiedI18nFieldsRequest"
+    },
+    "GetUnifiedI18nFieldsResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UnifiedI18nFieldItem"
+          }
+        },
+        "content_i18n_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notification_bar_message_total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUnifiedI18nFieldsResponse"
+    },
     "GetUpdateRecordsRequest": {
       "type": "object",
       "properties": {
@@ -56947,24 +59766,6 @@
         }
       },
       "title": "GetUserBonusActivityListResponse"
-    },
-    "GetUserGroupAndTagsResp": {
-      "type": "object",
-      "properties": {
-        "user_tags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserTagOption"
-          }
-        },
-        "user_groups": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserGroupOption"
-          }
-        }
-      },
-      "title": "GetUserGroupAndTagsResp"
     },
     "GetUserLabelStaticReq": {
       "type": "object",
@@ -58668,6 +61469,10 @@
           "type": "string",
           "description": " 点差"
         },
+        "spread_diff_balance": {
+          "type": "string",
+          "description": " 点差平衡（交易组品种关系）"
+        },
         "description": {
           "type": "string",
           "description": " 描述"
@@ -59068,10 +61873,30 @@
         },
         "value": {
           "type": "string",
-          "description": " 对应语言的文案"
+          "description": " 已发布文案"
+        },
+        "draft_value": {
+          "type": "string",
+          "description": " 草稿，可选"
         }
       },
       "title": "I18N"
+    },
+    "I18NItem": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "draft_value": {
+          "type": "string",
+          "description": " 未发布草稿，空表示无"
+        }
+      },
+      "title": "I18NItem"
     },
     "I18n": {
       "type": "object",
@@ -59084,23 +61909,6 @@
         }
       },
       "title": "I18n"
-    },
-    "I18nDivGroup": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": " Div 名称（取 div 的 title）"
-        },
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/I18nFieldItem"
-          },
-          "description": " 该 Div 下的国际化字段列表"
-        }
-      },
-      "title": "I18nDivGroup"
     },
     "I18nExamContent": {
       "type": "object",
@@ -59115,40 +61923,6 @@
         }
       },
       "title": "I18nExamContent"
-    },
-    "I18nFieldItem": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string",
-          "description": " 自动生成的 Key"
-        },
-        "field_name": {
-          "type": "string",
-          "description": " 字段名，如 title"
-        },
-        "entity_type": {
-          "type": "string",
-          "description": " 实体类型，如 banner"
-        },
-        "entity_id": {
-          "type": "string",
-          "description": " 实体 ID 或路径"
-        },
-        "values": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/I18nFieldValueItem"
-          },
-          "description": " 各语言的值"
-        },
-        "has_unpublished_draft": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 是否有待发布草稿（任意语言 draft_value != value）"
-        }
-      },
-      "title": "I18nFieldItem"
     },
     "I18nFieldValueItem": {
       "type": "object",
@@ -59182,22 +61956,63 @@
       },
       "title": "I18nLevelContent"
     },
-    "I18nPageGroup": {
+    "I18nSidebarNode": {
       "type": "object",
       "properties": {
-        "name": {
+        "key": {
           "type": "string",
-          "description": " 页面名称（取对应 tabbar 的 title）"
+          "description": " 节点唯一标识"
         },
-        "divs": {
+        "label": {
+          "type": "string",
+          "description": " 显示名称"
+        },
+        "icon": {
+          "type": "string",
+          "description": " 图标标识"
+        },
+        "item_count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 该节点下的条目数"
+        },
+        "percent": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 翻译完成百分比"
+        },
+        "children": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/I18nDivGroup"
+            "$ref": "#/definitions/I18nSidebarNode"
           },
-          "description": " 该页面下的 Div 分组列表"
+          "description": " 子节点"
+        },
+        "request_param": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/interface{}"
+          },
+          "description": " 查询该节点数据的请求参数"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UnifiedI18nFieldItem"
+          },
+          "description": " 该节点的实际数据（叶子节点有值，自然增长节点为空）"
+        },
+        "requires_paging": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否需要分页（true=自然增长数据，需通过 /unified/fields 分页查询）"
+        },
+        "paging_limit_param": {
+          "type": "string",
+          "description": " 分页参数名（如 content_i18n_limit）"
         }
       },
-      "title": "I18nPageGroup"
+      "title": "I18nSidebarNode"
     },
     "IPRiskRuleContent": {
       "type": "object",
@@ -59475,47 +62290,6 @@
         }
       },
       "title": "ImportSymbolConfigToTransactionGroupRequest"
-    },
-    "InAppNotificationInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 配置ID"
-        },
-        "is_enabled": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 开启状态"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间戳"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 操作时间戳"
-        },
-        "type": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "InAppNotificationInfo"
     },
     "InOutConfigResponse": {
       "type": "object",
@@ -60886,12 +63660,17 @@
         },
         "name": {
           "type": "string",
-          "description": " 显示名称"
+          "description": " 当前界面语言下的展示名（见 ui_locale / X-Language / Accept-Language）"
         },
         "status": {
           "type": "integer",
           "format": "int32",
           "description": " 0=禁用 1=启用"
+        },
+        "is_benchmark": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否基准语言"
         },
         "operator": {
           "type": "string",
@@ -61446,6 +64225,42 @@
         }
       },
       "title": "ListAccountWhiteResp"
+    },
+    "ListBarMessagesReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ListBarMessagesReq"
+    },
+    "ListBarMessagesResp": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BarMessageInfo"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ListBarMessagesResp"
     },
     "ListComponentInfo": {
       "type": "object",
@@ -62883,6 +65698,240 @@
       },
       "title": "MerchantTransactionTime"
     },
+    "MessageCategoryInfo": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "color_preset": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_system": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MessageCategoryInfo"
+    },
+    "MessageTemplateContentInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "content_format": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MessageTemplateContentInfo"
+    },
+    "MessageTemplateInfo": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "template_code": {
+          "type": "string"
+        },
+        "template_name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateContentInfo"
+          }
+        }
+      },
+      "title": "MessageTemplateInfo"
+    },
+    "MessageTemplateTypeCategoryInfo": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MessageTemplateTypeCategoryInfo"
+    },
+    "MessageTemplateTypeRowInfo": {
+      "type": "object",
+      "properties": {
+        "type_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "scene": {
+          "type": "string"
+        },
+        "is_builtin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "MessageTemplateTypeRowInfo"
+    },
     "Mock": {
       "type": "object",
       "properties": {
@@ -63372,33 +66421,6 @@
       },
       "title": "MonthTraderAccountListResponse"
     },
-    "MultiLanguageContent": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 多语言内容ID"
-        },
-        "language": {
-          "type": "string",
-          "description": " 语言代码"
-        },
-        "title": {
-          "type": "string",
-          "description": " 标题"
-        },
-        "subtitle": {
-          "type": "string",
-          "description": " 副标题"
-        },
-        "content": {
-          "type": "string",
-          "description": " 内容"
-        }
-      },
-      "title": "MultiLanguageContent"
-    },
     "MutexConfig": {
       "type": "object",
       "properties": {
@@ -63791,6 +66813,20 @@
         }
       },
       "title": "NormalPercentageBase"
+    },
+    "NotificationPageRequest": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "NotificationPageRequest"
     },
     "OpenDateRangeForm": {
       "type": "object",
@@ -64410,22 +67446,6 @@
       },
       "title": "Page"
     },
-    "PageRequest": {
-      "type": "object",
-      "properties": {
-        "limit": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 每页数量"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 偏移量"
-        }
-      },
-      "title": "PageRequest"
-    },
     "PartOrderInfo": {
       "type": "object",
       "properties": {
@@ -64599,6 +67619,14 @@
           "type": "string",
           "description": " 跟单赔付金额"
         },
+        "month_commission_amount": {
+          "type": "string",
+          "description": " 本月返佣（已审核，UTC 自然月：分佣 rebate_amount + 回赠 return_amount）"
+        },
+        "rebate_return_amount": {
+          "type": "string",
+          "description": " 累计返佣回赠（交易回赠+报名回赠，与合伙人详情一致）"
+        },
         "register_source": {
           "type": "integer",
           "format": "int32",
@@ -64652,7 +67680,7 @@
         },
         "commission_amount": {
           "type": "string",
-          "description": " 报名费返佣/交易分佣：佣金金额"
+          "description": " 报名费/交易分佣：佣金金额；返佣回赠：返佣金额（与 return_amount 相加等于 original_commission）"
         },
         "symbol": {
           "type": "string",
@@ -64677,7 +67705,7 @@
         },
         "original_commission": {
           "type": "string",
-          "description": " 返佣回赠：原佣金"
+          "description": " 返佣回赠：原始返佣金额（= commission_amount + return_amount）"
         },
         "return_ratio": {
           "type": "string",
@@ -64685,7 +67713,7 @@
         },
         "return_amount": {
           "type": "string",
-          "description": " 返佣回赠：回赠金额"
+          "description": " 返佣回赠：回赠返佣金额"
         }
       },
       "title": "PartnerCommissionRecordItem"
@@ -64693,9 +67721,26 @@
     "PartnerCopyProfitRecordItem": {
       "type": "object",
       "properties": {
-        "order_no": {
+        "copy_order_no": {
           "type": "string",
-          "description": " 带单订单号，如 CM872423"
+          "description": " 跟单订单号，如 CM872423"
+        },
+        "origin_order_no": {
+          "type": "string",
+          "description": " 对应带单订单号"
+        },
+        "trader_uid": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 交易员（带单员）用户 UID"
+        },
+        "trader_name": {
+          "type": "string",
+          "description": " 交易员姓名（即合伙人）"
+        },
+        "order_profit": {
+          "type": "string",
+          "description": " 带单订单盈亏（收益）"
         },
         "follow_type": {
           "type": "integer",
@@ -64715,10 +67760,6 @@
           "type": "string",
           "description": " 跟单用户姓名（脱敏）"
         },
-        "trader_name": {
-          "type": "string",
-          "description": " 交易员姓名（即合伙人）"
-        },
         "profit": {
           "type": "string",
           "description": " 跟单盈亏（收益）"
@@ -64730,7 +67771,7 @@
         "close_time": {
           "type": "integer",
           "format": "int64",
-          "description": " 平仓时间（秒）"
+          "description": " 跟单平仓时间（秒）"
         }
       },
       "title": "PartnerCopyProfitRecordItem"
@@ -65964,24 +69005,6 @@
       },
       "title": "PkgListItem"
     },
-    "PkgOptions": {
-      "type": "object",
-      "properties": {
-        "pkg_id": {
-          "type": "string",
-          "description": " 包ID"
-        },
-        "pkg_name": {
-          "type": "string",
-          "description": " 包名"
-        },
-        "system": {
-          "type": "string",
-          "description": " 系统"
-        }
-      },
-      "title": "PkgOptions"
-    },
     "PkgUpdateInfo": {
       "type": "object",
       "properties": {
@@ -67098,234 +70121,18 @@
       },
       "title": "PublishAppConfigurationResponse"
     },
-    "PushMessageInfo": {
+    "PublishMessageTemplateReq": {
       "type": "object",
       "properties": {
-        "id": {
+        "template_id": {
           "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
+          "format": "int64"
         },
-        "message_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 消息类型 c1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知"
-        },
-        "systems": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "description": " 投放终端列表 0 全部,1 IOS,2 Android,3 Web,4 H5"
-        },
-        "pkg_names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": " 投放包"
-        },
-        "audience_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签"
-        },
-        "login_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 登录状态  0 全部,1 已登录,2 未登录"
-        },
-        "deposit_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 入金状态 0 全部,1 未入金,2 已入金"
-        },
-        "custom_audience": {
-          "$ref": "#/definitions/CustomAudienceConfig",
-          "description": " 自定义人群配置"
-        },
-        "content_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 内容类型 1 文本,2 链接"
-        },
-        "jump_url": {
-          "type": "string",
-          "description": " 跳转链接"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "scheduled_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 计划推送时间戳"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间戳"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间戳"
-        },
-        "push_time_strategy": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送时间策略 1 立即推送,2 定时推送"
-        },
-        "follow_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 0 全部,1 未跟单,2 已跟单,3 已带单,4 未带单"
-        },
-        "push_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送状态 1 关闭推送,2 待推送,3 正在推送,4 已推送"
+        "app_id": {
+          "type": "string"
         }
       },
-      "title": "PushMessageInfo"
-    },
-    "PushProviderInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 主键ID"
-        },
-        "name": {
-          "type": "string",
-          "description": " 名称"
-        },
-        "system": {
-          "type": "string",
-          "description": " 系统平台（iOS/Android/H5等）"
-        },
-        "pkg_name": {
-          "type": "string",
-          "description": " 包名"
-        },
-        "config": {
-          "type": "string",
-          "description": " FCM 配置（JSON字符串）"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间戳"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间戳"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        }
-      },
-      "title": "PushProviderInfo"
-    },
-    "PushRecordInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 记录ID"
-        },
-        "message_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
-        },
-        "batch_id": {
-          "type": "string",
-          "description": " 批次ID"
-        },
-        "user_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 用户ID"
-        },
-        "device_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 设备ID"
-        },
-        "platform": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送平台"
-        },
-        "push_token": {
-          "type": "string",
-          "description": " 推送Token"
-        },
-        "recipient": {
-          "type": "string",
-          "description": " 接收者"
-        },
-        "title": {
-          "type": "string",
-          "description": " 推送标题"
-        },
-        "content": {
-          "type": "string",
-          "description": " 推送内容"
-        },
-        "status": {
-          "type": "string",
-          "description": " 推送状态"
-        },
-        "error_message": {
-          "type": "string",
-          "description": " 错误信息"
-        },
-        "external_id": {
-          "type": "string",
-          "description": " 第三方服务ID"
-        },
-        "sent_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 发送时间戳"
-        },
-        "delivered_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 送达时间戳"
-        },
-        "clicked_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 点击时间戳"
-        },
-        "opened_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 打开时间戳"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间戳"
-        }
-      },
-      "title": "PushRecordInfo"
+      "title": "PublishMessageTemplateReq"
     },
     "PushTimeRangeForm": {
       "type": "object",
@@ -69326,21 +72133,93 @@
       },
       "title": "SearchUserResponse"
     },
-    "SendPushMessageReq": {
+    "SendRecordInfo": {
       "type": "object",
       "properties": {
-        "id": {
+        "send_record_id": {
           "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
+          "format": "int64"
         },
-        "operator_id": {
+        "app_id": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "send_job_id": {
+          "type": "string"
+        },
+        "audience_kind": {
+          "type": "string"
+        },
+        "audience_summary": {
+          "type": "string"
+        },
+        "biz_trace_id": {
+          "type": "string"
+        },
+        "template_type_code": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "message_id": {
           "type": "integer",
-          "format": "int64",
-          "description": " 操作人ID"
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "recipient_kind": {
+          "type": "string"
+        },
+        "recipient_display": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "content_format": {
+          "type": "string"
+        },
+        "rendered_title": {
+          "type": "string"
+        },
+        "rendered_body": {
+          "type": "string"
+        },
+        "error_code": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "submitted_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished_at": {
+          "type": "integer",
+          "format": "int64"
         }
       },
-      "title": "SendPushMessageReq"
+      "title": "SendRecordInfo"
     },
     "SessionTime": {
       "type": "object",
@@ -71134,6 +74013,21 @@
       },
       "title": "StatusCountItem"
     },
+    "SubmitBarMessageSendReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "bar_message_id": {
+          "type": "string"
+        },
+        "operator_id": {
+          "type": "string"
+        }
+      },
+      "title": "SubmitBarMessageSendReq"
+    },
     "SubmitCreditAmountRequest": {
       "type": "object",
       "properties": {
@@ -72169,23 +75063,43 @@
         },
         "task_name": {
           "type": "string",
-          "description": " 任务显示名称"
+          "description": " 任务显示名称（已发布）"
         },
         "task_desc": {
           "type": "string",
-          "description": " 任务详细描述"
+          "description": " 任务详细描述（已发布）"
         },
         "completed_button_name": {
           "type": "string",
-          "description": " 已完成按钮名称"
+          "description": " 已完成按钮名称（已发布）"
         },
         "uncompleted_button_name": {
           "type": "string",
-          "description": " 未完成按钮名称"
+          "description": " 未完成按钮名称（已发布）"
         },
         "task_link_jump_prompt": {
           "type": "string",
-          "description": " 任务跳转提示"
+          "description": " 任务跳转提示（已发布）"
+        },
+        "task_name_draft": {
+          "type": "string",
+          "description": " 任务名称草稿"
+        },
+        "task_desc_draft": {
+          "type": "string",
+          "description": " 任务描述草稿"
+        },
+        "completed_button_name_draft": {
+          "type": "string",
+          "description": " 已完成按钮草稿"
+        },
+        "uncompleted_button_name_draft": {
+          "type": "string",
+          "description": " 未完成按钮草稿"
+        },
+        "task_link_jump_prompt_draft": {
+          "type": "string",
+          "description": " 跳转提示草稿"
         }
       },
       "title": "TaskI18N"
@@ -72199,7 +75113,11 @@
         },
         "value": {
           "type": "string",
-          "description": " 文案"
+          "description": " 已发布文案"
+        },
+        "draft_value": {
+          "type": "string",
+          "description": " 草稿"
         }
       },
       "title": "TaskI18nItem"
@@ -73170,7 +76088,7 @@
         },
         "close_method": {
           "type": "string",
-          "description": " 平仓方式: manual-手动平仓 take_profit-止盈平仓 stop_loss-止损平仓"
+          "description": " 平仓方式: manual-手动/市价平仓 take_profit-止盈 stop_loss-止损 stop_out-强平（与 transaction.OrderCloseType / rpc 模型 OrderCloseType 一致）"
         },
         "margin_rate": {
           "type": "string",
@@ -73762,6 +76680,10 @@
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
+        },
+        "user_group_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "create_time": {
           "type": "integer",
@@ -75134,6 +78056,11 @@
           "type": "string",
           "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k"
         },
+        "label_ids": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户标签ID列表（OR：命中任一标签的用户）"
+        },
         "offset": {
           "type": "integer",
           "format": "int64"
@@ -75707,7 +78634,7 @@
         },
         "close_method": {
           "type": "string",
-          "description": " 平仓方式: manual-手动平仓 take_profit-止盈平仓 stop_loss-止损平仓"
+          "description": " 平仓方式: manual-手动/市价平仓 take_profit-止盈 stop_loss-止损 stop_out-强平（与 transaction.OrderCloseType / rpc 模型 OrderCloseType 一致）"
         },
         "margin_rate": {
           "type": "string",
@@ -76397,6 +79324,80 @@
       "type": "object",
       "title": "TriggerCipherRotateRequest"
     },
+    "UnifiedI18nFieldItem": {
+      "type": "object",
+      "properties": {
+        "platform_tier": {
+          "type": "string",
+          "description": " system | application"
+        },
+        "module": {
+          "type": "string",
+          "description": " 业务域：benefit、user_level、content、taskcenter、appconfiguration…"
+        },
+        "scope_kind": {
+          "type": "string",
+          "description": " 模块内子类型（如 benefit_level、calendar_event）；粗 module 已够细时可当技术字段看"
+        },
+        "scope_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 业务主键"
+        },
+        "field_name": {
+          "type": "string",
+          "description": " 列级语义，如 title、description"
+        },
+        "local_key": {
+          "type": "string",
+          "description": " 模块内 key，参与 global_key"
+        },
+        "global_key": {
+          "type": "string",
+          "description": " 全平台唯一：module.scope_kind.scope_id.local_key"
+        },
+        "entity_type": {
+          "type": "string",
+          "description": " 展示/锚点，非分组主依据"
+        },
+        "entity_id": {
+          "type": "string",
+          "description": " 展示/锚点，非分组主依据"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18nFieldValueItem"
+          }
+        },
+        "has_unpublished_draft": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "semantic_path": {
+          "type": "string",
+          "description": " 可读路径，非分组主依据"
+        },
+        "app_page_code": {
+          "type": "string",
+          "description": " 如 home、market"
+        },
+        "app_div_slug": {
+          "type": "string",
+          "description": " nav | tabbar | card 的 divCode"
+        },
+        "notification_section": {
+          "type": "string"
+        },
+        "notification_tpl_type_category_code": {
+          "type": "string"
+        },
+        "notification_tpl_type_code": {
+          "type": "string"
+        }
+      },
+      "title": "UnifiedI18nFieldItem"
+    },
     "UpdateAccountAdjustmentAudit": {
       "type": "object",
       "properties": {
@@ -76943,6 +79944,105 @@
     "UpdateBannerResponse": {
       "type": "object",
       "title": "UpdateBannerResponse"
+    },
+    "UpdateBarMessageReq": {
+      "type": "object",
+      "properties": {
+        "app_id": {
+          "type": "string"
+        },
+        "bar_message_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "content_mode": {
+          "type": "string"
+        },
+        "message_template_type_code": {
+          "type": "string"
+        },
+        "template_version_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "title_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "summary_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "body_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18N"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "body_format": {
+          "type": "string"
+        },
+        "detail_action_type": {
+          "type": "string"
+        },
+        "detail_action_value": {
+          "type": "string"
+        },
+        "extra_payload": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "audience_kind": {
+          "type": "string"
+        },
+        "audience_definition_json": {
+          "type": "string"
+        },
+        "audience_summary": {
+          "type": "string"
+        },
+        "scheduled_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_by": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateBarMessageReq"
     },
     "UpdateBenefitReq": {
       "type": "object",
@@ -77928,38 +81028,6 @@
       },
       "title": "UpdateIdNoWhiteReq"
     },
-    "UpdateInAppNotificationReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 通知ID"
-        },
-        "is_enabled": {
-          "type": "boolean",
-          "format": "boolean",
-          "description": " 开启状态"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人ID"
-        },
-        "type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 通知类型(未定义)"
-        }
-      },
-      "title": "UpdateInAppNotificationReq"
-    },
     "UpdateInboundReconciliationRequest": {
       "type": "object",
       "properties": {
@@ -78043,10 +81111,6 @@
           "format": "int64",
           "description": " 必填，要更新的语言主键"
         },
-        "name": {
-          "type": "string",
-          "description": " 可选，显示名称"
-        },
         "status": {
           "type": "integer",
           "format": "int32",
@@ -78055,6 +81119,11 @@
         "code": {
           "type": "string",
           "description": " 可选，语言代码"
+        },
+        "is_benchmark": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 可选，true 时清除其它行的基准标记"
         }
       },
       "title": "UpdateLanguageRequest"
@@ -78161,6 +81230,156 @@
         }
       },
       "title": "UpdateMerchantsStatusRequest"
+    },
+    "UpdateMessageCategoryReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "color_preset": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_system": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KV"
+          }
+        }
+      },
+      "title": "UpdateMessageCategoryReq"
+    },
+    "UpdateMessageTemplateReq": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "template_code": {
+          "type": "string"
+        },
+        "template_name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MessageTemplateContentInfo"
+          }
+        }
+      },
+      "title": "UpdateMessageTemplateReq"
+    },
+    "UpdateMessageTemplateTypeCategoryReq": {
+      "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "category_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "UpdateMessageTemplateTypeCategoryReq"
+    },
+    "UpdateMessageTemplateTypeReq": {
+      "type": "object",
+      "properties": {
+        "type_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "app_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type_code": {
+          "type": "string"
+        },
+        "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "scene": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sort_order": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "UpdateMessageTemplateTypeReq"
     },
     "UpdateMonitoringRuleReq": {
       "type": "object",
@@ -78711,118 +81930,6 @@
         }
       },
       "title": "UpdatePromoTaskStatusRequest"
-    },
-    "UpdatePushMessageReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 消息ID"
-        },
-        "message_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 消息类型 1 应用内弹窗 2 应用内消息通知，3 邮件通知，4 短信通知"
-        },
-        "target_platform": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "description": " 投放终端 0 全部,1 IOS,2 Android,3 Web,4 H5"
-        },
-        "audience_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 人群类型 0 全部,1 客户组别,2 指定客户,3 指定客户下级(一级), 4 用户标签"
-        },
-        "login_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 登录状态 0 全部,1 已登录,2 未登录"
-        },
-        "deposit_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 入金状态 0 全部,1 未入金,2 已入金"
-        },
-        "custom_audience": {
-          "$ref": "#/definitions/CustomAudienceConfig",
-          "description": " 自定义人群配置"
-        },
-        "content_type": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 内容类型 1 文本,2 链接"
-        },
-        "jump_url": {
-          "type": "string",
-          "description": " 跳转链接"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MultiLanguageContent"
-          },
-          "description": " 多语言内容"
-        },
-        "scheduled_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 计划推送时间戳"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人ID"
-        },
-        "push_time_strategy": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 推送时间策略 1 立即推送,2 定时推送"
-        },
-        "follow_status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 跟单状态 0 全部, 1 未跟单,2 已跟单,3 已带单,4 未带单"
-        },
-        "pkg_names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": " 投放包名"
-        }
-      },
-      "title": "UpdatePushMessageReq"
-    },
-    "UpdatePushProviderReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 提供商ID"
-        },
-        "name": {
-          "type": "string",
-          "description": " 名称"
-        },
-        "system": {
-          "type": "string",
-          "description": " 系统平台"
-        },
-        "pkg_name": {
-          "type": "string",
-          "description": " 包名"
-        },
-        "config": {
-          "type": "string",
-          "description": " FCM 配置（JSON字符串）"
-        }
-      },
-      "title": "UpdatePushProviderReq"
     },
     "UpdateReconciliationStatusReq": {
       "type": "object",
@@ -79474,6 +82581,10 @@
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
+        },
+        "user_group_id": {
+          "type": "integer",
+          "format": "int64"
         },
         "create_time": {
           "type": "integer",
@@ -83976,19 +87087,6 @@
       },
       "title": "UserSymbolVolume"
     },
-    "UserTagOption": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "title": "UserTagOption"
-    },
     "UserToGroupRequest": {
       "type": "object",
       "properties": {
@@ -85273,7 +88371,7 @@
         "withdraw_type": {
           "type": "integer",
           "format": "int32",
-          "description": " 提现方式 (0: 银行汇款, 1: 加密货币)"
+          "description": " 提现方式筛选，与 finance RPC 一致：0 银行汇款 1 加密货币 2 支付宝"
         },
         "order_id": {
           "type": "string",

@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-admin-team/go-admin-core/sdk/api"
@@ -19,25 +18,7 @@ type ChatAdminProxy struct {
 	TargetURL string
 }
 
-// upstreamPath 去掉网关前缀，使 nwachat_im_admin_go 收到 /chat_admin_api/v1/...
-func upstreamPath(reqPath string) string {
-	path := reqPath
-	switch {
-	case strings.HasPrefix(path, "/lotus/api/v1/poplar/"):
-		path = strings.TrimPrefix(path, "/lotus/api/v1/poplar")
-	case strings.HasPrefix(path, "/poplar/"):
-		path = strings.TrimPrefix(path, "/poplar")
-	}
-	if path == "" {
-		return "/"
-	}
-	if path[0] != '/' {
-		return "/" + path
-	}
-	return path
-}
-
-// Proxy 将 /poplar/chat_admin_api/v1 转发到 chat-admin-api（nwachat_im_admin_go）
+// Proxy 反向代理：路径与原样 query 转发至 chat-admin-api（nwachat_im_admin_go），不改写前缀
 func (p ChatAdminProxy) Proxy(c *gin.Context) {
 	targetURL := p.TargetURL
 	if targetURL == "" {
@@ -58,7 +39,7 @@ func (p ChatAdminProxy) Proxy(c *gin.Context) {
 	originalDirector := proxy.Director
 	proxy.Director = func(req *http.Request) {
 		originalDirector(req)
-		req.URL.Path = upstreamPath(c.Request.URL.Path)
+		req.URL.Path = c.Request.URL.Path
 		req.URL.RawQuery = c.Request.URL.RawQuery
 		req.Header.Del("Origin")
 		if clientIP := c.ClientIP(); clientIP != "" {
