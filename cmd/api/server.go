@@ -19,6 +19,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
+	adminapis "go-admin/app/admin/apis"
 	adminGrpc "go-admin/app/admin/grpc"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/router"
@@ -79,6 +80,20 @@ func setup() {
 
 	//2. 数据库：先版本链（一次性脚本/种子/174410），再全量 AutoMigrate（对齐仅改模型未写迁移的情况）
 	runDatabaseMigrations()
+
+	db := sdk.Runtime.GetDbByKey("*")
+	if db == nil {
+		log.Warn("启动时 SysApi Swagger 同步跳过：数据库连接为空")
+	} else {
+		h := log.NewHelper(sdk.Runtime.GetLogger())
+		stats, err := adminapis.SyncSysApiFromSwagger(db, h)
+		if err != nil {
+			log.Infof("启动时 SysApi Swagger 同步跳过: %v", err)
+		} else {
+			log.Infof("启动时 SysApi Swagger 同步完成: totalFiles=%v processed=%v inserted=%v updated=%v errors=%v",
+				stats["totalFiles"], stats["processed"], stats["inserted"], stats["updated"], stats["errors"])
+		}
+	}
 
 	//注册监听函数
 	queue := sdk.Runtime.GetMemoryQueue("")
