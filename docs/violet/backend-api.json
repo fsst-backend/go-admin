@@ -318,6 +318,14 @@
             "format": "int32"
           },
           {
+            "name": "app_id",
+            "description": " App ID 过滤，不传则返回所有",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -2746,6 +2754,56 @@
         ]
       }
     },
+    "/poplar/violet/backend/channel/config/global/get": {
+      "get": {
+        "summary": "获取通道全局配置",
+        "operationId": "ChGetVCodeConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChGetVCodeConfigResp"
+            }
+          }
+        },
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/channel/config/global/save": {
+      "post": {
+        "summary": "保存通道全局配置",
+        "operationId": "ChSaveVCodeConfigHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChSaveVCodeConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChSaveVCodeConfigReq"
+            }
+          }
+        ],
+        "tags": [
+          "channel"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/channel/config/sms_dispatch/create": {
       "post": {
         "summary": "创建短信下发配置",
@@ -3066,102 +3124,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/channel/vcode/delete": {
-      "post": {
-        "summary": "删除验证码配置",
-        "operationId": "ChDeleteVCodeConfigHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChDeleteVCodeConfigReq"
-            }
-          }
-        ],
-        "tags": [
-          "channel"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/channel/vcode/get": {
-      "get": {
-        "summary": "按 app+channel 获取验证码配置",
-        "operationId": "ChGetVCodeConfigHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ChGetVCodeConfigResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "channel",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "channel"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/channel/vcode/list": {
-      "post": {
-        "summary": "分页查询验证码配置",
-        "operationId": "ChListVCodeConfigsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ChListVCodeConfigsResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChListVCodeConfigsReq"
-            }
-          }
-        ],
-        "tags": [
-          "channel"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
     "/poplar/violet/backend/channel/vcode/records/list": {
       "post": {
         "summary": "分页查询验证码发送记录（短信/邮箱，脱敏）",
@@ -3181,36 +3143,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ChListVerificationCodeRecordsReq"
-            }
-          }
-        ],
-        "tags": [
-          "channel"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/channel/vcode/save": {
-      "post": {
-        "summary": "保存验证码配置（新建或更新）",
-        "operationId": "ChSaveVCodeConfigHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/ChSaveVCodeConfigResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChSaveVCodeConfigReq"
             }
           }
         ],
@@ -9515,6 +9447,36 @@
         ]
       }
     },
+    "/poplar/violet/backend/finance/add/out_type": {
+      "post": {
+        "summary": "新增出金方式",
+        "operationId": "CreateOutTypeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateOutTypeReq"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/finance/add/pay_channel": {
       "post": {
         "summary": "创建支付渠道",
@@ -10146,6 +10108,36 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/DeleteTemplateRequst"
+            }
+          }
+        ],
+        "tags": [
+          "finance"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/finance/delete/out_type": {
+      "post": {
+        "summary": "删除出金方式",
+        "operationId": "DeleteOutTypeHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteOutTypeReq"
             }
           }
         ],
@@ -13035,6 +13027,21 @@
             "format": "boolean"
           },
           {
+            "name": "execution_result",
+            "description": " 执行结果筛选 auto_reject/manual_audit/auto_pass",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "hit_count_min",
+            "description": " 命中数\u003e= (筛选有命中的规则)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
             "name": "offset",
             "in": "query",
             "required": false,
@@ -13180,6 +13187,12 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -13265,7 +13278,6 @@
         "parameters": [
           {
             "name": "app_id",
-            "description": " 应用 ID，用于过滤应用平台相关模块",
             "in": "query",
             "required": false,
             "type": "string"
@@ -13318,93 +13330,11 @@
             "type": "string"
           },
           {
-            "name": "-",
-            "description": " content-rpc scope_kinds",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "-",
-            "description": " taskcenter-rpc task_types",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "content_i18n_limit",
+            "name": "exam_paper_id",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "content_i18n_offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "notification_bar_message_limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "notification_bar_message_offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "i18nadmin"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/i18nadmin/unified/panorama/stats": {
-      "get": {
-        "summary": "全景视图统计（应用数、总条目、已发布/已翻译/待翻译及占比）",
-        "operationId": "GetI18nPanoramaStatsHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetI18nPanoramaStatsResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "modules",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "app_config_page_codes",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "app_config_div_slugs",
-            "in": "query",
-            "required": false,
-            "type": "string"
           },
           {
             "name": "-",
@@ -13421,28 +13351,14 @@
             "type": "string"
           },
           {
-            "name": "content_i18n_limit",
+            "name": "limit",
             "in": "query",
             "required": false,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "content_i18n_offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "notification_bar_message_limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "notification_bar_message_offset",
+            "name": "offset",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -15782,12 +15698,6 @@
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -15812,12 +15722,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
           {
             "name": "code_keyword",
             "in": "query",
@@ -15957,12 +15861,6 @@
             "required": false,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -15987,12 +15885,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
           {
             "name": "category_id",
             "in": "query",
@@ -26181,6 +26073,26 @@
         ]
       }
     },
+    "/poplar/violet/backend/transaction/accounts/fundflow_types": {
+      "get": {
+        "summary": "资金流水类型枚举（按 Accept-Language / X-Language 返回名称）",
+        "operationId": "TransactionAccountFundFlowTypeEnumList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TransactionAccountFundFlowTypeEnumListResponse"
+            }
+          }
+        },
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
     "/poplar/violet/backend/transaction/accounts/fundflows": {
       "get": {
         "summary": "获取交易账户资金流水",
@@ -28694,6 +28606,35 @@
         ]
       }
     },
+    "/poplar/violet/backend/transaction/mt_settings/symbol/setpip": {
+      "post": {
+        "operationId": "BackendSetPip",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetPipRequest"
+            }
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
     "/poplar/violet/backend/transaction/mt_settings/symbol/setwatchlist": {
       "post": {
         "operationId": "BackendSetIsWatchList",
@@ -30420,15 +30361,610 @@
         ]
       }
     },
-    "/poplar/violet/backend/user/add/benefit": {
-      "post": {
-        "summary": "添加权益",
-        "operationId": "AddBenefitHandler",
+    "/poplar/violet/backend/transaction/trial/accounts/detail": {
+      "get": {
+        "summary": "交易账户详情（体验金）",
+        "operationId": "TrialTransactionAccountDetailNew",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/Empty"
+              "$ref": "#/definitions/TransactionAccountDdetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": " 账户ID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/transaction/trial/accounts/list": {
+      "get": {
+        "summary": "交易账户列表（体验金）",
+        "operationId": "TrialTransactionAccountList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TransactionAccountListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "description": " 关键词\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "platform",
+            "description": " 交易平台\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "description": " 交易组别\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "description": " 账户状态 0:正常 1:禁用 2:已注销 3:黑名单\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "description": " 账户ID\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "level",
+            "description": " 账户级别\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "create_time_start",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "create_time_end",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_ids",
+            "description": " 用户ID列表, 逗号分隔\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "accounts",
+            "description": " 账户ID，逗号分隔\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_names",
+            "description": " 用户名，逗号分隔\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "margin_rate_filter",
+            "description": " 风控筛选: 1-\u003c100%爆仓风险 2-100-120%警戒 3-\u003e120%健康 4-无持仓\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "balance_filter",
+            "description": " 资金筛选(余额): 1-\u003e$10000大户 2-$1000-$10000 3-$100-$1000 4-\u003c$100小额 5-=$0零余额\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pnl_filter",
+            "description": " 盈亏筛选: 1-\u003e+$500大盈 2-\u003e$0盈利 3-=$0持平 4-\u003c$0亏损 5-\u003c-$500大亏\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "equity_filter",
+            "description": " 净值范围: 1-\u003e$50000 2-$10K-$50K 3-$1K-$10K 4-\u003c$1000\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "activity_filter",
+            "description": " 活跃度: 1-活跃交易 2-有持仓 3-休眠(30天) 4-非活跃(90天)\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sub_filter",
+            "description": " 子查询 risk 风险账户，profit 盈利账户，loss 亏损账户，large_account 大户\u003e10k\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "label_ids",
+            "description": " 用户标签ID列表（OR：命中任一标签的用户）\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/transaction/trial/orders/history/list": {
+      "get": {
+        "summary": "交易历史（体验金）",
+        "operationId": "TrialTransactionHistory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TransactionHistoryListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "description": " uid/姓名\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "platform",
+            "description": " 交易平台\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "description": " 交易组别\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_symbol",
+            "description": " 交易品种\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_type",
+            "description": " 交易类型\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "description": " 交易账号\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_group_id",
+            "description": " 客户组别\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "order_no",
+            "description": " 订单单号\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transaction_no",
+            "description": " 交易单号\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "position_no",
+            "description": " 持仓单号\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "profit_type",
+            "description": " 盈亏类型\r",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "open_start",
+            "description": " 开始时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_end",
+            "description": " 结束时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "close_start",
+            "description": " 开始时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "close_end",
+            "description": " 结束时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/transaction/trial/orders/pending/list": {
+      "get": {
+        "summary": "挂单订单列表（体验金）",
+        "operationId": "TrialPendingOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PendingOrderListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_symbol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_group_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "order_no",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "position_no",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pending_start",
+            "description": " 开始时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "pending_end",
+            "description": " 结束时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/transaction/trial/orders/positions/list": {
+      "get": {
+        "summary": "持仓订单列表（体验金）",
+        "operationId": "TrialPositionOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PositionOrderListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_symbol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transaction_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_group_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "position_no",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_start",
+            "description": " 开始时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "open_end",
+            "description": " 结束时间\r",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "with_compute_center",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "transaction"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/default-languages": {
+      "get": {
+        "summary": "获取默认语言列表",
+        "operationId": "GetDefaultLanguagesHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetDefaultLanguagesResponse"
+            }
+          }
+        },
+        "tags": [
+          "translation"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/task/create": {
+      "post": {
+        "summary": "创建翻译任务",
+        "operationId": "CreateTranslationTaskHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateTranslationTaskResponse"
             }
           }
         },
@@ -30438,12 +30974,148 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AddBenefitReq"
+              "$ref": "#/definitions/CreateTranslationTaskRequest"
             }
           }
         ],
         "tags": [
-          "user_level"
+          "translation"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/task/delete": {
+      "post": {
+        "summary": "删除翻译任务",
+        "operationId": "DeleteTranslationTaskHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteTranslationTaskResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTranslationTaskRequest"
+            }
+          }
+        ],
+        "tags": [
+          "translation"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/task/detail": {
+      "get": {
+        "summary": "获取翻译任务详情",
+        "operationId": "GetTranslationTaskDetailHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTranslationTaskDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "translation"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/task/list": {
+      "get": {
+        "summary": "获取翻译任务列表",
+        "operationId": "GetTranslationTaskListHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTranslationTaskListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "1"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "default": "20"
+          }
+        ],
+        "tags": [
+          "translation"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ]
+      }
+    },
+    "/poplar/violet/backend/translation/task/retranslate": {
+      "post": {
+        "summary": "重新翻译某语言",
+        "operationId": "RetranslateLanguageHandler",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RetranslateLanguageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RetranslateLanguageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "translation"
         ],
         "consumes": [
           "application/json"
@@ -31510,11 +32182,10 @@
           },
           {
             "name": "status",
-            "description": " 账号状态 0 正常 1 禁用 2 注销 3 黑名单 4 待审核 5 已拒绝",
+            "description": " 账号状态：单值或逗号分隔多值，如 0 或 0,1,4（0 正常 1 禁用 2 注销 3 黑名单 4 待审核 5 已拒绝）",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           },
           {
             "name": "active",
@@ -31681,36 +32352,6 @@
         ]
       }
     },
-    "/poplar/violet/backend/user/delete/benefit": {
-      "post": {
-        "summary": "删除权益",
-        "operationId": "DeleteBenefitHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteBenefitReq"
-            }
-          }
-        ],
-        "tags": [
-          "user_level"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
     "/poplar/violet/backend/user/delete/crmlabel": {
       "post": {
         "summary": "删除标签",
@@ -31837,86 +32478,6 @@
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/user/get/benefit/detail": {
-      "get": {
-        "summary": "获取权益详情",
-        "operationId": "GetBenefitDetailHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetLevelBenefitDetailResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "user_level"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ]
-      }
-    },
-    "/poplar/violet/backend/user/get/benefit/list": {
-      "get": {
-        "summary": "获取权益列表",
-        "operationId": "GetBenefitListHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetLevelBenefitListResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "create_time_start",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "create_time_end",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "user_level"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ]
       }
     },
@@ -32800,36 +33361,6 @@
         ],
         "tags": [
           "verification"
-        ],
-        "consumes": [
-          "application/json"
-        ]
-      }
-    },
-    "/poplar/violet/backend/user/update/benefit": {
-      "post": {
-        "summary": "更新权益",
-        "operationId": "UpdateBenefitHandler",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/Empty"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateBenefitReq"
-            }
-          }
-        ],
-        "tags": [
-          "user_level"
         ],
         "consumes": [
           "application/json"
@@ -36424,6 +36955,11 @@
         "remark": {
           "type": "string",
           "description": " 审核备注"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App ID，0=全局活动"
         }
       },
       "title": "ActivityBase"
@@ -36513,6 +37049,11 @@
         "remark": {
           "type": "string",
           "description": " 审核备注"
+        },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App ID，0=全局活动"
         }
       },
       "title": "ActivityList"
@@ -36832,42 +37373,6 @@
         }
       },
       "title": "AddBankReq"
-    },
-    "AddBenefitReq": {
-      "type": "object",
-      "properties": {
-        "icon_with": {
-          "type": "string",
-          "description": " 权益图标(有)"
-        },
-        "icon_without": {
-          "type": "string",
-          "description": " 权益图标(无)"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 排序字段"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 1 启用 0 禁用"
-        },
-        "copy_to_all": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 是否复制VIP1到所有等级 1 是 0 否"
-        },
-        "levels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitLevel"
-          },
-          "description": " 权益等级列表"
-        }
-      },
-      "title": "AddBenefitReq"
     },
     "AddCopyTradingActivityRequest": {
       "type": "object",
@@ -38683,6 +39188,14 @@
           "format": "boolean",
           "description": " 是否启用B测"
         },
+        "b_side_language": {
+          "type": "string",
+          "description": " B面语言代码"
+        },
+        "download_url": {
+          "type": "string",
+          "description": " 包直链下载地址，可选"
+        },
         "status": {
           "type": "boolean",
           "format": "boolean",
@@ -38798,6 +39311,10 @@
           "type": "string",
           "description": " 应用市场地址"
         },
+        "download_url": {
+          "type": "string",
+          "description": " 包直链下载地址（APK/IPA 等）"
+        },
         "version_number": {
           "type": "string",
           "description": " 版本号（如: 1.0.0）"
@@ -38824,6 +39341,10 @@
           "type": "boolean",
           "format": "boolean",
           "description": " 是否启用B测"
+        },
+        "b_side_language": {
+          "type": "string",
+          "description": " B面语言代码"
         },
         "updated_user_count": {
           "type": "integer",
@@ -39008,6 +39529,14 @@
           "type": "boolean",
           "format": "boolean",
           "description": " 是否启用B测"
+        },
+        "b_side_language": {
+          "type": "string",
+          "description": " B面语言代码"
+        },
+        "download_url": {
+          "type": "string",
+          "description": " 包直链下载地址；传空串可清空"
         },
         "status": {
           "type": "boolean",
@@ -39936,6 +40465,10 @@
           "type": "string",
           "description": " 银行地址"
         },
+        "branch_name": {
+          "type": "string",
+          "description": " 支行名称"
+        },
         "front_picture": {
           "type": "string",
           "description": " 正面照"
@@ -40775,183 +41308,6 @@
         }
       },
       "title": "BatchUpdateUserPointHistoryRequest"
-    },
-    "Benefit": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益id"
-        },
-        "name": {
-          "type": "string",
-          "description": " 权益名称"
-        },
-        "benefit_type": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益类型"
-        },
-        "value": {
-          "type": "number",
-          "format": "double",
-          "description": " 权益值"
-        },
-        "icon": {
-          "type": "string",
-          "description": " 图标"
-        },
-        "i18n_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 多语言"
-        }
-      },
-      "title": "Benefit"
-    },
-    "BenefitData": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益配置ID"
-        },
-        "icon_with": {
-          "type": "string",
-          "description": " 权益图标(有)"
-        },
-        "icon_without": {
-          "type": "string",
-          "description": " 权益图标(无)"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 排序字段"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 1 启用 0 禁用"
-        },
-        "copy_to_all": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 是否复制VIP1到所有等级 1 是 0 否"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "levels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitLevel"
-          },
-          "description": " 权益等级列表"
-        }
-      },
-      "title": "BenefitData"
-    },
-    "BenefitLevel": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 等级ID"
-        },
-        "benefit_setting_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益配置ID"
-        },
-        "vip_level": {
-          "type": "string",
-          "description": " VIP等级 VIP1~VIP9"
-        },
-        "title": {
-          "type": "string",
-          "description": " 通用标题"
-        },
-        "description": {
-          "type": "string",
-          "description": " 通用描述"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 1 启用 0 禁用"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "contents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitLevelContent"
-          },
-          "description": " 多语言内容"
-        }
-      },
-      "title": "BenefitLevel"
-    },
-    "BenefitLevelContent": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 内容ID"
-        },
-        "benefit_level_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益等级ID"
-        },
-        "language": {
-          "type": "string",
-          "description": " 语言代码 en, zh-CN, zh-TW, ja, ko 等"
-        },
-        "title": {
-          "type": "string",
-          "description": " 标题（纯文本）"
-        },
-        "description": {
-          "type": "string",
-          "description": " 描述（富文本）"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        }
-      },
-      "title": "BenefitLevelContent"
     },
     "BinaryOptionAccountCreateReq": {
       "type": "object",
@@ -42417,16 +42773,6 @@
       },
       "title": "ChDeleteSmsProviderReq"
     },
-    "ChDeleteVCodeConfigReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ChDeleteVCodeConfigReq"
-    },
     "ChEmailProviderItem": {
       "type": "object",
       "properties": {
@@ -42553,15 +42899,6 @@
     },
     "ChGetVCodeConfigReq": {
       "type": "object",
-      "properties": {
-        "app_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "channel": {
-          "type": "string"
-        }
-      },
       "title": "ChGetVCodeConfigReq"
     },
     "ChGetVCodeConfigResp": {
@@ -42713,44 +43050,6 @@
       },
       "title": "ChListSmsProvidersResp"
     },
-    "ChListVCodeConfigsReq": {
-      "type": "object",
-      "properties": {
-        "app_id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 0=不按应用筛选"
-        },
-        "channel": {
-          "type": "string"
-        },
-        "page": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "page_size": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ChListVCodeConfigsReq"
-    },
-    "ChListVCodeConfigsResp": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ChVCodeConfigItem"
-          }
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ChListVCodeConfigsResp"
-    },
     "ChListVerificationCodeRecordsReq": {
       "type": "object",
       "properties": {
@@ -42800,30 +43099,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "app_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "channel": {
-          "type": "string"
-        },
         "expire_seconds": {
           "type": "integer",
           "format": "int32"
         },
         "code_length": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "send_interval_secs": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "target_hourly_limit": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "ip_minutely_limit": {
           "type": "integer",
           "format": "int32"
         },
@@ -42834,6 +43114,29 @@
         "lock_seconds": {
           "type": "integer",
           "format": "int32"
+        },
+        "ip_daily_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ip_request_interval": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email_resend_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email_resend_enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "email_forward_url": {
+          "type": "string"
+        },
+        "email_forward_enabled": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "status": {
           "type": "integer",
@@ -43207,31 +43510,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "app_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "channel": {
-          "type": "string",
-          "description": " 如 sms / email"
-        },
         "expire_seconds": {
           "type": "integer",
           "format": "int32"
         },
         "code_length": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "send_interval_secs": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "target_hourly_limit": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "ip_minutely_limit": {
           "type": "integer",
           "format": "int32"
         },
@@ -43242,6 +43525,29 @@
         "lock_seconds": {
           "type": "integer",
           "format": "int32"
+        },
+        "ip_daily_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ip_request_interval": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email_resend_limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "email_resend_enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "email_forward_url": {
+          "type": "string"
+        },
+        "email_forward_enabled": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "status": {
           "type": "integer",
@@ -46352,13 +46658,22 @@
     "CreateMessageTemplateTypeCategoryReq": {
       "type": "object",
       "properties": {
-        "app_id": {
-          "type": "string"
-        },
         "category_code": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "description_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18NItem"
@@ -46384,6 +46699,9 @@
         "type_code": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "name_i18n": {
           "type": "array",
           "items": {
@@ -46393,8 +46711,20 @@
         "scene": {
           "type": "string"
         },
+        "scene_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
         "description": {
           "type": "string"
+        },
+        "description_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
         },
         "sort_order": {
           "type": "integer",
@@ -46463,6 +46793,35 @@
         }
       },
       "title": "CreateMonitoringRuleReq"
+    },
+    "CreateOutTypeReq": {
+      "type": "object",
+      "properties": {
+        "pay_type": {
+          "type": "string",
+          "description": " PAY_TYPE_BANK / PAY_TYPE_THIRD / PAY_TYPE_CRYPTO"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "platform_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "template_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "CreateOutTypeReq"
     },
     "CreatePayChannelRequest": {
       "type": "object",
@@ -47002,10 +47361,6 @@
     "CreateTraderExamRebateRuleRequest": {
       "type": "object",
       "properties": {
-        "vip": {
-          "type": "string",
-          "description": " VIP等级"
-        },
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
@@ -47014,30 +47369,30 @@
           "type": "integer",
           "format": "int64"
         },
-        "create_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "update_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "operator_uid": {
-          "type": "string",
-          "description": " 操作人ID"
-        },
-        "operator_name": {
-          "type": "string",
-          "description": " 操作人名称"
-        },
         "configs": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TraderExamRebateConfig"
           },
           "description": " 返佣配置"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间（仅查询返回）"
+        },
+        "update_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间（仅查询返回）"
+        },
+        "operator_uid": {
+          "type": "string",
+          "description": " 操作人ID（仅查询返回）"
+        },
+        "operator_name": {
+          "type": "string",
+          "description": " 操作人名称（仅查询返回）"
         }
       },
       "title": "CreateTraderExamRebateRuleRequest"
@@ -47240,6 +47595,54 @@
         }
       },
       "title": "CreateTransactionGroupRequest"
+    },
+    "CreateTranslationTaskRequest": {
+      "type": "object",
+      "properties": {
+        "global_keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_language": {
+          "type": "string"
+        },
+        "target_languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "app_id": {
+          "type": "string"
+        }
+      },
+      "title": "CreateTranslationTaskRequest"
+    },
+    "CreateTranslationTaskResponse": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "zt_task_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "valid_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skipped_keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SkippedKeyItem"
+          }
+        }
+      },
+      "title": "CreateTranslationTaskResponse"
     },
     "CreateTrialActivityRequest": {
       "type": "object",
@@ -48548,16 +48951,6 @@
       "type": "object",
       "title": "DeleteBannerResponse"
     },
-    "DeleteBenefitReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "DeleteBenefitReq"
-    },
     "DeleteBlackReq": {
       "type": "object",
       "properties": {
@@ -48784,9 +49177,6 @@
         "category_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "app_id": {
-          "type": "string"
         }
       },
       "title": "DeleteMessageTemplateTypeCategoryReq"
@@ -48797,9 +49187,6 @@
         "type_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "app_id": {
-          "type": "string"
         }
       },
       "title": "DeleteMessageTemplateTypeReq"
@@ -48816,6 +49203,19 @@
       "required": [
         "id"
       ]
+    },
+    "DeleteOutTypeReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "DeleteOutTypeReq"
     },
     "DeletePayChannelRequest": {
       "type": "object",
@@ -48960,6 +49360,11 @@
     "DeleteTraderExamRebateRuleRequest": {
       "type": "object",
       "properties": {
+        "user_group_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户组ID"
+        },
         "vip": {
           "type": "string",
           "description": " vip等级"
@@ -49000,6 +49405,26 @@
         }
       },
       "title": "DeleteTransactionGroupRequest"
+    },
+    "DeleteTranslationTaskRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteTranslationTaskRequest"
+    },
+    "DeleteTranslationTaskResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "DeleteTranslationTaskResponse"
     },
     "DeleteUserLabelReq": {
       "type": "object",
@@ -52000,6 +52425,11 @@
           "format": "int32",
           "description": " 状态 0:创建中 1:待审核 2:审核未通过 3:待开始 4:进行中 5:已关闭 6:已结束"
         },
+        "app_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " App ID 过滤，不传则返回所有"
+        },
         "offset": {
           "type": "integer",
           "format": "int64"
@@ -53682,6 +54112,18 @@
         }
       },
       "title": "GetCustomerServiceConfigListResponse"
+    },
+    "GetDefaultLanguagesResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetDefaultLanguagesResponse"
     },
     "GetEachStageTradeCrmCountResp": {
       "type": "object",
@@ -55384,56 +55826,11 @@
       },
       "title": "GetHorseResponse"
     },
-    "GetI18nPanoramaStatsResponse": {
-      "type": "object",
-      "properties": {
-        "app_count": {
-          "type": "integer",
-          "format": "int64",
-          "description": " application 层：去重后的应用数（appconfiguration 按 scope_id；notification 按 entity_id 中的 app 包名）"
-        },
-        "total_slots": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 总翻译条目（语言槽位数）"
-        },
-        "published_slots": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 已发布条目（已上线文案）"
-        },
-        "published_percent": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 相对 total_slots，0–100"
-        },
-        "translated_slots": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 已翻译（含仅草稿）"
-        },
-        "translated_percent": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pending_slots": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 待翻译"
-        },
-        "pending_percent": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "GetI18nPanoramaStatsResponse"
-    },
     "GetI18nSidebarStructureRequest": {
       "type": "object",
       "properties": {
         "app_id": {
-          "type": "string",
-          "description": " 应用 ID，用于过滤应用平台相关模块"
+          "type": "string"
         }
       },
       "title": "GetI18nSidebarStructureRequest"
@@ -55689,6 +56086,9 @@
         },
         "ui_locale": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       },
       "title": "GetLanguageListRequest"
@@ -55710,109 +56110,6 @@
         }
       },
       "title": "GetLanguageListResponse"
-    },
-    "GetLevelBenefitDetailReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetLevelBenefitDetailReq"
-    },
-    "GetLevelBenefitDetailResp": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益配置ID"
-        },
-        "icon_with": {
-          "type": "string",
-          "description": " 权益图标(有)"
-        },
-        "icon_without": {
-          "type": "string",
-          "description": " 权益图标(无)"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 排序字段"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 1 启用 0 禁用"
-        },
-        "copy_to_all": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 是否复制VIP1到所有等级 1 是 0 否"
-        },
-        "operator": {
-          "type": "string",
-          "description": " 操作人"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "levels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitLevel"
-          },
-          "description": " 权益等级列表"
-        }
-      },
-      "title": "GetLevelBenefitDetailResp"
-    },
-    "GetLevelBenefitListReq": {
-      "type": "object",
-      "properties": {
-        "create_time_start": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "create_time_end": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetLevelBenefitListReq"
-    },
-    "GetLevelBenefitListResp": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitData"
-          }
-        },
-        "count": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "GetLevelBenefitListResp"
     },
     "GetLevelListRequest": {
       "type": "object",
@@ -56042,9 +56339,6 @@
         "category_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "app_id": {
-          "type": "string"
         }
       },
       "title": "GetMessageTemplateTypeCategoryDetailReq"
@@ -56061,9 +56355,6 @@
     "GetMessageTemplateTypeCategoryListReq": {
       "type": "object",
       "properties": {
-        "app_id": {
-          "type": "string"
-        },
         "code_keyword": {
           "type": "string"
         },
@@ -56095,9 +56386,6 @@
         "type_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "app_id": {
-          "type": "string"
         }
       },
       "title": "GetMessageTemplateTypeDetailReq"
@@ -56114,9 +56402,6 @@
     "GetMessageTemplateTypeListReq": {
       "type": "object",
       "properties": {
-        "app_id": {
-          "type": "string"
-        },
         "category_id": {
           "type": "integer",
           "format": "int64"
@@ -59415,6 +59700,67 @@
       },
       "title": "GetTransactionPlatformListRespone"
     },
+    "GetTranslationTaskDetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTranslationTaskDetailRequest"
+    },
+    "GetTranslationTaskDetailResponse": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "$ref": "#/definitions/TranslationTaskItem"
+        },
+        "language_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LanguageResultItem"
+          }
+        }
+      },
+      "title": "GetTranslationTaskDetailResponse"
+    },
+    "GetTranslationTaskListRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "default": "20"
+        }
+      },
+      "title": "GetTranslationTaskListRequest"
+    },
+    "GetTranslationTaskListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TranslationTaskItem"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTranslationTaskListResponse"
+    },
     "GetTrialActivityDetailRequest": {
       "type": "object",
       "properties": {
@@ -59559,6 +59905,10 @@
         "app_config_div_slugs": {
           "type": "string"
         },
+        "exam_paper_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "contentScopeKinds": {
           "type": "string",
           "description": " content-rpc scope_kinds"
@@ -59567,19 +59917,11 @@
           "type": "string",
           "description": " taskcenter-rpc task_types"
         },
-        "content_i18n_limit": {
+        "limit": {
           "type": "integer",
           "format": "int64"
         },
-        "content_i18n_offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "notification_bar_message_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "notification_bar_message_offset": {
+        "offset": {
           "type": "integer",
           "format": "int64"
         }
@@ -59595,11 +59937,7 @@
             "$ref": "#/definitions/UnifiedI18nFieldItem"
           }
         },
-        "content_i18n_total": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "notification_bar_message_total": {
+        "total": {
           "type": "integer",
           "format": "int64"
         }
@@ -61573,6 +61911,10 @@
           "type": "string",
           "description": " 隐私政策"
         },
+        "company_introduction_url": {
+          "type": "string",
+          "description": " 公司简介页地址"
+        },
         "trade_unlock_activity_url": {
           "type": "string",
           "description": " 解锁活动"
@@ -61974,12 +62316,7 @@
         "item_count": {
           "type": "integer",
           "format": "int64",
-          "description": " 该节点下的条目数"
-        },
-        "percent": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 翻译完成百分比"
+          "description": " 该节点对应 unified/fields 扁平条目数"
         },
         "children": {
           "type": "array",
@@ -61995,13 +62332,6 @@
           },
           "description": " 查询该节点数据的请求参数"
         },
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UnifiedI18nFieldItem"
-          },
-          "description": " 该节点的实际数据（叶子节点有值，自然增长节点为空）"
-        },
         "requires_paging": {
           "type": "boolean",
           "format": "boolean",
@@ -62009,7 +62339,7 @@
         },
         "paging_limit_param": {
           "type": "string",
-          "description": " 分页参数名（如 content_i18n_limit）"
+          "description": " 分页参数名：limit"
         }
       },
       "title": "I18nSidebarNode"
@@ -63711,6 +64041,22 @@
       },
       "title": "LanguageResult"
     },
+    "LanguageResultItem": {
+      "type": "object",
+      "properties": {
+        "language_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "item_count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "LanguageResultItem"
+    },
     "Level": {
       "type": "object",
       "properties": {
@@ -63834,6 +64180,14 @@
         "description": {
           "type": "string",
           "description": " 描述（富文本）"
+        },
+        "draft_name": {
+          "type": "string",
+          "description": " 草稿名字"
+        },
+        "draft_description": {
+          "type": "string",
+          "description": " 草稿描述"
         }
       },
       "title": "LevelMultyLang"
@@ -65857,13 +66211,22 @@
           "type": "integer",
           "format": "int64"
         },
-        "app_id": {
-          "type": "string"
-        },
         "category_code": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "description_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18NItem"
@@ -65891,14 +66254,14 @@
           "type": "integer",
           "format": "int64"
         },
-        "app_id": {
-          "type": "string"
-        },
         "category_id": {
           "type": "integer",
           "format": "int64"
         },
         "type_code": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         },
         "name_i18n": {
@@ -65910,12 +66273,24 @@
         "scene": {
           "type": "string"
         },
+        "scene_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
         "is_builtin": {
           "type": "boolean",
           "format": "boolean"
         },
         "description": {
           "type": "string"
+        },
+        "description_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
         },
         "sort_order": {
           "type": "integer",
@@ -71482,6 +71857,29 @@
       },
       "title": "RetentionTradeReportingResp"
     },
+    "RetranslateLanguageRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "language_code": {
+          "type": "string"
+        }
+      },
+      "title": "RetranslateLanguageRequest"
+    },
+    "RetranslateLanguageResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "RetranslateLanguageResponse"
+    },
     "RetryAccountAdjustmentStaskRequest": {
       "type": "object",
       "properties": {
@@ -72464,6 +72862,27 @@
         }
       },
       "title": "SetOrderRequest"
+    },
+    "SetPipRequest": {
+      "type": "object",
+      "properties": {
+        "symbol_name": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": " 交易品种名称列表"
+        },
+        "pip": {
+          "type": "string",
+          "description": " 品种点值"
+        },
+        "platform": {
+          "type": "string",
+          "description": " 交易平台"
+        }
+      },
+      "title": "SetPipRequest"
     },
     "SetSymbolGroupRequest": {
       "type": "object",
@@ -73863,6 +74282,18 @@
         }
       },
       "title": "SimpleUserInfo"
+    },
+    "SkippedKeyItem": {
+      "type": "object",
+      "properties": {
+        "global_key": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "title": "SkippedKeyItem"
     },
     "Slip": {
       "type": "object",
@@ -76650,22 +77081,21 @@
           "format": "int64",
           "description": " 考试ID"
         },
-        "type": {
-          "type": "string",
-          "description": " \"amount\" 固定金额  ratio 比例"
-        },
-        "value": {
-          "type": "string",
-          "description": " 金额"
+        "vip_values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TraderExamRebateVipValue"
+          },
+          "description": " 各VIP等级对应的返佣配置"
         },
         "exam_name": {
           "type": "string",
-          "description": " 考试名称"
+          "description": " 考试名称（仅查询返回）"
         },
         "exam_passed_level": {
           "type": "integer",
           "format": "int64",
-          "description": " 考试及格等级"
+          "description": " 考试及格等级（仅查询返回）"
         }
       },
       "title": "TraderExamRebateConfig"
@@ -76673,10 +77103,6 @@
     "TraderExamRebateRule": {
       "type": "object",
       "properties": {
-        "vip": {
-          "type": "string",
-          "description": " VIP等级"
-        },
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
@@ -76685,33 +77111,51 @@
           "type": "integer",
           "format": "int64"
         },
-        "create_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "update_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "operator_uid": {
-          "type": "string",
-          "description": " 操作人ID"
-        },
-        "operator_name": {
-          "type": "string",
-          "description": " 操作人名称"
-        },
         "configs": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TraderExamRebateConfig"
           },
           "description": " 返佣配置"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间（仅查询返回）"
+        },
+        "update_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间（仅查询返回）"
+        },
+        "operator_uid": {
+          "type": "string",
+          "description": " 操作人ID（仅查询返回）"
+        },
+        "operator_name": {
+          "type": "string",
+          "description": " 操作人名称（仅查询返回）"
         }
       },
       "title": "TraderExamRebateRule"
+    },
+    "TraderExamRebateVipValue": {
+      "type": "object",
+      "properties": {
+        "vip": {
+          "type": "string",
+          "description": " VIP等级"
+        },
+        "type": {
+          "type": "string",
+          "description": " \"amount\" 固定金额 | \"ratio\" 比例"
+        },
+        "value": {
+          "type": "string",
+          "description": " 金额或比例值"
+        }
+      },
+      "title": "TraderExamRebateVipValue"
     },
     "TraderRebateRecord": {
       "type": "object",
@@ -77525,6 +77969,37 @@
         }
       },
       "title": "TransactionAccountFundFlowListResponse"
+    },
+    "TransactionAccountFundFlowTypeEnumItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 与 FundFlowType、/accounts/fundflows 的 type 一致"
+        },
+        "code": {
+          "type": "string",
+          "description": " 枚举名，如 FUND_DEPOSIT"
+        },
+        "name": {
+          "type": "string",
+          "description": " 当前请求语言下的展示名"
+        }
+      },
+      "title": "TransactionAccountFundFlowTypeEnumItem"
+    },
+    "TransactionAccountFundFlowTypeEnumListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionAccountFundFlowTypeEnumItem"
+          }
+        }
+      },
+      "title": "TransactionAccountFundFlowTypeEnumListResponse"
     },
     "TransactionAccountIdRequest": {
       "type": "object",
@@ -78915,6 +79390,60 @@
       },
       "title": "TransferApplyOverviewResponse"
     },
+    "TranslationTaskItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "zt_task_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "task_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "progress_percentage": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "source_language": {
+          "type": "string"
+        },
+        "target_languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "writeback_status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "writeback_success_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "writeback_failed_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "completed_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TranslationTaskItem"
+    },
     "TrialActivity": {
       "type": "object",
       "properties": {
@@ -79373,6 +79902,9 @@
         "has_unpublished_draft": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "source_text": {
+          "type": "string"
         },
         "semantic_path": {
           "type": "string",
@@ -80043,47 +80575,6 @@
         }
       },
       "title": "UpdateBarMessageReq"
-    },
-    "UpdateBenefitReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 权益配置ID"
-        },
-        "icon_with": {
-          "type": "string",
-          "description": " 权益图标(有)"
-        },
-        "icon_without": {
-          "type": "string",
-          "description": " 权益图标(无)"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 排序字段"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 状态 1 启用 0 禁用"
-        },
-        "copy_to_all": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 是否复制VIP1到所有等级 1 是 0 否"
-        },
-        "levels": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BenefitLevel"
-          },
-          "description": " 权益等级列表"
-        }
-      },
-      "title": "UpdateBenefitReq"
     },
     "UpdateBonusActivityRequest": {
       "type": "object",
@@ -81326,13 +81817,22 @@
           "type": "integer",
           "format": "int64"
         },
-        "app_id": {
-          "type": "string"
-        },
         "category_code": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "name_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "description_i18n": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/I18NItem"
@@ -81362,6 +81862,9 @@
         "type_code": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "name_i18n": {
           "type": "array",
           "items": {
@@ -81371,8 +81874,20 @@
         "scene": {
           "type": "string"
         },
+        "scene_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
+        },
         "description": {
           "type": "string"
+        },
+        "description_i18n": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/I18NItem"
+          }
         },
         "sort_order": {
           "type": "integer",
@@ -82574,10 +83089,6 @@
     "UpdateTraderExamRebateRuleRequest": {
       "type": "object",
       "properties": {
-        "vip": {
-          "type": "string",
-          "description": " VIP等级"
-        },
         "name": {
           "type": "string",
           "description": " 返佣规则名称"
@@ -82586,30 +83097,30 @@
           "type": "integer",
           "format": "int64"
         },
-        "create_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 创建时间"
-        },
-        "update_time": {
-          "type": "integer",
-          "format": "int64",
-          "description": " 更新时间"
-        },
-        "operator_uid": {
-          "type": "string",
-          "description": " 操作人ID"
-        },
-        "operator_name": {
-          "type": "string",
-          "description": " 操作人名称"
-        },
         "configs": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/TraderExamRebateConfig"
           },
           "description": " 返佣配置"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 创建时间（仅查询返回）"
+        },
+        "update_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 更新时间（仅查询返回）"
+        },
+        "operator_uid": {
+          "type": "string",
+          "description": " 操作人ID（仅查询返回）"
+        },
+        "operator_name": {
+          "type": "string",
+          "description": " 操作人名称（仅查询返回）"
         }
       },
       "title": "UpdateTraderExamRebateRuleRequest"
@@ -85754,9 +86265,8 @@
           "description": " 组id"
         },
         "status": {
-          "type": "integer",
-          "format": "int32",
-          "description": " 账号状态 0 正常 1 禁用 2 注销 3 黑名单 4 待审核 5 已拒绝"
+          "type": "string",
+          "description": " 账号状态：单值或逗号分隔多值，如 0 或 0,1,4（0 正常 1 禁用 2 注销 3 黑名单 4 待审核 5 已拒绝）"
         },
         "active": {
           "type": "boolean",
@@ -89039,6 +89549,15 @@
           "type": "boolean",
           "format": "boolean",
           "description": " 是否启用，不传查全部"
+        },
+        "execution_result": {
+          "type": "string",
+          "description": " 执行结果筛选 auto_reject/manual_audit/auto_pass"
+        },
+        "hit_count_min": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 命中数\u003e= (筛选有命中的规则)"
         },
         "offset": {
           "type": "integer",
