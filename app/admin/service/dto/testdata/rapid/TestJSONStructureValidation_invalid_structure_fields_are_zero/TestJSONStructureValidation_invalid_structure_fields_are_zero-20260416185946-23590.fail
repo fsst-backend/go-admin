@@ -1,0 +1,9 @@
+# 2026/04/16 18:59:46.643442 [TestJSONStructureValidation/invalid_structure_fields_are_zero] [rapid] draw category: 1
+# 2026/04/16 18:59:46.643446 [TestJSONStructureValidation/invalid_structure_fields_are_zero] expected nil Permissions after unmarshal error, got: []
+# 2026/04/16 18:59:46.643447 [TestJSONStructureValidation/invalid_structure_fields_are_zero] json.Unmarshal panicked on invalid structure: expected nil Permissions after unmarshal error, got: []
+# input: {"menus": "not_an_array", "permissions": []}
+# 
+v0.4.8#5896865364680302937
+0x0
+0x0
+0x1

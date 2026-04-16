@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net"
 	"net/http"
@@ -18,11 +19,14 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"gorm.io/gorm"
 
 	adminapis "go-admin/app/admin/apis"
 	adminGrpc "go-admin/app/admin/grpc"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/router"
+	"go-admin/app/admin/service"
+	"go-admin/app/admin/service/dto"
 	"go-admin/app/jobs"
 	jobsModels "go-admin/app/jobs/models"
 	otherModels "go-admin/app/other/models/tools"
@@ -93,6 +97,9 @@ func setup() {
 			log.Infof("启动时 SysApi Swagger 同步完成: totalFiles=%v processed=%v inserted=%v updated=%v errors=%v",
 				stats["totalFiles"], stats["processed"], stats["inserted"], stats["updated"], stats["errors"])
 		}
+
+		// 启动时自动导入菜单配置
+		importMenuFromConfig(db, h)
 	}
 
 	//注册监听函数
@@ -173,6 +180,42 @@ func runDatabaseMigrations() {
 	} else {
 		log.Info("数据库迁移完成")
 	}
+}
+
+// importMenuFromConfig 启动时自动导入菜单配置文件到数据库。
+// 所有错误均记录日志后返回，不阻塞启动。
+func importMenuFromConfig(db *gorm.DB, lg *log.Helper) {
+	if db == nil {
+		lg.Warn("启动时菜单导入跳过：数据库连接为空")
+		return
+	}
+
+	const menuFile = "menu.json"
+	raw, err := os.ReadFile(menuFile)
+	if err != nil {
+		if os.IsNotExist(err) {
+			lg.Warnf("启动时菜单导入跳过：配置文件不存在 %s", menuFile)
+		} else {
+			lg.Errorf("启动时菜单导入失败：读取文件错误 %v", err)
+		}
+		return
+	}
+
+	var data dto.MenuPermissionIO
+	if err := json.Unmarshal(raw, &data); err != nil {
+		lg.Errorf("启动时菜单导入失败：JSON解析错误 %v", err)
+		return
+	}
+
+	svc := service.SysMenu{}
+	svc.Orm = db
+	svc.Log = lg
+	if err := svc.ImportMenuPermission(&data); err != nil {
+		lg.Errorf("启动时菜单导入失败: %v", err)
+		return
+	}
+
+	lg.Info("启动时菜单导入完成")
 }
 
 func run() error {

@@ -173,6 +173,7 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.9.1 // indirect
 	modernc.org/sqlite v1.37.0 // indirect
+	pgregory.net/rapid v1.2.0 // indirect
 )
 
 replace (
