@@ -69,7 +69,8 @@ func (e *Migration) Migrate() {
 const version159919 = "1599190683659"
 
 // repairLedgerForLegacyDB 兼容：早期只有 AutoMigrate、未写 sys_migration，或首次建表后才有的版本表。
-// 若库中已有 sys_user 等业务表，但缺少 159919 记录，则补登该版本，避免再次执行 InitDb / 全量建表迁移。
+// 若库中已有完整的业务表，但缺少 159919 记录，则补登该版本，避免再次执行 InitDb / 全量建表迁移。
+// 必须检查多张关键表都存在，防止之前迁移中途失败（部分表已建）时误补登。
 func (e *Migration) repairLedgerForLegacyDB() error {
 	db := e.db
 	if db == nil {
@@ -82,8 +83,12 @@ func (e *Migration) repairLedgerForLegacyDB() error {
 	if n > 0 {
 		return nil
 	}
-	if !db.Migrator().HasTable("sys_user") {
-		return nil
+	// 检查多张关键表，确保 159919 迁移确实完整执行过（而非中途 panic 只建了部分表）
+	requiredTables := []string{"sys_user", "sys_role", "sys_menu", "sys_job", "sys_casbin_rule"}
+	for _, table := range requiredTables {
+		if !db.Migrator().HasTable(table) {
+			return nil // 有表缺失，说明迁移未完整执行，不补登
+		}
 	}
 	rec := commonmodels.Migration{Version: version159919}
 	// Session 重置 Statement，防止 Migrator().HasTable 残留的 schema 缓存导致 Create 时 reflect panic。
@@ -93,7 +98,7 @@ func (e *Migration) repairLedgerForLegacyDB() error {
 		}
 		return err
 	}
-	log.Printf("migration repair: 已补登 sys_migration.version=%s（检测到已有业务表、无该版本记录）", version159919)
+	log.Printf("migration repair: 已补登 sys_migration.version=%s（检测到已有完整业务表、无该版本记录）", version159919)
 	return nil
 }
 
