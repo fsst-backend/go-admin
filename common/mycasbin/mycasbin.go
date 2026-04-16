@@ -73,10 +73,6 @@ func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 			}
 		}
 
-		// 从 sys_user_role + sys_role 同步所有用户的 grouping policy
-		// 注意：不在此处调用，因为 Setup 在 database.Setup 阶段执行，
-		// 此时 sys_user_role 表可能还未创建（种子数据在 runDatabaseMigrations 中执行）。
-		// 应在 runDatabaseMigrations 之后调用 SyncUserRoleGroupingPolicies。
 	})
 
 	return enforcer
@@ -95,8 +91,6 @@ func SyncUserRoleGroupingPolicies(db *gorm.DB) {
 	}
 
 	// 先重新加载策略，确保内存与数据库一致。
-	// 因为 mycasbin.Setup 在 database.Setup 阶段执行（早于种子数据），
-	// 此时 db.sql 可能已经直接 INSERT 了 casbin 记录，但 enforcer 内存不知道。
 	if err := enforcer.LoadPolicy(); err != nil {
 		l.Errorf("casbin syncUserRoleGroupingPolicies LoadPolicy error: %v", err)
 		return

@@ -94,7 +94,10 @@ func ExecSql(db *gorm.DB, filePath string) error {
 		}
 		stmt = strings.Replace(stmt+";", "\n", "", -1)
 		stmt = strings.TrimSpace(stmt)
-		if err = db.Exec(stmt).Error; err != nil {
+		// 使用新 Session 执行每条语句，避免前一条的错误污染 GORM 事务状态。
+		// 否则 duplicate key 等可跳过的错误会导致后续所有 tx.Exec 失败。
+		execDB := db.Session(&gorm.Session{NewDB: true})
+		if err = execDB.Exec(stmt).Error; err != nil {
 			if isDuplicateKeyError(err) {
 				log.Printf("initdb 跳过重复数据（已存在）: %v", err)
 				continue

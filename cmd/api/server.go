@@ -38,7 +38,6 @@ import (
 	common "go-admin/common/middleware"
 	"go-admin/common/middleware/handler"
 	commonmodels "go-admin/common/models"
-	"go-admin/common/mycasbin"
 	"go-admin/common/storage"
 	ext "go-admin/config"
 	filewrap "go-admin/config/filewarp"
@@ -86,12 +85,8 @@ func setup() {
 	//2. 数据库：先版本链（一次性脚本/种子/174410），再全量 AutoMigrate（对齐仅改模型未写迁移的情况）
 	runDatabaseMigrations()
 
-	// 数据库迁移完成后，同步用户角色的 Casbin grouping policy
-	// mycasbin.Setup 在 database.Setup 阶段执行，早于种子数据插入，
-	// 所以 sys_casbin_rule 中可能缺少 (g, user_X, roleKey) 记录。
-	if dbForCasbin := sdk.Runtime.GetDbByKey("*"); dbForCasbin != nil {
-		mycasbin.SyncUserRoleGroupingPolicies(dbForCasbin)
-	}
+	//3. Casbin 初始化：迁移完成后再加载策略，确保 sys_casbin_rule 表和种子数据已就绪
+	database.SetupCasbin()
 
 	db := sdk.Runtime.GetDbByKey("*")
 	if db == nil {
