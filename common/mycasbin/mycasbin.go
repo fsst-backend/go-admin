@@ -89,6 +89,19 @@ func Setup(db *gorm.DB, _ string) *casbin.SyncedEnforcer {
 func SyncUserRoleGroupingPolicies(db *gorm.DB) {
 	l := logger.NewHelper(sdk.Runtime.GetLogger())
 
+	if enforcer == nil {
+		l.Warn("casbin syncUserRoleGroupingPolicies skipped: enforcer not initialized")
+		return
+	}
+
+	// 先重新加载策略，确保内存与数据库一致。
+	// 因为 mycasbin.Setup 在 database.Setup 阶段执行（早于种子数据），
+	// 此时 db.sql 可能已经直接 INSERT 了 casbin 记录，但 enforcer 内存不知道。
+	if err := enforcer.LoadPolicy(); err != nil {
+		l.Errorf("casbin syncUserRoleGroupingPolicies LoadPolicy error: %v", err)
+		return
+	}
+
 	type userRoleRow struct {
 		UserID  int    `gorm:"column:user_id"`
 		RoleKey string `gorm:"column:role_key"`
