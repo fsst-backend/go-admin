@@ -62,6 +62,24 @@ func InitDb(db *gorm.DB) (err error) {
 	}
 }
 
+// stripSQLLineComments 去掉仅由「行首 --」构成的注释行，保留 INSERT 等语句。
+// 历史实现用 strings.Contains(chunk, "--") 跳过整段：db.sql 里「-- 表说明」与 INSERT 在同一段（按 ; 切分）时会把 INSERT INTO sys_user 等一并跳过。
+func stripSQLLineComments(chunk string) string {
+	lines := strings.Split(chunk, "\n")
+	out := make([]string, 0, len(lines))
+	for _, line := range lines {
+		t := strings.TrimSpace(line)
+		if t == "" {
+			continue
+		}
+		if strings.HasPrefix(t, "--") {
+			continue
+		}
+		out = append(out, line)
+	}
+	return strings.TrimSpace(strings.Join(out, "\n"))
+}
+
 func ExecSql(db *gorm.DB, filePath string) error {
 	sql, err := readSQLFile(filePath)
 	if err != nil {
@@ -70,11 +88,11 @@ func ExecSql(db *gorm.DB, filePath string) error {
 	}
 	sqlList := strings.Split(sql, ";")
 	for i := 0; i < len(sqlList)-1; i++ {
-		if strings.Contains(sqlList[i], "--") {
-			fmt.Println(sqlList[i])
+		stmt := stripSQLLineComments(sqlList[i])
+		if stmt == "" {
 			continue
 		}
-		stmt := strings.Replace(sqlList[i]+";", "\n", "", -1)
+		stmt = strings.Replace(stmt+";", "\n", "", -1)
 		stmt = strings.TrimSpace(stmt)
 		if err = db.Exec(stmt).Error; err != nil {
 			if isDuplicateKeyError(err) {
