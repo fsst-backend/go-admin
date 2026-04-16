@@ -86,7 +86,8 @@ func (e *Migration) repairLedgerForLegacyDB() error {
 		return nil
 	}
 	rec := commonmodels.Migration{Version: version159919}
-	if err := db.Create(&rec).Error; err != nil {
+	// Session 重置 Statement，防止 Migrator().HasTable 残留的 schema 缓存导致 Create 时 reflect panic。
+	if err := db.Session(&gorm.Session{}).Create(&rec).Error; err != nil {
 		if isDuplicateKeyError(err) {
 			return nil
 		}

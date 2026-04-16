@@ -3,8 +3,8 @@ package version
 import (
 	"runtime"
 
-	"go-admin/cmd/migrate/migration"
 	adminmodels "go-admin/app/admin/models"
+	"go-admin/cmd/migrate/migration"
 	commonmodels "go-admin/common/models"
 
 	"gorm.io/gorm"
@@ -47,6 +47,7 @@ SELECT user_id, ?, COALESCE(token_version_cs, 0) FROM sys_user
 				return err
 			}
 		}
-		return tx.Create(&commonmodels.Migration{Version: version}).Error
+		// Session 重置 Statement，防止前面 Migrator 操作残留的 schema 缓存导致 Create 时 reflect panic。
+		return tx.Session(&gorm.Session{}).Create(&commonmodels.Migration{Version: version}).Error
 	})
 }

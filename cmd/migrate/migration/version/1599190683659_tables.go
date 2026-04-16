@@ -6,10 +6,10 @@ import (
 
 	"github.com/go-admin-team/go-admin-core/sdk/config"
 
-	"go-admin/cmd/migrate/migration"
 	adminmodels "go-admin/app/admin/models"
 	jobsmodels "go-admin/app/jobs/models"
 	toolsmodels "go-admin/app/other/models/tools"
+	"go-admin/cmd/migrate/migration"
 	commonmodels "go-admin/common/models"
 
 	"gorm.io/gorm"
@@ -58,16 +58,19 @@ func _1599190683659Tables(db *gorm.DB, version string) error {
 		if err := fixSysMenuPaths(tx); err != nil {
 			return err
 		}
-		return tx.Create(&commonmodels.Migration{
+		// Session 重置 Statement，防止前面操作（InitDb / fixSysMenuPaths）
+		// 在 tx 上残留的 schema 缓存导致 Create 时 reflect panic。
+		return tx.Session(&gorm.Session{}).Create(&commonmodels.Migration{
 			Version: version,
 		}).Error
 	})
 }
 
 // fixSysMenuPaths 原 1653638869132_migrate：补全 sys_menu.menu_path
+// 每次查询/更新都用 tx.Session 隔离 Statement，避免污染调用方的 tx。
 func fixSysMenuPaths(tx *gorm.DB) error {
 	var list []adminmodels.SysMenu
-	if err := tx.Model(&adminmodels.SysMenu{}).Order("parent_id,menu_id").Find(&list).Error; err != nil {
+	if err := tx.Session(&gorm.Session{}).Model(&adminmodels.SysMenu{}).Order("parent_id,menu_id").Find(&list).Error; err != nil {
 		return err
 	}
 	for _, v := range list {
@@ -76,7 +79,7 @@ func fixSysMenuPaths(tx *gorm.DB) error {
 			path = "/0/" + strconv.Itoa(v.MenuId)
 		} else {
 			var parent adminmodels.SysMenu
-			err := tx.Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.ParentId).First(&parent).Error
+			err := tx.Session(&gorm.Session{}).Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.ParentId).First(&parent).Error
 			if err != nil {
 				if err == gorm.ErrRecordNotFound {
 					continue
@@ -85,7 +88,7 @@ func fixSysMenuPaths(tx *gorm.DB) error {
 			}
 			path = parent.MenuPath + "/" + strconv.Itoa(v.MenuId)
 		}
-		if err := tx.Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.MenuId).Update("menu_path", path).Error; err != nil {
+		if err := tx.Session(&gorm.Session{}).Model(&adminmodels.SysMenu{}).Where("menu_id = ?", v.MenuId).Update("menu_path", path).Error; err != nil {
 			return err
 		}
 	}
