@@ -2,6 +2,8 @@ package api
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -186,6 +188,7 @@ func runDatabaseMigrations() {
 }
 
 // importMenuFromConfig 启动时自动导入菜单配置文件到数据库。
+// 通过文件 hash 校验避免重复导入：文件内容未变则跳过。
 // 所有错误均记录日志后返回，不阻塞启动。
 func importMenuFromConfig(db *gorm.DB, lg *log.Helper) {
 	if db == nil {
@@ -204,6 +207,18 @@ func importMenuFromConfig(db *gorm.DB, lg *log.Helper) {
 		return
 	}
 
+	// 计算文件 hash，与数据库中存储的上次导入 hash 比较
+	hash := sha256.Sum256(raw)
+	currentHash := hex.EncodeToString(hash[:])
+
+	var lastConfig models.SysConfig
+	if err := db.Where("`config_key` = ?", "menu_import_hash").First(&lastConfig).Error; err == nil {
+		if lastConfig.ConfigValue == currentHash {
+			lg.Info("启动时菜单导入跳过：menu.json 内容未变化")
+			return
+		}
+	}
+
 	var data dto.MenuPermissionIO
 	if err := json.Unmarshal(raw, &data); err != nil {
 		lg.Errorf("启动时菜单导入失败：JSON解析错误 %v", err)
@@ -216,6 +231,19 @@ func importMenuFromConfig(db *gorm.DB, lg *log.Helper) {
 	if err := svc.ImportMenuPermission(&data); err != nil {
 		lg.Errorf("启动时菜单导入失败: %v", err)
 		return
+	}
+
+	// 导入成功后保存 hash
+	if lastConfig.Id > 0 {
+		db.Model(&lastConfig).Update("config_value", currentHash)
+	} else {
+		db.Create(&models.SysConfig{
+			ConfigName:  "菜单导入hash",
+			ConfigKey:   "menu_import_hash",
+			ConfigValue: currentHash,
+			ConfigType:  "Y",
+			Remark:      "自动记录 menu.json 的 SHA256，用于跳过重复导入",
+		})
 	}
 
 	lg.Info("启动时菜单导入完成")

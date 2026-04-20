@@ -901,6 +901,10 @@ func (e *SysMenu) importMenus(tx *gorm.DB, menus []dto.MenuIO) error {
 	// 使用map存储已创建的菜单，以便处理父子关系
 	menuIdMap := make(map[string]int) // key: 菜单PermissionCode，value: 菜单ID
 
+	// 收集本次导入涉及的所有 permission_code，用于后续清理孤儿数据
+	importedCodes := make(map[string]bool)
+	collectPermissionCodes(menus, importedCodes)
+
 	// 递归导入菜单及其子菜单，同时设置排序顺序
 	for i, menu := range menus {
 		err := e.importSingleMenu(tx, menu, 0, &menuIdMap, i+1)
@@ -909,115 +913,144 @@ func (e *SysMenu) importMenus(tx *gorm.DB, menus []dto.MenuIO) error {
 		}
 	}
 
+	// 清理数据库中存在但 menu.json 中不存在的旧菜单（仅清理有 permission_code 的）
+	if len(importedCodes) > 0 {
+		codes := make([]string, 0, len(importedCodes))
+		for code := range importedCodes {
+			codes = append(codes, code)
+		}
+		var orphanMenus []models.SysMenu
+		if err := tx.Where("permission_code != '' AND permission_code NOT IN ?", codes).Find(&orphanMenus).Error; err != nil {
+			e.Log.Warnf("查询孤儿菜单失败: %v", err)
+		} else if len(orphanMenus) > 0 {
+			orphanIds := make([]int, 0, len(orphanMenus))
+			for _, m := range orphanMenus {
+				orphanIds = append(orphanIds, m.MenuId)
+				e.Log.Infof("清理孤儿菜单: id=%d, name=%s, permission_code=%s", m.MenuId, m.MenuName, m.PermissionCode)
+			}
+			// 先删除角色菜单关联
+			tx.Where("menu_id IN ?", orphanIds).Delete(&models.SysRoleMenu{})
+			// 再删除菜单
+			tx.Where("menu_id IN ?", orphanIds).Delete(&models.SysMenu{})
+		}
+	}
+
 	return nil
 }
 
+// collectPermissionCodes 递归收集菜单树中所有的 permission_code
+func collectPermissionCodes(menus []dto.MenuIO, codes map[string]bool) {
+	for _, menu := range menus {
+		if menu.PermissionCode != "" {
+			codes[menu.PermissionCode] = true
+		}
+		if len(menu.Children) > 0 {
+			collectPermissionCodes(menu.Children, codes)
+		}
+	}
+}
+
 // importSingleMenu 导入单个菜单
+// 使用 permission_code 作为唯一标识进行 upsert，同时修正 parent_id 层级关系
 func (e *SysMenu) importSingleMenu(tx *gorm.DB, menu dto.MenuIO, parentId int, menuIdMap *map[string]int, sortOrder int) error {
-	// 检查菜单是否已存在（通过permission_code）
+	if menu.PermissionCode == "" {
+		e.Log.Warnf("跳过无 permission_code 的菜单: name=%s", menu.MenuName)
+		return nil
+	}
+
+	// 通过 permission_code 精确查找（全局唯一）
 	var existingMenu models.SysMenu
-	if err := tx.Where("permission_code = ?", menu.PermissionCode).First(&existingMenu).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			// 菜单不存在，创建新菜单
-			menuModel := models.SysMenu{
-				MenuType:       menu.MenuType,
-				Path:           menu.Path,
-				Component:      menu.Component,
-				Perm:           menu.Perm,
-				MenuName:       menu.MenuName,
-				Title:          menu.Title,
-				PermissionCode: menu.PermissionCode,
-				Icon:           menu.Icon,
-				SortValue:      menu.SortValue,
-				IsExternal:     menu.IsExternal,
-				ExternalLink:   menu.ExternalLink,
-				TextBadge:      menu.TextBadge,
-				ActivePath:     menu.ActivePath,
-				Status:         menu.Status,
-				KeepAlive:      menu.KeepAlive,
-				IsHide:         menu.IsHide,
-				IsIframe:       menu.IsIframe,
-				ShowBadge:      menu.ShowBadge,
-				FixedTab:       menu.FixedTab,
-				IsHideTab:      menu.IsHideTab,
-				ParentId:       parentId,
-			}
+	err := tx.Where("permission_code = ?", menu.PermissionCode).First(&existingMenu).Error
 
-			// 检查PermissionCode是否为空
-			if menuModel.PermissionCode != "" {
-				// 检查PermissionCode是否已存在
-				var count int64
-				err = tx.Model(&models.SysMenu{}).Where("permission_code = ?", menuModel.PermissionCode).Count(&count).Error
-				if err != nil {
-					e.Log.Errorf("检查PermissionCode唯一性失败: %s", err)
-					return err
-				}
-				if count > 0 {
-					err = errors.New("PermissionCode已存在，请使用唯一的PermissionCode")
-					e.Log.Errorf("PermissionCode重复: %s", menuModel.PermissionCode)
-					return err
-				}
-			}
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		e.Log.Errorf("查询菜单失败: %v", err)
+		return err
+	}
 
-			// 创建菜单
-			if err := tx.Create(&menuModel).Error; err != nil {
-				e.Log.Errorf("创建菜单失败: %v, Name: %s", err, menu.MenuName)
-				return err
-			}
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		// 菜单不存在，创建
+		menuModel := models.SysMenu{
+			MenuType:       menu.MenuType,
+			Path:           menu.Path,
+			Component:      menu.Component,
+			Perm:           menu.Perm,
+			MenuName:       menu.MenuName,
+			Title:          menu.Title,
+			PermissionCode: menu.PermissionCode,
+			Icon:           menu.Icon,
+			SortValue:      menu.SortValue,
+			IsExternal:     menu.IsExternal,
+			ExternalLink:   menu.ExternalLink,
+			TextBadge:      menu.TextBadge,
+			ActivePath:     menu.ActivePath,
+			Status:         menu.Status,
+			KeepAlive:      menu.KeepAlive,
+			IsHide:         menu.IsHide,
+			IsIframe:       menu.IsIframe,
+			ShowBadge:      menu.ShowBadge,
+			FixedTab:       menu.FixedTab,
+			IsHideTab:      menu.IsHideTab,
+			ParentId:       parentId,
+		}
 
-			// 存储菜单ID映射
-			(*menuIdMap)[menu.PermissionCode] = menuModel.MenuId
-
-			// 递归导入子菜单
-			for i, child := range menu.Children {
-				err := e.importSingleMenu(tx, child, menuModel.MenuId, menuIdMap, i+1)
-				if err != nil {
-					return err
-				}
-			}
-
-		} else {
-			// 其他错误，返回
-			e.Log.Errorf("查询菜单失败: %v", err)
+		if err := tx.Create(&menuModel).Error; err != nil {
+			e.Log.Errorf("创建菜单失败: %v, Name: %s, PermissionCode: %s", err, menu.MenuName, menu.PermissionCode)
 			return err
 		}
+
+		(*menuIdMap)[menu.PermissionCode] = menuModel.MenuId
+
+		// 递归导入子菜单
+		for i, child := range menu.Children {
+			if err := e.importSingleMenu(tx, child, menuModel.MenuId, menuIdMap, i+1); err != nil {
+				return err
+			}
+		}
 	} else {
-		// 菜单已存在，更新菜单信息
+		// 菜单已存在，只更新结构性字段，不覆盖用户手动修改的展示性字段
 		updateData := map[string]interface{}{
-			"menu_type":       menu.MenuType,
-			"path":            menu.Path,
-			"component":       menu.Component,
-			"perm":            menu.Perm,
-			"menu_name":       menu.MenuName,
-			"title":           menu.Title,
-			"permission_code": menu.PermissionCode,
-			"icon":            menu.Icon,
-			"sort_value":      menu.SortValue,
-			"is_external":     menu.IsExternal,
-			"external_link":   menu.ExternalLink,
-			"text_badge":      menu.TextBadge,
-			"active_path":     menu.ActivePath,
-			"status":          menu.Status,
-			"keep_alive":      menu.KeepAlive,
-			"is_hide":         menu.IsHide,
-			"is_iframe":       menu.IsIframe,
-			"show_badge":      menu.ShowBadge,
-			"fixed_tab":       menu.FixedTab,
-			"is_hide_tab":     menu.IsHideTab,
-			"parent_id":       parentId,
+			"menu_type":   menu.MenuType,
+			"path":        menu.Path,
+			"component":   menu.Component,
+			"perm":        menu.Perm,
+			"sort_value":  menu.SortValue,
+			"is_external": menu.IsExternal,
+			"external_link": menu.ExternalLink,
+			"active_path": menu.ActivePath,
+			"keep_alive":  menu.KeepAlive,
+			"is_hide":     menu.IsHide,
+			"is_iframe":   menu.IsIframe,
+			"show_badge":  menu.ShowBadge,
+			"fixed_tab":   menu.FixedTab,
+			"is_hide_tab": menu.IsHideTab,
+			"parent_id":   parentId,
+		}
+		// 展示性字段：仅在数据库中为空时才从 menu.json 补充，不覆盖用户手动修改
+		if existingMenu.MenuName == "" && menu.MenuName != "" {
+			updateData["menu_name"] = menu.MenuName
+		}
+		if existingMenu.Title == "" && menu.Title != "" {
+			updateData["title"] = menu.Title
+		}
+		if existingMenu.Icon == "" && menu.Icon != "" {
+			updateData["icon"] = menu.Icon
+		}
+		if existingMenu.TextBadge == "" && menu.TextBadge != "" {
+			updateData["text_badge"] = menu.TextBadge
+		}
+		if existingMenu.Status == "" && menu.Status != "" {
+			updateData["status"] = menu.Status
 		}
 		if err := tx.Model(&existingMenu).Updates(updateData).Error; err != nil {
 			e.Log.Errorf("更新菜单失败: %v, Name: %s", err, menu.MenuName)
 			return err
 		}
 
-		// 存储菜单ID映射
 		(*menuIdMap)[menu.PermissionCode] = existingMenu.MenuId
 
 		// 递归导入子菜单
 		for i, child := range menu.Children {
-			err := e.importSingleMenu(tx, child, existingMenu.MenuId, menuIdMap, i+1)
-			if err != nil {
+			if err := e.importSingleMenu(tx, child, existingMenu.MenuId, menuIdMap, i+1); err != nil {
 				return err
 			}
 		}
