@@ -53,3 +53,10 @@ copy-violet-api:
 	@mkdir -p docs/violet
 	@cp ../violet/doc/backend-api.json docs/violet/backend-api.json
 	@echo "==> copied ../violet/doc/backend-api.json -> docs/violet/backend-api.json"
+
+# 将前端 camellia 的 menu.json 复制到 config/menu.json
+.PHONY: menu
+menu:
+	@mkdir -p config
+	@cp /Users/tianyp/workspace/futren/frontend/camellia/seed/menu.json config/menu.json
+	@echo "==> copied camellia/seed/menu.json -> config/menu.json"
