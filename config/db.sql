@@ -75,7 +75,7 @@ INSERT INTO sys_post VALUES (3, '首席运营官', 'COO', 3, 1, '测试工程师
 INSERT INTO sys_role VALUES (1, '系统管理员', '2', 'superadmin', 1, '', '', true, '', 1, 1, '2021-05-13 19:56:37.913', '2021-05-13 19:56:37.913', NULL);
 
 -- sys_user 表结构: user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at
-INSERT INTO sys_user (user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at) VALUES (1, '8ab590bb-f729-493e-ba2f-c1f863ecd6f5', 'admin@futureinvest.id', '$2a$10$SnRmYPQii2Vs3.YG5tGtZe3RSiBabbr8ZNLGWARW1oKSZL90POeSy', 'futren', '886227485995', '', '', '1', 'admin@futureinvest.id', 1, 1, '', 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
+INSERT INTO sys_user (user_id, uuid, username, password, nick_name, phone, salt, avatar, sex, email, dept_id, post_id, remark, status, create_by, update_by, created_at, updated_at, deleted_at) VALUES (1, '8ab590bb-f729-493e-ba2f-c1f863ecd6f5', 'admin', '$2a$10$TzZ1dVFwOOq/7L7Y.LaTle./qbDg3R3fqZ.6zAA4F3Vv7cp1QO3uO', 'admin', '13818888888', '', '', '1', 'admin@email.com', 1, 1, '', 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:40.205', NULL);
 
 -- sys_user_role 表结构: id, user_id, role_id, create_by, update_by, created_at, updated_at, deleted_at
 INSERT INTO sys_user_role VALUES (1, 1, 1, 1, 1, '2021-05-13 19:56:37.914', '2021-05-13 19:56:37.914', NULL);

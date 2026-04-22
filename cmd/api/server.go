@@ -2,6 +2,9 @@ package api
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"net"
 	"net/http"
@@ -18,11 +21,14 @@ import (
 	"github.com/go-admin-team/go-admin-core/sdk/pkg"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"gorm.io/gorm"
 
 	adminapis "go-admin/app/admin/apis"
 	adminGrpc "go-admin/app/admin/grpc"
 	"go-admin/app/admin/models"
 	"go-admin/app/admin/router"
+	"go-admin/app/admin/service"
+	"go-admin/app/admin/service/dto"
 	"go-admin/app/jobs"
 	jobsModels "go-admin/app/jobs/models"
 	otherModels "go-admin/app/other/models/tools"
@@ -81,6 +87,9 @@ func setup() {
 	//2. 数据库：先版本链（一次性脚本/种子/174410），再全量 AutoMigrate（对齐仅改模型未写迁移的情况）
 	runDatabaseMigrations()
 
+	//3. Casbin 初始化：迁移完成后再加载策略，确保 sys_casbin_rule 表和种子数据已就绪
+	database.SetupCasbin()
+
 	db := sdk.Runtime.GetDbByKey("*")
 	if db == nil {
 		log.Warn("启动时 SysApi Swagger 同步跳过：数据库连接为空")
@@ -93,6 +102,9 @@ func setup() {
 			log.Infof("启动时 SysApi Swagger 同步完成: totalFiles=%v processed=%v inserted=%v updated=%v errors=%v",
 				stats["totalFiles"], stats["processed"], stats["inserted"], stats["updated"], stats["errors"])
 		}
+
+		// 启动时自动导入菜单配置
+		importMenuFromConfig(db, h)
 	}
 
 	//注册监听函数
@@ -173,6 +185,68 @@ func runDatabaseMigrations() {
 	} else {
 		log.Info("数据库迁移完成")
 	}
+}
+
+// importMenuFromConfig 启动时自动导入菜单配置文件到数据库。
+// 通过文件 hash 校验避免重复导入：文件内容未变则跳过。
+// 所有错误均记录日志后返回，不阻塞启动。
+func importMenuFromConfig(db *gorm.DB, lg *log.Helper) {
+	if db == nil {
+		lg.Warn("启动时菜单导入跳过：数据库连接为空")
+		return
+	}
+
+	const menuFile = "menu.json"
+	raw, err := os.ReadFile(menuFile)
+	if err != nil {
+		if os.IsNotExist(err) {
+			lg.Warnf("启动时菜单导入跳过：配置文件不存在 %s", menuFile)
+		} else {
+			lg.Errorf("启动时菜单导入失败：读取文件错误 %v", err)
+		}
+		return
+	}
+
+	// 计算文件 hash，与数据库中存储的上次导入 hash 比较
+	hash := sha256.Sum256(raw)
+	currentHash := hex.EncodeToString(hash[:])
+
+	var lastConfig models.SysConfig
+	if err := db.Where("`config_key` = ?", "menu_import_hash").First(&lastConfig).Error; err == nil {
+		if lastConfig.ConfigValue == currentHash {
+			lg.Info("启动时菜单导入跳过：menu.json 内容未变化")
+			return
+		}
+	}
+
+	var data dto.MenuPermissionIO
+	if err := json.Unmarshal(raw, &data); err != nil {
+		lg.Errorf("启动时菜单导入失败：JSON解析错误 %v", err)
+		return
+	}
+
+	svc := service.SysMenu{}
+	svc.Orm = db
+	svc.Log = lg
+	if err := svc.ImportMenuPermission(&data); err != nil {
+		lg.Errorf("启动时菜单导入失败: %v", err)
+		return
+	}
+
+	// 导入成功后保存 hash
+	if lastConfig.Id > 0 {
+		db.Model(&lastConfig).Update("config_value", currentHash)
+	} else {
+		db.Create(&models.SysConfig{
+			ConfigName:  "菜单导入hash",
+			ConfigKey:   "menu_import_hash",
+			ConfigValue: currentHash,
+			ConfigType:  "Y",
+			Remark:      "自动记录 menu.json 的 SHA256，用于跳过重复导入",
+		})
+	}
+
+	lg.Info("启动时菜单导入完成")
 }
 
 func run() error {

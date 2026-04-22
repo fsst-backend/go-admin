@@ -96,6 +96,8 @@ func initDB() {
 	//4. 数据库迁移
 	fmt.Println("数据库迁移开始")
 	_ = migrateModel()
+	//5. Casbin 初始化（迁移完成后）
+	database.SetupCasbin()
 	fmt.Println(`数据库基础数据初始化成功`)
 }
 

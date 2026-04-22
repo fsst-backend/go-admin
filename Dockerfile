@@ -22,6 +22,7 @@ COPY config/db.sql ./db.sql
 COPY config/db-begin-mysql.sql ./db-begin-mysql.sql
 COPY config/db-end-mysql.sql ./db-end-mysql.sql
 COPY docs ./docs
+COPY config/menu.json ./menu.json
 COPY config/settings.template.yaml ./settings.yaml
 
 EXPOSE 13348

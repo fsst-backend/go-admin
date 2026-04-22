@@ -59,8 +59,19 @@ func setupSimpleDatabase(host string, c *toolsConfig.Database) {
 		log.Info(pkg.Green(c.Driver + " connect success !"))
 	}
 
-	e := mycasbin.Setup(db, "")
-
 	sdk.Runtime.SetDb(host, db)
-	sdk.Runtime.SetCasbin(host, e)
+}
+
+// SetupCasbin 初始化 Casbin enforcer 并同步用户角色 grouping policy。
+// 必须在数据库迁移完成之后调用，确保 sys_casbin_rule、sys_user_role 等表和种子数据已就绪。
+func SetupCasbin() {
+	for k := range toolsConfig.DatabasesConfig {
+		db := sdk.Runtime.GetDbByKey(k)
+		if db == nil {
+			continue
+		}
+		e := mycasbin.Setup(db, "")
+		sdk.Runtime.SetCasbin(k, e)
+		mycasbin.SyncUserRoleGroupingPolicies(db)
+	}
 }
