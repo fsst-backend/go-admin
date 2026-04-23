@@ -1231,6 +1231,30 @@
               "isHideTab": false,
               "isFullPage": false,
               "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "出金确认",
+              "title": "出金确认",
+              "permission_code": "financial:withdraw:confirm",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
             }
           ]
         },
@@ -1426,7 +1450,32 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "对账审核",
+              "title": "对账审核",
+              "permission_code": "financial:reconciliation:audit",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -2442,7 +2491,80 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "新增标签",
+              "title": "新增标签",
+              "permission_code": "member:tag:add",
+              "icon": "",
+              "sortValue": 1,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "编辑标签",
+              "title": "编辑标签",
+              "permission_code": "member:tag:edit",
+              "icon": "",
+              "sortValue": 2,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "删除标签",
+              "title": "删除标签",
+              "permission_code": "member:tag:delete",
+              "icon": "",
+              "sortValue": 3,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -2768,6 +2890,30 @@
               "permission_code": "member:acctConfig:add",
               "icon": "",
               "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "删除渠道",
+              "title": "删除渠道",
+              "permission_code": "member:channel:delete",
+              "icon": "",
+              "sortValue": 1,
               "isExternal": false,
               "externalLink": "",
               "textBadge": "",
@@ -4266,8 +4412,8 @@
           "path": "depositFail",
           "component": "/reportForms/depositFail",
           "perm": "",
-          "menuName": "充值失败报表",
-          "title": "充值失败报表",
+          "menuName": "入金失败报表",
+          "title": "入金失败报表",
           "permission_code": "reportForms:depositFail:list",
           "icon": "",
           "sortValue": 6,
@@ -5009,7 +5155,80 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "新增黑名单",
+              "title": "新增黑名单",
+              "permission_code": "telemarketing:blacklist:add",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "上传黑名单",
+              "title": "上传黑名单",
+              "permission_code": "telemarketing:blacklist:upload",
+              "icon": "",
+              "sortValue": 1,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "白名单导入",
+              "title": "白名单导入",
+              "permission_code": "telemarketing:externalList:whitelistImport",
+              "icon": "",
+              "sortValue": 2,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -5178,7 +5397,32 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "坐席状态管理",
+              "title": "坐席状态管理",
+              "permission_code": "configuration:agent:status",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -5202,7 +5446,128 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "新增客服",
+              "title": "新增客服",
+              "permission_code": "configuration:customer:add",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "编辑客服",
+              "title": "编辑客服",
+              "permission_code": "configuration:customer:edit",
+              "icon": "",
+              "sortValue": 1,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "删除客服",
+              "title": "删除客服",
+              "permission_code": "configuration:customer:delete",
+              "icon": "",
+              "sortValue": 2,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "客服详情",
+              "title": "客服详情",
+              "permission_code": "configuration:customer:detail",
+              "icon": "",
+              "sortValue": 3,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "团队管理",
+              "title": "团队管理",
+              "permission_code": "configuration:customer:team:manage",
+              "icon": "",
+              "sortValue": 4,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -5323,7 +5688,32 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "坐席状态管理",
+              "title": "坐席状态管理",
+              "permission_code": "configuration:agent:status",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -8395,7 +8785,32 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "编辑任务统计",
+              "title": "编辑任务统计",
+              "permission_code": "task:taskStatistics:edit",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         },
         {
           "menuType": "C",
@@ -8443,7 +8858,56 @@
           "fixedTab": false,
           "isHideTab": false,
           "isFullPage": false,
-          "children": []
+          "children": [
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "积分审核",
+              "title": "积分审核",
+              "permission_code": "task:pointsReview:audit",
+              "icon": "",
+              "sortValue": 0,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            },
+            {
+              "menuType": "F",
+              "path": "",
+              "component": "",
+              "perm": "",
+              "menuName": "查看积分审核",
+              "title": "查看积分审核",
+              "permission_code": "task:pointsReview:view",
+              "icon": "",
+              "sortValue": 1,
+              "isExternal": false,
+              "externalLink": "",
+              "textBadge": "",
+              "activePath": "",
+              "status": "",
+              "keepAlive": true,
+              "isHide": false,
+              "isIframe": false,
+              "showBadge": false,
+              "fixedTab": false,
+              "isHideTab": false,
+              "isFullPage": false,
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -10173,31 +10637,56 @@
       "code": "attribution:antiCheat:list",
       "name": "反作弊列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/attribution/anti_cheat/list"
+        }
+      ]
     },
     {
       "code": "attribution:appInfo:list",
       "name": "应用信息列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/attribution/app_info/list"
+        }
+      ]
     },
     {
       "code": "attribution:appStats:list",
       "name": "应用统计列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/attribution/app_stats/list"
+        }
+      ]
     },
     {
       "code": "attribution:channel:list",
       "name": "渠道列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/attribution/channel/list"
+        }
+      ]
     },
     {
       "code": "attribution:channelStats:list",
       "name": "渠道统计列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/attribution/channel_stats/list"
+        }
+      ]
     },
     {
       "code": "attribution:dir",
@@ -10213,6 +10702,84 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/commission/partner/relation_list"
+        }
+      ]
+    },
+    {
+      "code": "configuration:agent:status",
+      "name": "坐席状态管理",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/OutboundCallStatusSetting"
+        }
+      ]
+    },
+    {
+      "code": "configuration:customer:add",
+      "name": "新增客服",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/AddCustomer"
+        }
+      ]
+    },
+    {
+      "code": "configuration:customer:delete",
+      "name": "删除客服",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/DeleteCustomer"
+        }
+      ]
+    },
+    {
+      "code": "configuration:customer:detail",
+      "name": "客服详情",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/CustomerServiceDetails"
+        }
+      ]
+    },
+    {
+      "code": "configuration:customer:edit",
+      "name": "编辑客服",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/EditorialCustomer"
+        }
+      ]
+    },
+    {
+      "code": "configuration:customer:team:manage",
+      "name": "团队管理",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/AddGroup"
+        },
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/EditorialTeam"
+        },
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/DeleteTeam"
+        },
+        {
+          "method": "GET",
+          "url": "/Telemarketing/open/v1/CustomerService/GroupList"
         }
       ]
     },
@@ -10262,9 +10829,14 @@
     },
     {
       "code": "consulting:bulletinCollection:list",
-      "name": "consulting:bulletinCollection:list",
+      "name": "公告列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/content/flash/list"
+        }
+      ]
     },
     {
       "code": "consulting:calendarCollection:add",
@@ -10314,13 +10886,23 @@
       "code": "consulting:calendarCollection:export",
       "name": "导出",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/export/content/calendar/export"
+        }
+      ]
     },
     {
       "code": "consulting:calendarCollection:list",
-      "name": "consulting:calendarCollection:list",
+      "name": "日历列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/content/calendar/list"
+        }
+      ]
     },
     {
       "code": "consulting:dir",
@@ -10332,55 +10914,140 @@
       "code": "consulting:notification:add",
       "name": "新增通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/content/notification/add_or_update"
+        }
+      ]
     },
     {
       "code": "consulting:notification:batchDelete",
       "name": "批量删除通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/content/notification/delete"
+        }
+      ]
     },
     {
       "code": "consulting:notification:delete",
       "name": "删除通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/content/notification/delete"
+        }
+      ]
     },
     {
       "code": "consulting:notification:edit",
       "name": "编辑通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/content/notification/add_or_update"
+        }
+      ]
     },
     {
       "code": "consulting:notification:export",
       "name": "导出通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/export/content/notification/export"
+        }
+      ]
     },
     {
       "code": "consulting:notification:list",
-      "name": "consulting:notification:list",
+      "name": "通知列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/content/notification/list"
+        }
+      ]
     },
     {
       "code": "consulting:notification:preview",
       "name": "预览通知",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/content/notification/detail"
+        }
+      ]
     },
     {
       "code": "customerMngt:list",
-      "name": "customerMngt:list",
+      "name": "客户管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmusers"
+        }
+      ]
     },
     {
       "code": "dashboard:console:list",
-      "name": "dashboard:console:list",
+      "name": "工作台",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/integrate/operations"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/trade/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/finance/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/user_growth/trend"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/balance/reporting"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/profit_and_lost/analysis"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/user/funnel"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/symbols_pnl_stat/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/user_profit_stat/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/workbench/recent_activities/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/config/get"
+        }
+      ]
     },
     {
       "code": "dashboard:dir",
@@ -10429,27 +11096,47 @@
     },
     {
       "code": "exam:examMngt:list",
-      "name": "exam:examMngt:list",
+      "name": "考试列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/list"
+        }
+      ]
     },
     {
       "code": "exam:examRecord:list",
-      "name": "exam:examRecord:list",
+      "name": "考试记录",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/exam_records/list"
+        }
+      ]
     },
     {
       "code": "exam:examStatistics:list",
-      "name": "exam:examStatistics:list",
+      "name": "考试统计",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/exam_stats/list"
+        }
+      ]
     },
     {
       "code": "exam:pageMngt:detail",
-      "name": "exam:pageMngt:detail",
+      "name": "试卷详情",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/paper/detail"
+        }
+      ]
     },
     {
       "code": "exam:paperMngt:add",
@@ -10552,33 +11239,70 @@
     },
     {
       "code": "exam:paperMngt:list",
-      "name": "exam:paperMngt:list",
+      "name": "试卷列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/paper/list"
+        }
+      ]
     },
     {
       "code": "exam:registrationRecord:list",
-      "name": "exam:registrationRecord:list",
+      "name": "报名记录",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/traderexams/enroll/list"
+        }
+      ]
     },
     {
       "code": "financial:aFee:page",
-      "name": "financial:aFee:page",
+      "name": "出入金手续费配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/in"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/countries"
+        }
+      ]
     },
     {
       "code": "financial:balance:list",
-      "name": "financial:balance:list",
+      "name": "余额列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/customer_balance_list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/customer_balance_overview"
+        }
+      ]
     },
     {
       "code": "financial:balance:view",
       "name": "查看",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/customer_balance_list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/customer_balance_overview"
+        }
+      ]
     },
     {
       "code": "financial:channel:add",
@@ -10615,9 +11339,22 @@
     },
     {
       "code": "financial:channel:list",
-      "name": "financial:channel:list",
+      "name": "通道列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/pay_channel/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/pay_channel/pay_type"
+        }
+      ]
     },
     {
       "code": "financial:deposit:add",
@@ -10665,9 +11402,26 @@
     },
     {
       "code": "financial:deposit:list",
-      "name": "financial:deposit:list",
+      "name": "入金列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/deposit_apply/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/pay_channel/all_by_order"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/platform/names"
+        }
+      ]
     },
     {
       "code": "financial:dir",
@@ -10737,9 +11491,22 @@
     },
     {
       "code": "financial:limitAdj:list",
-      "name": "financial:limitAdj:list",
+      "name": "额度调整列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/adjustment/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/adjustment/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/dict/list"
+        }
+      ]
     },
     {
       "code": "financial:payPlat:add",
@@ -10776,9 +11543,18 @@
     },
     {
       "code": "financial:payPlat:list",
-      "name": "financial:payPlat:list",
+      "name": "支付平台列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/pay_platform/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_currency/list"
+        }
+      ]
     },
     {
       "code": "financial:payPlat:set",
@@ -10815,21 +11591,67 @@
     },
     {
       "code": "financial:rate:list",
-      "name": "financial:rate:list",
+      "name": "汇率列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/exchange_rate/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_currency/list"
+        }
+      ]
+    },
+    {
+      "code": "financial:reconciliation:audit",
+      "name": "对账审核",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/finance/update/reconciliation_status"
+        }
+      ]
     },
     {
       "code": "financial:reconciliation:list",
-      "name": "financial:reconciliation:list",
+      "name": "对账列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/reconciliation/statistics"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/reconciliation/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/platform/names"
+        }
+      ]
     },
     {
       "code": "financial:tRecord:list",
-      "name": "financial:tRecord:list",
+      "name": "转账记录列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/transfer_apply/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/transfer_apply/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "financial:tRecord:view",
@@ -10844,13 +11666,37 @@
     },
     {
       "code": "financial:wallet:list",
-      "name": "financial:wallet:list",
+      "name": "钱包列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/wallets"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_currency/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "financial:withdraw:audit",
       "name": "出金审核",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/finance/audit/withdrawal_apply"
+        }
+      ]
+    },
+    {
+      "code": "financial:withdraw:confirm",
+      "name": "出金确认",
       "type": "前端权限",
       "apis": [
         {
@@ -10872,27 +11718,55 @@
     },
     {
       "code": "financial:withdraw:list",
-      "name": "financial:withdraw:list",
+      "name": "出金列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/withdrawal_apply/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/pay_channel/all_by_order"
+        }
+      ]
     },
     {
       "code": "financial:withdrawCondition:add",
       "name": "新增",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/finance/withdrawal_audit_rule"
+        }
+      ]
     },
     {
       "code": "financial:withdrawCondition:edit",
       "name": "编辑",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/finance/withdrawal_audit_rule/update"
+        }
+      ]
     },
     {
       "code": "financial:withdrawCondition:list",
-      "name": "financial:withdrawCondition:list",
+      "name": "出金条件列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/finance/withdrawal_audit_rule/list"
+        }
+      ]
     },
     {
       "code": "following:dir",
@@ -10902,15 +11776,29 @@
     },
     {
       "code": "following:merchandiser:list",
-      "name": "following:merchandiser:list",
+      "name": "跟单员管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/followers/v2"
+        }
+      ]
     },
     {
       "code": "following:referralRecord:list",
-      "name": "following:referralRecord:list",
+      "name": "推荐记录列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/signal_provider/active_orders"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/signal_provider/order_stats"
+        }
+      ]
     },
     {
       "code": "following:referralRecord:viewDetail",
@@ -10947,9 +11835,14 @@
     },
     {
       "code": "following:trackingAudit:list",
-      "name": "following:trackingAudit:list",
+      "name": "跟单审核列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/signal_provider_audits"
+        }
+      ]
     },
     {
       "code": "following:trackingConfig:add",
@@ -10997,9 +11890,14 @@
     },
     {
       "code": "following:trackingConfig:list",
-      "name": "following:trackingConfig:list",
+      "name": "跟单配置列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/setting/Levels"
+        }
+      ]
     },
     {
       "code": "following:trackingConfig:view",
@@ -11036,9 +11934,14 @@
     },
     {
       "code": "following:trader:list",
-      "name": "following:trader:list",
+      "name": "交易员列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/signal_providers/v2"
+        }
+      ]
     },
     {
       "code": "following:trader:view",
@@ -11061,7 +11964,12 @@
       "code": "i18n:panorama:list",
       "name": "全景翻译列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/i18nadmin/unified/panorama/stats"
+        }
+      ]
     },
     {
       "code": "marketing:activity:add",
@@ -11124,9 +12032,18 @@
     },
     {
       "code": "marketing:activity:detail",
-      "name": "marketing:activity:detail",
+      "name": "活动详情",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/bonus/detail"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/trial/detail"
+        }
+      ]
     },
     {
       "code": "marketing:activity:edit",
@@ -11156,9 +12073,14 @@
     },
     {
       "code": "marketing:activity:list",
-      "name": "marketing:activity:list",
+      "name": "活动列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/list/get"
+        }
+      ]
     },
     {
       "code": "marketing:activity:multiRegistration",
@@ -11234,9 +12156,14 @@
     },
     {
       "code": "marketing:participation:list",
-      "name": "marketing:participation:list",
+      "name": "参与管理列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/user/list"
+        }
+      ]
     },
     {
       "code": "marketing:participation:settlement",
@@ -11295,27 +12222,95 @@
     },
     {
       "code": "marketing:portfolio:list",
-      "name": "marketing:portfolio:list",
+      "name": "投资组合列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/symbol/list"
+        }
+      ]
     },
     {
       "code": "marketing:statistics:list",
-      "name": "marketing:statistics:list",
+      "name": "活动统计",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/activity/statistics"
+        }
+      ]
     },
     {
       "code": "member:acctConfig:add",
       "name": "新增和编辑",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/global_config/get"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/global_config/update"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/register_policy/list"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/register_policy/create"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/register_policy/update"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/register_policy/delete"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/register_policy/detail"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/api_config/list"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/api_config/create"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/api_config/update"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/api_config/delete"
+        }
+      ]
     },
     {
       "code": "member:acctConfig:dic",
-      "name": "member:acctConfig:dic",
+      "name": "账户配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/global_config/get"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/register_policy/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_setting/get_all_country_name"
+        }
+      ]
     },
     {
       "code": "member:certification:auditing",
@@ -11330,9 +12325,14 @@
     },
     {
       "code": "member:certification:list",
-      "name": "member:certification:list",
+      "name": "实名认证列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/verification/review/list"
+        }
+      ]
     },
     {
       "code": "member:certification:view",
@@ -11342,6 +12342,17 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/user/get/verification/review/detail"
+        }
+      ]
+    },
+    {
+      "code": "member:channel:delete",
+      "name": "删除渠道",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/register_config/api_config/delete"
         }
       ]
     },
@@ -11380,9 +12391,30 @@
     },
     {
       "code": "member:customerAccount:list",
-      "name": "member:customerAccount:list",
+      "name": "客户账户列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/accounts/list/all"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/all/level/idname"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/groups/bind/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/crmlabel/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/accounts/summary"
+        }
+      ]
     },
     {
       "code": "member:customerAccount:tradingDisabled",
@@ -11436,9 +12468,14 @@
     },
     {
       "code": "member:group:list",
-      "name": "member:group:list",
+      "name": "用户分组列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "member:levelConfig:add",
@@ -11475,9 +12512,14 @@
     },
     {
       "code": "member:levelConfig:list",
-      "name": "member:levelConfig:list",
+      "name": "等级配置列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/level/config/list"
+        }
+      ]
     },
     {
       "code": "member:levelConfig:setDefault",
@@ -11525,15 +12567,41 @@
     },
     {
       "code": "member:levelMngt:list",
-      "name": "member:levelMngt:list",
+      "name": "等级管理列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/user/get/level/adjuset/record/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "member:member:list",
-      "name": "member:member:list",
+      "name": "会员列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmusers"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmuser/stat/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/pkgmanager/app/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "member:member:view",
@@ -11663,10 +12731,52 @@
       ]
     },
     {
-      "code": "member:tagMngt:list",
-      "name": "member:tagMngt:list",
+      "code": "member:tag:add",
+      "name": "新增标签",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/user/create/crmlabel"
+        }
+      ]
+    },
+    {
+      "code": "member:tag:delete",
+      "name": "删除标签",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/user/delete/crmlabel"
+        }
+      ]
+    },
+    {
+      "code": "member:tag:edit",
+      "name": "编辑标签",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/user/update/crmlabel"
+        }
+      ]
+    },
+    {
+      "code": "member:tagMngt:list",
+      "name": "标签管理列表",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/crmlabel/tree"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmuser/dict/list"
+        }
+      ]
     },
     {
       "code": "member:userGroup:add",
@@ -11686,7 +12796,7 @@
       "apis": [
         {
           "method": "POST",
-          "url": "/poplar/violet/backend/user/crmgroup"
+          "url": "/poplar/violet/backend/user/crmgroup/delete"
         }
       ]
     },
@@ -11697,21 +12807,31 @@
       "apis": [
         {
           "method": "POST",
-          "url": "/poplar/violet/backend/user/crmgroup"
+          "url": "/poplar/violet/backend/user/crmgroup/update"
         }
       ]
     },
     {
       "code": "merchantMgmt:auditMgt:list",
-      "name": "merchantMgmt:auditMgt:list",
+      "name": "审核管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/audit_mgt/list"
+        }
+      ]
     },
     {
       "code": "merchantMgmt:depositMgt:list",
-      "name": "merchantMgmt:depositMgt:list",
+      "name": "入金管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/deposit_mgt/list"
+        }
+      ]
     },
     {
       "code": "merchantMgmt:dir",
@@ -11721,27 +12841,47 @@
     },
     {
       "code": "merchantMgmt:list",
-      "name": "merchantMgmt:list",
+      "name": "商户列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/list"
+        }
+      ]
     },
     {
       "code": "merchantMgmt:moduleSet:setting",
-      "name": "merchantMgmt:moduleSet:setting",
+      "name": "模块设置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/module_set/config"
+        }
+      ]
     },
     {
       "code": "merchantMgmt:reconReport:list",
-      "name": "merchantMgmt:reconReport:list",
+      "name": "对账报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/recon_report/list"
+        }
+      ]
     },
     {
       "code": "merchantMgmt:user:list",
-      "name": "merchantMgmt:user:list",
+      "name": "商户用户",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/merchant/user/list"
+        }
+      ]
     },
     {
       "code": "mobile:apps:addApp",
@@ -11844,9 +12984,14 @@
     },
     {
       "code": "mobile:apps:list",
-      "name": "mobile:apps:list",
+      "name": "App管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/pkgmanager/app/list"
+        }
+      ]
     },
     {
       "code": "mobile:components:addStyle",
@@ -11883,9 +13028,14 @@
     },
     {
       "code": "mobile:components:list",
-      "name": "mobile:components:list",
+      "name": "组件管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/common-component/list"
+        }
+      ]
     },
     {
       "code": "mobile:dir",
@@ -11939,9 +13089,14 @@
     },
     {
       "code": "mobile:layouts:list",
-      "name": "mobile:layouts:list",
+      "name": "版面管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/list"
+        }
+      ]
     },
     {
       "code": "mobile:layouts:operation",
@@ -11958,13 +13113,23 @@
       "code": "mobile:layouts:publish",
       "name": "发布",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/appconfiguration/publish"
+        }
+      ]
     },
     {
       "code": "mobile:layouts:save",
       "name": "保存",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/appconfiguration/update"
+        }
+      ]
     },
     {
       "code": "mobile:layouts:setup",
@@ -12008,39 +13173,72 @@
     },
     {
       "code": "msgCenter:email:list",
-      "name": "msgCenter:email:list",
+      "name": "邮件管理列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/channel/config/email_provider/list"
+        }
+      ]
     },
     {
       "code": "msgCenter:msg:list",
-      "name": "msgCenter:msg:list",
+      "name": "消息配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/channel/config/global/get"
+        }
+      ]
     },
     {
       "code": "msgCenter:msgBar:list",
-      "name": "msgCenter:msgBar:list",
+      "name": "消息栏列表",
       "type": "前端权限",
       "apis": []
     },
     {
       "code": "msgCenter:record:list",
-      "name": "msgCenter:record:list",
+      "name": "发送记录列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/send_records/list"
+        }
+      ]
     },
     {
       "code": "msgCenter:sms:list",
-      "name": "msgCenter:sms:list",
+      "name": "短信管理列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/channel/config/sms_provider/provider_kinds"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/channel/config/sms_provider/list"
+        }
+      ]
     },
     {
       "code": "msgCenter:templateMgr:list",
-      "name": "msgCenter:templateMgr:list",
+      "name": "模版管理列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/message_template_type_categories/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/message_template_types/list"
+        }
+      ]
     },
     {
       "code": "operation:acctApplication:audit",
@@ -12059,9 +13257,22 @@
     },
     {
       "code": "operation:acctApplication:list",
-      "name": "operation:acctApplication:list",
+      "name": "开户申请列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/register_config/user_open_apply/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_setting/get_all_country_name"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/get/crmlabel/list"
+        }
+      ]
     },
     {
       "code": "operation:dir",
@@ -12071,15 +13282,25 @@
     },
     {
       "code": "operation:list",
-      "name": "operation:list",
+      "name": "通知中心",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/VerificationCode/VerificationCodeList"
+        }
+      ]
     },
     {
       "code": "operation:notificationSetting:list",
-      "name": "operation:notificationSetting:list",
+      "name": "广告管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/OtherNews/NotificationType"
+        }
+      ]
     },
     {
       "code": "operation:operationConfig:keyAccount",
@@ -12094,9 +13315,14 @@
     },
     {
       "code": "operation:operationConfig:list",
-      "name": "operation:operationConfig:list",
+      "name": "运营配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/config/get"
+        }
+      ]
     },
     {
       "code": "operation:operationConfig:loseAccount",
@@ -12122,15 +13348,29 @@
     },
     {
       "code": "parner:allParner:detail",
-      "name": "parner:allParner:detail",
+      "name": "合伙人详情",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/detail"
+        }
+      ]
     },
     {
       "code": "parner:allParner:list",
-      "name": "parner:allParner:list",
+      "name": "全部合伙人",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/relation_list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/overview"
+        }
+      ]
     },
     {
       "code": "parner:examRebate:edit",
@@ -12145,9 +13385,14 @@
     },
     {
       "code": "parner:examRebate:list",
-      "name": "parner:examRebate:list",
+      "name": "考核返佣列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/trader/exam/rebate/rule/list"
+        }
+      ]
     },
     {
       "code": "parner:rebateConfig:batchCopy",
@@ -12162,9 +13407,18 @@
     },
     {
       "code": "parner:rebateConfig:list",
-      "name": "parner:rebateConfig:list",
+      "name": "返佣配置列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/mt_settings/transaction_group/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/commission/config/by_group"
+        }
+      ]
     },
     {
       "code": "parner:rebateConfig:ratioCopy",
@@ -12190,15 +13444,29 @@
     },
     {
       "code": "parner:rebateRecord:list",
-      "name": "parner:rebateRecord:list",
+      "name": "返佣记录",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/trader/commission_history/lists"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/commission/overview"
+        }
+      ]
     },
     {
       "code": "parner:rebateStatistics:list",
-      "name": "parner:rebateStatistics:list",
+      "name": "返佣统计",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/report"
+        }
+      ]
     },
     {
       "code": "partner:dir",
@@ -12214,9 +13482,14 @@
     },
     {
       "code": "platform:holidayConfig:list",
-      "name": "platform:holidayConfig:list",
+      "name": "假日配置列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/mt_settings/holiday/list"
+        }
+      ]
     },
     {
       "code": "platform:instrument:batchSetDisplay",
@@ -12275,15 +13548,37 @@
     },
     {
       "code": "platform:instrument:list",
-      "name": "platform:instrument:list",
+      "name": "交易品种列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/mt_settings/symbols/list"
+        }
+      ]
     },
     {
       "code": "platform:instrument:tableEdit",
       "name": "表格编辑",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/transaction/mt_settings/symbol/setorder"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/transaction/mt_settings/symbol/setname"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/transaction/mt_settings/symbol/seticon"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/transaction/mt_settings/symbol/setpip"
+        }
+      ]
     },
     {
       "code": "platform:instrument:uploadIcon",
@@ -12399,7 +13694,12 @@
       "code": "platform:noticeConfig:emailConfig:style:view",
       "name": "查看邮件样式",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/MailTemplate/SpecifyStyle"
+        }
+      ]
     },
     {
       "code": "platform:noticeConfig:emailConfig:template:add",
@@ -12441,7 +13741,7 @@
       "apis": [
         {
           "method": "POST",
-          "url": "/poplar/sms/v1/MailTemplate/EditStyle"
+          "url": "/poplar/sms/v1/MailTemplate/EditTemplate"
         }
       ]
     },
@@ -12471,13 +13771,23 @@
       "code": "platform:noticeConfig:emailConfig:template:view",
       "name": "查看邮件模板",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/MailTemplate/ObtainTheSpecifiedIdentificationTemplate"
+        }
+      ]
     },
     {
       "code": "platform:noticeConfig:smsConfig:platform:add",
       "name": "新增短信平台配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/sms/v1/SMSTemplate/AddPlatform"
+        }
+      ]
     },
     {
       "code": "platform:noticeConfig:smsConfig:platform:delete",
@@ -12516,7 +13826,12 @@
       "code": "platform:noticeConfig:smsConfig:template:add",
       "name": "新增短信模板",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/sms/v1/SMSTemplate/SMSTemplate"
+        }
+      ]
     },
     {
       "code": "platform:noticeConfig:smsConfig:template:delete",
@@ -12575,9 +13890,14 @@
     },
     {
       "code": "platform:riskConfig:list",
-      "name": "platform:riskConfig:list",
+      "name": "风控配置列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/monitoring_rule/list"
+        }
+      ]
     },
     {
       "code": "platform:tradingGroup:add",
@@ -12669,15 +13989,25 @@
     },
     {
       "code": "platform:tradingGroup:list",
-      "name": "platform:tradingGroup:list",
+      "name": "交易组列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/mt_settings/transaction_group/list"
+        }
+      ]
     },
     {
       "code": "platform:tradingGroup:tableEdit",
       "name": "表格编辑",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/transaction/mt_settings/transaction_group/update"
+        }
+      ]
     },
     {
       "code": "platform:tradingGroup:upload",
@@ -12709,9 +14039,14 @@
     },
     {
       "code": "platformConfig:noticeConfig",
-      "name": "platformConfig:noticeConfig",
+      "name": "通知配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/OtherNews/GetGlobalNotificationSettings"
+        }
+      ]
     },
     {
       "code": "platformSetting:bank:add",
@@ -12759,9 +14094,14 @@
     },
     {
       "code": "platformSetting:bank:list",
-      "name": "platformSetting:bank:list",
+      "name": "银行列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/bank_setting/List"
+        }
+      ]
     },
     {
       "code": "platformSetting:country:add",
@@ -12831,9 +14171,18 @@
     },
     {
       "code": "platformSetting:country:list",
-      "name": "platformSetting:country:list",
+      "name": "国家列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_setting/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmgroup/list"
+        }
+      ]
     },
     {
       "code": "platformSetting:country:status",
@@ -12887,39 +14236,85 @@
     },
     {
       "code": "platformSetting:language:list",
-      "name": "platformSetting:language:list",
+      "name": "语言列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/i18n/language/list"
+        }
+      ]
     },
     {
       "code": "reportForms:blastingWarehouse:list",
-      "name": "reportForms:blastingWarehouse:list",
+      "name": "爆仓名单报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/custom_report/liquidated_statics"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/custom_report/liquidated_account_list"
+        }
+      ]
     },
     {
       "code": "reportForms:capital:list",
-      "name": "reportForms:capital:list",
+      "name": "资金报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/balance/total_reporting"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/balance/reporting"
+        }
+      ]
     },
     {
       "code": "reportForms:comprehensive:list",
-      "name": "reportForms:comprehensive:list",
+      "name": "综合报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/integrate/user_list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/integrate/operations"
+        }
+      ]
     },
     {
       "code": "reportForms:deal:list",
-      "name": "reportForms:deal:list",
+      "name": "交易报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/trade_report/summary"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/trade_report/tendency"
+        }
+      ]
     },
     {
       "code": "reportForms:depositFail:list",
-      "name": "reportForms:depositFail:list",
+      "name": "存款失败报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/custom_report/account_deposit_fail_list"
+        }
+      ]
     },
     {
       "code": "reportForms:dir",
@@ -12929,27 +14324,59 @@
     },
     {
       "code": "reportForms:retention:list",
-      "name": "reportForms:retention:list",
+      "name": "留存报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/retention/base_static"
+        }
+      ]
     },
     {
       "code": "reportForms:retentionCost:list",
-      "name": "reportForms:retentionCost:list",
+      "name": "成本报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/cost/statistics"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/cost/chart"
+        }
+      ]
     },
     {
       "code": "reportForms:runoff:list",
-      "name": "reportForms:runoff:list",
+      "name": "客户流失报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/custom_report/account_churn_distribution"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/custom_report/account_churn_list"
+        }
+      ]
     },
     {
       "code": "reportForms:user:list",
-      "name": "reportForms:user:list",
+      "name": "用户报表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/user/conversion_funnel"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/overall"
+        }
+      ]
     },
     {
       "code": "risk:acctSuperv:add",
@@ -12997,9 +14424,14 @@
     },
     {
       "code": "risk:acctSuperv:list",
-      "name": "risk:acctSuperv:list",
+      "name": "账户监管列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/risk/user_open_review_rule/list"
+        }
+      ]
     },
     {
       "code": "risk:association:deal",
@@ -13014,9 +14446,18 @@
     },
     {
       "code": "risk:association:list",
-      "name": "risk:association:list",
+      "name": "关联分析列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/risk_association/records/list"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/risk_association/stats"
+        }
+      ]
     },
     {
       "code": "risk:association:view",
@@ -13150,9 +14591,14 @@
     },
     {
       "code": "risk:blacklist:list",
-      "name": "risk:blacklist:list",
+      "name": "黑名单列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/blacklist/id_no/list"
+        }
+      ]
     },
     {
       "code": "risk:blacklist:related",
@@ -13195,27 +14641,58 @@
     },
     {
       "code": "risk:fundsMon:list",
-      "name": "risk:fundsMon:list",
+      "name": "资金监控列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/fund_risk/trigger_records/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/risk/fund_risk/trigger_records/stats"
+        }
+      ]
     },
     {
       "code": "risk:reportlog:list",
-      "name": "risk:reportlog:list",
+      "name": "举报日志列表",
       "type": "前端权限",
       "apis": []
     },
     {
       "code": "risk:riskConfig:page",
-      "name": "risk:riskConfig:page",
+      "name": "风控配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/monitoring_rule/list"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/monitoring_rule/stats"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk/monitoring_rule/stats_by_category"
+        }
+      ]
     },
     {
       "code": "risk:trading:list",
-      "name": "risk:trading:list",
+      "name": "交易监控列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk_trade_monitor/ab_position_trigger/list"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/risk_trade_monitor/ab_position_trigger/stats"
+        }
+      ]
     },
     {
       "code": "system:api:list",
@@ -13624,21 +15101,58 @@
     },
     {
       "code": "task:pointsConfig:list",
-      "name": "task:pointsConfig:list",
+      "name": "积分配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/task_config/get"
+        }
+      ]
+    },
+    {
+      "code": "task:pointsReview:audit",
+      "name": "积分审核",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/taskcenter/user_point/audit"
+        }
+      ]
     },
     {
       "code": "task:pointsReview:list",
-      "name": "task:pointsReview:list",
+      "name": "积分审核列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/user_point/audit/list"
+        }
+      ]
+    },
+    {
+      "code": "task:pointsReview:view",
+      "name": "查看积分审核",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/user_point/audit/list"
+        }
+      ]
     },
     {
       "code": "task:taskDetail:list",
-      "name": "task:taskDetail:list",
+      "name": "任务明细",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/task_record/list"
+        }
+      ]
     },
     {
       "code": "task:taskList:add",
@@ -13675,21 +15189,47 @@
     },
     {
       "code": "task:taskList:list",
-      "name": "task:taskList:list",
+      "name": "任务列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/task/list"
+        }
+      ]
+    },
+    {
+      "code": "task:taskStatistics:edit",
+      "name": "编辑任务统计",
+      "type": "前端权限",
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/taskcenter/task_statistics/update"
+        }
+      ]
     },
     {
       "code": "task:taskStatistics:list",
-      "name": "task:taskStatistics:list",
+      "name": "任务统计列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/taskcenter/task_statistics/list"
+        }
+      ]
     },
     {
       "code": "telemarketing:agent",
-      "name": "telemarketing:agent",
+      "name": "坐席监控",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/CustomerServiceMonitoringList"
+        }
+      ]
     },
     {
       "code": "telemarketing:blacklist:add",
@@ -13737,15 +15277,25 @@
     },
     {
       "code": "telemarketing:call",
-      "name": "telemarketing:call",
+      "name": "外呼任务",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CallTask/TaskList"
+        }
+      ]
     },
     {
       "code": "telemarketing:callList",
-      "name": "telemarketing:callList",
+      "name": "通话列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CallList/CallList"
+        }
+      ]
     },
     {
       "code": "telemarketing:callTask:delete",
@@ -13808,15 +15358,25 @@
     },
     {
       "code": "telemarketing:configuration",
-      "name": "telemarketing:configuration",
+      "name": "配置管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/Telemarketing/open/v1/LineManagement/GetTheList"
+        }
+      ]
     },
     {
       "code": "telemarketing:customerService",
-      "name": "telemarketing:customerService",
+      "name": "客服管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/CustomerService/CustomerList"
+        }
+      ]
     },
     {
       "code": "telemarketing:dir",
@@ -13859,21 +15419,44 @@
     },
     {
       "code": "telemarketing:followUp",
-      "name": "telemarketing:followUp",
+      "name": "跟进任务",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/FollowUpTask/TaskList"
+        }
+      ]
     },
     {
       "code": "telemarketing:roster",
-      "name": "telemarketing:roster",
+      "name": "名单管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "POST",
+          "url": "/Telemarketing/open/v1/ExternalList/ListOfNames"
+        }
+      ]
     },
     {
       "code": "trade:trial:list",
-      "name": "trade:trial:list",
+      "name": "试用盘列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/trial/orders/positions/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/trial/accounts/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/trial/positions/statistics"
+        }
+      ]
     },
     {
       "code": "tradeMngt:dir",
@@ -13883,9 +15466,18 @@
     },
     {
       "code": "tradeMngt:real:list",
-      "name": "tradeMngt:real:list",
+      "name": "实盘交易列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/orders/positions/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/positions/statistics"
+        }
+      ]
     },
     {
       "code": "tradeMngt:real:optionLog",
@@ -13911,9 +15503,18 @@
     },
     {
       "code": "tradeMngt:virtual:list",
-      "name": "tradeMngt:virtual:list",
+      "name": "模拟盘交易列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/demo/orders/positions/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/transaction/demo/positions/statistics"
+        }
+      ]
     },
     {
       "code": "tradeMngt:virtual:viewDetail",
@@ -13928,9 +15529,14 @@
     },
     {
       "code": "unlock-activity:activity-config:list",
-      "name": "unlock-activity:activity-config:list",
+      "name": "活动配置",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/activity/config"
+        }
+      ]
     },
     {
       "code": "unlock-activity:activity-config:save",
@@ -13951,15 +15557,29 @@
     },
     {
       "code": "unlock-activity:reward-record:list",
-      "name": "unlock-activity:reward-record:list",
+      "name": "奖励记录",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/task/record/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/user/trade_record/list"
+        }
+      ]
     },
     {
       "code": "unlock-activity:settlement-management:list",
-      "name": "unlock-activity:settlement-management:list",
+      "name": "结算列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/settlement/batch/list"
+        }
+      ]
     },
     {
       "code": "unlock-activity:settlement-management:start",
@@ -13996,9 +15616,14 @@
     },
     {
       "code": "unlock-activity:task-management:list",
-      "name": "unlock-activity:task-management:list",
+      "name": "任务列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/task/list"
+        }
+      ]
     },
     {
       "code": "unlock-activity:user-management:add",
@@ -14026,13 +15651,23 @@
       "code": "unlock-activity:user-management:export",
       "name": "导出",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/export/user_trade_unlock_activity/user/summary/list/export"
+        }
+      ]
     },
     {
       "code": "unlock-activity:user-management:list",
-      "name": "unlock-activity:user-management:list",
+      "name": "用户列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/user/summary/list"
+        }
+      ]
     },
     {
       "code": "unlock-activity:user-management:view",
@@ -14069,9 +15704,14 @@
     },
     {
       "code": "unlock-activity:variety-config:list",
-      "name": "unlock-activity:variety-config:list",
+      "name": "品种列表",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user_trade_unlock_activity/symbol/list"
+        }
+      ]
     }
   ]
 }
