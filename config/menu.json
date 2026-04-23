@@ -11896,6 +11896,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/copytrading/setting/Levels"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/setting/audit"
         }
       ]
     },
@@ -11940,6 +11944,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/copytrading/signal_providers/v2"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/copytrading/signal_providers/summary"
         }
       ]
     },
@@ -12518,6 +12526,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/user/get/level/config/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/language"
         }
       ]
     },
@@ -12600,6 +12612,14 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/user/crmgroup/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/countries"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/language"
         }
       ]
     },
@@ -13034,6 +13054,82 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/appconfiguration/common-component/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/banner/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/horse/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/grid/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/btn/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/slip/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/ad-component/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/list-component/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/header/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/newslist/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/market/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/balance/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/account/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/vip/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/unlock-active/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/category/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/selfmarket/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/categorymarket/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/davmu-tab/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/appconfiguration/davmu-card/list"
         }
       ]
     },
@@ -13095,6 +13191,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/appconfiguration/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/pkgmanager/app-package/list"
         }
       ]
     },
@@ -13190,6 +13290,34 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/channel/config/global/get"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/message_template_type_categories/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/message_template_types/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/notification/message_categories/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/channel/config/sms_provider/provider_kinds"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/pkgmanager/app/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/country_setting/country_setting/get_all_country_name"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/sms/v1/OtherNews/NotificationType"
         }
       ]
     },
@@ -13271,6 +13399,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/user/get/crmlabel/list"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/language"
         }
       ]
     },
@@ -13454,6 +13586,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/commission/commission/overview"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/list"
         }
       ]
     },
@@ -13465,6 +13601,30 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/commission/partner/report"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/level_stats"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/trend"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/retention_churn_trend"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/fission_efficiency"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/commission/trend"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/commission/partner/top_commission"
         }
       ]
     },
@@ -13476,9 +13636,18 @@
     },
     {
       "code": "permission",
-      "name": "permission",
+      "name": "权限管理",
       "type": "前端权限",
-      "apis": []
+      "apis": [
+        {
+          "method": "GET",
+          "url": "/lotus/api/v1/sys-permission"
+        },
+        {
+          "method": "GET",
+          "url": "/lotus/api/v1/sys-api"
+        }
+      ]
     },
     {
       "code": "platform:holidayConfig:list",
@@ -14302,6 +14471,14 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/reporting/trade_report/tendency"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/trade_report/symbol_static"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/user/funnel"
         }
       ]
     },
@@ -14330,6 +14507,14 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/reporting/retention/base_static"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/retention/net_deposit/reporting"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/retention/trade/reporting"
         }
       ]
     },
@@ -14374,7 +14559,31 @@
         },
         {
           "method": "GET",
-          "url": "/poplar/violet/backend/reporting/overall"
+          "url": "/poplar/violet/backend/reporting/overview/platform"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/trade/each_stage/crm_count"
+        },
+        {
+          "method": "POST",
+          "url": "/poplar/violet/backend/user/get/user/crmlabel_distribution"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/balance_class/distribution"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/user/activity"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/reporting/user/behavior_sum"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/user/crmusers"
         }
       ]
     },
@@ -14651,6 +14860,10 @@
         {
           "method": "GET",
           "url": "/poplar/violet/backend/risk/fund_risk/trigger_records/stats"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/risk/monitor_type"
         }
       ]
     },
@@ -14676,6 +14889,10 @@
         {
           "method": "POST",
           "url": "/poplar/violet/backend/risk/monitoring_rule/stats_by_category"
+        },
+        {
+          "method": "GET",
+          "url": "/poplar/violet/backend/risk/monitor_type"
         }
       ]
     },
@@ -15053,6 +15270,14 @@
         {
           "method": "GET",
           "url": "/lotus/api/v1/sys-user"
+        },
+        {
+          "method": "GET",
+          "url": "/lotus/api/v1/role"
+        },
+        {
+          "method": "GET",
+          "url": "/lotus/api/v1/dept"
         }
       ]
     },
