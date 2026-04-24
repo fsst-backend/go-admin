@@ -18,6 +18,7 @@ import (
 	"go-admin/app/admin/service"
 	"go-admin/app/admin/service/dto"
 	"go-admin/common/actions"
+	"go-admin/common/global"
 	"go-admin/common/mycasbin"
 )
 
@@ -570,6 +571,12 @@ func (e SysUser) SetUserRole(c *gin.Context) {
 	if err != nil {
 		e.Logger.Error(err)
 		e.Error(500, err, "设置用户角色失败")
+		return
+	}
+	_, err = global.LoadPolicy(c)
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, "设置用户角色成功，但刷新策略失败")
 		return
 	}
 	e.OK(req.UserId, "设置用户角色成功")

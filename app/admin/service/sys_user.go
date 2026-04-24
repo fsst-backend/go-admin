@@ -612,93 +612,77 @@ func (e *SysUser) GetProfile(c *dto.SysUserById, user *models.SysUser, roles *[]
 
 // SetUserRole 设置用户角色
 func (e *SysUser) SetUserRole(c *dto.SysUserRoleReq, cb *casbin.SyncedEnforcer) error {
-	var err error
 	var roles []models.SysRole
 
-	// 使用事务确保数据一致性
-	tx := e.Orm.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-			panic(r)
-		}
-		if err != nil {
-			tx.Rollback()
-		} else {
-			tx.Commit()
-		}
-	}()
-
-	// 1. 检查用户是否存在
-	var user models.SysUser
-	err = tx.First(&user, c.UserId).Error
-	if err != nil {
-		e.Log.Errorf("User not found: %s", err)
-		return err
-	}
-
-	// 2. 如果有新的角色，先验证角色是否存在
-	if len(c.RoleIds) > 0 {
-		err = tx.Where("role_id in ?", c.RoleIds).Find(&roles).Error
-		if err != nil {
-			e.Log.Errorf("Query roles error: %s", err)
+	// ========== 阶段1：事务内完成所有数据库操作 ==========
+	err := e.Orm.Transaction(func(tx *gorm.DB) error {
+		// 1. 检查用户是否存在
+		var user models.SysUser
+		if err := tx.First(&user, c.UserId).Error; err != nil {
+			e.Log.Errorf("User not found: %s", err)
 			return err
 		}
 
-		if len(roles) != len(c.RoleIds) {
-			err = errors.New("部分角色不存在")
-			e.Log.Errorf("Some roles not found")
-			return err
-		}
-	}
-
-	// 3. 验证通过后，删除用户旧的角色关系
-	err = tx.Where("user_id = ?", c.UserId).Delete(&models.SysUserRole{}).Error
-	if err != nil {
-		e.Log.Errorf("Delete old user-role relations error: %s", err)
-		return err
-	}
-
-	// 4. 创建新的用户角色关系
-	if len(c.RoleIds) > 0 {
-		userRoles := make([]models.SysUserRole, 0, len(c.RoleIds))
-		for _, roleId := range c.RoleIds {
-			ur := models.SysUserRole{
-				UserId: c.UserId,
-				RoleId: roleId,
+		// 2. 如果有新的角色，先验证角色是否存在
+		if len(c.RoleIds) > 0 {
+			if err := tx.Where("role_id in ?", c.RoleIds).Find(&roles).Error; err != nil {
+				e.Log.Errorf("Query roles error: %s", err)
+				return err
 			}
-			ur.SetCreateBy(c.UpdateBy)
-			ur.SetUpdateBy(c.UpdateBy)
-			userRoles = append(userRoles, ur)
+
+			if len(roles) != len(c.RoleIds) {
+				e.Log.Errorf("Some roles not found")
+				return errors.New("部分角色不存在")
+			}
 		}
 
-		err = tx.Create(&userRoles).Error
-		if err != nil {
-			e.Log.Errorf("Create user-role relations error: %s", err)
+		// 3. 删除用户旧的角色关系
+		if err := tx.Where("user_id = ?", c.UserId).Delete(&models.SysUserRole{}).Error; err != nil {
+			e.Log.Errorf("Delete old user-role relations error: %s", err)
 			return err
 		}
+
+		// 4. 创建新的用户角色关系
+		if len(c.RoleIds) > 0 {
+			userRoles := make([]models.SysUserRole, 0, len(c.RoleIds))
+			for _, roleId := range c.RoleIds {
+				ur := models.SysUserRole{
+					UserId: c.UserId,
+					RoleId: roleId,
+				}
+				ur.SetCreateBy(c.UpdateBy)
+				ur.SetUpdateBy(c.UpdateBy)
+				userRoles = append(userRoles, ur)
+			}
+
+			if err := tx.Create(&userRoles).Error; err != nil {
+				e.Log.Errorf("Create user-role relations error: %s", err)
+				return err
+			}
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return err
 	}
 
-	// 5. 数据库操作成功后，同步到Casbin
+	// ========== 阶段2：事务已提交，安全地同步 Casbin ==========
 	if cb != nil {
 		userSubject := fmt.Sprintf("user_%d", c.UserId)
 
-		// 5.1 删除Casbin中的旧的用户角色关联
-		_, err = cb.RemoveFilteredGroupingPolicy(0, userSubject)
-		if err != nil {
+		// 删除旧的用户角色关联
+		if _, err := cb.RemoveFilteredGroupingPolicy(0, userSubject); err != nil {
 			e.Log.Errorf("Remove casbin user-role relations error: %s", err)
-			// Casbin操作失败也返回错误，但数据库操作已提交
 			return err
 		}
 
-		// 5.2 添加新的Casbin用户角色关联
-		if len(roles) > 0 {
-			for _, role := range roles {
-				_, err = cb.AddGroupingPolicy(userSubject, role.RoleKey)
-				if err != nil {
-					e.Log.Errorf("Add casbin user-role relation error: %s", err)
-					return err
-				}
+		// 添加新的用户角色关联
+		for _, role := range roles {
+			if _, err := cb.AddGroupingPolicy(userSubject, role.RoleKey); err != nil {
+				e.Log.Errorf("Add casbin user-role relation error: %s", err)
+				return err
 			}
 		}
 	}

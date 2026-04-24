@@ -653,177 +653,146 @@ func (e *SysRole) GetRoleMenuId(roleId int) ([]int, error) {
 
 // SetRoleMenus 设置角色与菜单的绑定关系
 func (e *SysRole) SetRoleMenus(roleId int, menuIds []int, cb *casbin.SyncedEnforcer) error {
-	var err error
-	tx := e.Orm
-	if config.DatabaseConfig.Driver != "sqlite3" {
-		tx = e.Orm.Begin()
-		defer func() {
-			if r := recover(); r != nil {
-				tx.Rollback()
-				panic(r)
-			}
-			if err != nil {
-				tx.Rollback()
-			} else {
-				tx.Commit()
-			}
-		}()
-	}
-
-	// 检查角色是否存在
 	var role models.SysRole
-	err = tx.Where("role_id = ?", roleId).First(&role).Error
-	if err != nil {
-		e.Log.Errorf("Role not found: %s", err)
-		return err
-	}
+	var policies [][]string
 
-	// 删除旧的角色菜单关系
-	err = tx.Where("role_id = ?", roleId).Delete(&models.SysRoleMenu{}).Error
-	if err != nil {
-		e.Log.Errorf("Delete old role-menu relations error: %s", err)
-		return err
-	}
+	// ========== 阶段1：事务内完成所有数据库操作，并准备好 Casbin 策略数据 ==========
+	err := e.Orm.Transaction(func(tx *gorm.DB) error {
+		// 检查角色是否存在
+		if err := tx.Where("role_id = ?", roleId).First(&role).Error; err != nil {
+			e.Log.Errorf("Role not found: %s", err)
+			return err
+		}
 
-	// 创建新的角色菜单关系
-	if len(menuIds) > 0 {
-		roleMenus := make([]models.SysRoleMenu, 0, len(menuIds))
-		for _, menuId := range menuIds {
-			rm := models.SysRoleMenu{
-				RoleId: roleId,
-				MenuId: menuId,
+		// 删除旧的角色菜单关系
+		if err := tx.Where("role_id = ?", roleId).Delete(&models.SysRoleMenu{}).Error; err != nil {
+			e.Log.Errorf("Delete old role-menu relations error: %s", err)
+			return err
+		}
+
+		// 创建新的角色菜单关系
+		if len(menuIds) > 0 {
+			roleMenus := make([]models.SysRoleMenu, 0, len(menuIds))
+			for _, menuId := range menuIds {
+				rm := models.SysRoleMenu{
+					RoleId: roleId,
+					MenuId: menuId,
+				}
+				roleMenus = append(roleMenus, rm)
 			}
-			roleMenus = append(roleMenus, rm)
+			if err := tx.Create(&roleMenus).Error; err != nil {
+				e.Log.Errorf("Create new role-menu relations error: %s", err)
+				return err
+			}
 		}
 
-		err = tx.Create(&roleMenus).Error
-		if err != nil {
-			e.Log.Errorf("Create new role-menu relations error: %s", err)
+		// 删除旧的角色权限关系
+		if err := tx.Where("role_id = ?", roleId).Delete(&models.SysRolePermission{}).Error; err != nil {
+			e.Log.Errorf("db error:%s", err)
 			return err
 		}
-	}
 
-	// 删除旧的角色权限关系
-	err = tx.Where("role_id = ?", roleId).Delete(&models.SysRolePermission{}).Error
+		// 查询菜单
+		var menus []models.SysMenu
+		if len(menuIds) > 0 {
+			if err := tx.Where("menu_id in ?", menuIds).Find(&menus).Error; err != nil {
+				e.Log.Errorf("db error:%s", err)
+				return err
+			}
+		}
+
+		// 从菜单中的权限code获取权限ID
+		permCodes := make([]string, 0, len(menus))
+		for _, menu := range menus {
+			if menu.PermissionCode != "" {
+				permCodes = append(permCodes, menu.PermissionCode)
+			}
+		}
+
+		var perms []models.SysPermission
+		if len(permCodes) > 0 {
+			if err := tx.Where("code in ?", permCodes).Find(&perms).Error; err != nil {
+				e.Log.Errorf("db error:%s", err)
+				return err
+			}
+		}
+
+		// 获取权限ID列表
+		permIds := make([]int, 0, len(perms))
+		for _, perm := range perms {
+			permIds = append(permIds, perm.Id)
+		}
+
+		// 创建角色权限关系
+		if len(permIds) > 0 {
+			rolePerms := make([]models.SysRolePermission, 0, len(permIds))
+			for _, permId := range permIds {
+				rp := models.SysRolePermission{
+					RoleId:       roleId,
+					PermissionId: permId,
+				}
+				rolePerms = append(rolePerms, rp)
+			}
+			if err := tx.Create(&rolePerms).Error; err != nil {
+				e.Log.Errorf("db error:%s", err)
+				return err
+			}
+		}
+
+		// 在事务内查询 Casbin 策略所需的数据（只查询，不写入 Casbin）
+		var permApis []models.SysPermissionApi
+		if len(permIds) > 0 {
+			if err := tx.Where("permission_id in ?", permIds).Find(&permApis).Error; err != nil {
+				e.Log.Errorf("db error:%s", err)
+				return err
+			}
+		}
+
+		apiIds := make([]int, 0, len(permApis))
+		for _, permApi := range permApis {
+			apiIds = append(apiIds, permApi.ApiId)
+		}
+
+		var apis []models.SysApi
+		if len(apiIds) > 0 {
+			if err := tx.Where("id in ?", apiIds).Find(&apis).Error; err != nil {
+				e.Log.Errorf("db error:%s", err)
+				return err
+			}
+		}
+
+		apiMap := make(map[int]models.SysApi, len(apis))
+		for _, api := range apis {
+			apiMap[api.Id] = api
+		}
+
+		// 构建 Casbin 策略（只构建，不写入）
+		for _, permApi := range permApis {
+			api, exists := apiMap[permApi.ApiId]
+			if !exists {
+				continue
+			}
+			policies = append(policies, []string{role.RoleKey, api.Path, api.Action})
+		}
+
+		return nil
+	})
+
 	if err != nil {
-		e.Log.Errorf("db error:%s", err)
 		return err
 	}
 
-	// 重新创建角色权限关系
-	// 查询当前角色的菜单
-	var roleMenus []models.SysRoleMenu
-	err = tx.Where("role_id = ?", roleId).Find(&roleMenus).Error
-	if err != nil {
-		e.Log.Errorf("db error:%s", err)
-		return err
-	}
-
-	var menus []models.SysMenu
-	if len(menuIds) > 0 {
-		err = tx.Where("menu_id in ?", menuIds).Find(&menus).Error
-		if err != nil {
-			e.Log.Errorf("db error:%s", err)
-			return err
-		}
-	}
-
-	// 从菜单中的权限code获取权限ID
-	permCodes := make([]string, 0, len(menus))
-	for _, menu := range menus {
-		if menu.PermissionCode != "" {
-			permCodes = append(permCodes, menu.PermissionCode)
-		}
-	}
-
-	var perms []models.SysPermission
-	if len(permCodes) > 0 {
-		err = tx.Where("code in ?", permCodes).Find(&perms).Error
-		if err != nil {
-			e.Log.Errorf("db error:%s", err)
-			return err
-		}
-	}
-
-	// 获取权限ID列表
-	permIds := make([]int, 0, len(perms))
-	for _, perm := range perms {
-		permIds = append(permIds, perm.Id)
-	}
-
-	// 创建角色权限关系
-	rolePerms := make([]models.SysRolePermission, 0)
-	for _, permId := range permIds {
-		rp := models.SysRolePermission{
-			RoleId:       roleId,
-			PermissionId: permId,
-		}
-		rolePerms = append(rolePerms, rp)
-	}
-
-	if len(rolePerms) > 0 {
-		err = tx.Create(&rolePerms).Error
-		if err != nil {
-			e.Log.Errorf("db error:%s", err)
-			return err
-		}
-	}
-
-	// 删除旧的Casbin策略（SuperAdmin除外）
+	// ========== 阶段2：事务已提交，安全地同步 Casbin 策略 ==========
 	if role.RoleKey != mycasbin.SuperAdmin {
-		_, err = cb.RemoveFilteredPolicy(0, role.RoleKey)
-		if err != nil {
+		if _, err := cb.RemoveFilteredPolicy(0, role.RoleKey); err != nil {
+			e.Log.Errorf("Remove casbin policy error: %s", err)
 			return err
 		}
 	}
 
-	// 从权限API关系表获取API权限
-	var permApis []models.SysPermissionApi
-	if len(permIds) > 0 {
-		err = tx.Where("permission_id in ?", permIds).Find(&permApis).Error
-		if err != nil {
-			e.Log.Errorf("db error:%s", err)
-			return err
-		}
-	}
-
-	// 获取所有相关的API ID
-	apiIds := make([]int, 0, len(permApis))
-	for _, permApi := range permApis {
-		apiIds = append(apiIds, permApi.ApiId)
-	}
-
-	// 一次性获取所有API信息
-	var apis []models.SysApi
-	if len(apiIds) > 0 {
-		err = tx.Where("id in ?", apiIds).Find(&apis).Error
-		if err != nil {
-			e.Log.Errorf("db error:%s", err)
-			return err
-		}
-	}
-
-	// 将API信息放入map中便于快速查找
-	apiMap := make(map[int]models.SysApi, len(apis))
-	for _, api := range apis {
-		apiMap[api.Id] = api
-	}
-
-	// 构建新的Casbin策略
-	policies := [][]string{}
-	for _, permApi := range permApis {
-		api, exists := apiMap[permApi.ApiId]
-		if !exists {
-			continue // 如果API不存在，跳过
-		}
-		policy := []string{role.RoleKey, api.Path, api.Action}
-		policies = append(policies, policy)
-	}
-
-	// 写入新的Casbin策略（SuperAdmin除外）
 	if role.RoleKey != mycasbin.SuperAdmin && len(policies) > 0 {
-		_, err = cb.AddNamedPolicies("p", policies)
-		if err != nil {
+		if _, err := cb.AddNamedPolicies("p", policies); err != nil {
+			e.Log.Errorf("Add casbin policies error: %s", err)
 			return err
 		}
 	}

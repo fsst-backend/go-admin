@@ -315,5 +315,11 @@ func (e SysRole) SetRoleMenus(c *gin.Context) {
 		e.Error(500, err, fmt.Sprintf("设置角色菜单关系失败！错误详情：%s", err.Error()))
 		return
 	}
+	_, err = global.LoadPolicy(c)
+	if err != nil {
+		e.Logger.Error(err)
+		e.Error(500, err, "设置角色菜单关系成功，但刷新策略失败")
+		return
+	}
 	e.OK(nil, "设置角色菜单关系成功")
 }
