@@ -48,8 +48,6 @@ type AMap struct {
 
 type FrontendConfig struct {
 	BaseSiteURL   string `yaml:"baseSiteURL" json:"baseSiteURL"`     // 基础站点URL
-	BaseAPIURL    string `yaml:"baseAPIURL" json:"baseAPIURL"`       // 基础API URL
-	BaseH5URL     string `yaml:"baseH5URL" json:"baseH5URL"`         // H5基础URL
 	BaseUploadURL string `yaml:"baseUploadURL" json:"baseUploadURL"` // 上传基础URL
 }
 

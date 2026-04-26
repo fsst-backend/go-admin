@@ -21,8 +21,6 @@ type Config struct{}
 func (e Config) GetFrontendConfig(c *gin.Context) {
 	var configData = dto.FrontendConfig{
 		BaseSiteURL:   config.ExtConfig.Frontend.BaseSiteURL,
-		BaseAPIURL:    config.ExtConfig.Frontend.BaseAPIURL,
-		BaseH5URL:     config.ExtConfig.Frontend.BaseH5URL,
 		BaseUploadURL: config.ExtConfig.Frontend.BaseUploadURL,
 	}
 

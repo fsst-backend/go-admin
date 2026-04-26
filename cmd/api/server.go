@@ -125,8 +125,6 @@ func setup() {
 	log.Infof("ExtConfig - Upload.AppKey: %s", ext.ExtConfig.Upload.AppKey)
 	log.Infof("ExtConfig - Upload.Secret: %s", ext.ExtConfig.Upload.Secret)
 	log.Infof("ExtConfig - Frontend.BaseSiteURL: %s", ext.ExtConfig.Frontend.BaseSiteURL)
-	log.Infof("ExtConfig - Frontend.BaseAPIURL: %s", ext.ExtConfig.Frontend.BaseAPIURL)
-	log.Infof("ExtConfig - Frontend.BaseH5URL: %s", ext.ExtConfig.Frontend.BaseH5URL)
 	log.Infof("ExtConfig - Frontend.BaseUploadURL: %s", ext.ExtConfig.Frontend.BaseUploadURL)
 
 	usageStr := `starting api server...`

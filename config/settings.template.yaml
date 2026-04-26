@@ -64,8 +64,6 @@ settings:
       secret: ${UPLOAD_APP_SECRET}     # 与上传服务约定的密钥
     frontend:
       baseSiteURL: ${BASE_SITE_URL}      # 基础站点URL
-      baseAPIURL: ${BASE_API_URL}        # 基础API URL
-      baseH5URL: ${BASE_H5_URL}          # H5基础URL
       baseUploadURL: ${BASE_UPLOAD_URL}  # 上传基础URL
   cache:
 #    redis:
